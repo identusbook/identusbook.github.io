@@ -5,10 +5,27 @@ project:
 website:
   title: "Mastering Identus: A Developer Handbook"
   navbar:
+    background: primary
+    search: true
     left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+      - text: "News"
+        file: news.qmd
+      - text: "Book"
+        file: book.qmd   
+      - text: "Authors"
+        file: authors.qmd
+
+  sidebar:
+    - title: "News"
+      style: "docked"
+      background: light
+      contents:
+        - news.qmd
+
+    - title: "Book"
+      contents:
+        - book.qmd
+        # navigation items
 
 format:
   html:

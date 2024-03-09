@@ -1,0 +1,9 @@
+---
+title: "Blog"
+---
+
+There seem to be a million ways to write and publish a book.  
+
+We're going to experiment and try something different.
+
+We'll post here about SSI news and our experience writing the book.

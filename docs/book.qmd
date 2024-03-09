@@ -1,0 +1,7 @@
+---
+title: "Mastering Identus: A Developer Handbook"
+---
+
+We aim to publish the book here in time (we just need to finish writing it first!).  
+
+For now we will post some info about the book.

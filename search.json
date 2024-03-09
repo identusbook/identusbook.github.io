@@ -1,10 +1,10 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "authors.html",
+    "href": "authors.html",
+    "title": "About the Authors",
     "section": "",
-    "text": "About this site"
+    "text": "More info about Jon Bauer and Roberto Carvajal soon…"
   },
   {
     "objectID": "index.html",
@@ -12,5 +12,34 @@
     "title": "Mastering Identus: A Developer Handbook",
     "section": "",
     "text": "Welcome!\nWe have begun a new journey. To write a developer-centric book about how to create Self Sovereign Identity applications with Identus.\nPlease excuse the dust while we set up shop.\nStay tuned for more!"
+  },
+  {
+    "objectID": "book.html",
+    "href": "book.html",
+    "title": "Mastering Identus: A Developer Handbook",
+    "section": "",
+    "text": "We aim to publish the book here in time (we just need to finish writing it first!).\nFor now we will post some info about the book.",
+    "crumbs": [
+      "Book",
+      "Mastering Identus: A Developer Handbook"
+    ]
+  },
+  {
+    "objectID": "news.html",
+    "href": "news.html",
+    "title": "Blog",
+    "section": "",
+    "text": "There seem to be a million ways to write and publish a book.\nWe’re going to experiment and try something different.\nWe’ll post here about SSI news and our experience writing the book.",
+    "crumbs": [
+      "News",
+      "Blog"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
   }
 ]

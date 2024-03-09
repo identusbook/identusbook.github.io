@@ -1,3 +1,4 @@
-theme: jekyll-theme-minimal
+#theme: jekyll-theme-minimal
 title: Mastering Identus: A Developer's Handbook
 description: Bookmark this to keep an eye on my project updates!
+remote_theme: jasongrimes/jekyll-chapterbook

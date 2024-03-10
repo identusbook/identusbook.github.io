@@ -4,6 +4,7 @@ project:
 
 website:
   title: "Mastering Identus: A Developer Handbook"
+  page-footer: "Copyright 2024, Jon Bauer, Roberto Carvajal"
   navbar:
     background: primary
     search: true

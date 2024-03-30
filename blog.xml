@@ -6,11 +6,11 @@
       version="2.0">
 <channel>
 <title>Mastering Identus: A Developer Handbook</title>
-<link>https://identusbook.com/news.html</link>
-<atom:link href="https://identusbook.com/news.xml" rel="self" type="application/rss+xml"/>
+<link>https://identusbook.com/blog.html</link>
+<atom:link href="https://identusbook.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Mastering Identus: A Developer Handbook</description>
 <language>en-us</language>
 <generator>quarto-1.4.551</generator>
-<lastBuildDate>Sat, 30 Mar 2024 19:08:19 GMT</lastBuildDate>
+<lastBuildDate>Sat, 30 Mar 2024 20:24:11 GMT</lastBuildDate>
 </channel>
 </rss>

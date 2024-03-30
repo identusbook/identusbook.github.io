@@ -2,6 +2,9 @@ project:
   type: website
   output-dir: website-source
 
+resources:
+  - CNAME
+
 website:
   title: "Mastering Identus: A Developer Handbook"
   page-footer: "Copyright 2024, Jon Bauer, Roberto Carvajal"
@@ -11,8 +14,8 @@ website:
     background: primary
     search: true
     left:
-      - text: "News"
-        file: news.qmd
+      - text: "Blog"
+        file: blog.qmd
       - text: "Book"
         file: book.qmd   
       - text: "Authors"

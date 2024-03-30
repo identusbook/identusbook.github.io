@@ -5,7 +5,7 @@ author: "Jon Bauer"
 date: "3/30/2024"
 #date-modified: "3/30/2024"
 #image: "thumbnail-masteringidentus-slide.png"
-draft: false
+draft: true
 categories:
   - catalyst
   - identus

@@ -1,6 +1,8 @@
 [
   {
     "listing": "/blog.html",
-    "items": []
+    "items": [
+      "/posts/were-writing-a-book/index.html"
+    ]
   }
 ]

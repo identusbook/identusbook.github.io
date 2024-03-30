@@ -11,6 +11,53 @@
 <description>Mastering Identus: A Developer Handbook</description>
 <language>en-us</language>
 <generator>quarto-1.4.551</generator>
-<lastBuildDate>Sat, 30 Mar 2024 20:24:11 GMT</lastBuildDate>
+<lastBuildDate>Sat, 30 Mar 2024 05:00:00 GMT</lastBuildDate>
+<item>
+  <title>We’re writing a Book</title>
+  <dc:creator>Jon Bauer</dc:creator>
+  <link>https://identusbook.com/posts/were-writing-a-book/</link>
+  <description><![CDATA[ 
+
+
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://identusbook.com/posts/were-writing-a-book/feature-masteringidentus-slide.png" title="Mastering Identus" class="img-fluid figure-img"></p>
+<figcaption>Mastering Identus</figcaption>
+</figure>
+</div>
+<p>It’s official. We’re writing a book!</p>
+<p><strong><em>Mastering Identus: A Developer Handbook</em></strong>, will serve as practical guide on installing, building and maintaining real-world Identus applications.</p>
+<section id="who-are-we" class="level2">
+<h2 class="anchored" data-anchor-id="who-are-we">Who are we?</h2>
+<p>Roberto Carvajal and myself have worked together on web and mobile projects since 2006 as <strong>Covelop</strong>, a software development agency, helping primarily music industry artists, labels, and DJs sell their music online.</p>
+<p>In the past few years, we’ve grown interested in how digital identity will play a role in society and how we can help during this important, inevitable transition.</p>
+<p>We’ve teamed up with some like-minded individuals and am now building SSI solutions as <strong><a href="https://goodfuture.io">Good Future</a></strong></p>
+</section>
+<section id="why-write-a-book" class="level2">
+<h2 class="anchored" data-anchor-id="why-write-a-book">Why write a book?</h2>
+<p>While learning Smart Contract development on the Cardano blockchain, we had an opportunity (<em>Thank You <a href="https://twitter.com/tonyrose023">Tony Rose</a>!</em>) to learn about version 2 of <strong>Atala PRISM</strong>, a Self-Soveign Identity platform, and we were inspired to focus our sights on building SSI products and tooling.</p>
+<p>In 2023 we built <strong><a href="https://www.csign.io">Csign</a></strong>, a way to privately sign, certity, and verify agreements between parties, using SSI and blockchain. Csign was built on Atala PRISM, which was open sourced and donated to the <strong><a href="https://www.hyperledger.org">Hyperledger Foundation</a></strong>, and has now been renamed to <strong>Identus</strong>.</p>
+<p>We learned so much by building a real-world project and wanted to share our tricks and tips with other <strong>Identus</strong> builders, so they could get set up and building quicker than we did.</p>
+<p>This book was <a href="https://projectcatalyst.io/funds/11/cardano-open-ecosystem/mastering-open-enterprise-agent-atala-prism-a-developer-handbook-for-decentralized-identity-solutions">funded by a grant</a> from <a href="https://projectcatalyst.io">Project Catalyst</a>, Fund 11. Voted on by Cardano wallet holders, we are honored to be able to capture our experience and make it available to the community. To all those who voted, we humbly thank you for your support!</p>
+</section>
+<section id="what-were-working-on" class="level2">
+<h2 class="anchored" data-anchor-id="what-were-working-on">What we’re working on:</h2>
+<p>We’re currenting working on deliverables for <a href="https://milestones.projectcatalyst.io/projects/1100192/milestones/1">Milestone 1</a>: - A public website for the project - You’re reading it now. We’ll make it nicer as we go. Blog post to come on the software powering the webisite. - A Table of Contents - We have a first draft, and expect to have a second draft next week. - An idea for an example app, which will accompany the book - Still debating ideas. More to come on this.</p>
+<p>There is a growing community of people building on <strong>Identus</strong> and we’re all figuring it out as we go. Find us and join the conversation on <a href="https://discord.gg/atala">Discord</a></p>
+<p>More soon!</p>
+
+
+</section>
+
+ ]]></description>
+  <category>catalyst</category>
+  <category>identus</category>
+  <category>ssi</category>
+  <category>news</category>
+  <guid>https://identusbook.com/posts/were-writing-a-book/</guid>
+  <pubDate>Sat, 30 Mar 2024 05:00:00 GMT</pubDate>
+</item>
 </channel>
 </rss>

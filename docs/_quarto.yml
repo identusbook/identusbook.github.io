@@ -5,6 +5,8 @@ project:
 website:
   title: "Mastering Identus: A Developer Handbook"
   page-footer: "Copyright 2024, Jon Bauer, Roberto Carvajal"
+  site-url: https://identusbook.com
+  description: "Mastering Identus: A Developer Handbook"
   navbar:
     background: primary
     search: true
@@ -15,14 +17,11 @@ website:
         file: book.qmd   
       - text: "Authors"
         file: authors.qmd
+    right:
+      - icon: rss
+        href: index.xml
 
   sidebar:
-    - title: "News"
-      style: "docked"
-      background: light
-      contents:
-        - news.qmd
-
     - title: "Book"
       contents:
         - book.qmd
@@ -30,7 +29,7 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: flatly
     css: styles.css
     toc: true
 

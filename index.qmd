@@ -9,3 +9,5 @@ We have begun a new journey.  To write a developer-centric book about how to cre
 Please excuse the dust while we set up shop.
 
 Stay tuned for more!
+
+We are testing CI!

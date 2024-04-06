@@ -8,6 +8,7 @@ project:
 
 resources:
   - CNAME
+  - README.md
 
 website:
   title: "Mastering Identus: A Developer Handbook"

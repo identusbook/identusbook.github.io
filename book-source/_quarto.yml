@@ -36,6 +36,7 @@ book:
       - section1/preface.qmd
       - section1/introduction.qmd
       - section1/ssi-basics.qmd
+      - section1/identus-concepts.qmd
     - part: "Section II"
     - part: "Section III"
     - part: "Section IV"

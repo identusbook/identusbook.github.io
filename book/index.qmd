@@ -1,6 +1,4 @@
----
-title: "Mastering Identus: A Developer Handbook"
----
+# Welcome {-}
 
 Welcome to the book!
 

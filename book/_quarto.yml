@@ -31,17 +31,24 @@ book:
 
   chapters:
     - index.qmd
+    - preface.qmd
     - part: "Section I"
       chapters:
-      - section1/preface.qmd
       - section1/introduction.qmd
       - section1/ssi-basics.qmd
       - section1/identus-concepts.qmd
     - part: "Section II"
       chapters:
       - section2/getting-started.qmd
+      - section2/building.qmd
     - part: "Section III"
-    - part: "Section IV"
+      chapters:
+      - section3/deploy.qmd
+    - part: "Appendices"
+      chapters:
+        - addendum.qmd
+        - errata.qmd
+        - glossary.qmd
 
 #bibliography: references.bib
 
@@ -49,6 +56,9 @@ format:
   html:
     theme: flatly
   pdf:
-    documentclass: scrreport
+    toc: true
+    number-sections: false
+    documentclass: scrbook
+    papersize: letter
   #epub:
   #  cover-image: cover.png

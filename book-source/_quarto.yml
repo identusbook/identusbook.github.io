@@ -35,6 +35,7 @@ book:
       chapters:
       - section1/preface.qmd
       - section1/introduction.qmd
+      - section1/ssi-basics.qmd
     - part: "Section II"
     - part: "Section III"
     - part: "Section IV"

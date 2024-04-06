@@ -1,0 +1,43 @@
+project:
+  type: book
+  output-dir: ../_site/book/
+
+book:
+  title: "Mastering Identus: A Developer Handbook"
+  author: "Jon Bauer, Roberto Carvajal"
+  date: "04/05/2024"
+  page-navigation: true
+  navbar:
+    logo-href: https://identusbook.com
+    background: primary
+    search: true
+    left:
+      - href: https://identusbook.com/blog.html
+        text: "Blog"
+      - href: https://identusbook.com/book/index.html   
+        text: "Book"
+      - href: https://identusbook.com/authors.html
+        text: "Authors"
+    right:
+      - icon: rss
+        href: https://identusbook.com/index.xml
+
+  chapters:
+    - index.qmd
+    - part: "Section I"
+      chapters:
+      - section1/preface.qmd
+      - section1/introduction.qmd
+    - part: "Section II"
+    - part: "Section III"
+    - part: "Section IV"
+
+#bibliography: references.bib
+
+format:
+  html:
+    theme: flatly
+  pdf:
+    documentclass: scrreport
+  epub:
+    cover-image: cover.png

@@ -16,8 +16,8 @@ website:
     left:
       - text: "Blog"
         file: blog.qmd
-      - text: "Book"
-        file: book.qmd   
+      - href: book/index.html   
+        text: "Book"
       - text: "Authors"
         file: authors.qmd
     right:

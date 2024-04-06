@@ -7,10 +7,14 @@ book:
   author: "Jon Bauer, Roberto Carvajal"
   date: "04/05/2024"
   page-navigation: true
+  search:
+    location: sidebar
+  sidebar:
+    style: "docked"
+    search: true
   navbar:
     logo-href: https://identusbook.com
     background: primary
-    search: true
     left:
       - href: https://identusbook.com/blog.html
         text: "Blog"

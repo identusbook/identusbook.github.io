@@ -4,64 +4,118 @@
     "href": "index.html",
     "title": "Mastering Identus: A Developer Handbook",
     "section": "",
-    "text": "Welcome to the book!",
+    "text": "Welcome\nWelcome to the book!",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Mastering Identus: A Developer Handbook</span>"
+      "Welcome"
     ]
   },
   {
-    "objectID": "section1/preface.html",
-    "href": "section1/preface.html",
-    "title": "2  Preface",
+    "objectID": "preface.html",
+    "href": "preface.html",
+    "title": "Preface",
     "section": "",
     "text": "Write Preface here",
     "crumbs": [
-      "Section I",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Preface</span>"
+      "Preface"
     ]
   },
   {
     "objectID": "section1/introduction.html",
     "href": "section1/introduction.html",
-    "title": "3  Introduction",
+    "title": "1  Introduction",
     "section": "",
     "text": "Write Introduction here",
     "crumbs": [
       "Section I",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Introduction</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
   },
   {
     "objectID": "section1/ssi-basics.html",
     "href": "section1/ssi-basics.html",
-    "title": "4  SSI Basics",
+    "title": "2  SSI Basics",
     "section": "",
     "text": "Write SSI Basics here",
     "crumbs": [
       "Section I",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>SSI Basics</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SSI Basics</span>"
     ]
   },
   {
     "objectID": "section1/identus-concepts.html",
     "href": "section1/identus-concepts.html",
-    "title": "5  Identus Concepts",
+    "title": "3  Identus Concepts",
     "section": "",
     "text": "Write Identus Concepts here",
     "crumbs": [
       "Section I",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Identus Concepts</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Identus Concepts</span>"
     ]
   },
   {
     "objectID": "section2/getting-started.html",
     "href": "section2/getting-started.html",
-    "title": "6  Getting Started",
+    "title": "4  Getting Started",
     "section": "",
     "text": "Write Getting Started here",
     "crumbs": [
       "Section II",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Getting Started</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Getting Started</span>"
+    ]
+  },
+  {
+    "objectID": "section2/building.html",
+    "href": "section2/building.html",
+    "title": "5  Build",
+    "section": "",
+    "text": "Build content here",
+    "crumbs": [
+      "Section II",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Build</span>"
+    ]
+  },
+  {
+    "objectID": "section3/deploy.html",
+    "href": "section3/deploy.html",
+    "title": "6  Deploy",
+    "section": "",
+    "text": "Deploy content here",
+    "crumbs": [
+      "Section III",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Deploy</span>"
+    ]
+  },
+  {
+    "objectID": "addendum.html",
+    "href": "addendum.html",
+    "title": "7  Addendum",
+    "section": "",
+    "text": "More stuff here",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Addendum</span>"
+    ]
+  },
+  {
+    "objectID": "errata.html",
+    "href": "errata.html",
+    "title": "8  Errata",
+    "section": "",
+    "text": "Errata goes here",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Errata</span>"
+    ]
+  },
+  {
+    "objectID": "glossary.html",
+    "href": "glossary.html",
+    "title": "9  Glossary",
+    "section": "",
+    "text": "Glossary here",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Glossary</span>"
     ]
   }
 ]

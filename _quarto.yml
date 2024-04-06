@@ -21,9 +21,11 @@ website:
       - text: "Authors"
         file: authors.qmd
     right:
+      - icon: github
+        href: https://github.com/identusbook
+        aria-label: GitHub
       - icon: rss
         href: index.xml
-
   sidebar:
     - title: "Book"
       contents:

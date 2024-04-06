@@ -23,6 +23,9 @@ book:
       - href: https://identusbook.com/authors.html
         text: "Authors"
     right:
+      - icon: github
+        href: https://github.com/identusbook
+        aria-label: GitHub
       - icon: rss
         href: https://identusbook.com/index.xml
 

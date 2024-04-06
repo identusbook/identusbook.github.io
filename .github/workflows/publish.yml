@@ -19,11 +19,7 @@ jobs:
         with:
           tinytex: true
 
-      - name: Render and Publish
-        uses: quarto-dev/quarto-actions/publish@v2
-        with:
-          target: gh-pages
-          path: book-source
+      - run: quarto render book
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2

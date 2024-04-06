@@ -1,43 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://identusbook.com/about.html</loc>
-    <lastmod>2024-04-06T03:11:45.525Z</lastmod>
-  </url>
-  <url>
-    <loc>https://identusbook.com/book-source/index.html</loc>
-    <lastmod>2024-04-06T03:11:45.525Z</lastmod>
-  </url>
-  <url>
-    <loc>https://identusbook.com/book-source/section1/preface.html</loc>
-    <lastmod>2024-04-06T03:11:45.525Z</lastmod>
-  </url>
-  <url>
-    <loc>https://identusbook.com/book-source/section1/introduction.html</loc>
-    <lastmod>2024-04-06T03:11:45.525Z</lastmod>
-  </url>
-  <url>
     <loc>https://identusbook.com/posts/we-are-writing-a-book/index.html</loc>
-    <lastmod>2024-04-06T03:11:45.529Z</lastmod>
-  </url>
-  <url>
-    <loc>https://identusbook.com/index.html</loc>
-    <lastmod>2024-04-06T03:11:45.525Z</lastmod>
-  </url>
-  <url>
-    <loc>https://identusbook.com/authors.html</loc>
-    <lastmod>2024-04-06T03:11:45.525Z</lastmod>
+    <lastmod>2024-04-06T03:37:23.831Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/blog.html</loc>
-    <lastmod>2024-04-06T03:11:45.525Z</lastmod>
+    <lastmod>2024-04-06T03:37:23.827Z</lastmod>
   </url>
   <url>
-    <loc>https://identusbook.com/book-source/section1/identus-concepts.html</loc>
-    <lastmod>2024-04-06T03:11:45.525Z</lastmod>
+    <loc>https://identusbook.com/about.html</loc>
+    <lastmod>2024-04-06T03:37:23.827Z</lastmod>
   </url>
   <url>
-    <loc>https://identusbook.com/book-source/section1/ssi-basics.html</loc>
-    <lastmod>2024-04-06T03:11:45.525Z</lastmod>
+    <loc>https://identusbook.com/authors.html</loc>
+    <lastmod>2024-04-06T03:37:23.827Z</lastmod>
+  </url>
+  <url>
+    <loc>https://identusbook.com/index.html</loc>
+    <lastmod>2024-04-06T03:37:23.827Z</lastmod>
   </url>
 </urlset>

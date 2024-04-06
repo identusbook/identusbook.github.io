@@ -52,5 +52,16 @@
       "Section I",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Identus Concepts</span>"
     ]
+  },
+  {
+    "objectID": "section2/getting-started.html",
+    "href": "section2/getting-started.html",
+    "title": "6  Getting Started",
+    "section": "",
+    "text": "Write Getting Started here",
+    "crumbs": [
+      "Section II",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Getting Started</span>"
+    ]
   }
 ]

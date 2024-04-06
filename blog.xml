@@ -10,8 +10,8 @@
 <atom:link href="https://identusbook.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Mastering Identus: A Developer Handbook</description>
 <language>en-us</language>
-<generator>quarto-1.4.551</generator>
-<lastBuildDate>Sat, 30 Mar 2024 05:00:00 GMT</lastBuildDate>
+<generator>quarto-1.4.553</generator>
+<lastBuildDate>Sat, 30 Mar 2024 03:00:00 GMT</lastBuildDate>
 <item>
   <title>We’re writing a Book</title>
   <dc:creator>Jon Bauer</dc:creator>
@@ -57,7 +57,7 @@
   <category>ssi</category>
   <category>news</category>
   <guid>https://identusbook.com/posts/we-are-writing-a-book/</guid>
-  <pubDate>Sat, 30 Mar 2024 05:00:00 GMT</pubDate>
+  <pubDate>Sat, 30 Mar 2024 03:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

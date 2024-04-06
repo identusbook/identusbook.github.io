@@ -47,5 +47,5 @@ format:
     theme: flatly
   pdf:
     documentclass: scrreport
-  epub:
-    cover-image: cover.png
+  #epub:
+  #  cover-image: cover.png

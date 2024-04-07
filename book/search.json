@@ -10,112 +10,190 @@
     ]
   },
   {
-    "objectID": "preface.html",
-    "href": "preface.html",
-    "title": "Preface",
+    "objectID": "section1/preface.html",
+    "href": "section1/preface.html",
+    "title": "1  Preface",
     "section": "",
     "text": "Write Preface here",
     "crumbs": [
-      "Preface"
+      "Section I",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Preface</span>"
     ]
   },
   {
     "objectID": "section1/introduction.html",
     "href": "section1/introduction.html",
-    "title": "1  Introduction",
+    "title": "2  Introduction",
     "section": "",
     "text": "Write Introduction here",
     "crumbs": [
       "Section I",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
     ]
   },
   {
     "objectID": "section1/ssi-basics.html",
     "href": "section1/ssi-basics.html",
-    "title": "2  SSI Basics",
+    "title": "3  SSI Basics",
     "section": "",
     "text": "Write SSI Basics here",
     "crumbs": [
       "Section I",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SSI Basics</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>SSI Basics</span>"
     ]
   },
   {
     "objectID": "section1/identus-concepts.html",
     "href": "section1/identus-concepts.html",
-    "title": "3  Identus Concepts",
+    "title": "4  Identus Concepts",
     "section": "",
     "text": "Write Identus Concepts here",
     "crumbs": [
       "Section I",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Identus Concepts</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Identus Concepts</span>"
     ]
   },
   {
-    "objectID": "section2/getting-started.html",
-    "href": "section2/getting-started.html",
-    "title": "4  Getting Started",
+    "objectID": "section2/installation-dev.html",
+    "href": "section2/installation-dev.html",
+    "title": "5  Installation - Development Environment",
     "section": "",
-    "text": "Write Getting Started here",
+    "text": "Installation",
     "crumbs": [
-      "Section II",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Getting Started</span>"
+      "Section II - Getting Started",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Installation - Development Environment</span>"
     ]
   },
   {
-    "objectID": "section2/building.html",
-    "href": "section2/building.html",
-    "title": "5  Build",
+    "objectID": "section3/project-overview.html",
+    "href": "section3/project-overview.html",
+    "title": "6  Project Overview",
     "section": "",
-    "text": "Build content here",
+    "text": "Project Overview",
     "crumbs": [
-      "Section II",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Build</span>"
+      "Section III - Building",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Project Overview</span>"
     ]
   },
   {
-    "objectID": "section3/deploy.html",
-    "href": "section3/deploy.html",
-    "title": "6  Deploy",
+    "objectID": "section3/wallets.html",
+    "href": "section3/wallets.html",
+    "title": "7  Wallets",
     "section": "",
-    "text": "Deploy content here",
+    "text": "Wallets",
     "crumbs": [
-      "Section III",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Deploy</span>"
+      "Section III - Building",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Wallets</span>"
+    ]
+  },
+  {
+    "objectID": "section3/dids.html",
+    "href": "section3/dids.html",
+    "title": "8  DIDs",
+    "section": "",
+    "text": "DIDs",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>DIDs</span>"
+    ]
+  },
+  {
+    "objectID": "section3/diddocuments.html",
+    "href": "section3/diddocuments.html",
+    "title": "9  DID Documents",
+    "section": "",
+    "text": "Content about DIDDocuments",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>DID Documents</span>"
+    ]
+  },
+  {
+    "objectID": "section3/connections.html",
+    "href": "section3/connections.html",
+    "title": "10  Connections",
+    "section": "",
+    "text": "Connections",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Connections</span>"
+    ]
+  },
+  {
+    "objectID": "section3/verifiable-credentials.html",
+    "href": "section3/verifiable-credentials.html",
+    "title": "11  Verifiable Credentials",
+    "section": "",
+    "text": "Verifiable Credentials",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+    ]
+  },
+  {
+    "objectID": "section3/didcomm.html",
+    "href": "section3/didcomm.html",
+    "title": "12  DIDComm",
+    "section": "",
+    "text": "DIDComm",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>DIDComm</span>"
+    ]
+  },
+  {
+    "objectID": "section3/verification.html",
+    "href": "section3/verification.html",
+    "title": "13  Verification",
+    "section": "",
+    "text": "Verification",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Verification</span>"
+    ]
+  },
+  {
+    "objectID": "section3/plugins.html",
+    "href": "section3/plugins.html",
+    "title": "14  Plugins",
+    "section": "",
+    "text": "Plugins",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Plugins</span>"
     ]
   },
   {
     "objectID": "addendum.html",
     "href": "addendum.html",
-    "title": "7  Addendum",
+    "title": "19  Addendum",
     "section": "",
     "text": "More stuff here",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Addendum</span>"
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Addendum</span>"
     ]
   },
   {
     "objectID": "errata.html",
     "href": "errata.html",
-    "title": "8  Errata",
+    "title": "20  Errata",
     "section": "",
     "text": "Errata goes here",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Errata</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Errata</span>"
     ]
   },
   {
     "objectID": "glossary.html",
     "href": "glossary.html",
-    "title": "9  Glossary",
+    "title": "21  Glossary",
     "section": "",
     "text": "Glossary here",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Glossary</span>"
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Glossary</span>"
     ]
   }
 ]

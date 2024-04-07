@@ -31,19 +31,34 @@ book:
 
   chapters:
     - index.qmd
-    - preface.qmd
     - part: "Section I"
       chapters:
+      - section1/preface.qmd
       - section1/introduction.qmd
       - section1/ssi-basics.qmd
       - section1/identus-concepts.qmd
-    - part: "Section II"
+    - part: "Section II - Getting Started"
       chapters:
-      - section2/getting-started.qmd
-      - section2/building.qmd
-    - part: "Section III"
-      chapters:
-      - section3/deploy.qmd
+      - section2/installation-dev.qmd
+    - part: "Section III - Building"
+      chapters: 
+      - section3/project-overview.qmd
+      - section3/wallets.qmd
+      - section3/dids.qmd
+      - section3/diddocuments.qmd
+      - section3/connections.qmd
+      - section3/verifiable-credentials.qmd
+      - section3/didcomm.qmd
+      - section3/verification.qmd
+      - section3/plugins.qmd
+    - part: "Section IV - Deploy"
+      chapters: 
+      - section4/installation-production.qmd
+      - section4/maintenance.qmd
+    - part: "Section V - Addendum"
+      chapters: 
+      - section5/trust-registries.qmd
+      - section5/continuing-your-journey.qmd
     - part: "Appendices"
       chapters:
         - addendum.qmd

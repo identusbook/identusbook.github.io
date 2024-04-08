@@ -61,7 +61,6 @@ book:
       - section5/continuing-your-journey.qmd
     - part: "Appendices"
       chapters:
-        - addendum.qmd
         - errata.qmd
         - glossary.qmd
 

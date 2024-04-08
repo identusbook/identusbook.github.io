@@ -2,4 +2,4 @@
 title: "Introduction"
 ---
 
-Write Introduction here
+Introduction to the book and what to expect to be learned from reading it.

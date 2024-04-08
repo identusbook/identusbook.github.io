@@ -2,4 +2,13 @@
 title: "Identus Concepts"
 ---
 
-Write Identus Concepts here 
+Identus Application Architecture Diagram
+- Trust Registry
+- Cloud Agent
+- Edge Agent
+- Building Blocks
+- Mediator
+- DIDComm2
+
+
+Include diagram of each actor and it's relationship 

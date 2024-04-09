@@ -4,7 +4,6 @@ title: "Identus Concepts"
 
 Identus Application Architecture Diagram
 
-- Trust Registry
 - Cloud Agent
 - Edge Agent
 - Building Blocks

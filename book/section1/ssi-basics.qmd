@@ -3,6 +3,7 @@ title: "SSI Basics"
 ---
 
 SSI Roles/Conceptual Diagram (Triangle of Trust)
+
 - Issuer
 - Holder
 - Verifier

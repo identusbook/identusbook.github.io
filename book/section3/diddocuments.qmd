@@ -2,4 +2,7 @@
 title: "DID Documents"
 ---
 
-Content about DIDDocuments
+DIDDocuments:
+
+- Resolvers
+- Controllers

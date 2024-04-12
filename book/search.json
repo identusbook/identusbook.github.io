@@ -14,7 +14,7 @@
     "href": "section1/preface.html",
     "title": "1  Preface",
     "section": "",
-    "text": "Write Preface here",
+    "text": "Explains who the authors are and why we were motivated to write this book.",
     "crumbs": [
       "Section I",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Preface</span>"
@@ -25,7 +25,7 @@
     "href": "section1/introduction.html",
     "title": "2  Introduction",
     "section": "",
-    "text": "Write Introduction here",
+    "text": "Introduction to the book and what to expect to be learned from reading it.",
     "crumbs": [
       "Section I",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
@@ -36,7 +36,7 @@
     "href": "section1/ssi-basics.html",
     "title": "3  SSI Basics",
     "section": "",
-    "text": "Write SSI Basics here",
+    "text": "SSI Roles/Conceptual Diagram (Triangle of Trust)\n\nIssuer\nHolder\nVerifier\nTrust Registry\n\nBrief explanation of each and what their role is",
     "crumbs": [
       "Section I",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>SSI Basics</span>"
@@ -47,7 +47,7 @@
     "href": "section1/identus-concepts.html",
     "title": "4  Identus Concepts",
     "section": "",
-    "text": "Write Identus Concepts here",
+    "text": "Identus Application Architecture Diagram\n\nCloud Agent\nEdge Agent\nBuilding Blocks\nMediator\nDIDComm2\n\nInclude diagram of each actor and it’s relationship",
     "crumbs": [
       "Section I",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Identus Concepts</span>"
@@ -58,7 +58,7 @@
     "href": "section2/installation-dev.html",
     "title": "5  Installation - Development Environment",
     "section": "",
-    "text": "Installation",
+    "text": "Detailed instructions on how to install a development instance of Identus on your local machine.\nThis will include several tips and tricks to creating a fully functional environment",
     "crumbs": [
       "Section II - Getting Started",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Installation - Development Environment</span>"
@@ -69,7 +69,7 @@
     "href": "section3/project-overview.html",
     "title": "6  Project Overview",
     "section": "",
-    "text": "Project Overview",
+    "text": "This is project overview of the example app, an E-Voting app.",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Project Overview</span>"
@@ -80,7 +80,7 @@
     "href": "section3/wallets.html",
     "title": "7  Wallets",
     "section": "",
-    "text": "Wallets",
+    "text": "A deep dive on what an Identus Identity wallet is and represents. We will discuss seed phrases and how they work.\nWe will talk about creating and recovering Identus wallets.\nTips for using:\n\nPluto Encrypted\nKeycloak for OAuth / OpenIDConnect",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Wallets</span>"
@@ -91,7 +91,7 @@
     "href": "section3/dids.html",
     "title": "8  DIDs",
     "section": "",
-    "text": "DIDs",
+    "text": "We’ll do a deep dive on DIDs and did:prism specifically\n\ndid:prism methods\ncanonical vs longform DID",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>DIDs</span>"
@@ -102,7 +102,7 @@
     "href": "section3/diddocuments.html",
     "title": "9  DID Documents",
     "section": "",
-    "text": "Content about DIDDocuments",
+    "text": "DIDDocuments:\n\nResolvers\nControllers",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>DID Documents</span>"
@@ -113,7 +113,7 @@
     "href": "section3/connections.html",
     "title": "10  Connections",
     "section": "",
-    "text": "Connections",
+    "text": "We will discuss the concept of Connections, PeerDIDs, and what it means to connect with another Peer, what’s happening under the hood and different ways to handle the process in your application.\nAlso discussed:\n\nManaging Invites\n\nOOB\nManual Accept\nAuto Accept\nDIDLess Connections (Atala Roadmap)",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Connections</span>"
@@ -124,7 +124,7 @@
     "href": "section3/verifiable-credentials.html",
     "title": "11  Verifiable Credentials",
     "section": "",
-    "text": "Verifiable Credentials",
+    "text": "Verifiable Credentials\n\nOverview\nFormats (just mention types, details later in Issuing)\nSchemas\nPublishing your Schema\nIssuing\n\nJWT\nSD-JWT (Atala Roadmap Q2)\nAnonCreds\n\nUpdating (re-binding)\nRevoking",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Verifiable Credentials</span>"
@@ -135,7 +135,7 @@
     "href": "section3/didcomm.html",
     "title": "12  DIDComm",
     "section": "",
-    "text": "DIDComm",
+    "text": "This chapter will discuss the many ways the DIDComm protocol can be used inside your Identus Application.\n\nOverview of the DIDComm protocol\nSending Message\nSending Files",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>DIDComm</span>"
@@ -146,7 +146,7 @@
     "href": "section3/verification.html",
     "title": "13  Verification",
     "section": "",
-    "text": "Verification",
+    "text": "Verification\n\nPresenting Proof\nPresentation Policies / Verification Policies\nSelective Disclosure with AnonCreds",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Verification</span>"
@@ -157,21 +157,65 @@
     "href": "section3/plugins.html",
     "title": "14  Plugins",
     "section": "",
-    "text": "Plugins",
+    "text": "This is a placedholer for the topic of Plugins. Identus plugins have not been officially announced yet but are on the IOG roadmap for 2024, Q4. If there is any information by the time we publish we will write about them.",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Plugins</span>"
     ]
   },
   {
-    "objectID": "addendum.html",
-    "href": "addendum.html",
-    "title": "19  Addendum",
+    "objectID": "section4/installation-production.html",
+    "href": "section4/installation-production.html",
+    "title": "15  Installation - Production Environment",
     "section": "",
-    "text": "More stuff here",
+    "text": "In this chapter we will discuss how to prepare a production envioronment for an Identus application.\nWe will discuss:\n\nHardware recommendations\nProduction configuration and security\nLock down Docker / Postgres (default password hole, etc)\nSSL\nMulti Tenancy\nKeycloak\nTestnet / Preprod env\nConnecting to Mainnet\nSet up Cardano Wallet\nKey Management with HashiCorp\nConnecting to Cardano\nRunning dbSync",
     "crumbs": [
-      "Appendices",
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Addendum</span>"
+      "Section IV - Deploy",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Installation - Production Environment</span>"
+    ]
+  },
+  {
+    "objectID": "section4/mediator.html",
+    "href": "section4/mediator.html",
+    "title": "16  Mediators",
+    "section": "",
+    "text": "Here we will discuss how to set up your own Mediator\nWe will teach the reader how to - Install, configure, and Run your own Mediator - How to manage Websockets - Performance Tuning",
+    "crumbs": [
+      "Section IV - Deploy",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Mediators</span>"
+    ]
+  },
+  {
+    "objectID": "section4/maintenance.html",
+    "href": "section4/maintenance.html",
+    "title": "17  Maintenance",
+    "section": "",
+    "text": "Mastering Identus means maintaing your application once it’s launched.\nIn this chapter we will cover: - Observability - Manage nodes / Memory - Performance Testing (could be part of install?) - Analytics with BlockTrust Analytics - Upgrading Agents - How to minimize downtime - Hashicorp - Key Management - Key rotation",
+    "crumbs": [
+      "Section IV - Deploy",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Maintenance</span>"
+    ]
+  },
+  {
+    "objectID": "section5/trust-registries.html",
+    "href": "section5/trust-registries.html",
+    "title": "18  Trust Registries",
+    "section": "",
+    "text": "Overview of the concept of a Trust Registry - What role they play in SSI - Trust Over IP Trust Registry Spec - Highlight any real world examples if they exist by book completion",
+    "crumbs": [
+      "Section V - Addendum",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Trust Registries</span>"
+    ]
+  },
+  {
+    "objectID": "section5/continuing-your-journey.html",
+    "href": "section5/continuing-your-journey.html",
+    "title": "19  Continuing on Your Journey",
+    "section": "",
+    "text": "Information about becoming a Contributor to Identus - how to submit code or documentation\nInformation about how to get involved in the SSI community outside of Identus - Trust over IP (ToIP) - Decentralized Identity Foundation (DIF)",
+    "crumbs": [
+      "Section V - Addendum",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Continuing on Your Journey</span>"
     ]
   },
   {
@@ -179,7 +223,7 @@
     "href": "errata.html",
     "title": "20  Errata",
     "section": "",
-    "text": "Errata goes here",
+    "text": "Errata goes here\nWe will list any bugs that may have been “printed” in certain editions of the book.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>Errata</span>"
@@ -190,7 +234,7 @@
     "href": "glossary.html",
     "title": "21  Glossary",
     "section": "",
-    "text": "Glossary here",
+    "text": "Glossary or Index here\nThis will reference key concepts and Identus terms and where they are mentioned in the book, allowing someone to look up a term and know what section it is referenced in.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>21</span>  <span class='chapter-title'>Glossary</span>"

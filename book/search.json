@@ -179,7 +179,7 @@
     "href": "section4/mediator.html",
     "title": "16  Mediators",
     "section": "",
-    "text": "Here we will discuss how to set up your own Mediator\nWe will teach the reader how to - Install, configure, and Run your own Mediator - How to manage Websockets - Performance Tuning",
+    "text": "Here we will discuss how to set up your own Mediator\nWe will teach the reader how to\n\nInstall, configure, and Run your own Mediator\nHow to manage Websockets\nPerformance Tuning",
     "crumbs": [
       "Section IV - Deploy",
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>Mediators</span>"
@@ -190,7 +190,7 @@
     "href": "section4/maintenance.html",
     "title": "17  Maintenance",
     "section": "",
-    "text": "Mastering Identus means maintaing your application once it’s launched.\nIn this chapter we will cover: - Observability - Manage nodes / Memory - Performance Testing (could be part of install?) - Analytics with BlockTrust Analytics - Upgrading Agents - How to minimize downtime - Hashicorp - Key Management - Key rotation",
+    "text": "Mastering Identus means maintaing your application once it’s launched.\nIn this chapter we will cover:\n\nObservability\n\nManage nodes / Memory\nPerformance Testing (could be part of install?)\nAnalytics with BlockTrust Analytics\n\nUpgrading Agents\n\nHow to minimize downtime\n\nHashicorp\n\nKey Management\nKey rotation",
     "crumbs": [
       "Section IV - Deploy",
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>Maintenance</span>"

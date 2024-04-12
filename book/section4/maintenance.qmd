@@ -8,7 +8,7 @@ In this chapter we will cover:
 
 - Observability
     - Manage nodes / Memory
-    - Performance Testing (could be part of install?)
+    - Performance Testing
     - Analytics with BlockTrust Analytics
 - Upgrading Agents
     - How to minimize downtime

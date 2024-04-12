@@ -54,6 +54,7 @@ book:
     - part: "Section IV - Deploy"
       chapters: 
       - section4/installation-production.qmd
+      - section4/mediator.qmd
       - section4/maintenance.qmd
     - part: "Section V - Addendum"
       chapters: 
@@ -61,7 +62,6 @@ book:
       - section5/continuing-your-journey.qmd
     - part: "Appendices"
       chapters:
-        - addendum.qmd
         - errata.qmd
         - glossary.qmd
 

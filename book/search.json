@@ -190,7 +190,7 @@
     "href": "section4/maintenance.html",
     "title": "17  Maintenance",
     "section": "",
-    "text": "Mastering Identus means maintaing your application once it’s launched.\nIn this chapter we will cover:\n\nObservability\n\nManage nodes / Memory\nPerformance Testing (could be part of install?)\nAnalytics with BlockTrust Analytics\n\nUpgrading Agents\n\nHow to minimize downtime\n\nHashicorp\n\nKey Management\nKey rotation",
+    "text": "Mastering Identus means maintaing your application once it’s launched.\nIn this chapter we will cover:\n\nObservability\n\nManage nodes / Memory\nPerformance Testing\nAnalytics with BlockTrust Analytics\n\nUpgrading Agents\n\nHow to minimize downtime\n\nHashicorp\n\nKey Management\nKey rotation",
     "crumbs": [
       "Section IV - Deploy",
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>Maintenance</span>"
@@ -212,7 +212,7 @@
     "href": "section5/continuing-your-journey.html",
     "title": "19  Continuing on Your Journey",
     "section": "",
-    "text": "Information about becoming a Contributor to Identus\n\nhow to submit code or documentation\n\nInformation about how to get involved in the SSI community outside of Identus\n\nTrust over IP (ToIP)\nDecentralized Identity Foundation (DIF)",
+    "text": "Information about becoming a Contributor to Identus\n\nHow to contribute to the source code or documentation\n\nInformation about how to get involved in the SSI community outside of Identus\n\nTrust over IP (ToIP)\nDecentralized Identity Foundation (DIF)",
     "crumbs": [
       "Section V - Addendum",
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>Continuing on Your Journey</span>"

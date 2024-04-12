@@ -3,8 +3,10 @@ title: "Continuing on Your Journey"
 ---
 
 Information about becoming a Contributor to Identus
+
 - how to submit code or documentation
 
 Information about how to get involved in the SSI community outside of Identus
+
 - Trust over IP (ToIP)
 - Decentralized Identity Foundation (DIF)

@@ -30,40 +30,40 @@ book:
         href: https://identusbook.com/index.xml
 
   chapters:
-    - index.qmd
+    - index.md
     - part: "Section I"
       chapters:
-      - section1/preface.qmd
-      - section1/introduction.qmd
-      - section1/ssi-basics.qmd
-      - section1/identus-concepts.qmd
+      - section1/preface.md
+      - section1/introduction.md
+      - section1/ssi-basics.md
+      - section1/identus-concepts.md
     - part: "Section II - Getting Started"
       chapters:
-      - section2/installation-dev.qmd
+      - section2/installation-dev.md
     - part: "Section III - Building"
       chapters: 
-      - section3/project-overview.qmd
-      - section3/wallets.qmd
-      - section3/dids.qmd
-      - section3/diddocuments.qmd
-      - section3/connections.qmd
-      - section3/verifiable-credentials.qmd
-      - section3/didcomm.qmd
-      - section3/verification.qmd
-      - section3/plugins.qmd
+      - section3/project-overview.md
+      - section3/wallets.md
+      - section3/dids.md
+      - section3/diddocuments.md
+      - section3/connections.md
+      - section3/verifiable-credentials.md
+      - section3/didcomm.md
+      - section3/verification.md
+      - section3/plugins.md
     - part: "Section IV - Deploy"
       chapters: 
-      - section4/installation-production.qmd
-      - section4/mediator.qmd
-      - section4/maintenance.qmd
+      - section4/installation-production.md
+      - section4/mediator.md
+      - section4/maintenance.md
     - part: "Section V - Addendum"
       chapters: 
-      - section5/trust-registries.qmd
-      - section5/continuing-your-journey.qmd
+      - section5/trust-registries.md
+      - section5/continuing-your-journey.md
     - part: "Appendices"
       chapters:
-        - errata.qmd
-        - glossary.qmd
+        - errata.md
+        - glossary.md
 
 #bibliography: references.bib
 

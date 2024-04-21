@@ -2,7 +2,7 @@
 title: "License"
 ---
 
-Book Content:
+## Book Content:
 
 The content of the book (text, printed code, and images) are licensed under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
@@ -10,7 +10,7 @@ The intent here is to allow anyone to use or excerpt from the book as long as th
 
 If you'd like to commercially reproduce contents from this book, please contact us.
 
-Applications:
+## Applications:
 
 The example code that accompanies this book is licensed under a [MIT License](https://mit-license.org)
 

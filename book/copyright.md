@@ -6,4 +6,4 @@ Copyright @2024 Jon Bauer and Roberto Carvajal
 
 All rights reserved
 
-Please see our [License](licence.md) for more information about fair use.
+Please see our [License](license.md) for more information about fair use.

@@ -2,6 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://identusbook.com/posts/we-are-writing-a-book/index.html</loc>
-    <lastmod>2024-04-21T17:45:19.084Z</lastmod>
+    <lastmod>2024-04-21T18:24:10.702Z</lastmod>
+  </url>
+  <url>
+    <loc>https://identusbook.com/blog.html</loc>
+    <lastmod>2024-04-21T18:24:10.698Z</lastmod>
+  </url>
+  <url>
+    <loc>https://identusbook.com/about.html</loc>
+    <lastmod>2024-04-21T18:24:10.698Z</lastmod>
+  </url>
+  <url>
+    <loc>https://identusbook.com/authors.html</loc>
+    <lastmod>2024-04-21T18:24:10.698Z</lastmod>
+  </url>
+  <url>
+    <loc>https://identusbook.com/index.html</loc>
+    <lastmod>2024-04-21T18:24:10.698Z</lastmod>
   </url>
 </urlset>

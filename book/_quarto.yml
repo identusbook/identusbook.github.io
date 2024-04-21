@@ -32,6 +32,7 @@ book:
   chapters:
     - index.md
     - copyright.md
+    - license.md
     - dedication.md
     - preface.md
     - part: "Section I"

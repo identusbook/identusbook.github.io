@@ -20,11 +20,11 @@ website:
     search: true
     left:
       - text: "Blog"
-        file: blog.qmd
+        file: blog.md
       - href: book/index.html   
         text: "Book"
       - text: "Authors"
-        file: authors.qmd
+        file: authors.md
     right:
       - icon: github
         href: https://github.com/identusbook
@@ -34,7 +34,7 @@ website:
   sidebar:
     - title: "Book"
       contents:
-        - book.qmd
+        - book.md
         # navigation items
 
 format:

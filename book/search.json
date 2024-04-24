@@ -10,234 +10,263 @@
     ]
   },
   {
-    "objectID": "section1/preface.html",
-    "href": "section1/preface.html",
-    "title": "1  Preface",
+    "objectID": "copyright.html",
+    "href": "copyright.html",
+    "title": "1  Copyright",
+    "section": "",
+    "text": "IdentusBook.com\nCopyright @2024 Jon Bauer and Roberto Carvajal\nAll rights reserved\nPlease see our License for more information about fair use.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Copyright</span>"
+    ]
+  },
+  {
+    "objectID": "license.html",
+    "href": "license.html",
+    "title": "2  License",
+    "section": "",
+    "text": "2.1 Book Content:\nThe content of the book (text, printed code, and images) are licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0\nThe intent here is to allow anyone to use or excerpt from the book as long as they credit the source. In general we are very open to having our work shared non-commercially. We are copyrighting this book to protect the ability to version and revise the work officially, and to keep open the door for a print version if the opportunity arises and/or makes sense.\nIf you’d like to commercially reproduce contents from this book, please contact us.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>License</span>"
+    ]
+  },
+  {
+    "objectID": "license.html#applications",
+    "href": "license.html#applications",
+    "title": "2  License",
+    "section": "2.2 Applications:",
+    "text": "2.2 Applications:\nThe example code that accompanies this book is licensed under a MIT License\nThis allows anyone to freely take, modify, or redistribute the code as long as they also assign the MIT license to it.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>License</span>"
+    ]
+  },
+  {
+    "objectID": "preface.html",
+    "href": "preface.html",
+    "title": "4  Preface",
     "section": "",
     "text": "Explains who the authors are and why we were motivated to write this book.",
     "crumbs": [
-      "Section I",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Preface</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Preface</span>"
     ]
   },
   {
     "objectID": "section1/introduction.html",
     "href": "section1/introduction.html",
-    "title": "2  Introduction",
+    "title": "5  Introduction",
     "section": "",
-    "text": "Introduction to the book and what to expect to be learned from reading it.",
+    "text": "This is a developer-centric book about creating and launching Self-Sovereign applications with Identus. We aim to show the reader how to configure, build and deploy a complex idea from scratch.\nThis is not a book about Self-Sovereign Identity. There are already great resources available on that topic. If you’re new to the idea of SSI or Identus, we reccomend the exellent resources listed below as a pre-requisite to this text.\n\nSelf-Sovereign Identity by Alex Preukschat, Drummond Reed, et al. This is the definitive book on SSI and it’s ecosystem of topics.\nAtala PRISM Documentation\n\nIt should be noted that Identus is still new and at the time of writing this book, there are very few best practices, in fact, very little practices at all. A handfull of advanturous developers have been building on the platform and sharing their experiences, and we hope to share our own learnings in hopes of magnifying that knowledge and helping developers skip the common pitfalls and bring their ideas to market.\nWe hope this text will be accessible to anyone who’s curious about what’s\nWe hope that newcomers will be able to use this text to skip common pitfalls and misunderstandings, and bring their ideas to market faster.\nWe’re glad you could join us :)",
     "crumbs": [
       "Section I",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction</span>"
     ]
   },
   {
     "objectID": "section1/ssi-basics.html",
     "href": "section1/ssi-basics.html",
-    "title": "3  SSI Basics",
+    "title": "6  SSI Basics",
     "section": "",
     "text": "SSI Roles/Conceptual Diagram (Triangle of Trust)\n\nIssuer\nHolder\nVerifier\nTrust Registry\n\nBrief explanation of each and what their role is",
     "crumbs": [
       "Section I",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>SSI Basics</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SSI Basics</span>"
     ]
   },
   {
     "objectID": "section1/identus-concepts.html",
     "href": "section1/identus-concepts.html",
-    "title": "4  Identus Concepts",
+    "title": "7  Identus Concepts",
     "section": "",
     "text": "Identus Application Architecture Diagram\n\nCloud Agent\nEdge Agent\nBuilding Blocks\nMediator\nDIDComm2\n\nInclude diagram of each actor and it’s relationship",
     "crumbs": [
       "Section I",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Identus Concepts</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Identus Concepts</span>"
     ]
   },
   {
     "objectID": "section2/installation-dev.html",
     "href": "section2/installation-dev.html",
-    "title": "5  Installation - Development Environment",
+    "title": "8  Installation - Development Environment",
     "section": "",
     "text": "Detailed instructions on how to install a development instance of Identus on your local machine.\nThis will include several tips and tricks to creating a fully functional environment",
     "crumbs": [
       "Section II - Getting Started",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Installation - Development Environment</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Installation - Development Environment</span>"
     ]
   },
   {
     "objectID": "section3/project-overview.html",
     "href": "section3/project-overview.html",
-    "title": "6  Project Overview",
+    "title": "9  Project Overview",
     "section": "",
     "text": "This is project overview of the example app, an E-Voting app.",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Project Overview</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Project Overview</span>"
     ]
   },
   {
     "objectID": "section3/wallets.html",
     "href": "section3/wallets.html",
-    "title": "7  Wallets",
+    "title": "10  Wallets",
     "section": "",
     "text": "A deep dive on what an Identus Identity wallet is and represents. We will discuss seed phrases and how they work.\nWe will talk about creating and recovering Identus wallets.\nTips for using:\n\nPluto Encrypted\nKeycloak for OAuth / OpenIDConnect",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Wallets</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Wallets</span>"
     ]
   },
   {
     "objectID": "section3/dids.html",
     "href": "section3/dids.html",
-    "title": "8  DIDs",
+    "title": "11  DIDs",
     "section": "",
     "text": "We’ll do a deep dive on DIDs and did:prism specifically\n\ndid:prism methods\ncanonical vs longform DID",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>DIDs</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>DIDs</span>"
     ]
   },
   {
     "objectID": "section3/diddocuments.html",
     "href": "section3/diddocuments.html",
-    "title": "9  DID Documents",
+    "title": "12  DID Documents",
     "section": "",
     "text": "DIDDocuments:\n\nResolvers\nControllers",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>DID Documents</span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>DID Documents</span>"
     ]
   },
   {
     "objectID": "section3/connections.html",
     "href": "section3/connections.html",
-    "title": "10  Connections",
+    "title": "13  Connections",
     "section": "",
     "text": "We will discuss the concept of Connections, PeerDIDs, and what it means to connect with another Peer, what’s happening under the hood and different ways to handle the process in your application.\nAlso discussed:\n\nManaging Invites\n\nOOB\nManual Accept\nAuto Accept\nDIDLess Connections (Atala Roadmap)",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Connections</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Connections</span>"
     ]
   },
   {
     "objectID": "section3/verifiable-credentials.html",
     "href": "section3/verifiable-credentials.html",
-    "title": "11  Verifiable Credentials",
+    "title": "14  Verifiable Credentials",
     "section": "",
     "text": "Verifiable Credentials\n\nOverview\nFormats (just mention types, details later in Issuing)\nSchemas\nPublishing your Schema\nIssuing\n\nJWT\nSD-JWT (Atala Roadmap Q2)\nAnonCreds\n\nUpdating (re-binding)\nRevoking",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
     ]
   },
   {
     "objectID": "section3/didcomm.html",
     "href": "section3/didcomm.html",
-    "title": "12  DIDComm",
+    "title": "15  DIDComm",
     "section": "",
     "text": "This chapter will discuss the many ways the DIDComm protocol can be used inside your Identus Application.\n\nOverview of the DIDComm protocol\nSending Message\nSending Files",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>DIDComm</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>DIDComm</span>"
     ]
   },
   {
     "objectID": "section3/verification.html",
     "href": "section3/verification.html",
-    "title": "13  Verification",
+    "title": "16  Verification",
     "section": "",
     "text": "Verification\n\nPresenting Proof\nPresentation Policies / Verification Policies\nSelective Disclosure with AnonCreds",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Verification</span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Verification</span>"
     ]
   },
   {
     "objectID": "section3/plugins.html",
     "href": "section3/plugins.html",
-    "title": "14  Plugins",
+    "title": "17  Plugins",
     "section": "",
     "text": "This is a placedholer for the topic of Plugins. Identus plugins have not been officially announced yet but are on the IOG roadmap for 2024, Q4. If there is any information by the time we publish we will write about them.",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Plugins</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Plugins</span>"
     ]
   },
   {
     "objectID": "section4/installation-production.html",
     "href": "section4/installation-production.html",
-    "title": "15  Installation - Production Environment",
+    "title": "18  Installation - Production Environment",
     "section": "",
     "text": "In this chapter we will discuss how to prepare a production envioronment for an Identus application.\nWe will discuss:\n\nHardware recommendations\nProduction configuration and security\nLock down Docker / Postgres (default password hole, etc)\nSSL\nMulti Tenancy\nKeycloak\nTestnet / Preprod env\nConnecting to Mainnet\nSet up Cardano Wallet\nKey Management with HashiCorp\nConnecting to Cardano\nRunning dbSync",
     "crumbs": [
       "Section IV - Deploy",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Installation - Production Environment</span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Installation - Production Environment</span>"
     ]
   },
   {
     "objectID": "section4/mediator.html",
     "href": "section4/mediator.html",
-    "title": "16  Mediators",
+    "title": "19  Mediators",
     "section": "",
     "text": "Here we will discuss how to set up your own Mediator\nWe will teach the reader how to\n\nInstall, configure, and Run your own Mediator\nHow to manage Websockets\nPerformance Tuning",
     "crumbs": [
       "Section IV - Deploy",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Mediators</span>"
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Mediators</span>"
     ]
   },
   {
     "objectID": "section4/maintenance.html",
     "href": "section4/maintenance.html",
-    "title": "17  Maintenance",
+    "title": "20  Maintenance",
     "section": "",
     "text": "Mastering Identus means maintaing your application once it’s launched.\nIn this chapter we will cover:\n\nObservability\n\nManage nodes / Memory\nPerformance Testing\nAnalytics with BlockTrust Analytics\n\nUpgrading Agents\n\nHow to minimize downtime\n\nHashicorp\n\nKey Management\nKey rotation",
     "crumbs": [
       "Section IV - Deploy",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Maintenance</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Maintenance</span>"
     ]
   },
   {
     "objectID": "section5/trust-registries.html",
     "href": "section5/trust-registries.html",
-    "title": "18  Trust Registries",
+    "title": "21  Trust Registries",
     "section": "",
     "text": "Overview of the concept of a Trust Registry\n\nWhat role they play in SSI\nTrust Over IP Trust Registry Spec\nHighlight any real world examples if they exist by book completion",
     "crumbs": [
       "Section V - Addendum",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Trust Registries</span>"
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Trust Registries</span>"
     ]
   },
   {
     "objectID": "section5/continuing-your-journey.html",
     "href": "section5/continuing-your-journey.html",
-    "title": "19  Continuing on Your Journey",
+    "title": "22  Continuing on Your Journey",
     "section": "",
     "text": "Information about becoming a Contributor to Identus\n\nHow to contribute to the source code or documentation\n\nInformation about how to get involved in the SSI community outside of Identus\n\nTrust over IP (ToIP)\nDecentralized Identity Foundation (DIF)",
     "crumbs": [
       "Section V - Addendum",
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Continuing on Your Journey</span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Continuing on Your Journey</span>"
     ]
   },
   {
     "objectID": "errata.html",
     "href": "errata.html",
-    "title": "20  Errata",
+    "title": "23  Errata",
     "section": "",
     "text": "Errata goes here\nWe will list any bugs that may have been “printed” in certain editions of the book.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Errata</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Errata</span>"
     ]
   },
   {
     "objectID": "glossary.html",
     "href": "glossary.html",
-    "title": "21  Glossary",
+    "title": "24  Glossary",
     "section": "",
     "text": "Glossary or Index here\nThis will reference key concepts and Identus terms and where they are mentioned in the book, allowing someone to look up a term and know what section it is referenced in.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Glossary</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Glossary</span>"
     ]
   }
 ]

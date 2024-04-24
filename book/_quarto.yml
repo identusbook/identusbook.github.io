@@ -31,9 +31,12 @@ book:
 
   chapters:
     - index.md
+    - copyright.md
+    - license.md
+    - dedication.md
+    - preface.md
     - part: "Section I"
       chapters:
-      - section1/preface.md
       - section1/introduction.md
       - section1/ssi-basics.md
       - section1/identus-concepts.md

@@ -98,7 +98,7 @@
     "href": "section3/project-overview.html",
     "title": "9  Project Overview",
     "section": "",
-    "text": "This is project overview of the example app, an E-Voting app.",
+    "text": "This is project overview of the example app, which can issue and verify educational credentials.",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Project Overview</span>"

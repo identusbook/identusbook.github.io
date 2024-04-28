@@ -24,7 +24,7 @@ Edge Agent:
     Edge Agents live on the client side, closer to the end user.  Because this can traditionally be assumed to be a mobile or web client application, it can never be assumed to be online at any given time.  Edge Agents communicate using the Mediator as a proxy
 
 Mediator:
-    Mediators act as middlemen between Peer DIDs.  In order for any agent to send a message to any other agent, it must know the To and From DIDs of each message. The sender and receipient together make up a cryptographic connection called a DIDPair.  Mediators maintain queues of messages for each DIDPair. If an Edge Agent is offline, the Mediator will hold incoming messages for them until the agent is back online and able to receive them.      Mediators are expected to be online at all times and be highly available.
+    Mediators act as middlemen between Peer DIDs.  In order for any agent to send a message to any other agent, it must know the To and From DIDs of each message. The sender and recipient together make up a cryptographic connection called a DIDPair.  Mediators maintain queues of messages for each DIDPair. If an Edge Agent is offline, the Mediator will hold incoming messages for them until the agent is back online and able to receive them. Mediators can deliver messages when polled, or push via Websockets.     Mediators are expected to be online at all times and be highly available.
 
 DIDComm:
 

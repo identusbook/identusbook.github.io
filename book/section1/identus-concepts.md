@@ -29,7 +29,4 @@ Mediator:
 DIDComm:
 
 Building Blocks:
-    Known as the "Building Blocks", there are several open source libraries that are responsible for the underlying techologoy Identus applications depend on, like cryptoraphy operations and 
-
-
-git push --set-upstream origin jon/example-app-idea
+    Known as the "Building Blocks", there are several open source libraries that are responsible for the underlying technology Identus applications depend on, like cryptography operations and 

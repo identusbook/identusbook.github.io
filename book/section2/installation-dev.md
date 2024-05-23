@@ -4,9 +4,9 @@ title: "Installation - Development Environment"
 
 ## Introduction
 
-Hyperledger Identus, formerly Atala PRISM, comes distributed in separate repositories that group together different building blocks in order to provide the required functionality to fulfill each of the essential roles in SSI that we introduced in [Identus Concepts](/section1/identus-concepts.html) and [SSI Basics](/section1/ssi-basics.html). We will explain the setup in detail of each component as we progress trough this book.
+Hyperledger Identus, previously known as Atala PRISM, is distributed across various repositories. These repositories group together different building blocks to provide the necessary functionality for fulfilling each of the essential roles in Self-Sovereign Identity (SSI), as introduced in [Identus Concepts](/section1/identus-concepts.html) and [SSI Basics](/section1/ssi-basics.html). Throughout this book, we will detail the setup of each component.
 
-The first component we need to setup is our Cloud Agent, responsible for creating and publishing DID Documents into a Verifiable Data Registry (VDR), issuing Verifiable Credentials and depending on the configuration, even providing Identity Wallets to multiple users trough a multi-tenancy setup. For now, we will focus on how to setup the Cloud Agent to run locally in development mode supporting only a single-tenant, this is essential to learn the basics and get you started, as we progress and build our example application, we will deploy the same Cloud Agent in pre-production mode and finally in production mode with multi-tenancy.
+The initial component to set up is our Cloud Agent. This agent is responsible for creating and publishing DID Documents into a Verifiable Data Registry (VDR), issuing Verifiable Credentials, and, depending on the configuration, even providing Identity Wallets to multiple users through a multi-tenancy setup. For now, our focus will be on setting up the Cloud Agent to run locally in development mode, supporting only a single tenant. This step is crucial for learning the basics and getting started. As we progress and build our example application, we will deploy the Cloud Agent in pre-production mode and, finally, in production mode with multi-tenancy support.
 
 ## Pre-requisites
 
@@ -18,17 +18,29 @@ For Windows users, please refer to [How to install Linux on Windows with WSL](ht
 Windows is the least tested environment, the community have already found some issues and workarounds on how to get the Cloud Agent working. We will try to always include instructions regarding this use case.
 :::
 
+### Identus Releases Overview
+
+Identus is comprised of multiple interdependent building blocks, including the Cloud Agent, Wallet SDK, Mediator, and Apollo Crypto Library. To ensure compatibility among these components, it is crucial to identify the correct versions that work together seamlessly. For this purpose, a dedicated repository named [atala-releases](https://github.com/input-output-hk/atala-releases) is available. This repository provides comprehensive documentation and a compatibility table for each Identus Release. We will be using [Identus v2.12](https://github.com/input-output-hk/atala-releases/blob/master/Atala%20PRISM/2.12.md) as our selected release because it is the latest at the time of writing (May 2024).
+
 ### Git
 
-The current home for every repository is [GitHub](https://github.com), although at the time of this writing the project is still transitioning from Atala PRISM original repositories into Hyperledger ones, the Cloud Agent being the first one to migrate (you can read the press release [here](https://iohk.io/en/blog/posts/2023/12/04/iog-contributes-atala-prism-to-hyperledger-foundation/))
+GitHub is currently the primary platform for hosting repositories. As of this writing, projects are transitioning from Atala PRISM's original repositories to Hyperledger ones, with the Cloud Agent being the first to migrate. For more details, you can read the press release [here](https://iohk.io/en/blog/posts/2023/12/04/iog-contributes-atala-prism-to-hyperledger-foundation/).
 
-Chances are if you develop in a UNIX based machine (OS X, Linux, etc) you already have `git`, if not you can get the installer from [Git downloads](https://www.git-scm.com/downloads) or even checkout one of the [GUI clients](https://www.git-scm.com/downloads/guis) available.
+If you're using a UNIX-based system (such as OS X or Linux), you likely already have `git` installed. If not, you can download the installer from [Git downloads](https://www.git-scm.com/downloads). Additionally, various [GUI clients](https://www.git-scm.com/downloads/guis) are available for those who prefer a graphical interface.
+
+To clone the Cloud Agent repository, first go to the [Releases page](https://github.com/hyperledger/identus-cloud-agent/releases) and identify the tagged release corresponding to the Identus release you are targeting (e.g. `cloud-agent-v1.33.0` is part of [Identus v2.12](https://github.com/input-output-hk/atala-releases/blob/master/Atala%20PRISM/2.12.md) release), then clone the repository with this command:
 
 ```bash
-git clone https://github.com/hyperledger/identus-cloud-agent
+git clone --depth 1 --branch cloud-agent-v1.33.0 https://github.com/hyperledger/identus-cloud-agent
 ```
+
+::: {.callout-note}
+Using `--depth 1` will skip the history of changes in the repository up until the point of the tag, this is optional.
+:::
+
 ### Docker
 
-Both the Cloud Agent and Mediator come distributed as docker containers and it's the preferred way to start and stop all the different components needed to run the cloud infrastructure.
+The Cloud Agent and Mediator are distributed as Docker containers, which is the recommended method for starting and stopping the various components required to run the cloud infrastructure.
 
-Installing [Docker Desktop](https://www.docker.com/products/docker-desktop/) will get you all you need to get started.
+To begin, install [Docker Desktop](https://www.docker.com/products/docker-desktop/), which provides everything you need to get started.
+

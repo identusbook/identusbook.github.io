@@ -1,6 +1,4 @@
----
-title: "Mediators"
----
+# Mediators {#sec-mediators}
 
 Here we will discuss how to set up your own Mediator
 

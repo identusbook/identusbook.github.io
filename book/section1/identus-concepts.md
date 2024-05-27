@@ -45,4 +45,25 @@ While extremely helpful during development, these are not recommended for produc
 
 **Building Blocks:**
 
-Known as the "Building Blocks", there are several open source libraries that are responsible for the underlying technology Identus applications depend on, like cryptography operations and 
+Identus separates the handling of important SSI operations into separate, focused libraries.
+
+Apollo:
+
+Castor:
+Castor enables creation, management, and resolution of DIDs.
+
+Pollux:
+Pollux handles all Verifiable Credential operations.  
+
+Mercury:
+Mercury is an interface to the DIDCommV2 protocol, allowing the sending and receiving of messages between DIDs.
+
+More info on each of the Building Blocks can be found in the [Docs](https://docs.atalaprism.io/docs/atala-prism/prism-cloud-agent/building-blocks)
+
+
+
+Important functionality related to SSI operations is separated into several libraries, each focused on a subset of SSI functionality.
+
+Functionality related to Cryptographic operations
+
+Known as the "Building Blocks", several libraries separate the handling of important SSI tasks, like Cryptographic operations,    there are several open source libraries that are responsible for the underlying technology Identus applications depend on, like cryptography primitives, 

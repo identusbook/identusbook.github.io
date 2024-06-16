@@ -2,15 +2,7 @@
 title: "Identus Concepts"
 ---
 
-Identus Application Architecture Diagram
-
-- Cloud Agent
-- Edge Agent
-- PRISM Node
-- Building Blocks
-- Mediator
-- DIDComm2
-
+[Identus Application Architecture Diagram]
 
 Identus is made up of several open source components.  Each could be used or forked separately but they are designed to work well together.
 

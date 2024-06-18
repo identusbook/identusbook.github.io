@@ -7,19 +7,11 @@ Hyperledger Identus, previously known as Atala PRISM, is distributed across vari
 
 The initial component to set up is our Cloud Agent. This agent is responsible for creating and publishing DID Documents into a Verifiable Data Registry (VDR), issuing Verifiable Credentials, and, depending on the configuration, even providing Identity Wallets to multiple users through a multi-tenancy setup. For now, our focus will be on setting up the Cloud Agent to run locally in development mode, supporting only a single tenant. This step is crucial for learning the basics and getting started. As we progress and build our example application, we will deploy the Cloud Agent in pre-production mode and, finally, in production mode with multi-tenancy support.
 
+## Identus Releases Overview
+
+Identus is built upon multiple interdependent building blocks, including the Cloud Agent, Wallet SDK, Mediator, and Apollo Crypto Library. To ensure compatibility among these components, it is crucial to identify the correct building block versions that are compatible between them. For this purpose, a dedicated repository named [atala-releases](https://github.com/input-output-hk/atala-releases) is available. This repository provides comprehensive documentation and a compatibility table for each Identus Release. We will be using [Identus v2.12](https://github.com/input-output-hk/atala-releases/blob/master/Atala%20PRISM/2.12.md) as our selected release because it is the latest at the time of writing (May 2024).
+
 ## Pre-requisites
-
-### WSL
-
-For Windows users, please refer to [How to install Linux on Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install). 
-
-::: {.callout-note}
-Windows is the least tested environment, the community have already found some issues and workarounds on how to get the Cloud Agent working. We will try to always include instructions regarding this use case.
-:::
-
-### Identus Releases Overview
-
-Identus is comprised of multiple interdependent building blocks, including the Cloud Agent, Wallet SDK, Mediator, and Apollo Crypto Library. To ensure compatibility among these components, it is crucial to identify the correct versions that work together seamlessly. For this purpose, a dedicated repository named [atala-releases](https://github.com/input-output-hk/atala-releases) is available. This repository provides comprehensive documentation and a compatibility table for each Identus Release. We will be using [Identus v2.12](https://github.com/input-output-hk/atala-releases/blob/master/Atala%20PRISM/2.12.md) as our selected release because it is the latest at the time of writing (May 2024).
 
 ### Git
 
@@ -50,6 +42,14 @@ There is a growing list of community repositories that aim to provide some extra
 The Cloud Agent and Mediator are distributed as Docker containers, which is the recommended method for starting and stopping the various components required to run the cloud infrastructure.
 
 To begin, install [Docker Desktop](https://www.docker.com/products/docker-desktop/), which provides everything you need to get started.
+
+### WSL
+
+For Windows users, please refer to [How to install Linux on Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install). 
+
+::: {.callout-note}
+Windows is the least tested environment, the community have already found some issues and workarounds on how to get the Cloud Agent working. We will try to always include instructions regarding this use case.
+:::
 
 ## Installation
 

@@ -1,7 +1,6 @@
 ---
 title: "Installation - Development Environment"
 ---
-
 ## Introduction
 
 Hyperledger Identus, previously known as Atala PRISM, is distributed across various repositories. These repositories group together different building blocks to provide the necessary functionality for fulfilling each of the essential roles in Self-Sovereign Identity (SSI), as introduced in [Identus Concepts](/section1/identus-concepts.html) and [SSI Basics](/section1/ssi-basics.html). Throughout this book, we will detail the setup of each component.
@@ -38,9 +37,19 @@ git clone --depth 1 --branch cloud-agent-v1.33.0 https://github.com/hyperledger/
 Using `--depth 1` will skip the history of changes in the repository up until the point of the tag, this is optional.
 :::
 
+### Atala Community Projects
+
+There is a growing list of community repositories that aim to provide some extra functionality, mostly maintained by official developers and community members on their spare time. At present time there are three [Atala Community Projects](https://github.com/atala-community-projects):
+
+- **Pluto Encrypted:** Implementation of Pluto storage engine with encryption support.
+- **Edge Agent SDK Demos:** Browser and Node versions of Edge Agent SDK integrated with Pluto Encrypted.
+- **Identus Test:** Shell script helper that will checkout a particular Identus release and compatible components.
+
 ### Docker
 
 The Cloud Agent and Mediator are distributed as Docker containers, which is the recommended method for starting and stopping the various components required to run the cloud infrastructure.
 
 To begin, install [Docker Desktop](https://www.docker.com/products/docker-desktop/), which provides everything you need to get started.
+
+## Installation
 

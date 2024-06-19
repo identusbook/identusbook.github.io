@@ -75,11 +75,13 @@ Finally the `dev` mode is meant to be used for development and provides an easy 
 Inside `infrastructure/local` directory, you will find three important files, `run.sh`and `stop.sh` scripts and the `.env` file.
 
 Our `local` environment file should look like this
-```
+
+```bash
 AGENT_VERSION=1.33.0
 PRISM_NODE_VERSION=2.2.1
 VAULT_DEV_ROOT_TOKEN_ID=root
 ```
+
 This will tell Docker which versions of the Cloud Agent and PRISM Node to run, plus a default value for the `VAULT_DEV_ROOT_TOKEN_ID`, this value corresponds to the HashiCorp Token ID, HashiCorp is a secrets storage engine and it will become relevant later on when we need to prepare the agent to run in `prepod` and `production` modes, for now the `local` mode will ignore this value because by default it will use a local `postgres` database for it's secret storage engine.
 
 The `run.sh` script options:

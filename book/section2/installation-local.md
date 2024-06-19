@@ -84,7 +84,7 @@ This will tell Docker which versions of the Cloud Agent and PRISM Node to run, p
 
 The `run.sh` script options:
 
-```
+```bash
 ./run.sh --help
 Run an instance of the ATALA bulding-block stack locally
 
@@ -106,13 +106,13 @@ For our first interaction with agent all we have to do is to call the run script
 
 So, from the root of the repository you can run:
 
-```
+```bash
 ./infrastructure/local/run.sh
 ```
 
 This will take a while the first time as Docker will fetch the required container images and get them running. To check the status of the Cloud Agent you can use `curl` or open a browser window at same endpoint URL (make sure to replace port 80 if you changed it in the previous step):
 
-```
+```bash
 curl http://127.0.0.1:80/cloud-agent/_system/health
 {"version":"1.33.0"}
 ```

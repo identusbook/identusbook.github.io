@@ -42,7 +42,7 @@ book:
       - section1/identus-concepts.md
     - part: "Section II - Getting Started"
       chapters:
-      - section2/installation-dev.md
+      - section2/installation-local.md
     - part: "Section III - Building"
       chapters: 
       - section3/project-overview.md

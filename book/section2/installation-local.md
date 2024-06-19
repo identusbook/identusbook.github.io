@@ -1,5 +1,5 @@
 ---
-title: "Installation - Development Environment"
+title: Installation - Local Environment
 ---
 ## Introduction
 
@@ -51,5 +51,14 @@ For Windows users, please refer to [How to install Linux on Windows with WSL](ht
 Windows is the least tested environment, the community have already found some issues and workarounds on how to get the Cloud Agent working. We will try to always include instructions regarding this use case.
 :::
 
-## Installation
+### Exploring The Repository
+
+Once you have cloned the `identus-cloud-agent` repository and Docker is up and running you can jump right ahead and run the agent, but before we do that lets take a moment to familiarize with the most important config files and directories inside the repository.
+
+There are two fundamental directories inside the repository if you are an end user.
+
+1. `docs` where all the latest *technical documentation* will be available, this includes the Architecture Decision Records ([ADR](/glossary.html#adr)), general insights, guides to deploy, examples and explanations about VC Schemas, Connections, handling secrets, etc. We will do our best to explain in detail all this concepts as we build our example app and this documentation will be referenced.
+2. `infrastructure` this directory holds the agent's docker file and related scripts to run the agent in different modes such as `dev`, `local` or `multi`, each mode requires a particular setup and extra complexity as we move into more advanced use cases.
+
+Our first mode to explore and the simplest one should be `local` mode, which by default will run the agent as a Single-tenant, meaning that this instance will control only a single [Identity Wallet](/glossary.html#identity-wallet) that will be automatically created and seeded upon the first start of the agent, as opposed as `multi` mode in which the agent will be configured to support Multi-tenancy and each Identity Wallet must be manually created in an onboarding process.
 

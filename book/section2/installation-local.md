@@ -60,7 +60,7 @@ There is a growing list of community repositories that aim to provide some extra
 There are two fundamental directories inside the repository if you are an end user.
 
 1. `docs` Where all the latest *technical documentation* will be available, this includes the Architecture Decision Records ([ADR](/glossary.html#adr)), general insights, guides to deploy, examples and tutorials about how to handle VC Schemas, Connections, secrets, etc. We will do our best to explain in detail all this procedures as we build our example app.
-2. `infrastructure` This directory holds the agent's Docker file and related scripts to run the agent in different modes such as `dev`, `local` or `multi`. **The way to change the agent setup is by customizing environmental variables trough the Docker file**, so we really advice you to get familiar with the `shared` directory content, because that's the base for every other mode, in essence, every mode is a customization of the shared Docker file.
+2. `infrastructure` This directory holds the agent's Docker file and related scripts to run the agent in different modes such as `dev`, `local` or `multi`. **The way to change the agent setup is by customizing environmental variables trough the Docker file**, so we really advise you to get familiar with the `shared` directory content, because that's the base for every other mode, in essence, every mode is a customization of the shared Docker file.
 
 Our first mode to explore and the simplest one should be `local` mode, which by default will run a single agent as a single-tenant, meaning that this instance will control only a single [Identity Wallet](/glossary.html#identity-wallet) that will be automatically created and seeded upon the first start of the agent.
 
@@ -104,7 +104,7 @@ options:
 -h/--help              Print this help text.
 ```
 
-For our first interaction with agent all we have to do is to call the run script, if you have any conflicts with the port 80 already in use you can pass `--port 8080` or any other available port that you would like to use.
+For our first interaction with the agent all we have to do is to call the run script. If you have any conflicts with the port 80 already in use you can pass `--port 8080` or any other available port that you would like to use.
 
 So, from the root of the repository you can run:
 
@@ -120,5 +120,11 @@ curl http://127.0.0.1:80/cloud-agent/_system/health
 ```
 
 The `version` should match the version of the Cloud Agent defined in the `.env`file.
+
+To stop the agent, run:
+
+```bash
+./infrastructure/local/stop.sh
+```
 
 Congratulations! you have successfully setup the agent in `local` mode. Next we will explore our Docker file in detail and interact with our agent using the REST API.

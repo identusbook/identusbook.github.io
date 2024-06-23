@@ -40,12 +40,12 @@ To begin, install [Docker Desktop](https://www.docker.com/products/docker-deskto
 For Windows users, please refer to [How to install Linux on Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install). 
 
 ::: {.callout-note}
-Windows is the least tested environment, the community have already found some issues and workarounds on how to get the Cloud Agent working. We will try to always include instructions regarding this use case.
+Windows is the least tested environment, the community has already found some issues and workarounds on how to get the Cloud Agent working. We will try to always include instructions regarding this use case.
 :::
 
 ## Before We Run The Agent
 
-Once you have cloned the `identus-cloud-agent` repository and Docker is up and running you can jump right ahead and [run the agent](#running-the-cloud-agent), but before we do that if you are not yet familiar with the community projects or the structure of the agent itself, I recommend you to spend a little time exploring the following information, this is optional and you can skip it.
+Once you have cloned the `identus-cloud-agent` repository and Docker is up and running you can jump right ahead and [run the agent](#running-the-cloud-agent), but before we do that if you are not yet familiar with the community projects or the structure of the agent itself, we recommend you to spend a little time exploring the following information, this is optional and you can skip it.
 
 ### Atala Community Projects
 
@@ -59,8 +59,8 @@ There is a growing list of community repositories that aim to provide some extra
 
 There are two fundamental directories inside the repository if you are an end user.
 
-1. `docs` where all the latest *technical documentation* will be available, this includes the Architecture Decision Records ([ADR](/glossary.html#adr)), general insights, guides to deploy, examples and tutorials about how to handle VC Schemas, Connections, secrets, etc. We will do our best to explain in detail all this procedures as we build our example app.
-2. `infrastructure` this directory holds the agent's Docker file and related scripts to run the agent in different modes such as `dev`, `local` or `multi`. **The way to change the agent setup is by customizing environmental variables trough the Docker file**, so I really advice you to get familiar with the `shared` directory content, because that's the base for every other mode, in essence, every mode is a customization of the shared Docker file.
+1. `docs` Where all the latest *technical documentation* will be available, this includes the Architecture Decision Records ([ADR](/glossary.html#adr)), general insights, guides to deploy, examples and tutorials about how to handle VC Schemas, Connections, secrets, etc. We will do our best to explain in detail all this procedures as we build our example app.
+2. `infrastructure` This directory holds the agent's Docker file and related scripts to run the agent in different modes such as `dev`, `local` or `multi`. **The way to change the agent setup is by customizing environmental variables trough the Docker file**, so we really advice you to get familiar with the `shared` directory content, because that's the base for every other mode, in essence, every mode is a customization of the shared Docker file.
 
 Our first mode to explore and the simplest one should be `local` mode, which by default will run a single agent as a single-tenant, meaning that this instance will control only a single [Identity Wallet](/glossary.html#identity-wallet) that will be automatically created and seeded upon the first start of the agent.
 
@@ -82,7 +82,7 @@ PRISM_NODE_VERSION=2.2.1
 VAULT_DEV_ROOT_TOKEN_ID=root
 ```
 
-This will tell Docker which versions of the Cloud Agent and PRISM Node to run, plus a default value for the `VAULT_DEV_ROOT_TOKEN_ID`, this value corresponds to the HashiCorp Token ID, HashiCorp is a secrets storage engine and it will become relevant later on when we need to prepare the agent to run in `prepod` and `production` modes, for now the `local` mode will ignore this value because by default it will use a local `postgres` database for it's secret storage engine.
+This will tell Docker which versions of the Cloud Agent and PRISM Node to run, plus a default value for the `VAULT_DEV_ROOT_TOKEN_ID`, this value corresponds to the HashiCorp Token ID. HashiCorp is a secrets storage engine and it will become relevant later on when we need to prepare the agent to run in `prepod` and `production` modes, for now the `local` mode will ignore this value because by default it will use a local `postgres` database for it's secret storage engine.
 
 The `run.sh` script options:
 

@@ -83,14 +83,58 @@
     ]
   },
   {
-    "objectID": "section2/installation-dev.html",
-    "href": "section2/installation-dev.html",
-    "title": "8  Installation - Development Environment",
+    "objectID": "section2/installation-local.html",
+    "href": "section2/installation-local.html",
+    "title": "8  Installation - Local Environment",
     "section": "",
-    "text": "Detailed instructions on how to install a development instance of Identus on your local machine.\nThis will include several tips and tricks to creating a fully functional environment",
+    "text": "8.1 Introduction\nHyperledger Identus, previously known as Atala PRISM, is distributed across various repositories. These repositories group together different building blocks to provide the necessary functionality for fulfilling each of the essential roles in Self-Sovereign Identity (SSI), as introduced in Identus Concepts and SSI Basics. Throughout this book, we will detail the setup of each component.\nThe initial component to set up is our Cloud Agent. This agent is responsible for creating and publishing DID Documents into a Verifiable Data Registry (VDR), issuing Verifiable Credentials, and, depending on the configuration, even providing Identity Wallets to multiple users through a multi-tenancy setup. For now, our focus will be on setting up the Cloud Agent to run locally in development mode, supporting only a single tenant. This step is crucial for learning the basics and getting started. As we progress and build our example application, we will deploy the Cloud Agent in development mode first, then set it up to connect to Cardano testnet as our VDR on pre-production mode and, finally, in production mode with multi-tenancy support connected to Cardano mainnet. This will be a gradual process as we need to familiarize on each stage of the Cloud Agent.",
     "crumbs": [
       "Section II - Getting Started",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Installation - Development Environment</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Installation - Local Environment</span>"
+    ]
+  },
+  {
+    "objectID": "section2/installation-local.html#identus-releases-overview",
+    "href": "section2/installation-local.html#identus-releases-overview",
+    "title": "8  Installation - Local Environment",
+    "section": "8.2 Identus Releases Overview",
+    "text": "8.2 Identus Releases Overview\nIdentus is built upon multiple interdependent building blocks, including the Cloud Agent, Wallet SDK, Mediator, and Apollo Crypto Library. To ensure compatibility among these components, it is crucial to identify the correct building block versions that are compatible between them. For this purpose, a dedicated repository named atala-releases is available. This repository provides comprehensive documentation and a compatibility table for each Identus Release. We will be using Identus v2.12 as our selected release because it is the latest at the time of writing (May 2024).",
+    "crumbs": [
+      "Section II - Getting Started",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Installation - Local Environment</span>"
+    ]
+  },
+  {
+    "objectID": "section2/installation-local.html#pre-requisites",
+    "href": "section2/installation-local.html#pre-requisites",
+    "title": "8  Installation - Local Environment",
+    "section": "8.3 Pre-requisites",
+    "text": "8.3 Pre-requisites\n\n8.3.1 Git\nGitHub is currently the primary platform for hosting repositories. As of this writing, projects are transitioning from Atala PRISM’s original repositories to Hyperledger ones, with the Cloud Agent being the first to migrate. For more details, you can read the press release here.\nIf you’re using a UNIX-based system (such as OS X or Linux), you likely already have git installed. If not, you can download the installer from Git downloads. Additionally, various GUI clients are available for those who prefer a graphical interface.\nTo clone the Cloud Agent repository, first go to the Releases page and identify the tagged release corresponding to the Identus release you are targeting (e.g. cloud-agent-v1.33.0 is part of Identus v2.12 release), then clone the repository with this command:\ngit clone --depth 1 --branch cloud-agent-v1.33.0 https://github.com/hyperledger/identus-cloud-agent\n\n\n\n\n\n\nNote\n\n\n\nUsing --depth 1 will skip the history of changes in the repository up until the point of the tag, this is optional.\n\n\n\n\n8.3.2 Docker\nThe Cloud Agent and Mediator are distributed as Docker containers, which is the recommended method for starting and stopping the various components required to run the cloud infrastructure.\nTo begin, install Docker Desktop, which provides everything you need to get started.\n\n\n8.3.3 WSL\nFor Windows users, please refer to How to install Linux on Windows with WSL.\n\n\n\n\n\n\nNote\n\n\n\nWindows is the least tested environment, the community has already found some issues and workarounds on how to get the Cloud Agent working. We will try to always include instructions regarding this use case.",
+    "crumbs": [
+      "Section II - Getting Started",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Installation - Local Environment</span>"
+    ]
+  },
+  {
+    "objectID": "section2/installation-local.html#before-we-run-the-agent",
+    "href": "section2/installation-local.html#before-we-run-the-agent",
+    "title": "8  Installation - Local Environment",
+    "section": "8.4 Before We Run The Agent",
+    "text": "8.4 Before We Run The Agent\nOnce you have cloned the identus-cloud-agent repository and Docker is up and running you can jump right ahead and run the agent, but before we do that if you are not yet familiar with the community projects or the structure of the agent itself, we recommend you to spend a little time exploring the following information, this is optional and you can skip it.\n\n8.4.1 Atala Community Projects\nThere is a growing list of community repositories that aim to provide some extra functionality, mostly maintained by official developers and community members on their spare time. At present time there are three Atala Community Projects:\n\nPluto Encrypted: Implementation of Pluto storage engine with encryption support.\nEdge Agent SDK Demos: Browser and Node versions of Edge Agent SDK integrated with Pluto Encrypted.\nIdentus Test: Shell script helper that will checkout a particular Identus release and compatible components.\n\n\n\n8.4.2 Exploring The Repository\nThere are two fundamental directories inside the repository if you are an end user.\n\ndocs Where all the latest technical documentation will be available, this includes the Architecture Decision Records (ADR), general insights, guides to deploy, examples and tutorials about how to handle VC Schemas, Connections, secrets, etc. We will do our best to explain in detail all this procedures as we build our example app.\ninfrastructure This directory holds the agent’s Docker file and related scripts to run the agent in different modes such as dev, local or multi. The way to change the agent setup is by customizing environmental variables trough the Docker file, so we really advice you to get familiar with the shared directory content, because that’s the base for every other mode, in essence, every mode is a customization of the shared Docker file.\n\nOur first mode to explore and the simplest one should be local mode, which by default will run a single agent as a single-tenant, meaning that this instance will control only a single Identity Wallet that will be automatically created and seeded upon the first start of the agent.\nThe multi mode essentially runs 3 different local agents but each is assigned a particular role such as issuer, holder and verifier. This is useful in order try test more complex interactions between independent actors.\nFinally the dev mode is meant to be used for development and provides an easy way to modify the Cloud Agent source code, it does not rely on the pre-built Docker images that the local mode fetches and run. We will not use this mode at all trough the book but feel free to explore this option if you would like to make contributions to the Cloud Agent in the future.",
+    "crumbs": [
+      "Section II - Getting Started",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Installation - Local Environment</span>"
+    ]
+  },
+  {
+    "objectID": "section2/installation-local.html#running-the-cloud-agent",
+    "href": "section2/installation-local.html#running-the-cloud-agent",
+    "title": "8  Installation - Local Environment",
+    "section": "8.5 Running The Cloud Agent",
+    "text": "8.5 Running The Cloud Agent\n\n8.5.1 Environment Variables\nInside infrastructure/local directory, you will find three important files, run.shand stop.sh scripts and the .env file.\nOur local environment file should look like this\nAGENT_VERSION=1.33.0\nPRISM_NODE_VERSION=2.2.1\nVAULT_DEV_ROOT_TOKEN_ID=root\nThis will tell Docker which versions of the Cloud Agent and PRISM Node to run, plus a default value for the VAULT_DEV_ROOT_TOKEN_ID, this value corresponds to the HashiCorp Token ID. HashiCorp is a secrets storage engine and it will become relevant later on when we need to prepare the agent to run in prepod and production modes, for now the local mode will ignore this value because by default it will use a local postgres database for it’s secret storage engine.\nThe run.sh script options:\n./run.sh --help\nRun an instance of the ATALA bulding-block stack locally\n\nSyntax: run.sh [-n/--name NAME|-p/--port PORT|-b/--background|-e/--env|-w/--wait|--network|-h/--help]\noptions:\n-n/--name              Name of this instance - defaults to dev.\n-p/--port              Port to run this instance on - defaults to 80.\n-b/--background        Run in docker-compose daemon mode in the background.\n-e/--env               Provide your own .env file with versions.\n-w/--wait              Wait until all containers are healthy (only in the background).\n--network              Specify a docker network to run containers on.\n--webhook              Specify webhook URL for agent events\n--webhook-api-key      Specify api key to secure webhook if required\n--debug                Run additional services for debug using docker-compose debug profile.\n-h/--help              Print this help text.\nFor our first interaction with agent all we have to do is to call the run script, if you have any conflicts with the port 80 already in use you can pass --port 8080 or any other available port that you would like to use.\nSo, from the root of the repository you can run:\n./infrastructure/local/run.sh\nThis will take a while the first time as Docker will fetch the required container images and get them running. To check the status of the Cloud Agent you can use curl or open a browser window at same endpoint URL (make sure to replace port 80 if you changed it in the previous step):\ncurl http://127.0.0.1:80/cloud-agent/_system/health\n{\"version\":\"1.33.0\"}\nThe version should match the version of the Cloud Agent defined in the .envfile.\nCongratulations! you have successfully setup the agent in local mode. Next we will explore our Docker file in detail and interact with our agent using the REST API.",
+    "crumbs": [
+      "Section II - Getting Started",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Installation - Local Environment</span>"
     ]
   },
   {
@@ -261,12 +305,12 @@
   {
     "objectID": "glossary.html",
     "href": "glossary.html",
-    "title": "24  Glossary",
+    "title": "Glossary",
     "section": "",
-    "text": "Glossary or Index here\nThis will reference key concepts and Identus terms and where they are mentioned in the book, allowing someone to look up a term and know what section it is referenced in.\n\n25 vdr\nVerifiable Data Registry (VDR)",
+    "text": "Glossary or Index here\nThis will reference key concepts and Identus terms and where they are mentioned in the book, allowing someone to look up a term and know what section it is referenced in.\nTODO: First draft will just lay down the glossary terms, we want to add detailed descriptions later.\n\nVDR\n\nVerifiable Data Registry",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Glossary</span>"
+      "Glossary"
     ]
   }
 ]

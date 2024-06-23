@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Mastering Identus: A Developer Handbook - 8&nbsp; Installation - Development Environment</title>
+<title>Mastering Identus: A Developer Handbook - 8&nbsp; Installation - Local Environment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -122,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section2/installation-dev.html">Section II - Getting Started</a></li><li class="breadcrumb-item"><a href="../section2/installation-dev.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Installation - Development Environment</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section2/installation-local.html">Section II - Getting Started</a></li><li class="breadcrumb-item"><a href="../section2/installation-local.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Installation - Local Environment</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -212,8 +246,8 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../section2/installation-dev.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Installation - Development Environment</span></span></a>
+  <a href="../section2/installation-local.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Installation - Local Environment</span></span></a>
   </div>
 </li>
       </ul>
@@ -353,7 +387,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../glossary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Glossary</span></span></a>
+ <span class="menu-text">Glossary</span></a>
   </div>
 </li>
       </ul>
@@ -364,14 +398,36 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">8.1</span> Introduction</a></li>
+  <li><a href="#identus-releases-overview" id="toc-identus-releases-overview" class="nav-link" data-scroll-target="#identus-releases-overview"><span class="header-section-number">8.2</span> Identus Releases Overview</a></li>
+  <li><a href="#pre-requisites" id="toc-pre-requisites" class="nav-link" data-scroll-target="#pre-requisites"><span class="header-section-number">8.3</span> Pre-requisites</a>
+  <ul class="collapse">
+  <li><a href="#git" id="toc-git" class="nav-link" data-scroll-target="#git"><span class="header-section-number">8.3.1</span> Git</a></li>
+  <li><a href="#docker" id="toc-docker" class="nav-link" data-scroll-target="#docker"><span class="header-section-number">8.3.2</span> Docker</a></li>
+  <li><a href="#wsl" id="toc-wsl" class="nav-link" data-scroll-target="#wsl"><span class="header-section-number">8.3.3</span> WSL</a></li>
+  </ul></li>
+  <li><a href="#before-we-run-the-agent" id="toc-before-we-run-the-agent" class="nav-link" data-scroll-target="#before-we-run-the-agent"><span class="header-section-number">8.4</span> Before We Run The Agent</a>
+  <ul class="collapse">
+  <li><a href="#atala-community-projects" id="toc-atala-community-projects" class="nav-link" data-scroll-target="#atala-community-projects"><span class="header-section-number">8.4.1</span> Atala Community Projects</a></li>
+  <li><a href="#exploring-the-repository" id="toc-exploring-the-repository" class="nav-link" data-scroll-target="#exploring-the-repository"><span class="header-section-number">8.4.2</span> Exploring The Repository</a></li>
+  </ul></li>
+  <li><a href="#running-the-cloud-agent" id="toc-running-the-cloud-agent" class="nav-link" data-scroll-target="#running-the-cloud-agent"><span class="header-section-number">8.5</span> Running The Cloud Agent</a>
+  <ul class="collapse">
+  <li><a href="#environment-variables" id="toc-environment-variables" class="nav-link" data-scroll-target="#environment-variables"><span class="header-section-number">8.5.1</span> Environment Variables</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section2/installation-dev.html">Section II - Getting Started</a></li><li class="breadcrumb-item"><a href="../section2/installation-dev.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Installation - Development Environment</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section2/installation-local.html">Section II - Getting Started</a></li><li class="breadcrumb-item"><a href="../section2/installation-local.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Installation - Local Environment</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Installation - Development Environment</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Installation - Local Environment</span></h1>
 </div>
 
 
@@ -388,10 +444,122 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Detailed instructions on how to install a development instance of Identus on your local machine.</p>
-<p>This will include several tips and tricks to creating a fully functional environment</p>
+<section id="introduction" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">8.1</span> Introduction</h2>
+<p>Hyperledger Identus, previously known as Atala PRISM, is distributed across various repositories. These repositories group together different building blocks to provide the necessary functionality for fulfilling each of the essential roles in Self-Sovereign Identity (SSI), as introduced in <a href="../section1/identus-concepts.html">Identus Concepts</a> and <a href="../section1/ssi-basics.html">SSI Basics</a>. Throughout this book, we will detail the setup of each component.</p>
+<p>The initial component to set up is our Cloud Agent. This agent is responsible for creating and publishing DID Documents into a Verifiable Data Registry (<a href="../glossary.html#vdr">VDR</a>), issuing Verifiable Credentials, and, depending on the configuration, even providing Identity Wallets to multiple users through a multi-tenancy setup. For now, our focus will be on setting up the Cloud Agent to run locally in development mode, supporting only a single tenant. This step is crucial for learning the basics and getting started. As we progress and build our example application, we will deploy the Cloud Agent in development mode first, then set it up to connect to Cardano <code>testnet</code> as our VDR on pre-production mode and, finally, in production mode with multi-tenancy support connected to Cardano <code>mainnet</code>. This will be a gradual process as we need to familiarize on each stage of the Cloud Agent.</p>
+</section>
+<section id="identus-releases-overview" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="identus-releases-overview"><span class="header-section-number">8.2</span> Identus Releases Overview</h2>
+<p>Identus is built upon multiple interdependent building blocks, including the Cloud Agent, Wallet SDK, Mediator, and Apollo Crypto Library. To ensure compatibility among these components, it is crucial to identify the correct building block versions that are compatible between them. For this purpose, a dedicated repository named <a href="https://github.com/input-output-hk/atala-releases">atala-releases</a> is available. This repository provides comprehensive documentation and a compatibility table for each Identus Release. We will be using <a href="https://github.com/input-output-hk/atala-releases/blob/master/Atala%20PRISM/2.12.md">Identus v2.12</a> as our selected release because it is the latest at the time of writing (May 2024).</p>
+</section>
+<section id="pre-requisites" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="pre-requisites"><span class="header-section-number">8.3</span> Pre-requisites</h2>
+<section id="git" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="git"><span class="header-section-number">8.3.1</span> Git</h3>
+<p>GitHub is currently the primary platform for hosting repositories. As of this writing, projects are transitioning from Atala PRISM’s original repositories to Hyperledger ones, with the Cloud Agent being the first to migrate. For more details, you can read the press release <a href="https://iohk.io/en/blog/posts/2023/12/04/iog-contributes-atala-prism-to-hyperledger-foundation/">here</a>.</p>
+<p>If you’re using a UNIX-based system (such as OS X or Linux), you likely already have <code>git</code> installed. If not, you can download the installer from <a href="https://www.git-scm.com/downloads">Git downloads</a>. Additionally, various <a href="https://www.git-scm.com/downloads/guis">GUI clients</a> are available for those who prefer a graphical interface.</p>
+<p>To clone the Cloud Agent repository, first go to the <a href="https://github.com/hyperledger/identus-cloud-agent/releases">Releases page</a> and identify the tagged release corresponding to the Identus release you are targeting (e.g.&nbsp;<code>cloud-agent-v1.33.0</code> is part of <a href="https://github.com/input-output-hk/atala-releases/blob/master/Atala%20PRISM/2.12.md">Identus v2.12</a> release), then clone the repository with this command:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--depth</span> 1 <span class="at">--branch</span> cloud-agent-v1.33.0 https://github.com/hyperledger/identus-cloud-agent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using <code>--depth 1</code> will skip the history of changes in the repository up until the point of the tag, this is optional.</p>
+</div>
+</div>
+</section>
+<section id="docker" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="docker"><span class="header-section-number">8.3.2</span> Docker</h3>
+<p>The Cloud Agent and Mediator are distributed as Docker containers, which is the recommended method for starting and stopping the various components required to run the cloud infrastructure.</p>
+<p>To begin, install <a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>, which provides everything you need to get started.</p>
+</section>
+<section id="wsl" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="wsl"><span class="header-section-number">8.3.3</span> WSL</h3>
+<p>For Windows users, please refer to <a href="https://learn.microsoft.com/en-us/windows/wsl/install">How to install Linux on Windows with WSL</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Windows is the least tested environment, the community has already found some issues and workarounds on how to get the Cloud Agent working. We will try to always include instructions regarding this use case.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="before-we-run-the-agent" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="before-we-run-the-agent"><span class="header-section-number">8.4</span> Before We Run The Agent</h2>
+<p>Once you have cloned the <code>identus-cloud-agent</code> repository and Docker is up and running you can jump right ahead and <a href="#running-the-cloud-agent">run the agent</a>, but before we do that if you are not yet familiar with the community projects or the structure of the agent itself, we recommend you to spend a little time exploring the following information, this is optional and you can skip it.</p>
+<section id="atala-community-projects" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="atala-community-projects"><span class="header-section-number">8.4.1</span> Atala Community Projects</h3>
+<p>There is a growing list of community repositories that aim to provide some extra functionality, mostly maintained by official developers and community members on their spare time. At present time there are three <a href="https://github.com/atala-community-projects">Atala Community Projects</a>:</p>
+<ul>
+<li><strong>Pluto Encrypted:</strong> Implementation of Pluto storage engine with encryption support.</li>
+<li><strong>Edge Agent SDK Demos:</strong> Browser and Node versions of Edge Agent SDK integrated with Pluto Encrypted.</li>
+<li><strong>Identus Test:</strong> Shell script helper that will checkout a particular Identus release and compatible components.</li>
+</ul>
+</section>
+<section id="exploring-the-repository" class="level3" data-number="8.4.2">
+<h3 data-number="8.4.2" class="anchored" data-anchor-id="exploring-the-repository"><span class="header-section-number">8.4.2</span> Exploring The Repository</h3>
+<p>There are two fundamental directories inside the repository if you are an end user.</p>
+<ol type="1">
+<li><code>docs</code> Where all the latest <em>technical documentation</em> will be available, this includes the Architecture Decision Records (<a href="../glossary.html#adr">ADR</a>), general insights, guides to deploy, examples and tutorials about how to handle VC Schemas, Connections, secrets, etc. We will do our best to explain in detail all this procedures as we build our example app.</li>
+<li><code>infrastructure</code> This directory holds the agent’s Docker file and related scripts to run the agent in different modes such as <code>dev</code>, <code>local</code> or <code>multi</code>. <strong>The way to change the agent setup is by customizing environmental variables trough the Docker file</strong>, so we really advice you to get familiar with the <code>shared</code> directory content, because that’s the base for every other mode, in essence, every mode is a customization of the shared Docker file.</li>
+</ol>
+<p>Our first mode to explore and the simplest one should be <code>local</code> mode, which by default will run a single agent as a single-tenant, meaning that this instance will control only a single <a href="../glossary.html#identity-wallet">Identity Wallet</a> that will be automatically created and seeded upon the first start of the agent.</p>
+<p>The <code>multi</code> mode essentially runs 3 different <code>local</code> agents but each is assigned a particular role such as <code>issuer</code>, <code>holder</code> and <code>verifier</code>. This is useful in order try test more complex interactions between independent actors.</p>
+<p>Finally the <code>dev</code> mode is meant to be used for development and provides an easy way to modify the Cloud Agent source code, it does not rely on the pre-built Docker images that the <code>local</code> mode fetches and run. We will not use this mode at all trough the book but feel free to explore this option if you would like to make contributions to the Cloud Agent in the future.</p>
+</section>
+</section>
+<section id="running-the-cloud-agent" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="running-the-cloud-agent"><span class="header-section-number">8.5</span> Running The Cloud Agent</h2>
+<section id="environment-variables" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="environment-variables"><span class="header-section-number">8.5.1</span> Environment Variables</h3>
+<p>Inside <code>infrastructure/local</code> directory, you will find three important files, <code>run.sh</code>and <code>stop.sh</code> scripts and the <code>.env</code> file.</p>
+<p>Our <code>local</code> environment file should look like this</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">AGENT_VERSION</span><span class="op">=</span>1.33.0</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">PRISM_NODE_VERSION</span><span class="op">=</span>2.2.1</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">VAULT_DEV_ROOT_TOKEN_ID</span><span class="op">=</span>root</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will tell Docker which versions of the Cloud Agent and PRISM Node to run, plus a default value for the <code>VAULT_DEV_ROOT_TOKEN_ID</code>, this value corresponds to the HashiCorp Token ID. HashiCorp is a secrets storage engine and it will become relevant later on when we need to prepare the agent to run in <code>prepod</code> and <code>production</code> modes, for now the <code>local</code> mode will ignore this value because by default it will use a local <code>postgres</code> database for it’s secret storage engine.</p>
+<p>The <code>run.sh</code> script options:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./run.sh</span> <span class="at">--help</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Run</span> an instance of the ATALA bulding-block stack locally</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Syntax:</span> run.sh [-n/--name NAME<span class="kw">|</span><span class="ex">-p/--port</span> PORT<span class="kw">|</span><span class="ex">-b/--background</span><span class="kw">|</span><span class="ex">-e/--env</span><span class="kw">|</span><span class="ex">-w/--wait</span><span class="kw">|</span><span class="ex">--network</span><span class="kw">|</span><span class="ex">-h/--help]</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">options:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">-n/--name</span>              Name of this instance <span class="at">-</span> defaults to dev.</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">-p/--port</span>              Port to run this instance on <span class="at">-</span> defaults to 80.</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">-b/--background</span>        Run in docker-compose daemon mode in the background.</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-e/--env</span>               Provide your own .env file with versions.</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">-w/--wait</span>              Wait until all containers are healthy <span class="er">(</span><span class="ex">only</span> in the background<span class="kw">)</span><span class="bu">.</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">--network</span>              Specify a docker network to run containers on.</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">--webhook</span>              Specify webhook URL for agent events</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">--webhook-api-key</span>      Specify api key to secure webhook if required</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">--debug</span>                Run additional services for debug using docker-compose debug profile.</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">-h/--help</span>              Print this help text.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For our first interaction with agent all we have to do is to call the run script, if you have any conflicts with the port 80 already in use you can pass <code>--port 8080</code> or any other available port that you would like to use.</p>
+<p>So, from the root of the repository you can run:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./infrastructure/local/run.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will take a while the first time as Docker will fetch the required container images and get them running. To check the status of the Cloud Agent you can use <code>curl</code> or open a browser window at same endpoint URL (make sure to replace port 80 if you changed it in the previous step):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://127.0.0.1:80/cloud-agent/_system/health</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">{</span><span class="st">"version"</span><span class="ex">:</span><span class="st">"1.33.0"</span><span class="ex">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>version</code> should match the version of the Cloud Agent defined in the <code>.env</code>file.</p>
+<p>Congratulations! you have successfully setup the agent in <code>local</code> mode. Next we will explore our Docker file in detail and interact with our agent using the REST API.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

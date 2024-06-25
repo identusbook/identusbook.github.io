@@ -6,21 +6,21 @@ title: "Verifiable Credentials"
 
 Verifiable Credentials are an integral part of Self-Sovereign Identity, allowing individuals to keep and control how their personal information is shared.
 
-A Verifiable Credential (VC) is a digital statement made by an **Issuer** about a **Subject**. This statement is cryptographically secured and can be verified by a third party without the need for the **Verifier** to directly contact the **Issuer**. Verifiable credentials are used to represent information such as identity documents, academic records, professional certifications, and other forms of credentials that traditionally exist in paper form.
+A Verifiable Credential (VC) is a digital statement made by an **Issuer** about a **Subject**. This statement is cryptographically secured and can be verified by a third party without the need for the **Verifier** to directly contact the **Issuer**. Verifiable Credentials are used to represent information such as identity documents, academic records, professional certifications, and other forms of credentials that traditionally exist in paper form as well as unlocking the potential for novel and powerful completely digital type of credentials.
 
 Components of a Verifiable Credential:
 
-- **Issuer**: The entity that creates and signs the credential. This could be an organization, institution, or government entity.
-- **Holder**: The individual or entity to whom the credential is issued and who has control over it.
-- **Verifier**: The entity that checks the authenticity and validity of the credential.
-- **Subject**: The entity about which the claims are made. In many cases, the **Holder** and the **Subject** are the same entity.
+- **Issuer**: The entity that creates and signs the credential. This could be an organization, institution, government entity or individual.
+- **Holder**: The entity or individual to whom the credential is issued to and who can present proof to a **Verifier**.
+- **Verifier**: The entity or individual that checks the authenticity and validity of the credential trough requesting proof from a **Holder**.
+- **Subject**: The entity or individual about which the claims are made. In many cases, the **Holder** and the **Subject** are the same entity.
 - **Claims**: Statements about the **Subject**, such as "Alice has an Educational Credential from Vienna University."
 - **Proof**: Cryptographic evidence, using Digital Signatures, that the credential is authentic and has not been tampered with.
 - **Metadata**: Additional contextual information which may have content or application specific meaning, like expiration date or credential description.
 
 How Verifiable Credentials Work:
 
-- **Issuance**: The issuer creates a credential containing claims about the subject and signs it with their private key.
+- **Issuance**: The issuer creates a credential containing claims about the subject, the subject DID (public key) and signs it with their private key.
 - **Storage**: The holder receives the credential and stores it in a digital wallet.
 - **Presentation**: When required, the holder presents the credential to a verifier. Selective Disclosure can be used to reveal only relevant context about a claim, and not all user data.
 - **Verification**: The verifier checks the credential’s authenticity by validating the issuer’s digital signature and ensuring the credential has not been tampered with.

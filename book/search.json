@@ -197,7 +197,73 @@
     "href": "section3/verifiable-credentials.html",
     "title": "14  Verifiable Credentials",
     "section": "",
-    "text": "Verifiable Credentials\n\nOverview\nFormats (just mention types, details later in Issuing)\nSchemas\nPublishing your Schema\nIssuing\n\nJWT\nSD-JWT (Atala Roadmap Q2)\nAnonCreds\n\nUpdating (re-binding)\nRevoking",
+    "text": "14.1 Overview\nVerifiable Credentials are an integral part of Self-Sovereign Identity, allowing individuals to keep and control how their personal information is shared.\nA Verifiable Credential (VC) is a digital statement made by an Issuer about a Subject. This statement is cryptographically secured and can be verified by a third party without the need for the Verifier to directly contact the Issuer. Verifiable Credentials are used to represent information such as identity documents, academic records, professional certifications, and other forms of credentials that traditionally exist in paper form. Coupled with other technology such as Self-Sovereign Identity, Verifiable Credentials can unlock novel and exciting use cases.\nComponents of a Verifiable Credential:\nHow Verifiable Credentials Work:\nBenefits of Verifiable Credentials:\nUse Cases:",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+    ]
+  },
+  {
+    "objectID": "section3/verifiable-credentials.html#overview",
+    "href": "section3/verifiable-credentials.html#overview",
+    "title": "14  Verifiable Credentials",
+    "section": "",
+    "text": "Issuer: The entity that creates and signs the credential. This could be an organization, institution, government entity or individual.\nHolder: The entity or individual to whom the credential is issued to and who can present proof to a Verifier.\nVerifier: The entity or individual that checks the authenticity and validity of the credential trough requesting proof from a Holder.\nSubject: The entity or individual about which the claims are made. In many cases, the Holder and the Subject are the same entity.\nClaims: Statements about the Subject, such as “Alice has an Educational Credential from Vienna University.”\nProof: Cryptographic evidence, using Digital Signatures, that the credential is authentic and has not been tampered with.\nMetadata: Additional contextual information which may have content or application specific meaning, like expiration date or credential description.\n\n\n\nIssuance: The issuer creates a credential containing claims about the subject, the subject DID (public key) and signs it with their private key.\nStorage: The holder receives the credential and stores it in a digital wallet.\nPresentation: When required, the holder presents the credential to a verifier. Selective Disclosure can be used to reveal only relevant context about a claim, and not all user data.\nVerification: The verifier checks the credential’s authenticity by validating the issuer’s digital signature and ensuring the credential has not been tampered with.\n\n\n\nInteroperability: VCs follow standard formats, making them compatible across different systems and platforms.\nPrivacy: Holders can share only the necessary information, protecting their privacy.\nSecurity: Cryptographic techniques ensure the integrity and authenticity of credentials.\nDecentralization: VCs do not rely on a central authority for verification, reducing single points of failure.\n\n\n\nDigital Identity: Proof of identity for accessing services.\nEducation: Digital diplomas and certificates.\nHealthcare: Vaccination records and medical certificates.\nEmployment: Professional qualifications and work experience.",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+    ]
+  },
+  {
+    "objectID": "section3/verifiable-credentials.html#formats",
+    "href": "section3/verifiable-credentials.html#formats",
+    "title": "14  Verifiable Credentials",
+    "section": "14.2 Formats",
+    "text": "14.2 Formats\n\nFormats (just mention types, details later in Issuing)\n\nW3C\nJWT\nSD-JWT\nAnonCreds",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+    ]
+  },
+  {
+    "objectID": "section3/verifiable-credentials.html#schemas",
+    "href": "section3/verifiable-credentials.html#schemas",
+    "title": "14  Verifiable Credentials",
+    "section": "14.3 Schemas",
+    "text": "14.3 Schemas\n\nSchemas\nPublishing your Schema",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+    ]
+  },
+  {
+    "objectID": "section3/verifiable-credentials.html#issuing",
+    "href": "section3/verifiable-credentials.html#issuing",
+    "title": "14  Verifiable Credentials",
+    "section": "14.4 Issuing",
+    "text": "14.4 Issuing\n\nJWT\nSD-JWT (Atala Roadmap Q2)\nAnonCreds",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+    ]
+  },
+  {
+    "objectID": "section3/verifiable-credentials.html#updating",
+    "href": "section3/verifiable-credentials.html#updating",
+    "title": "14  Verifiable Credentials",
+    "section": "14.5 Updating",
+    "text": "14.5 Updating\n\nUpdating (re-binding)",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+    ]
+  },
+  {
+    "objectID": "section3/verifiable-credentials.html#revoking",
+    "href": "section3/verifiable-credentials.html#revoking",
+    "title": "14  Verifiable Credentials",
+    "section": "14.6 Revoking",
+    "text": "14.6 Revoking\n\nRevoking",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"

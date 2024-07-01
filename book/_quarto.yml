@@ -43,6 +43,7 @@ book:
     - part: "Section II - Getting Started"
       chapters:
       - section2/installation-local.md
+      - section2/agent-rest-api.md
     - part: "Section III - Building"
       chapters: 
       - section3/project-overview.md

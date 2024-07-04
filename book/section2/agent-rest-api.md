@@ -21,7 +21,7 @@ Later on the book, once we start building our example app, we will setup the age
 Besides the `_system/health` endpoint we used earlier to confirm the agent version, there is one more endpoint used to debug runtime metrics:
 
 ```bash
-curl http://127.0.0.1:80/cloud-agent/_system/metrics
+curl http://localhost/cloud-agent/_system/metrics
 # HELP jvm_memory_bytes_used  
 # TYPE jvm_memory_bytes_used gauge
 jvm_memory_bytes_used{area="heap",} 1.07522616E8
@@ -34,9 +34,27 @@ This will be useful when debugging a memory or performance issue or when develop
 
 The OpenAPI Specification (`OAS`) defines a standard, language-agnostic interface to HTTP APIs. The Cloud Agent API documentation can be found at [https://docs.atalaprism.io/agent-api/](https://docs.atalaprism.io/agent-api/)  and besides being very detailed and always updated to the latest, it also comes with the OAS spec yaml file that will allow us to setup `Postman` to easily test our API or use the same OAS standard to auto generate code for client libraries on different language stacks. We will not attempt to repeat this API documentation in the book, rather lets focus on how to setup this tools to issue our first `DID` and later on, connect two agents together and issue a Credential Schema and Verifiable Credential as our first example interactions.
 
+## APISIX Gateway
+
+APISIX is in charge of proxying different services inside the container, exposing three routes trough the port you specified to the `run.sh` script (remember it runs on `port 80` by default).
+
+- [http://localhost/cloud-agent/](http://localhost/cloud-agent/) This will be the Cloud Agent API.
+- [http://localhost/apidocs/](http://localhost/apidocs/) Swagger UI interface test the API.
+- [http://localhost/didcomm/](http://localhost/didcomm/) Our public DIDCOMM endpoint, this is our communication channel and it's how we send end to end encrypted messages to another peer trough a mediator. We will take a deep dive into DIDCOMM later in the book.
+
+APISIX by default will just expose this services but trough plugins it can be setup as Ingress controller, load balancer, authentication and much more. You can read the [APISIX documentation](https://apisix.apache.org/docs/) to learn more.
+
+::: {.callout-warning}
+This is where `CORS` ([Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)) is setup, be default it will allow any origin, here you can restrict which domains should be allowed to connect to this endpoints. We will revisit this on our customization guide.
+:::
+
+## Swagger UI
+
+TODO: Explain how to use swagger
+
 ## Postman Setup
 
-`Postman`is perhaps the most popular API tool among developers, it allow us to easily interact and debug API endpoints but has many killer feature like  enabling teams to share and work together on the same API, run automated tests, automatically renew tokens, etc.
+`Postman`is perhaps the most popular API tool among developers, it allow us to easily interact and debug API endpoints but has many killer feature like  enabling teams to share and work together on the same API, run automated tests, automatically renew tokens, keeps the state of your interactions with the API, copy code snippets to make API calls over many languages, etc. So it's really a better overall option versus the Swagger UI interface or just directly using `curl`.
 
 The big time saver for us is that because it supports OAS, we can easily import the whole API definition. So, let's try it:
 
@@ -46,6 +64,9 @@ The big time saver for us is that because it supports OAS, we can easily import 
 4. On the "How to import" step select "OpenAPI 3.0 with a Postman Collection" and click import.
 
 If everything goes correctly, you should see "Identus Cloud Agent API Reference" in your collections.
+
+## Issuing a DID
+
 
 TODO:
 

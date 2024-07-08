@@ -274,7 +274,29 @@
     "href": "section3/didcomm.html",
     "title": "15  DIDComm",
     "section": "",
-    "text": "This chapter will discuss the many ways the DIDComm protocol can be used inside your Identus Application.\n\nOverview of the DIDComm protocol\nSending Message\nSending Files",
+    "text": "15.1 Overview\nDIDComm v2 (Decentralized Identifier Communication version 2) is a set of communication protocols designed to enable secure, private, and interoperable messaging between DIDs. These protocols have been adopted throughout Identus to standardize many important interactions, like sending and receiving encrypted messages between a mediator its peers.\nDIDComm Messaging messages are encrypted JSON Web Message (JWM) envelopes. They have a standard structure including headers, a body, and optional attachments, which are encrypted and signed to ensure security and integrity.\nFor details on how messages are sent and received in Identus, see Mediators",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>DIDComm</span>"
+    ]
+  },
+  {
+    "objectID": "section3/didcomm.html#sending-messages",
+    "href": "section3/didcomm.html#sending-messages",
+    "title": "15  DIDComm",
+    "section": "15.2 Sending Messages",
+    "text": "15.2 Sending Messages",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>DIDComm</span>"
+    ]
+  },
+  {
+    "objectID": "section3/didcomm.html#sending-files",
+    "href": "section3/didcomm.html#sending-files",
+    "title": "15  DIDComm",
+    "section": "15.3 Sending Files",
+    "text": "15.3 Sending Files",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>DIDComm</span>"

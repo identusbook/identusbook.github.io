@@ -40,7 +40,7 @@ APISIX is in charge of proxying different services inside the container, exposin
 
 - [http://localhost/cloud-agent/](http://localhost/cloud-agent/) This will be the Cloud Agent API.
 - [http://localhost/apidocs/](http://localhost/apidocs/) Swagger UI interface test the API.
-- [http://localhost/didcomm/](http://localhost/didcomm/) Our public DIDCOMM endpoint, this is our communication channel and it's how we send end to end encrypted messages to another peer trough a mediator. We will take a deep dive into DIDCOMM later in the book.
+- [http://localhost/didcomm/](http://localhost/didcomm/) Our public [DIDCOMM](/section3/didcomm.html) endpoint, this is our communication channel and it's how we send end to end encrypted messages to another peer trough a mediator. We will take a deep dive into [DIDCOMM](/section3/didcomm.html) later in the book.
 
 APISIX by default will just expose this services but trough plugins it can be setup as Ingress controller, load balancer, authentication and much more. You can read the [APISIX documentation](https://apisix.apache.org/docs/) to learn more.
 
@@ -50,9 +50,42 @@ This is where `CORS` ([Cross-Origin Resource Sharing](https://developer.mozilla.
 
 ## Swagger UI
 
-TODO: Explain how to use swagger
+[Swagger UI](https://swagger.io/tools/swagger-ui/) it's a visualization and interactive tool to explore an API. It's automatically generated from your OpenAPI (formerly known as Swagger) Specification and it's often used to support the API documentation.
 
-## Postman Setup
+Our Cloud Agent Docker file includes a container for Swagger UI that is exposed trough APISIX as explained earlier. This means you can use this tool right away after the agent is running.
+
+To use it, just open [http://localhost/apidocs/](http://localhost/apidocs/) in your browser and from the server list select:
+
+- `http://localhost/cloud-agent - The local instance of the Cloud Agent behind the APISIX proxy`.
+
+Then, click the `Authorize` button and a small modal window will popup, in there you need to define an `apikey`, even if by default you haven't defined one, this means you can put any value in here, of course later in the book when we set an actual `apikey` you will need to use it here, for now just use `test` as value and it should be fine.
+
+After authorizing, the modal should look like this:
+
+![Swagger UI Apikey Modal](/section2/swagger-ui-apikey-modal.png)
+
+You can close that modal window and try your first request, click to expand the `GET /connections` endpoint and click `Try it out` button, that will enable the text inputs for any available parameters, for now, all three parameters should be blank (`offet`, `limit`, `thid`).
+
+Finally, just click the `Execute` button to actually perform the request. This should return something like this:
+
+```json
+{ "contents": [], "kind": "ConnectionsPage", "self": "", "pageOf": "" }
+```
+
+Congratulations! you have connected to the API and asked for a list of `connections`, right now there are no connections so the empty array you get back is correct.
+
+::: {.callout-note}
+You can use Swagger UI to copy `curl` commands that you can paste in your terminal, this will run exactly the same API request. For example:
+
+```bash
+curl -X 'GET' \
+  'http://localhost/cloud-agent/connections' \
+  -H 'accept: application/json' \
+  -H 'apikey: test'
+{"contents":[],"kind":"ConnectionsPage","self":"","pageOf":""}
+```
+:::
+## Postman
 
 `Postman`is perhaps the most popular API tool among developers, it allow us to easily interact and debug API endpoints but has many killer feature like  enabling teams to share and work together on the same API, run automated tests, automatically renew tokens, keeps the state of your interactions with the API, copy code snippets to make API calls over many languages, etc. So it's really a better overall option versus the Swagger UI interface or just directly using `curl`.
 

@@ -32,7 +32,7 @@ This will be useful when debugging a memory or performance issue or when develop
 
 ## OpenAPI Specification
 
-The OpenAPI Specification (`OAS`) defines a standard, language-agnostic interface to HTTP APIs. The Cloud Agent API documentation can be found at [https://docs.atalaprism.io/agent-api/](https://docs.atalaprism.io/agent-api/)  and besides being very detailed and always updated to the latest, it also comes with the OAS spec yaml file that will allow us to setup `Postman` to easily test our API or use the same OAS standard to auto generate code for client libraries on different language stacks. We will not attempt to repeat this API documentation in the book, rather lets focus on how to setup this tools to issue our first `DID` and later on, connect two agents together and issue a Credential Schema and Verifiable Credential as our first example interactions.
+The OpenAPI Specification (`OAS`) defines a standard, language-agnostic interface to HTTP APIs. The Cloud Agent API documentation can be found at [https://docs.atalaprism.io/agent-api/](https://docs.atalaprism.io/agent-api/)  and besides being very detailed and always updated to the latest, it also comes with the OAS spec yaml file that will allow us to setup `Postman` to easily test our API or use the same OAS standard to auto generate code for client libraries on different language stacks. We will not attempt to repeat this API documentation in the book, rather lets focus on complement the existing documentation and explain with more detail how everything works.
 
 ## APISIX Gateway
 
@@ -98,9 +98,6 @@ The big time saver for us is that because it supports OAS, we can easily import 
 
 If everything goes correctly, you should see "Identus Cloud Agent API Reference" in your collections.
 
-## Issuing a DID
+## Tutorials
 
-
-TODO:
-
-- Test the agent by creating a DID and schema definition (to be used in section3 with edge sdk)
+The official documentation contains a [tutorials](https://docs.atalaprism.io/tutorials/) section with detailed walkthroughs for each of the most important interactions like connecting to another peer, managing DIDs, managing VC Schemas, issuing a VC, etc. We highly encourage you to follow those and get familiar with the API, this will come in very handy very soon when we start building our own example app.

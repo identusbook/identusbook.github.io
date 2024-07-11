@@ -104,7 +104,7 @@ options:
 -h/--help              Print this help text.
 ```
 
-For our first interaction with the agent all we have to do is to call the run script. If you have any conflicts with the port 80 already in use you can pass `--port 8080` or any other available port that you would like to use.
+For our first interaction with the agent all we have to do is to call the run script. If you have any conflicts with the port 80 already in use or you don't want that as the default, you can pass `--port 8080` or any other available port that you would like to use.
 
 So, from the root of the repository you can run:
 
@@ -112,16 +112,16 @@ So, from the root of the repository you can run:
 ./infrastructure/local/run.sh
 ```
 
-This will take a while the first time as Docker will fetch the required container images and get them running. To check the status of the Cloud Agent you can use `curl` or open a browser window at same endpoint URL (make sure to replace port 80 if you changed it in the previous step):
+This will take a while the first time as Docker will fetch the required container images and get them running. To check the status of the Cloud Agent you can use `curl` or open a browser window at same endpoint URL (make sure to specify a custom port if you changed it in the previous step, e.g. use `http://localhost:8080`):
 
 ```bash
-curl http://127.0.0.1:80/cloud-agent/_system/health
+curl http://localhost/cloud-agent/_system/health
 {"version":"1.33.0"}
 ```
 
 The `version` should match the version of the Cloud Agent defined in the `.env`file.
 
-To stop the agent, run:
+To stop the agent, you can press `Control + C` or run:
 
 ```bash
 ./infrastructure/local/stop.sh

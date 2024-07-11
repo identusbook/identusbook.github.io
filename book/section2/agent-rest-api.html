@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jon Bauer, Roberto Carvajal">
-<meta name="dcterms.date" content="2024-04-05">
 
-<title>Mastering Identus: A Developer Handbook</title>
+<title>9&nbsp; Agent REST API – Mastering Identus: A Developer Handbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,26 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./copyright.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../section3/project-overview.html" rel="next">
+<link href="../section2/installation-local.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -123,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section2/installation-local.html">Section II - Getting Started</a></li><li class="breadcrumb-item"><a href="../section2/agent-rest-api.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Agent REST API</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -145,31 +178,31 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./copyright.html" class="sidebar-item-text sidebar-link">
+  <a href="../copyright.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Copyright</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./license.html" class="sidebar-item-text sidebar-link">
+  <a href="../license.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">License</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dedication.html" class="sidebar-item-text sidebar-link">
+  <a href="../dedication.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Dedication</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preface.html" class="sidebar-item-text sidebar-link">
+  <a href="../preface.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Preface</span></span></a>
   </div>
 </li>
@@ -184,19 +217,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section1/introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../section1/introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section1/ssi-basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../section1/ssi-basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">SSI Basics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section1/identus-concepts.html" class="sidebar-item-text sidebar-link">
+  <a href="../section1/identus-concepts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identus Concepts</span></span></a>
   </div>
 </li>
@@ -213,13 +246,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section2/installation-local.html" class="sidebar-item-text sidebar-link">
+  <a href="../section2/installation-local.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Installation - Local Environment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section2/agent-rest-api.html" class="sidebar-item-text sidebar-link">
+  <a href="../section2/agent-rest-api.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Agent REST API</span></span></a>
   </div>
 </li>
@@ -236,55 +269,55 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section3/project-overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../section3/project-overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Project Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section3/wallets.html" class="sidebar-item-text sidebar-link">
+  <a href="../section3/wallets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Wallets</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section3/dids.html" class="sidebar-item-text sidebar-link">
+  <a href="../section3/dids.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">DIDs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section3/diddocuments.html" class="sidebar-item-text sidebar-link">
+  <a href="../section3/diddocuments.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">DID Documents</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section3/connections.html" class="sidebar-item-text sidebar-link">
+  <a href="../section3/connections.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Connections</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section3/verifiable-credentials.html" class="sidebar-item-text sidebar-link">
+  <a href="../section3/verifiable-credentials.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Verifiable Credentials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section3/didcomm.html" class="sidebar-item-text sidebar-link">
+  <a href="../section3/didcomm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">DIDComm</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section3/verification.html" class="sidebar-item-text sidebar-link">
+  <a href="../section3/verification.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verification</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section3/plugins.html" class="sidebar-item-text sidebar-link">
+  <a href="../section3/plugins.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Plugins</span></span></a>
   </div>
 </li>
@@ -301,19 +334,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section4/installation-production.html" class="sidebar-item-text sidebar-link">
+  <a href="../section4/installation-production.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Installation - Production Environment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section4/mediator.html" class="sidebar-item-text sidebar-link">
+  <a href="../section4/mediator.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Mediator</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section4/maintenance.html" class="sidebar-item-text sidebar-link">
+  <a href="../section4/maintenance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Maintenance</span></span></a>
   </div>
 </li>
@@ -330,13 +363,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section5/trust-registries.html" class="sidebar-item-text sidebar-link">
+  <a href="../section5/trust-registries.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Trust Registries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./section5/continuing-your-journey.html" class="sidebar-item-text sidebar-link">
+  <a href="../section5/continuing-your-journey.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Continuing on Your Journey</span></span></a>
   </div>
 </li>
@@ -353,13 +386,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./errata.html" class="sidebar-item-text sidebar-link">
+  <a href="../errata.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Errata</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossary.html" class="sidebar-item-text sidebar-link">
+  <a href="../glossary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Glossary</span></a>
   </div>
 </li>
@@ -375,35 +408,28 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#the-cloud-agent-api" id="toc-the-cloud-agent-api" class="nav-link active" data-scroll-target="#the-cloud-agent-api"><span class="header-section-number">9.1</span> The Cloud Agent API</a></li>
+  <li><a href="#openapi-specification" id="toc-openapi-specification" class="nav-link" data-scroll-target="#openapi-specification"><span class="header-section-number">9.2</span> OpenAPI Specification</a></li>
+  <li><a href="#apisix-gateway" id="toc-apisix-gateway" class="nav-link" data-scroll-target="#apisix-gateway"><span class="header-section-number">9.3</span> APISIX Gateway</a></li>
+  <li><a href="#swagger-ui" id="toc-swagger-ui" class="nav-link" data-scroll-target="#swagger-ui"><span class="header-section-number">9.4</span> Swagger UI</a></li>
+  <li><a href="#postman" id="toc-postman" class="nav-link" data-scroll-target="#postman"><span class="header-section-number">9.5</span> Postman</a></li>
+  <li><a href="#tutorials" id="toc-tutorials" class="nav-link" data-scroll-target="#tutorials"><span class="header-section-number">9.6</span> Tutorials</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section2/installation-local.html">Section II - Getting Started</a></li><li class="breadcrumb-item"><a href="../section2/agent-rest-api.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Agent REST API</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Mastering Identus: A Developer Handbook</h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Agent REST API</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jon Bauer, Roberto Carvajal </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 5, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -413,9 +439,107 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>Welcome to the book!</p>
+<section id="the-cloud-agent-api" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="the-cloud-agent-api"><span class="header-section-number">9.1</span> The Cloud Agent API</h2>
+<p>The only way to interact with our newly created Cloud Agent is trough the REST API, this means any action of the Cloud Agent such as establishing connections, creating Credential Schemas, issuing Verifiable Credentials, etc. will be triggered trough the agent API endpoints.</p>
+<p>It is crucial to understand that the API is essentially an abstraction of the agent’s Identity Wallet. In our initial setup our agent is running on single-tenant mode, therefor it is managing a single default wallet which is assigned the following Entity ID (UUID) <code>00000000-0000-0000-0000-000000000000</code>. You can confirm this by running the following command:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> logs local-cloud-agent-1 <span class="kw">|</span> <span class="fu">grep</span> <span class="st">"default"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> Initializing default wallet.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> Default wallet seed is not provided. New seed will be generated.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> Entity created: Entity<span class="er">(</span><span class="ex">00000000-0000-0000-0000-000000000000,default,00000000-0000-0000-0000-000000000000,1970-01-01T00:00:00Z,1970-01-01T00:00:00Z</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Later on the book, once we start building our example app, we will setup the agent in multi-tenant mode, meaning that a single agent instance will be capable of managing multiple wallets, we refer to those wallets as custodian wallets. This more advanced setup is useful when your users would want to delegate their Identity Wallet custody to a service instead of managing the wallet themselves.</p>
+<p>Besides the <code>_system/health</code> endpoint we used earlier to confirm the agent version, there is one more endpoint used to debug runtime metrics:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost/cloud-agent/_system/metrics</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># HELP jvm_memory_bytes_used  </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># TYPE jvm_memory_bytes_used gauge</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">jvm_memory_bytes_used</span><span class="dt">{area=</span><span class="st">"heap"</span><span class="op">,</span><span class="dt">}</span> 1.07522616E8</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">jvm_memory_bytes_used</span><span class="dt">{area=</span><span class="st">"nonheap"</span><span class="op">,</span><span class="dt">}</span> 1.74044936E8</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will be useful when debugging a memory or performance issue or when developing.</p>
+</section>
+<section id="openapi-specification" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="openapi-specification"><span class="header-section-number">9.2</span> OpenAPI Specification</h2>
+<p>The OpenAPI Specification (<code>OAS</code>) defines a standard, language-agnostic interface to HTTP APIs. The Cloud Agent API documentation can be found at <a href="https://docs.atalaprism.io/agent-api/">https://docs.atalaprism.io/agent-api/</a> and besides being very detailed and always updated to the latest, it also comes with the OAS spec yaml file that will allow us to setup <code>Postman</code> to easily test our API or use the same OAS standard to auto generate code for client libraries on different language stacks. We will not attempt to repeat this API documentation in the book, rather lets focus on complement the existing documentation and explain with more detail how everything works.</p>
+</section>
+<section id="apisix-gateway" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="apisix-gateway"><span class="header-section-number">9.3</span> APISIX Gateway</h2>
+<p>APISIX is in charge of proxying different services inside the container, exposing three routes trough the port you specified to the <code>run.sh</code> script (remember it runs on <code>port 80</code> by default).</p>
+<ul>
+<li><a href="http://localhost/cloud-agent/">http://localhost/cloud-agent/</a> This will be the Cloud Agent API.</li>
+<li><a href="http://localhost/apidocs/">http://localhost/apidocs/</a> Swagger UI interface test the API.</li>
+<li><a href="http://localhost/didcomm/">http://localhost/didcomm/</a> Our public <a href="../section3/didcomm.html">DIDCOMM</a> endpoint, this is our communication channel and it’s how we send end to end encrypted messages to another peer trough a mediator. We will take a deep dive into <a href="../section3/didcomm.html">DIDCOMM</a> later in the book.</li>
+</ul>
+<p>APISIX by default will just expose this services but trough plugins it can be setup as Ingress controller, load balancer, authentication and much more. You can read the <a href="https://apisix.apache.org/docs/">APISIX documentation</a> to learn more.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is where <code>CORS</code> (<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">Cross-Origin Resource Sharing</a>) is setup, be default it will allow any origin, here you can restrict which domains should be allowed to connect to this endpoints. We will revisit this on our customization guide.</p>
+</div>
+</div>
+</section>
+<section id="swagger-ui" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="swagger-ui"><span class="header-section-number">9.4</span> Swagger UI</h2>
+<p><a href="https://swagger.io/tools/swagger-ui/">Swagger UI</a> it’s a visualization and interactive tool to explore an API. It’s automatically generated from your OpenAPI (formerly known as Swagger) Specification and it’s often used to support the API documentation.</p>
+<p>Our Cloud Agent Docker file includes a container for Swagger UI that is exposed trough APISIX as explained earlier. This means you can use this tool right away after the agent is running.</p>
+<p>To use it, just open <a href="http://localhost/apidocs/">http://localhost/apidocs/</a> in your browser and from the server list select:</p>
+<ul>
+<li><code>http://localhost/cloud-agent - The local instance of the Cloud Agent behind the APISIX proxy</code>.</li>
+</ul>
+<p>Then, click the <code>Authorize</code> button and a small modal window will popup, in there you need to define an <code>apikey</code>, even if by default you haven’t defined one, this means you can put any value in here, of course later in the book when we set an actual <code>apikey</code> you will need to use it here, for now just use <code>test</code> as value and it should be fine.</p>
+<p>After authorizing, the modal should look like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../section2/swagger-ui-apikey-modal.png" class="img-fluid figure-img"></p>
+<figcaption>Swagger UI Apikey Modal</figcaption>
+</figure>
+</div>
+<p>You can close that modal window and try your first request, click to expand the <code>GET /connections</code> endpoint and click <code>Try it out</code> button, that will enable the text inputs for any available parameters, for now, all three parameters should be blank (<code>offet</code>, <code>limit</code>, <code>thid</code>).</p>
+<p>Finally, just click the <code>Execute</code> button to actually perform the request. This should return something like this:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">"contents"</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span> <span class="dt">"kind"</span><span class="fu">:</span> <span class="st">"ConnectionsPage"</span><span class="fu">,</span> <span class="dt">"self"</span><span class="fu">:</span> <span class="st">""</span><span class="fu">,</span> <span class="dt">"pageOf"</span><span class="fu">:</span> <span class="st">""</span> <span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Congratulations! you have connected to the API and asked for a list of <code>connections</code>, right now there are no connections so the empty array you get back is correct.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can use Swagger UI to copy <code>curl</code> commands that you can paste in your terminal, this will run exactly the same API request. For example:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> <span class="st">'GET'</span> <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'http://localhost/cloud-agent/connections'</span> <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">'accept: application/json'</span> <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">'apikey: test'</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="dt">{</span><span class="st">"contents"</span><span class="dt">:[]</span><span class="op">,</span><span class="st">"kind"</span><span class="dt">:</span><span class="st">"ConnectionsPage"</span><span class="op">,</span><span class="st">"self"</span><span class="dt">:</span><span class="st">""</span><span class="op">,</span><span class="st">"pageOf"</span><span class="dt">:</span><span class="st">""</span><span class="dt">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="postman" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="postman"><span class="header-section-number">9.5</span> Postman</h2>
+<p><code>Postman</code>is perhaps the most popular API tool among developers, it allow us to easily interact and debug API endpoints but has many killer feature like enabling teams to share and work together on the same API, run automated tests, automatically renew tokens, keeps the state of your interactions with the API, copy code snippets to make API calls over many languages, etc. So it’s really a better overall option versus the Swagger UI interface or just directly using <code>curl</code>.</p>
+<p>The big time saver for us is that because it supports OAS, we can easily import the whole API definition. So, let’s try it:</p>
+<ol type="1">
+<li>If you don’t already have it, first you should <a href="https://www.postman.com/downloads/">Download Postman</a> and <a href="https://identity.getpostman.com/signup?continue=https%3A%2F%2Fgo.postman.co%2Fhome">Sign Up</a> for a free account.</li>
+<li>Head to the <a href="https://docs.atalaprism.io/agent-api/">API docs</a> and click the Download button, or copy this direct link <code>https://docs.atalaprism.io/redocusaurus/plugin-redoc-0.yaml</code></li>
+<li>Inside Postman, go to <code>File -&gt; Import</code> and either drag &amp; drop your yaml file if you downloaded it or paste the URL in the box, this will auto advance to the next step.</li>
+<li>On the “How to import” step select “OpenAPI 3.0 with a Postman Collection” and click import.</li>
+</ol>
+<p>If everything goes correctly, you should see “Identus Cloud Agent API Reference” in your collections.</p>
+</section>
+<section id="tutorials" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="tutorials"><span class="header-section-number">9.6</span> Tutorials</h2>
+<p>The official documentation contains a <a href="https://docs.atalaprism.io/tutorials/">tutorials</a> section with detailed walkthroughs for each of the most important interactions like connecting to another peer, managing DIDs, managing VC Schemas, issuing a VC, etc. We highly encourage you to follow those and get familiar with the API, this will come in very handy very soon when we start building our own example app.</p>
 
 
 </section>
@@ -843,10 +967,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../section2/installation-local.html" class="pagination-link" aria-label="Installation - Local Environment">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Installation - Local Environment</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./copyright.html" class="pagination-link" aria-label="Copyright">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Copyright</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../section3/project-overview.html" class="pagination-link" aria-label="Project Overview">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Project Overview</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

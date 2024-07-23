@@ -18,15 +18,33 @@ There are three roles in an SSI connection:
 - **Mediator**: An intermediary that facilitates message delivery between entities, especially when one or both parties may not always be online.
 
 ::: {.callout-note}
-We will cover [mediators](/section4/mediator.html) in detail later on. For now what you need to understand is that they are used to relay messages between peers due to the nature of peers not being always online. A useful mental model for this is email, you fetch your emails from your provider when you go online so you don't require your device to be always connected in order to receive emails. Email servers as well as mediators are expected to always be online.
+We will cover [mediators](/section4/mediator.html) in detail later on. For now what you need to understand is that they are used as a service to relay messages between peers, they will store messages and deliver them whenever a peer comes back online, connects to the mediator and fetches their messages. 
 :::
 
+## PeerDIDs
+
+They are a special kind of decentralized identifier with some unique properties that allow them to be perfect for use in order to establish private and secure communications between peers.
+
+DID Documents such as PrismDIDs are meant to be publicly available and resolvable by arbitrary parties, therefor storing them in a VDR such as Cardano blockchain is an excellent way to achieve this requirement in a reliable way. 
+
+However, when Alice and Bob want to interact with each other, only two parties care about the details of that connection: Alice and Bob. Instead of arbitrary parties needing to resolve their DIDs, only Alice and Bob do. Thus, PeerDIDs essentially describe a key-pair to encrypt and sign data to and from Alice and Bob, routed trough their preferred mediators, e.g. When Alice accepts an invite from Bob and they engage the connection protocol, Alice generates a PeerDID that allows her to encrypt and sign data routed trough Bob's mediator (mediator Y) that only Bob can decrypt, and viceversa, Bob will generate a PeerDID that allows him to encrypt and sign data routed trough Alice's preferred mediator (mediator X) that only Alice can decrypt.
+
+The key benefits of PeerDIDs are:
+
+1. Decentralized by nature.
+2. No transaction cost on blockchain.
+3. Private (only the concerned parties know about them).
+4. Reusable without any reliance on the internet, with no degradation of trust. (adheres to the principles of [local-first](https://www.inkandswitch.com/local-first/) and [offline-first](https://offlinefirst.org))
+
+To go deeper in your understanding of PeerDIDs please refer to the full [Peer DID Method Specification](https://identity.foundation/peer-did-method-spec). In the Hyperledger Identus ecosystem, only PeerDIDs method 2 are supported at the time of this writing.
+
+## Out of Band invites
 
 **TODO Checklist**
 
-- [ ] Concept of Connections
-- [ ] Explain PeerDIDs
-- [ ] How connections are achieved trough PeerDIDs
+- [x] Concept of Connections
+- [x] Explain PeerDIDs
+- [x] How connections are achieved trough PeerDIDs
 - [ ] Out of Band invites
 - [ ] How to Connect two agents
 - [ ] How to Connect edge client to agent

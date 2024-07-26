@@ -74,6 +74,7 @@ book:
 format:
   html:
     theme: flatly
+    code-overflow: wrap
   pdf:
     toc: true
     number-sections: false

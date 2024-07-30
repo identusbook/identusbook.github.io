@@ -13,6 +13,7 @@ In essence, a wallet in SSI is piece of software that allows users to store, man
 
 
 TODO:
+
 - [x] Explain the difference between a blockchain wallet and an identity wallet
 - [ ] How wallet works in Identus
 - [ ] Custodial wallets

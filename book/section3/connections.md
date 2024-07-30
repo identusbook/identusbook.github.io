@@ -164,6 +164,8 @@ As a refresher from what we covered, a PeerDID is a way to package a set of keys
 
 Now, lets issue another kind of Out of Band invite, one from the cloud agent in order to connect.
 
+TODO: Create invite on cloud agent, connect sample SDK code. (Milestone 4)
+
 **TODO Checklist**
 
 - [x] Concept of Connections

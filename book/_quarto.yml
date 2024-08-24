@@ -48,8 +48,7 @@ book:
       chapters: 
       - section3/project-overview.md
       - section3/wallets.md
-      - section3/dids.md
-      - section3/diddocuments.md
+      - section3/dids-and-diddocuments.md
       - section3/connections.md
       - section3/verifiable-credentials.md
       - section3/didcomm.md

@@ -76,7 +76,7 @@
     "href": "section1/identus-concepts.html",
     "title": "7  Identus Concepts",
     "section": "",
-    "text": "[Identus Application Architecture Diagram]\nIdentus is made up of several open source components. Each could be used or forked separately but they are designed to work well together.\nPRISM Node:\nPRISM Node implements the did:prism methods and is an interface to multiple VDR (Verifiable Data Registries). The node can resolve PRISM DIDs and write transactions to a blockchain or database. PRISM Node is expected to be online at all times.\nCloud Agent:\nWritten in Scala, the Cloud Agent runs on a server and communicates with clients and peers via a REST API. It is a critical component of an Identus application, able to manage identity wallets and their associated operations, as well as issue Verifiable Credentials. The Cloud Agent is expected to be online at all times.\nEdge Agent:\nEdge Agents give agent capabilities to clients like Websites and mobile apps. They can can never be assumed to be online at any given time, and therefore rely on sending and receiving all communications through an online proxy, the Mediator.\nDIDComm:\nDIDComm is a private, secure, and interoperable protocol for communication between decentralized identities. Identus supports DIDCommV2 and allows peers to pass messages between each other, proxied by the Mediator. Messages contain a to: and from: DID\nMediator:\nMediators act as middlemen between Peer DIDs. In order for any agent to send a message to any other agent, it must know the to and from DIDs of each message. The sender and recipient together make up a cryptographic connection called a DIDPair. Mediators maintain queues of messages for each DIDPair. If an Edge Agent is offline, the Mediator will hold incoming messages for them until the agent is back online and able to receive them. Mediators can deliver messages when polled, or push via Websockets. Mediators are expected to be online at all times and be highly available.\nSince instantiation of Identus Edge Agents requires a Mediator, there are several publicly available Mediator services which make development simple.\n\nPRISM Mediator\nRootsID Mediator\nBlocktrust Mediator\n\nWhile extremely helpful during development, these are not recommended for production Identus deployments as they have no uptime guarantee and will not scale past a small number of concurrent users. We will discuss how to run your own Mediator in Chapter 20\nBuilding Blocks:\nIdentus separates the handling of important SSI operations into separate, focused libraries.\nApollo: Apollo is a cryptographic primitives toolbox, which Identus uses to ensure data integrity, authenticity, and confidentiality.\nCastor: Castor enables creation, management, and resolution of DIDs.\nPollux: Pollux handles all Verifiable Credential operations.\nMercury: Mercury is an interface to the DIDCommV2 protocol, allowing the sending and receiving of messages between DIDs.\nMore info on each of the Building Blocks can be found in the Docs",
+    "text": "[Identus Application Architecture Diagram]\nIdentus is made up of several open source components. Each could be used or forked separately but they are designed to work well together.\nPRISM Node:\nPRISM Node implements the did:prism methods and is an interface to multiple VDR (Verifiable Data Registries). The node can resolve PRISM DIDs and write transactions to a blockchain or database. PRISM Node is expected to be online at all times.\nCloud Agent:\nWritten in Scala, the Cloud Agent runs on a server and communicates with clients and peers via a REST API. It is a critical component of an Identus application, able to manage identity wallets and their associated operations, as well as issue Verifiable Credentials. The Cloud Agent is expected to be online at all times.\nEdge Agent:\nEdge Agents give agent capabilities to clients like Websites and mobile apps. They can can never be assumed to be online at any given time, and therefore rely on sending and receiving all communications through an online proxy, the Mediator.\nDIDComm:\nDIDComm is a private, secure, and interoperable protocol for communication between decentralized identities. Identus supports DIDCommV2 and allows peers to pass messages between each other, proxied by the Mediator. Messages contain a to: and from: DID\nMediator:\nMediators act as middlemen between Peer DIDs. In order for any agent to send a message to any other agent, it must know the to and from DIDs of each message. The sender and recipient together make up a cryptographic connection called a DIDPair. Mediators maintain queues of messages for each DIDPair. If an Edge Agent is offline, the Mediator will hold incoming messages for them until the agent is back online and able to receive them. Mediators can deliver messages when polled, or push via Websockets. Mediators are expected to be online at all times and be highly available.\nSince instantiation of Identus Edge Agents requires a Mediator, there are several publicly available Mediator services which make development simple.\n\nPRISM Mediator\nRootsID Mediator\nBlocktrust Mediator\n\nWhile extremely helpful during development, these are not recommended for production Identus deployments as they have no uptime guarantee and will not scale past a small number of concurrent users. We will discuss how to run your own Mediator in Chapter 19\nBuilding Blocks:\nIdentus separates the handling of important SSI operations into separate, focused libraries.\nApollo: Apollo is a cryptographic primitives toolbox, which Identus uses to ensure data integrity, authenticity, and confidentiality.\nCastor: Castor enables creation, management, and resolution of DIDs.\nPollux: Pollux handles all Verifiable Credential operations.\nMercury: Mercury is an interface to the DIDCommV2 protocol, allowing the sending and receiving of messages between DIDs.\nMore info on each of the Building Blocks can be found in the Docs",
     "crumbs": [
       "Section I",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Identus Concepts</span>"
@@ -237,300 +237,322 @@
     ]
   },
   {
-    "objectID": "section3/dids.html",
-    "href": "section3/dids.html",
-    "title": "12  DIDs",
+    "objectID": "section3/dids-and-diddocuments.html",
+    "href": "section3/dids-and-diddocuments.html",
+    "title": "12  DIDs and DID Documents",
     "section": "",
-    "text": "We’ll do a deep dive on DIDs and did:prism specifically\n\ndid:prism methods\ncanonical vs longform DID",
+    "text": "12.1 Overview\nA DID Document (Decentralized Identifier Document) is a JSON-LD (JavaScript Object Notation for Linked Data) structure which describes a Subject. This can represent the identity of a person, a thing, or a relationship between one or many entities. Contained in the document is information which can verify that identity without relying on a centralized authority.\nA DID (Decentralized Identifier) is the canonical representation of a DIDDocument; a portable, compact hash, which can be passed around easily or stored to a database or blockchain. A DID can be resolved, revealing the full, parsable JSON encoded DIDDocument.\nThe spec for a did:prism DIDDocument can be found here.\nAn Example DID: did:prism:4a5b5cf0a513e83b598bbea25cd6196746747f065246f1d3743344b4b81b5a74:Cr4BCrsBElsKBmF1dGgwMRJRCglzZWNwMjU2azESBHRlc3QaOmtleTE6Ly8wMjM5MmYxNjc4NmNlNmQ0NzJlOGViNzA4ZWRjMmE3OTFmZGMxNzNkNjVkNTBhODNhMTk3N2I5ZmIwMmU0MjQSWwoGYXV0aDAyElEKCXNlY3AyNTZrMRIEdGVzdBo6a2V5MjovLzAyMzkyZjE2Nzg2Y2U2ZDQ3MmU4ZWI3MDhlZGMyYTc5MWZkYzE3M2Q2NWQ1MGE4M2ExOTc3YjlmYjAyZTQyNA\nLet’s break down the format of this example DID:\nAn Example DIDDocument:\nLet’s look at the components of a DID Document:\nAn non-exhaustive example of a did:prism DIDDocument can be found here.",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>DIDs</span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
     ]
   },
   {
-    "objectID": "section3/diddocuments.html",
-    "href": "section3/diddocuments.html",
-    "title": "13  DID Documents",
+    "objectID": "section3/dids-and-diddocuments.html#overview",
+    "href": "section3/dids-and-diddocuments.html#overview",
+    "title": "12  DIDs and DID Documents",
     "section": "",
-    "text": "DIDDocuments:\n\nResolvers\nControllers",
+    "text": "did:prism: The prefix of the DID\n4a5b5cf0a513e83b598bbea25cd6196746747f065246f1d3743344b4b81b5a74: The DID identifier. This can be anything, as long as it is unique to the DID Document it is describing, and means something to your application.\nCr4BCrsBElsKBmF1dGgwMRJRCglzZWNwMjU...: The DID Document itself, encoded in base58\n\n\n{\n  \"@context\": [\n      \"https://www.w3.org/ns/did/v1\",\n      \"https://w3id.org/security/suites/jws-2020/v1\",\n      \"https://didcomm.org/messaging/contexts/v2\",\n      \"https://identity.foundation/.well-known/did-configuration/v1\"\n    ],\n  \"id\": \"did:prism:123456789abcdefghi\",\n  \"controller\": \"did:example:bcehfew7h32f32h7af3\",\n  \"verificationMethod\": [{\n    \"id\": \"did:prism:123456789abcdefghi#key-1\",\n    \"type\": \"JsonWebKey2020\",\n    \"controller\": [\"did:prism:123456789abcdefghi\"],\n    \"publicKeyJwk\": {\n      \"kty\": \"OKP\",\n      \"crv\": \"Ed25519\",\n      \"x\": \"VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ\"\n    }\n  }],\n  \"authentication\": [\"did:prism:123456789abcdefghi#key-1\"],\n  \"assertionMethod\": [\"did:prism:123456789abcdefghi#key-1\"],\n  \"keyAgreement\": [ \"did:prism:123456789abcdefghi#key-1\"],\n  \"service\": [{\n    \"id\": \"did:prism:123456789abcdefghi#messaging\",\n    \"type\": \"DIDCommMessaging\",\n    \"serviceEndpoint\": \"https://example.com/endpoint\"\n  }]\n}\n\n\nid: The DID of the Subject described by the DIDDocument\n@context: This is an array of specifications used in this DIDDocument. The first element is usually https://www.w3.org/ns/did/v1 but any other common definitions are JSONWebSignature or DIDComm2 Messaging protocols.\ncontroller: An array of DIDs that are allowed to mutate the DIDDocument\nverificationMethod: An array of information which can be used to verify the identity of the Subject.\n\nid: The DID of the Subject\ncontroller: The DID of the Subject (author’s note: When could this be different than id?)\npublicKeyJwk or publicKeyMultibase:\n\npublicKeyJwk: A JSON Web Key (JWK) representation of the Subject’s Public Key\npublicKeyMultibase: An encoded public key using Multibase encoding\n\ntype: The type of Verification Method, ie Ed25519VerificationKey2020 or JsonWebKey2020\n\nAuthentication Methods:\n\nauthentication, assertionMethod, keyAgreement: Arrays of locations in the Subject DID, referenced in a DID + anchor format (did:prism:1234#authentication0)\n*Author’s note - Specify these in a more concrete way\n\nservice: An array of advertised methods of interacting with the Subject. These could be API endpoints for messaging or file storage systems, but any remote service can be added to add value to the DID.",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>DID Documents</span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
+    ]
+  },
+  {
+    "objectID": "section3/dids-and-diddocuments.html#resolvers",
+    "href": "section3/dids-and-diddocuments.html#resolvers",
+    "title": "12  DIDs and DID Documents",
+    "section": "12.2 Resolvers",
+    "text": "12.2 Resolvers",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
+    ]
+  },
+  {
+    "objectID": "section3/dids-and-diddocuments.html#controllers",
+    "href": "section3/dids-and-diddocuments.html#controllers",
+    "title": "12  DIDs and DID Documents",
+    "section": "12.3 Controllers",
+    "text": "12.3 Controllers\nControllers are entities that can mutate the DIDDocument. Controllers are specified in the DIDDocument as an array of DIDs so they can be a person, thing, or organization.\nRemember that DIDs can all be resolved to DIDDocuments, and each DIDDocument can point to people, things, machines, or services. Every mention of a DID can potentially be a chain of references to other services, or endpoints. There is plenty of room to be creative with this relationship graph.",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
     ]
   },
   {
     "objectID": "section3/connections.html",
     "href": "section3/connections.html",
-    "title": "14  Connections",
+    "title": "13  Connections",
     "section": "",
-    "text": "14.1 Overview\nNow that we have a better understanding of Wallets and DIDs, it’s time to embark on our first interaction. In this chapter we are going to explore conceptually what a Connection means in SSI, take a deep dive into DID Peers, explain how they work and why they are needed for secure connections, dissect Out of Band invites and finally hands on example code to achieve connecting edge client to an agent.\nBefore we move forward we highly recommend to at least read the basic Connection tutorial on the official Atala documentation.",
+    "text": "13.1 Overview\nNow that we have a better understanding of Wallets and DIDs, it’s time to embark on our first interaction. In this chapter we are going to explore conceptually what a Connection means in SSI, take a deep dive into DID Peers, explain how they work and why they are needed for secure connections, dissect Out of Band invites and finally hands on example code to achieve connecting edge client to an agent.\nBefore we move forward we highly recommend to at least read the basic Connection tutorial on the official Atala documentation.",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Connections</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Connections</span>"
     ]
   },
   {
     "objectID": "section3/connections.html#connections-in-self-sovereign-identity",
     "href": "section3/connections.html#connections-in-self-sovereign-identity",
-    "title": "14  Connections",
-    "section": "14.2 Connections in Self-Sovereign Identity",
-    "text": "14.2 Connections in Self-Sovereign Identity\nConnections are fundamental to establishing trusted interactions between peers. They enable secure and verifiable communication, allowing entities to exchange credentials and proofs in a decentralized manner. This relationship is established using a specific decentralized identifier standard (Peer DID) and is governed by a protocol (DIDCOMM) that ensure the authenticity, integrity, and privacy of the interactions between the connected parties.\nThere are three roles in an SSI connection:\n\nInviter: The entity that initiates the connection by sending an invitation.\nInvitee: The entity that receives the invitation and responds with a connection request.\nMediator: An intermediary that facilitates message delivery between entities, especially when one or both parties may not always be online.\n\n\n\n\n\n\n\nNote\n\n\n\nWe will cover mediators in detail later on. For now what you need to understand is that they are used as a service to relay messages between peers, they will store messages and deliver them whenever a peer comes back online, connects to the mediator and fetches their messages.",
+    "title": "13  Connections",
+    "section": "13.2 Connections in Self-Sovereign Identity",
+    "text": "13.2 Connections in Self-Sovereign Identity\nConnections are fundamental to establishing trusted interactions between peers. They enable secure and verifiable communication, allowing entities to exchange credentials and proofs in a decentralized manner. This relationship is established using a specific decentralized identifier standard (Peer DID) and is governed by a protocol (DIDCOMM) that ensure the authenticity, integrity, and privacy of the interactions between the connected parties.\nThere are three roles in an SSI connection:\n\nInviter: The entity that initiates the connection by sending an invitation.\nInvitee: The entity that receives the invitation and responds with a connection request.\nMediator: An intermediary that facilitates message delivery between entities, especially when one or both parties may not always be online.\n\n\n\n\n\n\n\nNote\n\n\n\nWe will cover mediators in detail later on. For now what you need to understand is that they are used as a service to relay messages between peers, they will store messages and deliver them whenever a peer comes back online, connects to the mediator and fetches their messages.",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Connections</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Connections</span>"
     ]
   },
   {
     "objectID": "section3/connections.html#peerdids",
     "href": "section3/connections.html#peerdids",
-    "title": "14  Connections",
-    "section": "14.3 PeerDIDs",
-    "text": "14.3 PeerDIDs\nThey are a special kind of decentralized identifier with some unique properties that allow them to be perfect for use in order to establish private and secure communications between peers.\nDID Documents such as PrismDIDs are meant to be publicly available and resolvable by arbitrary parties, therefor storing them in a VDR such as Cardano blockchain is an excellent way to achieve this requirement in a reliable way.\nHowever, when Alice and Bob want to interact with each other, only two parties care about the details of that connection: Alice and Bob. Instead of arbitrary parties needing to resolve their DIDs, only Alice and Bob do. Thus, PeerDIDs essentially describe a key-pair to encrypt and sign data to and from Alice and Bob, routed trough their preferred mediators, e.g. When Alice accepts an invite from Bob and they engage the connection protocol, Alice generates a PeerDID that allows her to encrypt and sign data routed trough Bob’s mediator (mediator Y) that only Bob can decrypt, and viceversa, Bob will generate a PeerDID that allows him to encrypt and sign data routed trough Alice’s preferred mediator (mediator X) that only Alice can decrypt.\nThe key benefits of PeerDIDs are:\n\nDecentralized by nature.\nNo transaction cost on blockchain.\nPrivate (only the concerned parties know about them).\nReusable without any reliance on the internet, with no degradation of trust. (adheres to the principles of local-first and offline-first)\n\nLets resolve a PeerDID, we call resolve to the unpacking and parsing of a DID in order to read its content and use the DID for the interactions that we need to achieve. For this example we will resolve a PeerDID from Atala’s mediator sandbox.\ncurl https://sandbox-mediator.atalaprism.io/did\n\ndid:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\nWe can see that the mediator returned a PeerDID when we send a GET request to the /did endpoint. In order to resolve this DID we can use an Universal Resolver website for this example:\ncurl https://dev.uniresolver.io/1.0/identifiers/did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\n{\n  \"@context\": \"https://w3id.org/did-resolution/v1\",\n  \"didDocument\": {\n    \"@context\": [\n      \"https://www.w3.org/ns/did/v1\",\n      \"https://w3id.org/security/multikey/v1\",\n      {\n        \"@base\": \"did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\"\n      }\n    ],\n    \"id\": \"did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\",\n    \"verificationMethod\": [\n      {\n        \"id\": \"#key-2\",\n        \"type\": \"Multikey\",\n        \"controller\": \"did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\",\n        \"publicKeyMultibase\": \"z6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd\"\n      },\n      {\n        \"id\": \"#key-1\",\n        \"type\": \"Multikey\",\n        \"controller\": \"did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\",\n        \"publicKeyMultibase\": \"z6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y\"\n      }\n    ],\n    \"keyAgreement\": [\n      \"#key-1\"\n    ],\n    \"authentication\": [\n      \"#key-2\"\n    ],\n    \"assertionMethod\": [\n      \"#key-2\"\n    ],\n    \"service\": [\n      {\n        \"serviceEndpoint\": {\n          \"uri\": \"https://sandbox-mediator.atalaprism.io\",\n          \"accept\": [\n            \"didcomm/v2\"\n          ]\n        },\n        \"type\": \"DIDCommMessaging\",\n        \"id\": \"#service\"\n      },\n      {\n        \"serviceEndpoint\": {\n          \"uri\": \"wss://sandbox-mediator.atalaprism.io/ws\",\n          \"accept\": [\n            \"didcomm/v2\"\n          ]\n        },\n        \"type\": \"DIDCommMessaging\",\n        \"id\": \"#service-1\"\n      }\n    ]\n  },\n  \"didResolutionMetadata\": {\n    \"contentType\": \"application/did+ld+json\",\n    \"pattern\": \"^(did:peer:.+)$\",\n    \"driverUrl\": \"http://uni-resolver-driver-did-uport:8081/1.0/identifiers/\",\n    \"duration\": 4,\n    \"driverDuration\": 4,\n    \"did\": {\n      \"didString\": \"did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\",\n      \"methodSpecificId\": \"2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\",\n      \"method\": \"peer\"\n    }\n  },\n  \"didDocumentMetadata\": {}\n}\nThis is what a PeerDID looks like when resolved, please bear in mind that the JSON-LD context for did-resolution and extra didResolutionMetadata entry are added by the resolver and the actual isolated PeerDID is only what we see inside the didDocument payload.\nIn simple terms, a PeerDID is essentially a JSON payload that contains a set of keys and an optional service endpoints, because this is a mediator PeerDID, it contains service endpoints for DIDCommMessaging, in this particular case, you can see it contains two of them, one over regular https and other trough websockets.\nTo go deeper in your understanding of PeerDIDs please refer to the full Peer DID Method Specification. In the Hyperledger Identus ecosystem, only PeerDIDs method 2 are supported at the time of this writing.",
+    "title": "13  Connections",
+    "section": "13.3 PeerDIDs",
+    "text": "13.3 PeerDIDs\nThey are a special kind of decentralized identifier with some unique properties that allow them to be perfect for use in order to establish private and secure communications between peers.\nDID Documents such as PrismDIDs are meant to be publicly available and resolvable by arbitrary parties, therefor storing them in a VDR such as Cardano blockchain is an excellent way to achieve this requirement in a reliable way.\nHowever, when Alice and Bob want to interact with each other, only two parties care about the details of that connection: Alice and Bob. Instead of arbitrary parties needing to resolve their DIDs, only Alice and Bob do. Thus, PeerDIDs essentially describe a key-pair to encrypt and sign data to and from Alice and Bob, routed trough their preferred mediators, e.g. When Alice accepts an invite from Bob and they engage the connection protocol, Alice generates a PeerDID that allows her to encrypt and sign data routed trough Bob’s mediator (mediator Y) that only Bob can decrypt, and viceversa, Bob will generate a PeerDID that allows him to encrypt and sign data routed trough Alice’s preferred mediator (mediator X) that only Alice can decrypt.\nThe key benefits of PeerDIDs are:\n\nDecentralized by nature.\nNo transaction cost on blockchain.\nPrivate (only the concerned parties know about them).\nReusable without any reliance on the internet, with no degradation of trust. (adheres to the principles of local-first and offline-first)\n\nLets resolve a PeerDID, we call resolve to the unpacking and parsing of a DID in order to read its content and use the DID for the interactions that we need to achieve. For this example we will resolve a PeerDID from Atala’s mediator sandbox.\ncurl https://sandbox-mediator.atalaprism.io/did\n\ndid:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\nWe can see that the mediator returned a PeerDID when we send a GET request to the /did endpoint. In order to resolve this DID we can use an Universal Resolver website for this example:\ncurl https://dev.uniresolver.io/1.0/identifiers/did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\n{\n  \"@context\": \"https://w3id.org/did-resolution/v1\",\n  \"didDocument\": {\n    \"@context\": [\n      \"https://www.w3.org/ns/did/v1\",\n      \"https://w3id.org/security/multikey/v1\",\n      {\n        \"@base\": \"did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\"\n      }\n    ],\n    \"id\": \"did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\",\n    \"verificationMethod\": [\n      {\n        \"id\": \"#key-2\",\n        \"type\": \"Multikey\",\n        \"controller\": \"did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\",\n        \"publicKeyMultibase\": \"z6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd\"\n      },\n      {\n        \"id\": \"#key-1\",\n        \"type\": \"Multikey\",\n        \"controller\": \"did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\",\n        \"publicKeyMultibase\": \"z6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y\"\n      }\n    ],\n    \"keyAgreement\": [\n      \"#key-1\"\n    ],\n    \"authentication\": [\n      \"#key-2\"\n    ],\n    \"assertionMethod\": [\n      \"#key-2\"\n    ],\n    \"service\": [\n      {\n        \"serviceEndpoint\": {\n          \"uri\": \"https://sandbox-mediator.atalaprism.io\",\n          \"accept\": [\n            \"didcomm/v2\"\n          ]\n        },\n        \"type\": \"DIDCommMessaging\",\n        \"id\": \"#service\"\n      },\n      {\n        \"serviceEndpoint\": {\n          \"uri\": \"wss://sandbox-mediator.atalaprism.io/ws\",\n          \"accept\": [\n            \"didcomm/v2\"\n          ]\n        },\n        \"type\": \"DIDCommMessaging\",\n        \"id\": \"#service-1\"\n      }\n    ]\n  },\n  \"didResolutionMetadata\": {\n    \"contentType\": \"application/did+ld+json\",\n    \"pattern\": \"^(did:peer:.+)$\",\n    \"driverUrl\": \"http://uni-resolver-driver-did-uport:8081/1.0/identifiers/\",\n    \"duration\": 4,\n    \"driverDuration\": 4,\n    \"did\": {\n      \"didString\": \"did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\",\n      \"methodSpecificId\": \"2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\",\n      \"method\": \"peer\"\n    }\n  },\n  \"didDocumentMetadata\": {}\n}\nThis is what a PeerDID looks like when resolved, please bear in mind that the JSON-LD context for did-resolution and extra didResolutionMetadata entry are added by the resolver and the actual isolated PeerDID is only what we see inside the didDocument payload.\nIn simple terms, a PeerDID is essentially a JSON payload that contains a set of keys and an optional service endpoints, because this is a mediator PeerDID, it contains service endpoints for DIDCommMessaging, in this particular case, you can see it contains two of them, one over regular https and other trough websockets.\nTo go deeper in your understanding of PeerDIDs please refer to the full Peer DID Method Specification. In the Hyperledger Identus ecosystem, only PeerDIDs method 2 are supported at the time of this writing.",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Connections</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Connections</span>"
     ]
   },
   {
     "objectID": "section3/connections.html#out-of-band-invites",
     "href": "section3/connections.html#out-of-band-invites",
-    "title": "14  Connections",
-    "section": "14.4 Out of Band invites",
-    "text": "14.4 Out of Band invites\nOut of Band (OOB) invites are the entry point for some protocols to take place, they usually are encoded in either a JSON payload or a URL and are distributed “out of band”, usually over QR codes, but could be distributed over any medium (Bluetooth, NFC, etc). They gather all required information for one peer to start interacting with another and you can think of them as a way to advertise “coordinates” for anyone that would like to establish an interaction to the inviter.\nFollowing the same example as before, we can see that the sandbox mediator also delivers an OOB invite in a URL form.\nhttps://sandbox-mediator.atalaprism.io?_oob=eyJpZCI6ImExNTY4YzEyLTBjZGMtNDY0Ny05ZGM2LWE1YWFkYTZmODI0NyIsInR5cGUiOiJodHRwczovL2RpZGNvbW0ub3JnL291dC1vZi1iYW5kLzIuMC9pbnZpdGF0aW9uIiwiZnJvbSI6ImRpZDpwZWVyOjIuRXo2TFNnaHdTRTQzN3duREUxcHQzWDZoVkRVUXpTanNIemlucFgzWEZ2TWpSQW03eS5WejZNa2hoMWU1Q0VZWXE2SkJVY1RaNkNwMnJhbkNXUnJ2N1lheDNMZTRONTlSNmRkLlNleUowSWpvaVpHMGlMQ0p6SWpwN0luVnlhU0k2SW1oMGRIQnpPaTh2YzJGdVpHSnZlQzF0WldScFlYUnZjaTVoZEdGc1lYQnlhWE50TG1sdklpd2lZU0k2V3lKa2FXUmpiMjF0TDNZeUlsMTlmUS5TZXlKMElqb2laRzBpTENKeklqcDdJblZ5YVNJNkluZHpjem92TDNOaGJtUmliM2d0YldWa2FXRjBiM0l1WVhSaGJHRndjbWx6YlM1cGJ5OTNjeUlzSW1FaU9sc2laR2xrWTI5dGJTOTJNaUpkZlgwIiwiYm9keSI6eyJnb2FsX2NvZGUiOiJyZXF1ZXN0LW1lZGlhdGUiLCJnb2FsIjoiUmVxdWVzdE1lZGlhdGUiLCJhY2NlcHQiOlsiZGlkY29tbS92MiJdfSwidHlwIjoiYXBwbGljYXRpb24vZGlkY29tbS1wbGFpbitqc29uIn0\nIf we decode the value of the _oob query variable from base64 we get the json payload\n{\n  \"id\" : \"a1568c12-0cdc-4647-9dc6-a5aada6f8247\",\n  \"type\" : \"https://didcomm.org/out-of-band/2.0/invitation\",\n  \"from\" : \"did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\",\n  \"body\" : {\n    \"goal_code\" : \"request-mediate\",\n    \"goal\" : \"RequestMediate\",\n    \"accept\" : [\n      \"didcomm/v2\"\n    ]\n  },\n  \"typ\" : \"application/didcomm-plain+json\"\n}\nAs you can see, an Out of Band invite is really just a way to package a PeerDID and signaling that it can be used for a particular interaction. In this case, for a RequestMediate goal over DIDCOMM.\nAs a refresher from what we covered, a PeerDID is a way to package a set of keys and optional service endpoints, and so, because this an OOB invite from a mediator, this invite has everything you need (a PeerDID and set of service endpoints) to establish this service as your mediator.",
+    "title": "13  Connections",
+    "section": "13.4 Out of Band invites",
+    "text": "13.4 Out of Band invites\nOut of Band (OOB) invites are the entry point for some protocols to take place, they usually are encoded in either a JSON payload or a URL and are distributed “out of band”, usually over QR codes, but could be distributed over any medium (Bluetooth, NFC, etc). They gather all required information for one peer to start interacting with another and you can think of them as a way to advertise “coordinates” for anyone that would like to establish an interaction to the inviter.\nFollowing the same example as before, we can see that the sandbox mediator also delivers an OOB invite in a URL form.\nhttps://sandbox-mediator.atalaprism.io?_oob=eyJpZCI6ImExNTY4YzEyLTBjZGMtNDY0Ny05ZGM2LWE1YWFkYTZmODI0NyIsInR5cGUiOiJodHRwczovL2RpZGNvbW0ub3JnL291dC1vZi1iYW5kLzIuMC9pbnZpdGF0aW9uIiwiZnJvbSI6ImRpZDpwZWVyOjIuRXo2TFNnaHdTRTQzN3duREUxcHQzWDZoVkRVUXpTanNIemlucFgzWEZ2TWpSQW03eS5WejZNa2hoMWU1Q0VZWXE2SkJVY1RaNkNwMnJhbkNXUnJ2N1lheDNMZTRONTlSNmRkLlNleUowSWpvaVpHMGlMQ0p6SWpwN0luVnlhU0k2SW1oMGRIQnpPaTh2YzJGdVpHSnZlQzF0WldScFlYUnZjaTVoZEdGc1lYQnlhWE50TG1sdklpd2lZU0k2V3lKa2FXUmpiMjF0TDNZeUlsMTlmUS5TZXlKMElqb2laRzBpTENKeklqcDdJblZ5YVNJNkluZHpjem92TDNOaGJtUmliM2d0YldWa2FXRjBiM0l1WVhSaGJHRndjbWx6YlM1cGJ5OTNjeUlzSW1FaU9sc2laR2xrWTI5dGJTOTJNaUpkZlgwIiwiYm9keSI6eyJnb2FsX2NvZGUiOiJyZXF1ZXN0LW1lZGlhdGUiLCJnb2FsIjoiUmVxdWVzdE1lZGlhdGUiLCJhY2NlcHQiOlsiZGlkY29tbS92MiJdfSwidHlwIjoiYXBwbGljYXRpb24vZGlkY29tbS1wbGFpbitqc29uIn0\nIf we decode the value of the _oob query variable from base64 we get the json payload\n{\n  \"id\" : \"a1568c12-0cdc-4647-9dc6-a5aada6f8247\",\n  \"type\" : \"https://didcomm.org/out-of-band/2.0/invitation\",\n  \"from\" : \"did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0\",\n  \"body\" : {\n    \"goal_code\" : \"request-mediate\",\n    \"goal\" : \"RequestMediate\",\n    \"accept\" : [\n      \"didcomm/v2\"\n    ]\n  },\n  \"typ\" : \"application/didcomm-plain+json\"\n}\nAs you can see, an Out of Band invite is really just a way to package a PeerDID and signaling that it can be used for a particular interaction. In this case, for a RequestMediate goal over DIDCOMM.\nAs a refresher from what we covered, a PeerDID is a way to package a set of keys and optional service endpoints, and so, because this an OOB invite from a mediator, this invite has everything you need (a PeerDID and set of service endpoints) to establish this service as your mediator.",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Connections</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Connections</span>"
     ]
   },
   {
     "objectID": "section3/connections.html#connecting-two-peers",
     "href": "section3/connections.html#connecting-two-peers",
-    "title": "14  Connections",
-    "section": "14.5 Connecting two peers",
-    "text": "14.5 Connecting two peers\nNow, lets issue another kind of Out of Band invite, one from the cloud agent in order to connect.\nTODO: Create invite on cloud agent, connect sample SDK code. (Milestone 4)\nTODO Checklist\n\nConcept of Connections\nExplain PeerDIDs\nHow connections are achieved trough PeerDIDs\nOut of Band invites\nHow to Connect two peers\nDIDless connection (Atala Roadmap)",
+    "title": "13  Connections",
+    "section": "13.5 Connecting two peers",
+    "text": "13.5 Connecting two peers\nNow, lets issue another kind of Out of Band invite, one from the cloud agent in order to connect.\nTODO: Create invite on cloud agent, connect sample SDK code. (Milestone 4)\nTODO Checklist\n\nConcept of Connections\nExplain PeerDIDs\nHow connections are achieved trough PeerDIDs\nOut of Band invites\nHow to Connect two peers\nDIDless connection (Atala Roadmap)",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Connections</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Connections</span>"
     ]
   },
   {
     "objectID": "section3/verifiable-credentials.html",
     "href": "section3/verifiable-credentials.html",
-    "title": "15  Verifiable Credentials",
+    "title": "14  Verifiable Credentials",
     "section": "",
-    "text": "15.1 Overview\nVerifiable Credentials are an integral part of Self-Sovereign Identity, allowing individuals to keep and control how their personal information is shared.\nA Verifiable Credential (VC) is a digital statement made by an Issuer about a Subject. This statement is cryptographically secured and can be verified by a third party without the need for the Verifier to directly contact the Issuer. Verifiable Credentials are used to represent information such as identity documents, academic records, professional certifications, and other forms of credentials that traditionally exist in paper form. Coupled with other technology such as Self-Sovereign Identity, Verifiable Credentials can unlock novel and exciting use cases.\nComponents of a Verifiable Credential:\nHow Verifiable Credentials Work:\nBenefits of Verifiable Credentials:\nUse Cases:",
+    "text": "14.1 Overview\nVerifiable Credentials are an integral part of Self-Sovereign Identity, allowing individuals to keep and control how their personal information is shared.\nA Verifiable Credential (VC) is a digital statement made by an Issuer about a Subject. This statement is cryptographically secured and can be verified by a third party without the need for the Verifier to directly contact the Issuer. Verifiable Credentials are used to represent information such as identity documents, academic records, professional certifications, and other forms of credentials that traditionally exist in paper form. Coupled with other technology such as Self-Sovereign Identity, Verifiable Credentials can unlock novel and exciting use cases.\nComponents of a Verifiable Credential:\nHow Verifiable Credentials Work:\nBenefits of Verifiable Credentials:\nUse Cases:",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
     ]
   },
   {
     "objectID": "section3/verifiable-credentials.html#overview",
     "href": "section3/verifiable-credentials.html#overview",
-    "title": "15  Verifiable Credentials",
+    "title": "14  Verifiable Credentials",
     "section": "",
     "text": "Issuer: The entity that creates and signs the credential. This could be an organization, institution, government entity or individual.\nHolder: The entity or individual to whom the credential is issued to and who can present proof to a Verifier.\nVerifier: The entity or individual that checks the authenticity and validity of the credential trough requesting proof from a Holder.\nSubject: The entity or individual about which the claims are made. In many cases, the Holder and the Subject are the same entity.\nClaims: Statements about the Subject, such as “Alice has an Educational Credential from Vienna University.”\nProof: Cryptographic evidence, using Digital Signatures, that the credential is authentic and has not been tampered with.\nMetadata: Additional contextual information which may have content or application specific meaning, like expiration date or credential description.\n\n\n\nIssuance: The issuer creates a credential containing claims about the subject, the subject DID (public key) and signs it with their private key.\nStorage: The holder receives the credential and stores it in a digital wallet.\nPresentation: When required, the holder presents the credential to a verifier. Selective Disclosure can be used to reveal only relevant context about a claim, and not all user data.\nVerification: The verifier checks the credential’s authenticity by validating the issuer’s digital signature and ensuring the credential has not been tampered with.\n\n\n\nInteroperability: VCs follow standard formats, making them compatible across different systems and platforms.\nPrivacy: Holders can share only the necessary information, protecting their privacy.\nSecurity: Cryptographic techniques ensure the integrity and authenticity of credentials.\nDecentralization: VCs do not rely on a central authority for verification, reducing single points of failure.\n\n\n\nDigital Identity: Proof of identity for accessing services.\nEducation: Digital diplomas and certificates.\nHealthcare: Vaccination records and medical certificates.\nEmployment: Professional qualifications and work experience.",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
     ]
   },
   {
     "objectID": "section3/verifiable-credentials.html#formats",
     "href": "section3/verifiable-credentials.html#formats",
-    "title": "15  Verifiable Credentials",
-    "section": "15.2 Formats",
-    "text": "15.2 Formats\n\nFormats (just mention types, details later in Issuing)\n\nW3C\nJWT\nSD-JWT\nAnonCreds",
+    "title": "14  Verifiable Credentials",
+    "section": "14.2 Formats",
+    "text": "14.2 Formats\n\nFormats (just mention types, details later in Issuing)\n\nW3C\nJWT\nSD-JWT\nAnonCreds",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
     ]
   },
   {
     "objectID": "section3/verifiable-credentials.html#schemas",
     "href": "section3/verifiable-credentials.html#schemas",
-    "title": "15  Verifiable Credentials",
-    "section": "15.3 Schemas",
-    "text": "15.3 Schemas\n\nSchemas\nPublishing your Schema",
+    "title": "14  Verifiable Credentials",
+    "section": "14.3 Schemas",
+    "text": "14.3 Schemas\n\nSchemas\nPublishing your Schema",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
     ]
   },
   {
     "objectID": "section3/verifiable-credentials.html#issuing",
     "href": "section3/verifiable-credentials.html#issuing",
-    "title": "15  Verifiable Credentials",
-    "section": "15.4 Issuing",
-    "text": "15.4 Issuing\n\nJWT\nSD-JWT (Atala Roadmap Q2)\nAnonCreds",
+    "title": "14  Verifiable Credentials",
+    "section": "14.4 Issuing",
+    "text": "14.4 Issuing\n\nJWT\nSD-JWT (Atala Roadmap Q2)\nAnonCreds",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
     ]
   },
   {
     "objectID": "section3/verifiable-credentials.html#updating",
     "href": "section3/verifiable-credentials.html#updating",
-    "title": "15  Verifiable Credentials",
-    "section": "15.5 Updating",
-    "text": "15.5 Updating\n\nUpdating (re-binding)",
+    "title": "14  Verifiable Credentials",
+    "section": "14.5 Updating",
+    "text": "14.5 Updating\n\nUpdating (re-binding)",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
     ]
   },
   {
     "objectID": "section3/verifiable-credentials.html#revoking",
     "href": "section3/verifiable-credentials.html#revoking",
-    "title": "15  Verifiable Credentials",
-    "section": "15.6 Revoking",
-    "text": "15.6 Revoking\n\nRevoking",
+    "title": "14  Verifiable Credentials",
+    "section": "14.6 Revoking",
+    "text": "14.6 Revoking\n\nRevoking",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Verifiable Credentials</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
     ]
   },
   {
     "objectID": "section3/didcomm.html",
     "href": "section3/didcomm.html",
-    "title": "16  DIDComm",
+    "title": "15  DIDComm",
     "section": "",
-    "text": "16.1 Overview\nDIDComm v2 (Decentralized Identifier Communication version 2) is a set of communication protocols designed to enable secure, private, and interoperable messaging between DIDs. These protocols have been adopted throughout Identus to standardize many important interactions, like sending and receiving encrypted messages between a mediator its peers.\nDIDComm Messaging messages are encrypted JSON Web Message (JWM) envelopes. They have a standard structure including headers, a body, and optional attachments, which are encrypted and signed to ensure security and integrity.\nFor details on how messages are sent and received in Identus, see Mediators",
+    "text": "15.1 Overview\nDIDComm v2 (Decentralized Identifier Communication version 2) is a set of communication protocols designed to enable secure, private, and interoperable messaging between DIDs. These protocols have been adopted throughout Identus to standardize many important interactions, like sending and receiving encrypted messages between a mediator its peers.\nDIDComm Messaging messages are encrypted JSON Web Message (JWM) envelopes. They have a standard structure including headers, a body, and optional attachments, which are encrypted and signed to ensure security and integrity.\nFor details on how messages are sent and received in Identus, see Mediators",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>DIDComm</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>DIDComm</span>"
     ]
   },
   {
     "objectID": "section3/didcomm.html#sending-messages",
     "href": "section3/didcomm.html#sending-messages",
-    "title": "16  DIDComm",
-    "section": "16.2 Sending Messages",
-    "text": "16.2 Sending Messages",
+    "title": "15  DIDComm",
+    "section": "15.2 Sending Messages",
+    "text": "15.2 Sending Messages",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>DIDComm</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>DIDComm</span>"
     ]
   },
   {
     "objectID": "section3/didcomm.html#sending-files",
     "href": "section3/didcomm.html#sending-files",
-    "title": "16  DIDComm",
-    "section": "16.3 Sending Files",
-    "text": "16.3 Sending Files",
+    "title": "15  DIDComm",
+    "section": "15.3 Sending Files",
+    "text": "15.3 Sending Files",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>DIDComm</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>DIDComm</span>"
     ]
   },
   {
     "objectID": "section3/verification.html",
     "href": "section3/verification.html",
-    "title": "17  Verification",
+    "title": "16  Verification",
     "section": "",
     "text": "Verification\n\nPresenting Proof\nPresentation Policies / Verification Policies\nSelective Disclosure with AnonCreds",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Verification</span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Verification</span>"
     ]
   },
   {
     "objectID": "section3/plugins.html",
     "href": "section3/plugins.html",
-    "title": "18  Plugins",
+    "title": "17  Plugins",
     "section": "",
     "text": "This is a placedholer for the topic of Plugins. Identus plugins have not been officially announced yet but are on the IOG roadmap for 2024, Q4. If there is any information by the time we publish we will write about them.",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Plugins</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Plugins</span>"
     ]
   },
   {
     "objectID": "section4/installation-production.html",
     "href": "section4/installation-production.html",
-    "title": "19  Installation - Production Environment",
+    "title": "18  Installation - Production Environment",
     "section": "",
     "text": "In this chapter we will discuss how to prepare a production envioronment for an Identus application.\nWe will discuss:\n\nHardware recommendations\nProduction configuration and security\nLock down Docker / Postgres (default password hole, etc)\nSSL\nMulti Tenancy\nKeycloak\nTestnet / Preprod env\nConnecting to Mainnet\nSet up Cardano Wallet\nKey Management with HashiCorp\nConnecting to Cardano\nRunning dbSync",
     "crumbs": [
       "Section IV - Deploy",
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Installation - Production Environment</span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Installation - Production Environment</span>"
     ]
   },
   {
     "objectID": "section4/mediator.html",
     "href": "section4/mediator.html",
-    "title": "20  Mediator",
+    "title": "19  Mediator",
     "section": "",
-    "text": "20.1 Overview\nA Self-Sovereign Identity Mediator is a service that enables private and secure connections between peers. Its primary function is to relay encrypted messages between DIDs using DIDComm V2 protocols. Since each participant wallet is Self-Sovereign, Mediators help route messages to their intended recipient without any one wallet knowing the details of the other. Encrypted messages can be sent to peers even if they are not online, and the Mediator will manage a queue for the offline party until they are able to connect and retrieve them.\nThink of a Mediator like a set of Post Office mailboxes. Each mailbox has a mailing address (a DID). Each mailbox can hold an stack of incoming mail Encrypted DIDComm V2 messages for its owner. Each mailbox also keeps a list of cryptographic Connections with whom its owner can send or receive mail with. In this way, Identus Mediators facilitate all types of important transactions, including routing both messages, Verifiable Credential issuance, and Credential Exchange.\nWhat’s important is that the Mediator, while messages are routed through it, is not a centralized actor. Mediators can not know the contents of any message, only what DIDs can talk to other DIDs and what encrypted messages they have yet to read.",
+    "text": "19.1 Overview\nA Self-Sovereign Identity Mediator is a service that enables private and secure connections between peers. Its primary function is to relay encrypted messages between DIDs using DIDComm V2 protocols. Since each participant wallet is Self-Sovereign, Mediators help route messages to their intended recipient without any one wallet knowing the details of the other. Encrypted messages can be sent to peers even if they are not online, and the Mediator will manage a queue for the offline party until they are able to connect and retrieve them.\nThink of a Mediator like a set of Post Office mailboxes. Each mailbox has a mailing address (a DID). Each mailbox can hold an stack of incoming mail Encrypted DIDComm V2 messages for its owner. Each mailbox also keeps a list of cryptographic Connections with whom its owner can send or receive mail with. In this way, Identus Mediators facilitate all types of important transactions, including routing both messages, Verifiable Credential issuance, and Credential Exchange.\nWhat’s important is that the Mediator, while messages are routed through it, is not a centralized actor. Mediators can not know the contents of any message, only what DIDs can talk to other DIDs and what encrypted messages they have yet to read.",
     "crumbs": [
       "Section IV - Deploy",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Mediator</span>"
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Mediator</span>"
     ]
   },
   {
     "objectID": "section4/mediator.html#overview",
     "href": "section4/mediator.html#overview",
-    "title": "20  Mediator",
+    "title": "19  Mediator",
     "section": "",
-    "text": "20.1.1 Why use a Mediator?\nWhy do we need a Mediator in the first place? If participants are Self-Sovereign, then why not connect an edge wallet directly to another edge wallet?\nSSI participants are connected through various types of devices and network conditions. The Cloud Agent, is expected to be online and available all the time, as it’s hosted in a remote server farm somewhere. However users who keep their wallets on mobile devices, or laptop computers, are only online sporadically, and can’t be expected to have a reliable connection to the Internet at all times. This is where Mediators earn their keep. If User A were to send a message to User B, who happens to be offline at the moment, the message could not be delivered, plus User A would also have to know sensitive data about how to contact User B. If User B changes devices, they would have to tell User A, and all other peer Connections. If User A instead, sends the message through the Mediator, it can be held securely and retrieved the next time User B connects to the Internet. Mediators provide reliability between Connections, without compromising privacy or security.",
+    "text": "19.1.1 Why use a Mediator?\nWhy do we need a Mediator in the first place? If participants are Self-Sovereign, then why not connect an edge wallet directly to another edge wallet?\nSSI participants are connected through various types of devices and network conditions. The Cloud Agent, is expected to be online and available all the time, as it’s hosted in a remote server farm somewhere. However users who keep their wallets on mobile devices, or laptop computers, are only online sporadically, and can’t be expected to have a reliable connection to the Internet at all times. This is where Mediators earn their keep. If User A were to send a message to User B, who happens to be offline at the moment, the message could not be delivered, plus User A would also have to know sensitive data about how to contact User B. If User B changes devices, they would have to tell User A, and all other peer Connections. If User A instead, sends the message through the Mediator, it can be held securely and retrieved the next time User B connects to the Internet. Mediators provide reliability between Connections, without compromising privacy or security.",
     "crumbs": [
       "Section IV - Deploy",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Mediator</span>"
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Mediator</span>"
     ]
   },
   {
     "objectID": "section4/mediator.html#set-up-a-mediator",
     "href": "section4/mediator.html#set-up-a-mediator",
-    "title": "20  Mediator",
-    "section": "20.2 Set up a Mediator",
-    "text": "20.2 Set up a Mediator\nWe will teach the reader how to\n\nInstall, configure, and Run your own Mediator\nHow to manage Websockets\nPerformance Tuning",
+    "title": "19  Mediator",
+    "section": "19.2 Set up a Mediator",
+    "text": "19.2 Set up a Mediator\nWe will teach the reader how to\n\nInstall, configure, and Run your own Mediator\nHow to manage Websockets\nPerformance Tuning",
     "crumbs": [
       "Section IV - Deploy",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Mediator</span>"
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Mediator</span>"
     ]
   },
   {
     "objectID": "section4/maintenance.html",
     "href": "section4/maintenance.html",
-    "title": "21  Maintenance",
+    "title": "20  Maintenance",
     "section": "",
     "text": "Mastering Identus means maintaing your application once it’s launched.\nIn this chapter we will cover:\n\nObservability\n\nManage nodes / Memory\nPerformance Testing\nAnalytics with BlockTrust Analytics\n\nUpgrading Agents\n\nHow to minimize downtime\n\nHashicorp\n\nKey Management\nKey rotation",
     "crumbs": [
       "Section IV - Deploy",
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Maintenance</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Maintenance</span>"
     ]
   },
   {
     "objectID": "section5/trust-registries.html",
     "href": "section5/trust-registries.html",
-    "title": "22  Trust Registries",
+    "title": "21  Trust Registries",
     "section": "",
     "text": "Overview of the concept of a Trust Registry\n\nWhat role they play in SSI\nTrust Over IP Trust Registry Spec\nHighlight any real world examples if they exist by book completion",
     "crumbs": [
       "Section V - Addendum",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Trust Registries</span>"
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Trust Registries</span>"
     ]
   },
   {
     "objectID": "section5/continuing-your-journey.html",
     "href": "section5/continuing-your-journey.html",
-    "title": "23  Continuing on Your Journey",
+    "title": "22  Continuing on Your Journey",
     "section": "",
     "text": "Information about becoming a Contributor to Identus\n\nHow to contribute to the source code or documentation\n\nInformation about how to get involved in the SSI community outside of Identus\nTrust over IP (ToIP)\nTrust Over IP (ToIP) comprises over 300 organizations from diverse industries collaborating to advance Decentralized Identity through ideas and software. According to ToIP, “We develop tools and specifications to help communities of any size use digital networks to build and strengthen trust between participants.”\nThe ToIP Stack, published in 2019, describes how the four layers (DIDs, DIDComm Protocol, Data Exchange Protocols, and Application Ecosystems) form a secure, scalable, and interoperable digital trust framework. Introduction to ToIP, Version 2.0, released in 2021, is an excellent resource for anyone catching up on the Digital Identity problem and solution. Membership options include free Contributor accounts and paid memberships, providing access to ToIP’s resources and Slack channels for collaboration.\nTo join Trust Over IP, you need to create a free Linux Foundation account and then complete your ToIP application here.\nAll members agree to open, non-competitive participation, so please have your legal team review all associated documents during the onboarding process.\nFor further details, refer to The ToIP Stack and Overview.\nDecentralized Identity Foundation (DIF)",
     "crumbs": [
       "Section V - Addendum",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Continuing on Your Journey</span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Continuing on Your Journey</span>"
     ]
   },
   {
     "objectID": "errata.html",
     "href": "errata.html",
-    "title": "24  Errata",
+    "title": "23  Errata",
     "section": "",
     "text": "Errata goes here\nWe will list any bugs that may have been “printed” in certain editions of the book.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Errata</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Errata</span>"
     ]
   },
   {

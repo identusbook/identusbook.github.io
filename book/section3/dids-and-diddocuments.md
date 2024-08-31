@@ -13,6 +13,7 @@ An Example **DID**:
 `
 did:prism:4a5b5cf0a513e83b598bbea25cd6196746747f065246f1d3743344b4b81b5a74:Cr4BCrsBElsKBmF1dGgwMRJRCglzZWNwMjU2azESBHRlc3QaOmtleTE6Ly8wMjM5MmYxNjc4NmNlNmQ0NzJlOGViNzA4ZWRjMmE3OTFmZGMxNzNkNjVkNTBhODNhMTk3N2I5ZmIwMmU0MjQSWwoGYXV0aDAyElEKCXNlY3AyNTZrMRIEdGVzdBo6a2V5MjovLzAyMzkyZjE2Nzg2Y2U2ZDQ3MmU4ZWI3MDhlZGMyYTc5MWZkYzE3M2Q2NWQ1MGE4M2ExOTc3YjlmYjAyZTQyNA
 `
+
 Let's break down the format of the **DID**:
 
 - `did:prism:` The prefix of the **DID**
@@ -22,11 +23,15 @@ Let's break down the format of the **DID**:
 An Example **DIDDocument**:
 
 ```json
-[
-  "https://www.w3.org/ns/did/v1",
-  "https://w3id.org/security/suites/jws-2020/v1"
-],
+{
+  "@context": [
+      "https://www.w3.org/ns/did/v1",
+      "https://w3id.org/security/suites/jws-2020/v1",
+      "https://didcomm.org/messaging/contexts/v2",
+      "https://identity.foundation/.well-known/did-configuration/v1"
+    ],
   "id": "did:prism:123456789abcdefghi",
+  "controller": "did:example:bcehfew7h32f32h7af3",
   "verificationMethod": [{
     "id": "did:prism:123456789abcdefghi#key-1",
     "type": "JsonWebKey2020",
@@ -36,14 +41,16 @@ An Example **DIDDocument**:
       "crv": "Ed25519",
       "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"
     }
-}],
+  }],
   "authentication": ["did:prism:123456789abcdefghi#key-1"],
   "assertionMethod": ["did:prism:123456789abcdefghi#key-1"],
+  "keyAgreement": [ "did:prism:123456789abcdefghi#key-1"],
   "service": [{
     "id": "did:prism:123456789abcdefghi#messaging",
     "type": "DIDCommMessaging",
     "serviceEndpoint": "https://example.com/endpoint"
-}]
+  }]
+}
 ```
 
 Let's look at the components of a DID Document:
@@ -62,7 +69,6 @@ Let's look at the components of a DID Document:
     - *Author's note - Specify these in a more concrete way
 - **Services**: An array of `service` descriptions, including URLs that can be used to further interact with the **DID Subject**. These could be API endpoints, for messaging or file storage systems, but any remote service can be added to add value to the **DID**
 - **Controller**: An array of **DIDs** that are allowed to mutate the **DIDDocument**
-- **Proofs**: (*author's note: TBD) Contains cryptographic proofs that assert the validity and integrity of the **DID Document**, ensuring it has not been tampered with.
 
 An non-exhaustive example of a `did:prism` **DIDDocument** can be found [here](https://github.com/input-output-hk/prism-did-method-spec/blob/main/w3c-spec/PRISM-method.md#example-did-document-json-ld).
 

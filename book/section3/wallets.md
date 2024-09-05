@@ -32,11 +32,6 @@ Most of the time you will be operating the wallet trough the Agent interface unl
 
 There is one building block that is *not* implemented and only provided as an interface, this is Pluto, the storage layer for DIDs, VCs, messages, keys, etc. Identus does not have an opinion on how you should store and retrieve the contents of the wallet, so it's your job to implement this part according to your needs. Fortunately, there is a community project providing one implementation called [Pluto Encrypted](https://github.com/atala-community-projects/pluto-encrypted), this project provides 3 different storage engines: InMemory, IndexDB, LevelDB. As the name suggest, Pluto Encrypted provides full Pluto compatibility plus handles encryption and decryption of the wallet contents, this is very important due to the fact that the wallet stores your DIDs (private keys), VCs, messages and a lot of sensitive information. If you are starting out we highly recommend you to use this implementation before attempting to role your own, it's a great starting place that you can extend and customize to your needs.
 
-TODO:
+## Custodial Wallets
 
-- [x] Explain the difference between a blockchain wallet and an identity wallet
-- [x] Edge Agent Wallet in Identus
-- [ ] Custodial wallets
-- [ ] Pluto Encrypted
-- [ ] Keycloak examples
-- [ ] Recovery
+In an ideal world, everyone should be willing and able to manage their own Identity Wallets, this is one of the main characteristics of truly Self-Sovereign ecosystem. In practice, there are many good reasons why an Identity Wallet would be better managed by a service, such is the case for companies and entities or even individuals that don't want to deal with the responsibility and risk of self-managing their wallets. For this use case Identus provides the concept of Custodial Wallets. What this really means is that an Identity Wallet can be managed by the Cloud Agent and used over a REST API. For this particular use case, the Cloud Agent supports a multi-tenant mode in order to onboard and serve multiple Identity Wallets on the same running instance. We will explain the setup in detail over the production installation section, for now the key insight to obtain is that when you access your Identity Wallet trough a Cloud Agent, you are really trusting the storage and management of the private keys of your Identity to that service.

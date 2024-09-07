@@ -362,7 +362,7 @@
     "href": "section3/verifiable-credentials.html#formats",
     "title": "14  Verifiable Credentials",
     "section": "14.2 Formats",
-    "text": "14.2 Formats\nThere are several formats for Verifiable Credentials, including:\n\nW3C - v1.1\nW3C - v2.0 (Atala Roadmap)\nSD-JWT - Active Internet-Draft\nOID4VCI (Atala Roadmap?)\nAnonCreds",
+    "text": "14.2 Formats\nThere are several formats for Verifiable Credentials, including:\n\nW3C - v1.1\nW3C - v2.0 (Atala Roadmap)\nSD-JWT VC - Active Internet-Draft\nOID4VCI (Atala Roadmap?)\nAnonCreds",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"

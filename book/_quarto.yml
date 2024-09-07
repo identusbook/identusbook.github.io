@@ -53,7 +53,6 @@ book:
       - section3/verifiable-credentials.md
       - section3/didcomm.md
       - section3/verification.md
-      - section3/plugins.md
     - part: "Section IV - Deploy"
       chapters: 
       - section4/installation-production.md

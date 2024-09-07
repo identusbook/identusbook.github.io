@@ -42,11 +42,12 @@ Use Cases:
 ## Formats
 
 There are several formats for Verifiable Credentials, including:
-    - [W3C - v1.1](https://www.w3.org/TR/vc-data-model/)
-    - [W3C - v2.0](https://www.w3.org/TR/vc-data-model-2.0/) (*Atala Roadmap*)
-    - [SD-JWT - 04](https://datatracker.ietf.org/doc/draft-ietf-oauth-sd-jwt-vc/)
-    - [OID4VCI](https://openid.net/2023/02/22/oid4vci-1-0-release/) (*Atala Roadmap?*)
-    - [AnonCreds](https://github.com/hyperledger/anoncreds-spec)
+
+- [W3C - v1.1](https://www.w3.org/TR/vc-data-model/)
+- [W3C - v2.0](https://www.w3.org/TR/vc-data-model-2.0/) (*Atala Roadmap*)
+- [SD-JWT - Active Internet-Draft](https://datatracker.ietf.org/doc/draft-ietf-oauth-sd-jwt-vc/)
+- [OID4VCI](https://openid.net/2023/02/22/oid4vci-1-0-release/) (*Atala Roadmap?*)
+- [AnonCreds](https://github.com/hyperledger/anoncreds-spec)
 
 ## Schemas
 

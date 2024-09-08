@@ -3,7 +3,7 @@ title: "Wallets"
 ---
 ## Introduction
 
-Wallets are an essential component on every Self-Sovereign Identity interaction, and as you might have guessed, just like in the physical world a wallet holds your identifiers (IDs), in the digital SSI realm their function is to store and manage Decentralized Identifiers (DIDs), Verifiable Credentials (VCs), cryptographic keys, and other related assets.
+Wallets are an essential component on every Self-Sovereign Identity interaction, and as you might have guessed, just like in the physical world where a wallet holds your identifiers (IDs), a digital SSI wallet's function is to store and manage Decentralized Identifiers (DIDs), Verifiable Credentials (VCs), cryptographic keys, and other related assets.
 
 Since many SSI frameworks rely on a Blockchain to publish DIDs, there is a common misconception that SSI wallets work in a similar way. Although both SSI and Blockchain wallets require a `seed phrase` built from a random set of `mnemonics`, thats where the overlap ends, because the balance and history of a Blockchain wallet can be restored from the ledger itself as opposed to an SSI wallet, where all the stored information exists only on the device and needs to be manually backed up and restored.
 
@@ -11,13 +11,13 @@ In essence, a wallet in SSI is piece of software that allows users to store, man
 
 ## Edge Agent SDK in Identus
 
-Identus provides their wallet interface trough the Edge Agent SDK component available in 3 flavors:
+Identus provides it's wallet interface through the Edge Agent SDKs, available in 3 flavors:
 
 - [TypeScript](https://github.com/hyperledger/identus-edge-agent-sdk-ts) for Web and Node apps.
 - [Swift](https://github.com/hyperledger/identus-edge-agent-sdk-swift) for iOS and Mac.
 - [Kotlin](https://github.com/hyperledger/identus-edge-agent-sdk-kmp) for Android and JVM.
 
-Each of the flavors provide the same building blocks implementations:
+Each of the flavors provide the same building block implementations:
 
 - Apollo: Provides a suite of necessary cryptographic operations.
 - Castor: Provides a suite of operations to create, manage and resolve decentralized identifiers.
@@ -34,4 +34,4 @@ There is one building block that is *not* implemented and only provided as an in
 
 ## Custodial Wallets
 
-In an ideal world, everyone should be willing and able to manage their own Identity Wallets, this is one of the main characteristics of truly Self-Sovereign ecosystem. In practice, there are many good reasons why an Identity Wallet would be better managed by a service, such is the case for companies and entities or even individuals that don't want to deal with the responsibility and risk of self-managing their wallets. For this use case Identus provides the concept of Custodial Wallets. What this really means is that an Identity Wallet can be managed by the Cloud Agent and used over a REST API. For this particular use case, the Cloud Agent supports a multi-tenant mode in order to onboard and serve multiple Identity Wallets on the same running instance. We will explain the setup in detail over the production installation section, for now the key insight to obtain is that when you access your Identity Wallet trough a Cloud Agent, you are really trusting the storage and management of the private keys of your Identity to that service.
+In an ideal world, everyone should be willing and able to manage their own identity wallets, this is one of the main characteristics of truly Self-Sovereign ecosystem. In practice, there are many good reasons why an identity wallet would be better managed by a service. Such is the case for companies and entities or even individuals that don't want to deal with the responsibility and risk of self-managing their wallets. For this use case Identus provides the concept of Custodial Wallets. What this really means is that an identity wallet can be managed by the Cloud Agent and used over a REST API. For this particular use case, the Cloud Agent supports a multi-tenant mode in order to onboard and serve multiple identity wallets on the same running instance. We will explain the setup in detail over the production installation section, for now the key insight is that when you access your identity wallet through a Cloud Agent, you are really trusting the storage and management of the private keys of your identity to that service.

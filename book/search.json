@@ -263,7 +263,7 @@
     "href": "section3/dids-and-diddocuments.html#resolvers",
     "title": "12  DIDs and DID Documents",
     "section": "12.2 Resolvers",
-    "text": "12.2 Resolvers",
+    "text": "12.2 Resolvers\nA resolver is a service that can resolve a DID to a DIDDocument. There are PRISM specific resolvers built into Identus SDKs, or you can also run your own resolver service.\nSome third-party PRISM resolvers:\n\nBlocktrust Resolver\nNeoPrism Resolver",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>DIDs and DID Documents</span>"

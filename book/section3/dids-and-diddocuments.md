@@ -74,6 +74,13 @@ An non-exhaustive example of a `did:prism` DIDDocument can be found [here](https
 
 ## Resolvers
 
+A resolver is a service that can resolve a DID to a DIDDocument.  There are PRISM specific resolvers built into Identus SDKs, or you can also run your own resolver service.
+
+Some third-party PRISM resolvers:
+
+- [Blocktrust Resolver](https://analytics.blocktrust.dev/resolve)
+- [NeoPrism Resolver](https://neoprism.patlo.dev/resolver)
+
 ## Controllers
 **Controllers** are entities that can mutate the DIDDocument. Controllers are specified in the DIDDocument as an array of DIDs so they can be a person, thing, or organization.
 

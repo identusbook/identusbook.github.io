@@ -51,8 +51,55 @@ There are several formats for Verifiable Credentials, including:
 
 ## Schemas
 
-- Schemas
-- Publishing your Schema
+Issuing a Verifiable Credential (VC) requires a credential schema, which serves as a general template defining the valid claims (attributes) the VC can contain. This schema acts as a reference point to ensure that the VC is correctly formatted and valid by checking its claims against the predefined structure.
+
+Schemas can optionally be published on a Verifiable Data Registry (VDR), which is particularly beneficial for widely applicable schema types. Publishing schemas on a VDR facilitates their adoption by other parties, enabling third parties to issue VCs that conform to the same standardized credential format.
+
+For example, relevant entities or industry consortiums can collaboratively develop, agree upon, and publish schemas that they will adopt and recognize. This approach encourages other players in the ecosystem to adopt these schemas as well, fostering interoperability and growth within the ecosystem.
+
+By standardizing schemas, the VC ecosystem becomes more cohesive and efficient, allowing for easier verification and broader acceptance of credentials across different platforms and organizations.
+
+Example Credential Schema
+```json
+{
+  "$id": "https://example.com/driving-license-1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Driving License",
+  "type": "object",
+  "properties": {
+    "emailAddress": {
+      "type": "string",
+      "format": "email"
+    },
+    "givenName": {
+      "type": "string"
+    },
+    "familyName": {
+      "type": "string"
+    },
+    "dateOfIssuance": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "drivingLicenseID": {
+      "type": "string"
+    },
+    "drivingClass": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "emailAddress",
+    "familyName",
+    "dateOfIssuance",
+    "drivingLicenseID",
+    "drivingClass"
+  ],
+  "additionalProperties": true
+}
+```
+
+- Publishing your Schema (Milestone 3)
 
 ## Issuing
 

@@ -82,6 +82,7 @@ Some third-party PRISM resolvers:
 - [NeoPrism Resolver](https://neoprism.patlo.dev/resolver)
 
 ## Controllers
+
 **Controllers** are entities that can mutate the DIDDocument. Controllers are specified in the DIDDocument as an array of DIDs so they can be a person, thing, or organization.
 
 Remember that DIDs can all be resolved to DIDDocuments, and each DIDDocument can point to people, things, machines, or services. Every mention of a DID can potentially be a chain of references to other services, or endpoints.  There is plenty of room to be creative with this relationship graph.

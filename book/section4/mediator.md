@@ -19,5 +19,5 @@ SSI participants are connected through various types of devices and network cond
 We will teach the reader how to
 
 - Install, configure, and Run your own Mediator
-- How to manage Websockets
+- How to manage web sockets
 - Performance Tuning

@@ -25,7 +25,7 @@ Identus supports DIDCommV2 and allows peers to pass messages between each other,
 
 **Mediator:**
 
-Mediators act as middlemen between Peer DIDs.  In order for any agent to send a message to any other agent, it must know the `to` and `from` DIDs of each message. The sender and recipient together make up a cryptographic connection called a `DIDPair`.  Mediators maintain queues of messages for each `DIDPair`. If an Edge Agent is offline, the Mediator will hold incoming messages for them until the agent is back online and able to receive them. Mediators can deliver messages when polled, or push via Websockets. Mediators are expected to be online at all times and be highly available.
+Mediators act as middlemen between Peer DIDs.  In order for any agent to send a message to any other agent, it must know the `to` and `from` DIDs of each message. The sender and recipient together make up a cryptographic connection called a `DIDPair`.  Mediators maintain queues of messages for each `DIDPair`. If an Edge Agent is offline, the Mediator will hold incoming messages for them until the agent is back online and able to receive them. Mediators can deliver messages when polled, or push via web sockets. Mediators are expected to be online at all times and be highly available.
 
 Since instantiation of Identus Edge Agents requires a Mediator, there are several publicly available Mediator services which make development simple.  
 

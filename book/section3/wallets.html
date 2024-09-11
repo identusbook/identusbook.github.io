@@ -362,7 +362,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">11.1</span> Introduction</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">11.1</span> Overview</a></li>
   <li><a href="#edge-agent-sdk-in-identus" id="toc-edge-agent-sdk-in-identus" class="nav-link" data-scroll-target="#edge-agent-sdk-in-identus"><span class="header-section-number">11.2</span> Edge Agent SDK in Identus</a></li>
   <li><a href="#custodial-wallets" id="toc-custodial-wallets" class="nav-link" data-scroll-target="#custodial-wallets"><span class="header-section-number">11.3</span> Custodial Wallets</a></li>
   </ul>
@@ -390,8 +390,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">11.1</span> Introduction</h2>
+<section id="overview" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">11.1</span> Overview</h2>
 <p>Wallets are an essential component on every Self-Sovereign Identity interaction, and as you might have guessed, just like in the physical world where a wallet holds your identifiers (IDs), a digital SSI wallet’s function is to store and manage Decentralized Identifiers (DIDs), Verifiable Credentials (VCs), cryptographic keys, and other related assets.</p>
 <p>Since many SSI frameworks rely on a Blockchain to publish DIDs, there is a common misconception that SSI wallets work in a similar way. Although both SSI and Blockchain wallets require a <code>seed phrase</code> built from a random set of <code>mnemonics</code>, thats where the overlap ends, because the balance and history of a Blockchain wallet can be restored from the ledger itself as opposed to an SSI wallet, where all the stored information exists only on the device and needs to be manually backed up and restored.</p>
 <p>In essence, a wallet in SSI is piece of software that allows users to store, manage, and present proof of their digital identities and credentials. It acts as a repository for digital assets required to fulfill every SSI interaction, ensuring that users and entities have complete control over their data. In the case of Identus, the <a href="https://github.com/hyperledger/identus-edge-agent-sdk-ts">Edge Agent SDK</a> provides all the abstractions needed to operate a wallet by an individual on a browser or mobile app, and the <a href="https://github.com/hyperledger/identus-cloud-agent">Cloud Agent</a>, provides a <code>REST API</code> to operate a wallet in the cloud, either to itself (single tenant) or for third-parties (multi tenant) as a custodial wallet.</p>

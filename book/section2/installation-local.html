@@ -396,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">8.1</span> Introduction</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">8.1</span> Overview</a></li>
   <li><a href="#identus-releases-overview" id="toc-identus-releases-overview" class="nav-link" data-scroll-target="#identus-releases-overview"><span class="header-section-number">8.2</span> Identus Releases Overview</a></li>
   <li><a href="#pre-requisites" id="toc-pre-requisites" class="nav-link" data-scroll-target="#pre-requisites"><span class="header-section-number">8.3</span> Pre-requisites</a>
   <ul class="collapse">
@@ -438,8 +438,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="introduction" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">8.1</span> Introduction</h2>
+<section id="overview" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">8.1</span> Overview</h2>
 <p>Hyperledger Identus, previously known as Atala PRISM, is distributed across various repositories. These repositories group together different building blocks to provide the necessary functionality for fulfilling each of the essential roles in Self-Sovereign Identity (SSI), as introduced in <a href="../section1/identus-concepts.html">Identus Concepts</a> and <a href="../section1/ssi-basics.html">SSI Basics</a>. Throughout this book, we will detail the setup of each component.</p>
 <p>The initial component to set up is our Cloud Agent. This agent is responsible for creating and publishing DID Documents into a Verifiable Data Registry (<a href="../glossary.html#vdr">VDR</a>), issuing Verifiable Credentials, and, depending on the configuration, even providing Identity Wallets to multiple users through a multi-tenancy setup. For now, our focus will be on setting up the Cloud Agent to run locally in development mode, supporting only a single tenant. This step is crucial for learning the basics and getting started. As we progress and build our example application, we will deploy the Cloud Agent in development mode first, then set it up to connect to Cardano <code>testnet</code> as our VDR on pre-production mode and, finally, in production mode with multi-tenancy support connected to Cardano <code>mainnet</code>. This will be a gradual process as we need to familiarize on each stage of the Cloud Agent.</p>
 </section>

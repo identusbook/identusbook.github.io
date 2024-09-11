@@ -51,20 +51,97 @@ There are several formats for Verifiable Credentials, including:
 
 ## Schemas
 
-- Schemas
-- Publishing your Schema
+Issuing a Verifiable Credential (VC) requires a credential schema, which serves as a general template defining the valid claims (attributes) the VC can contain. This schema acts as a reference point to ensure that the VC is correctly formatted and valid by checking its claims against the predefined structure.
+
+Schemas can optionally be published on a Verifiable Data Registry (VDR), which is particularly beneficial for widely applicable schema types. Publishing schemas on a VDR facilitates their adoption by other parties, enabling third parties to issue VCs that conform to the same standardized credential format.
+
+For example, relevant entities or industry consortiums can collaboratively develop, agree upon, and publish schemas that they will adopt and recognize. This approach encourages other players in the ecosystem to adopt these schemas as well, fostering interoperability and growth within the ecosystem.
+
+By standardizing schemas, the VC ecosystem becomes more cohesive and efficient, allowing for easier verification and broader acceptance of credentials across different platforms and organizations.
+
+Example Credential Schema
+```json
+{
+  "$id": "https://example.com/driving-license-1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Driving License",
+  "type": "object",
+  "properties": {
+    "emailAddress": {
+      "type": "string",
+      "format": "email"
+    },
+    "givenName": {
+      "type": "string"
+    },
+    "familyName": {
+      "type": "string"
+    },
+    "dateOfIssuance": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "drivingLicenseID": {
+      "type": "string"
+    },
+    "drivingClass": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "emailAddress",
+    "familyName",
+    "dateOfIssuance",
+    "drivingLicenseID",
+    "drivingClass"
+  ],
+  "additionalProperties": true
+}
+```
+
+- Publishing your Schema (Milestone 3)
 
 ## Issuing
 
-- JWT
-- SD-JWT (Atala Roadmap Q2)
-- AnonCreds
+Issuing a Verifiable Credential (VC) is a multi-step process that occurs between an issuer agent and a holder. Currently, this process is only supported through the cloud agent's API endpoints, as there is no functionality to issue VCs from edge client SDKs.
 
-## Updating
+The issuing process shares a common prerequisite across all three supported VC formats (JWT, SD-JWT, and AnonCreds): an established connection between the issuing cloud agent and a holder. The holder can be either another cloud agent or an edge client device.
 
-- Updating (re-binding)
+Additional requirements vary depending on the VC format:
+
+1. For JWT and SD-JWT:
+   - The issuing agent must have a published DID Prism.
+
+2. For SD-JWT only:
+   - The holder must also have a DID Prism, but it doesn't need to be published on-chain.
+
+3. For AnonCreds:
+   - No additional requirements beyond the established connection.
+
+### Issuer flow
+
+From the issuer perspective this is the regular flow to issue a VC:
+
+1. Create a credential offer over API endpoint
+2. Send the credential offer to holder over DIDCOMM
+3. Receive credential request from holder over DIDCOMM
+4. Issue and process credential
+5. Send credential to holder over DIDCOMM
+   
+Depending on the value of `automaticIssuance` the credential will be automatically issued on step 4 as soon as the credential request is received from the holder, if `automaticIssuance` is set to `false`, the issuer must manually trigger issuance and process trough an API call. 
+
+### Holder flow
+
+From the holder perspective this is regular flow to receive a VC:
+
+1. Received offer over DIDCOMM
+2. Accept offer, in this step the SDK calls cloud agent API endpoint to trigger the issuance of the VC
+3. Receive credential over DIDCOMM
+
+TODO: Add code / API calls on Milestone 3.
 
 ## Revoking
 
-- Revoking
+Revoking a VC is done through a simple API call to the cloud agent to revoke a specific credential by it's ID. The end result is that any presentation proof request will fail if the VC has been revoked.
 
+TODO: Add code / API calls on Milestone 3.

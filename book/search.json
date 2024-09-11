@@ -395,7 +395,7 @@
     "href": "section3/verifiable-credentials.html#schemas",
     "title": "14  Verifiable Credentials",
     "section": "14.3 Schemas",
-    "text": "14.3 Schemas\n\nSchemas\nPublishing your Schema",
+    "text": "14.3 Schemas\nIssuing a Verifiable Credential (VC) requires a credential schema, which serves as a general template defining the valid claims (attributes) the VC can contain. This schema acts as a reference point to ensure that the VC is correctly formatted and valid by checking its claims against the predefined structure.\nSchemas can optionally be published on a Verifiable Data Registry (VDR), which is particularly beneficial for widely applicable schema types. Publishing schemas on a VDR facilitates their adoption by other parties, enabling third parties to issue VCs that conform to the same standardized credential format.\nFor example, relevant entities or industry consortiums can collaboratively develop, agree upon, and publish schemas that they will adopt and recognize. This approach encourages other players in the ecosystem to adopt these schemas as well, fostering interoperability and growth within the ecosystem.\nBy standardizing schemas, the VC ecosystem becomes more cohesive and efficient, allowing for easier verification and broader acceptance of credentials across different platforms and organizations.\nExample Credential Schema\n{\n  \"$id\": \"https://example.com/driving-license-1.0\",\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"description\": \"Driving License\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"emailAddress\": {\n      \"type\": \"string\",\n      \"format\": \"email\"\n    },\n    \"givenName\": {\n      \"type\": \"string\"\n    },\n    \"familyName\": {\n      \"type\": \"string\"\n    },\n    \"dateOfIssuance\": {\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    },\n    \"drivingLicenseID\": {\n      \"type\": \"string\"\n    },\n    \"drivingClass\": {\n      \"type\": \"integer\"\n    }\n  },\n  \"required\": [\n    \"emailAddress\",\n    \"familyName\",\n    \"dateOfIssuance\",\n    \"drivingLicenseID\",\n    \"drivingClass\"\n  ],\n  \"additionalProperties\": true\n}\n\nPublishing your Schema (Milestone 3)",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
@@ -406,18 +406,7 @@
     "href": "section3/verifiable-credentials.html#issuing",
     "title": "14  Verifiable Credentials",
     "section": "14.4 Issuing",
-    "text": "14.4 Issuing\n\nJWT\nSD-JWT (Atala Roadmap Q2)\nAnonCreds",
-    "crumbs": [
-      "Section III - Building",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
-    ]
-  },
-  {
-    "objectID": "section3/verifiable-credentials.html#updating",
-    "href": "section3/verifiable-credentials.html#updating",
-    "title": "14  Verifiable Credentials",
-    "section": "14.5 Updating",
-    "text": "14.5 Updating\n\nUpdating (re-binding)",
+    "text": "14.4 Issuing\nIssuing a Verifiable Credential (VC) is a multi-step process that occurs between an issuer agent and a holder. Currently, this process is only supported through the cloud agent’s API endpoints, as there is no functionality to issue VCs from edge client SDKs.\nThe issuing process shares a common prerequisite across all three supported VC formats (JWT, SD-JWT, and AnonCreds): an established connection between the issuing cloud agent and a holder. The holder can be either another cloud agent or an edge client device.\nAdditional requirements vary depending on the VC format:\n\nFor JWT and SD-JWT:\n\nThe issuing agent must have a published DID Prism.\n\nFor SD-JWT only:\n\nThe holder must also have a DID Prism, but it doesn’t need to be published on-chain.\n\nFor AnonCreds:\n\nNo additional requirements beyond the established connection.\n\n\n\n14.4.1 Issuer flow\nFrom the issuer perspective this is the regular flow to issue a VC:\n\nCreate a credential offer over API endpoint\nSend the credential offer to holder over DIDCOMM\nReceive credential request from holder over DIDCOMM\nIssue and process credential\nSend credential to holder over DIDCOMM\n\nDepending on the value of automaticIssuance the credential will be automatically issued on step 4 as soon as the credential request is received from the holder, if automaticIssuance is set to false, the issuer must manually trigger issuance and process trough an API call.\n\n\n14.4.2 Holder flow\nFrom the holder perspective this is regular flow to receive a VC:\n\nReceived offer over DIDCOMM\nAccept offer, in this step the SDK calls cloud agent API endpoint to trigger the issuance of the VC\nReceive credential over DIDCOMM\n\nTODO: Add code / API calls on Milestone 3.",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"
@@ -427,8 +416,8 @@
     "objectID": "section3/verifiable-credentials.html#revoking",
     "href": "section3/verifiable-credentials.html#revoking",
     "title": "14  Verifiable Credentials",
-    "section": "14.6 Revoking",
-    "text": "14.6 Revoking\n\nRevoking",
+    "section": "14.5 Revoking",
+    "text": "14.5 Revoking\nRevoking a VC is done through a simple API call to the cloud agent to revoke a specific credential by it’s ID. The end result is that any presentation proof request will fail if the VC has been revoked.\nTODO: Add code / API calls on Milestone 3.",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Verifiable Credentials</span>"

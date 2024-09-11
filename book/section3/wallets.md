@@ -1,7 +1,7 @@
 ---
 title: "Wallets"
 ---
-## Introduction
+## Overview
 
 Wallets are an essential component on every Self-Sovereign Identity interaction, and as you might have guessed, just like in the physical world where a wallet holds your identifiers (IDs), a digital SSI wallet's function is to store and manage Decentralized Identifiers (DIDs), Verifiable Credentials (VCs), cryptographic keys, and other related assets.
 

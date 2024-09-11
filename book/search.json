@@ -461,7 +461,40 @@
     "href": "section3/verification.html",
     "title": "16  Verification",
     "section": "",
-    "text": "Verification\n\nPresenting Proof\nPresentation Policies / Verification Policies\nSelective Disclosure with AnonCreds",
+    "text": "16.1 Presenting proof\nVerification is a crucial interaction between Self-Sovereign Identity (SSI) agents. This process involves a verifier creating a present proof request to a holder, who then responds with a proof presentation. The verifier agent subsequently verifies this presentation.\nThe verification process consists of several key steps:\nIt’s important to note that a valid and correctly formatted VC alone is insufficient for acceptance. While the verifier agent automatically checks the cryptography, the verifier must also:\nThus, the verifier has the final say in accepting or rejecting the verified proof presentation.\nThe core of the verification process involves the holder signing a random challenge along with the presentation. The verifier agent extracts the public key from this signature and compares it with the public key of the VC’s subject. If these public keys match, it confirms that the entity responding to the proof presentation request has access to the private key of the VC’s subject.",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Verification</span>"
+    ]
+  },
+  {
+    "objectID": "section3/verification.html#presenting-proof",
+    "href": "section3/verification.html#presenting-proof",
+    "title": "16  Verification",
+    "section": "",
+    "text": "The verifier initiates a present proof request.\nThe holder responds with a proof presentation.\nThe verifier agent automatically verifies the presentation’s cryptographic integrity.\nThe verifier makes a final decision to accept or reject the Verifiable Credential (VC).\n\n\n\nConfirm the trustworthiness of the issuer.\nEvaluate and accept the claims within the VC.",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Verification</span>"
+    ]
+  },
+  {
+    "objectID": "section3/verification.html#presentation-policies",
+    "href": "section3/verification.html#presentation-policies",
+    "title": "16  Verification",
+    "section": "16.2 Presentation policies",
+    "text": "16.2 Presentation policies\nTo streamline the verification process, verifier cloud agents can implement presentation policies. These policies serve as an automated mechanism to enhance efficiency and consistency in verifying Verifiable Credentials (VCs).\nKey aspects of presentation policies include:\n\nTrusted Issuer Lists:\n\nPolicies establish sets of trusted issuers for specific VC schemas.\nThis allows verifiers to pre-approve credible sources for particular types of credentials.\n\nDynamic Management:\n\nPolicies can be updated and managed over time.\nVerifiers can add or remove trusted issuers as needed, adapting to changes in the ecosystem or their own requirements.\n\nAutomated Rejection:\n\nThe verifier cloud agent can automatically reject a presentation proof if the issuer is not listed in the relevant presentation policy.\nThis reduces manual intervention and speeds up the verification process for non-compliant credentials.\n\nSchema-Specific Trust:\n\nPolicies are tied to specific VC schemas, allowing for granular control over which issuers are trusted for different types of credentials.\n\n\nBy implementing presentation policies, verifiers can significantly reduce the manual effort required in the verification process, while maintaining control over which issuers they deem trustworthy for different types of credentials. This approach balances automation with the flexibility to adapt to changing trust relationships in the Self-Sovereign Identity ecosystem.",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Verification</span>"
+    ]
+  },
+  {
+    "objectID": "section3/verification.html#selective-disclosure",
+    "href": "section3/verification.html#selective-disclosure",
+    "title": "16  Verification",
+    "section": "16.3 Selective disclosure",
+    "text": "16.3 Selective disclosure\nSo far the standard VC presented in a JWT requires the holder to disclose all the content of the VC in order for the verifier to validate the integrity of the VC and confirm it has not been tampered by the holder, in many cases the verifier just needs to check specific claims and not all of them, so in this case presenting the whole content of the VC will compromise the holder’s privacy. The typical example to illustrate this issue is with an interaction between a bar and a customer, in many places around the world you need to be over 18 or 21 to access the establishment or to buy alcoholic drinks, normally the server will check for your ID, you may not think much of it but essentially they just need to verify that you are over 18 or 21 and by giving your whole ID, you are disclosing your full name, address, day of birth among other details, this may not be much of a problem when physically presenting this information but in the digital world all the information you share needs to be copied around the Internet and can be archived. Selective disclosure was born to address this problem, it uses zero knowledge proofs as the cryptographic technique to share a subset of information without revealing the whole content of the information. Currently Hyperledger Identus supports SD-JWT and AnonCreds as VC formats that can present selective disclosure proofs.\nStandard Verifiable Credentials (VCs) presented in JWT format require holders to disclose all content for verifiers to validate integrity and confirm authenticity. However, this approach can compromise privacy when verifiers only need to check specific claims.\nConsider a common scenario: age verification at a bar. While establishments typically only need to confirm if a customer is of legal drinking age (18 or 21 in many jurisdictions), traditional ID checks reveal excessive personal information, including full name, address, and exact date of birth. This over-disclosure becomes particularly problematic in digital interactions, where shared information can be easily copied and archived across the internet.\nTo address this privacy concern, the concept of selective disclosure was developed. This approach utilizes zero knowledge proofs, a cryptographic technique allowing the sharing of specific information subsets without revealing the entire content.\nHyperledger Identus currently supports two VC formats that enable selective disclosure proofs:\n\nSD-JWT (Selective Disclosure JSON Web Token)\nAnonCreds (Anonymous Credentials)\n\nThese formats allow holders to prove specific claims (e.g., being over 21) without disclosing unnecessary personal details, striking a balance between verification needs and privacy protection.\nSome of the benefits of Selective Disclosure include:\n\nEnhanced Privacy: Minimizes the exposure of sensitive personal information.\nCompliance: Aligns with data protection regulations by adhering to data minimization principles.\nUser Control: Empowers individuals to manage their digital identity more effectively.\nReduced Risk: Limits the potential for data breaches or misuse of personal information.\n\nTODO: Add API request and code examples (Milestone 3)",
     "crumbs": [
       "Section III - Building",
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>Verification</span>"

@@ -357,8 +357,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#presenting-proof" id="toc-presenting-proof" class="nav-link active" data-scroll-target="#presenting-proof"><span class="header-section-number">16.1</span> Presenting proof</a></li>
+  <li><a href="#presentation-policies" id="toc-presentation-policies" class="nav-link" data-scroll-target="#presentation-policies"><span class="header-section-number">16.2</span> Presentation policies</a></li>
+  <li><a href="#selective-disclosure" id="toc-selective-disclosure" class="nav-link" data-scroll-target="#selective-disclosure"><span class="header-section-number">16.3</span> Selective disclosure</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -382,14 +390,74 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Verification</p>
+<section id="presenting-proof" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="presenting-proof"><span class="header-section-number">16.1</span> Presenting proof</h2>
+<p>Verification is a crucial interaction between Self-Sovereign Identity (SSI) agents. This process involves a <code>verifier</code> creating a present proof request to a <code>holder</code>, who then responds with a proof presentation. The verifier agent subsequently verifies this presentation.</p>
+<p>The verification process consists of several key steps:</p>
+<ol type="1">
+<li>The verifier initiates a present proof request.</li>
+<li>The holder responds with a proof presentation.</li>
+<li>The verifier agent automatically verifies the presentation’s cryptographic integrity.</li>
+<li>The verifier makes a final decision to accept or reject the Verifiable Credential (VC).</li>
+</ol>
+<p>It’s important to note that a valid and correctly formatted VC alone is insufficient for acceptance. While the verifier agent automatically checks the cryptography, the verifier must also:</p>
+<ol type="1">
+<li>Confirm the trustworthiness of the issuer.</li>
+<li>Evaluate and accept the claims within the VC.</li>
+</ol>
+<p>Thus, the verifier has the final say in accepting or rejecting the verified proof presentation.</p>
+<p>The core of the verification process involves the holder signing a random challenge along with the presentation. The verifier agent extracts the public key from this signature and compares it with the public key of the VC’s <code>subject</code>. If these public keys match, it confirms that the entity responding to the proof presentation request has access to the private key of the VC’s subject.</p>
+</section>
+<section id="presentation-policies" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="presentation-policies"><span class="header-section-number">16.2</span> Presentation policies</h2>
+<p>To streamline the verification process, verifier cloud agents can implement <code>presentation policies</code>. These policies serve as an automated mechanism to enhance efficiency and consistency in verifying Verifiable Credentials (VCs).</p>
+<p>Key aspects of presentation policies include:</p>
+<ol type="1">
+<li>Trusted Issuer Lists:
 <ul>
-<li>Presenting Proof</li>
-<li>Presentation Policies / Verification Policies</li>
-<li>Selective Disclosure with AnonCreds</li>
-</ul>
+<li>Policies establish sets of <code>trusted issuers</code> for specific VC <code>schemas</code>.</li>
+<li>This allows verifiers to pre-approve credible sources for particular types of credentials.</li>
+</ul></li>
+<li>Dynamic Management:
+<ul>
+<li>Policies can be updated and managed over time.</li>
+<li>Verifiers can add or remove trusted issuers as needed, adapting to changes in the ecosystem or their own requirements.</li>
+</ul></li>
+<li>Automated Rejection:
+<ul>
+<li>The verifier cloud agent can automatically reject a presentation proof if the issuer is not listed in the relevant presentation policy.</li>
+<li>This reduces manual intervention and speeds up the verification process for non-compliant credentials.</li>
+</ul></li>
+<li>Schema-Specific Trust:
+<ul>
+<li>Policies are tied to specific VC schemas, allowing for granular control over which issuers are trusted for different types of credentials.</li>
+</ul></li>
+</ol>
+<p>By implementing presentation policies, verifiers can significantly reduce the manual effort required in the verification process, while maintaining control over which issuers they deem trustworthy for different types of credentials. This approach balances automation with the flexibility to adapt to changing trust relationships in the Self-Sovereign Identity ecosystem.</p>
+</section>
+<section id="selective-disclosure" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="selective-disclosure"><span class="header-section-number">16.3</span> Selective disclosure</h2>
+<p>So far the standard VC presented in a <code>JWT</code> requires the holder to disclose all the content of the VC in order for the verifier to validate the integrity of the VC and confirm it has not been tampered by the holder, in many cases the verifier just needs to check specific claims and not all of them, so in this case presenting the whole content of the VC will compromise the holder’s privacy. The typical example to illustrate this issue is with an interaction between a bar and a customer, in many places around the world you need to be over 18 or 21 to access the establishment or to buy alcoholic drinks, normally the server will check for your ID, you may not think much of it but essentially they just need to verify that you are over 18 or 21 and by giving your whole ID, you are disclosing your full name, address, day of birth among other details, this may not be much of a problem when physically presenting this information but in the digital world all the information you share needs to be copied around the Internet and can be archived. <code>Selective disclosure</code> was born to address this problem, it uses <code>zero knowledge proofs</code> as the cryptographic technique to share a subset of information without revealing the whole content of the information. Currently Hyperledger Identus supports <code>SD-JWT</code> and <code>AnonCreds</code> as VC formats that can present selective disclosure proofs.</p>
+<p>Standard Verifiable Credentials (VCs) presented in JWT format require holders to disclose all content for verifiers to validate integrity and confirm authenticity. However, this approach can compromise privacy when verifiers only need to check specific claims.</p>
+<p>Consider a common scenario: age verification at a bar. While establishments typically only need to confirm if a customer is of legal drinking age (18 or 21 in many jurisdictions), traditional ID checks reveal excessive personal information, including full name, address, and exact date of birth. This over-disclosure becomes particularly problematic in digital interactions, where shared information can be easily copied and archived across the internet.</p>
+<p>To address this privacy concern, the concept of <code>selective disclosure</code> was developed. This approach utilizes <code>zero knowledge proofs</code>, a cryptographic technique allowing the sharing of specific information subsets without revealing the entire content.</p>
+<p>Hyperledger Identus currently supports two VC formats that enable selective disclosure proofs:</p>
+<ol type="1">
+<li>SD-JWT (Selective Disclosure JSON Web Token)</li>
+<li>AnonCreds (Anonymous Credentials)</li>
+</ol>
+<p>These formats allow holders to prove specific claims (e.g., being over 21) without disclosing unnecessary personal details, striking a balance between verification needs and privacy protection.</p>
+<p>Some of the benefits of Selective Disclosure include:</p>
+<ol type="1">
+<li>Enhanced Privacy: Minimizes the exposure of sensitive personal information.</li>
+<li>Compliance: Aligns with data protection regulations by adhering to data minimization principles.</li>
+<li>User Control: Empowers individuals to manage their digital identity more effectively.</li>
+<li>Reduced Risk: Limits the potential for data breaches or misuse of personal information.</li>
+</ol>
+<p>TODO: Add API request and code examples (Milestone 3)</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

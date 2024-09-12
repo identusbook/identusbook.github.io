@@ -22,8 +22,19 @@ For a production setup, we recommend additional security measures, including cha
 
 ## Hardware recommendations
 
+The Hyperledger Identus cloud agent alone doesn't require too much hardware, any instance with 2GB-4GB ram will run it for testing purposes. Of course as you scale in usage you will naturally want more ram available to handle higher concurrent loads.
+
+The Cardano wallet and DB sync components on the other hand are going to need a lot more resources due to the `mainnet` requirements, according to the official documentation, to run a full Cardano node you need:
+
+- 200GB of disk space (for the history of blocks)
+- 24GB of RAM (for the current UTxO set)
+
+Of course, on a production environment you may want to run your agent, wallet and db-sync on different machines connected through a VPN or SSH tunnel in order to isolate them and improve security, e.g., your Cardano wallet may be only connecting to a Cardano node, but not exposed to the Internet. You may also reuse and share your Cardano node instance for your wallet and db-sync components, reducing your hardware requirements.
+
+There are many ways to setup your infrastructure and at least in the beginning, the Cardano node is the most resource demanding of all components.
 
 
+---
 In this chapter we will discuss how to prepare a production envioronment for an Identus application.
 
 We will discuss:

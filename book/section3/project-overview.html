@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Project Overview – Mastering Identus: A Developer Handbook</title>
+<title>10&nbsp; Example Project – Mastering Identus: A Developer Handbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -122,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section3/project-overview.html">Section III - Building</a></li><li class="breadcrumb-item"><a href="../section3/project-overview.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Project Overview</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section3/project-overview.html">Section III - Building</a></li><li class="breadcrumb-item"><a href="../section3/project-overview.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Example Project</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -236,7 +236,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../section3/project-overview.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Project Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Example Project</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -357,15 +357,28 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#overview---airline-ticket-wallet" id="toc-overview---airline-ticket-wallet" class="nav-link active" data-scroll-target="#overview---airline-ticket-wallet"><span class="header-section-number">10.1</span> Overview - Airline Ticket Wallet</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">10.2</span> Prerequisites</a></li>
+  <li><a href="#roles" id="toc-roles" class="nav-link" data-scroll-target="#roles"><span class="header-section-number">10.3</span> Roles</a>
+  <ul class="collapse">
+  <li><a href="#issuer-airline" id="toc-issuer-airline" class="nav-link" data-scroll-target="#issuer-airline"><span class="header-section-number">10.3.1</span> Issuer: Airline</a></li>
+  <li><a href="#holder-traveler" id="toc-holder-traveler" class="nav-link" data-scroll-target="#holder-traveler"><span class="header-section-number">10.3.2</span> Holder: Traveler</a></li>
+  <li><a href="#verifier-airport-security-officer" id="toc-verifier-airport-security-officer" class="nav-link" data-scroll-target="#verifier-airport-security-officer"><span class="header-section-number">10.3.3</span> Verifier: Airport Security Officer</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section3/project-overview.html">Section III - Building</a></li><li class="breadcrumb-item"><a href="../section3/project-overview.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Project Overview</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section3/project-overview.html">Section III - Building</a></li><li class="breadcrumb-item"><a href="../section3/project-overview.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Example Project</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Project Overview</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Example Project</span></h1>
 </div>
 
 
@@ -382,9 +395,30 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is project overview of the example app, which can issue and verify educational credentials.</p>
+<section id="overview---airline-ticket-wallet" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="overview---airline-ticket-wallet"><span class="header-section-number">10.1</span> Overview - Airline Ticket Wallet</h2>
+<p>One of the best ways to learn and understand a software platform is to build something with it. In the following chapters, we will build an example application showing how to use Identus to issue and verify airline tickets.</p>
+<p>Users will be able to purchase a flight, and receive a Verifiable Credential representing a ticket and seat assignment. Travelers will be able to present their ticket to Airport Security when requested, and in turn, the security officer will be able to verify the ticket’s authenticity.</p>
+<p>We will use the Identus Cloud Agent, plus the Typescript SDK in our examples, however the same functionality and source is available in the native language of each Edge Agent SDK; Swift for iOS/Mac and Kotlin for Android. Please see the book’s Github page for the complete source code and follow along in your language of choice.</p>
+</section>
+<section id="prerequisites" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">10.2</span> Prerequisites</h2>
+<p>To follow along with the book, please make sure you have a working Cloud Agent development environment, as described in the <a href="../section2/installation-local.html">Section 2</a>.</p>
+</section>
+<section id="roles" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="roles"><span class="header-section-number">10.3</span> Roles</h2>
+<section id="issuer-airline" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="issuer-airline"><span class="header-section-number">10.3.1</span> Issuer: Airline</h3>
+</section>
+<section id="holder-traveler" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="holder-traveler"><span class="header-section-number">10.3.2</span> Holder: Traveler</h3>
+</section>
+<section id="verifier-airport-security-officer" class="level3" data-number="10.3.3">
+<h3 data-number="10.3.3" class="anchored" data-anchor-id="verifier-airport-security-officer"><span class="header-section-number">10.3.3</span> Verifier: Airport Security Officer</h3>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

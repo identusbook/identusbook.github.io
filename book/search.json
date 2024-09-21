@@ -217,12 +217,34 @@
   {
     "objectID": "section3/project-overview.html",
     "href": "section3/project-overview.html",
-    "title": "10  Project Overview",
+    "title": "10  Example Project",
     "section": "",
-    "text": "This is project overview of the example app, which can issue and verify educational credentials.",
+    "text": "10.1 Overview - Airline Ticket Wallet\nOne of the best ways to learn and understand a software platform is to build something with it. In the following chapters, we will build an example application showing how to use Identus to issue and verify airline tickets.\nUsers will be able to purchase a flight, and receive a Verifiable Credential representing a ticket and seat assignment. Travelers will be able to present their ticket to Airport Security when requested, and in turn, the security officer will be able to verify the ticket’s authenticity.\nWe will use the Identus Cloud Agent, plus the Typescript SDK in our examples, however the same functionality and source is available in the native language of each Edge Agent SDK; Swift for iOS/Mac and Kotlin for Android. Please see the book’s Github page for the complete source code and follow along in your language of choice.",
     "crumbs": [
       "Section III - Building",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Project Overview</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Example Project</span>"
+    ]
+  },
+  {
+    "objectID": "section3/project-overview.html#prerequisites",
+    "href": "section3/project-overview.html#prerequisites",
+    "title": "10  Example Project",
+    "section": "10.2 Prerequisites",
+    "text": "10.2 Prerequisites\nTo follow along with the book, please make sure you have a working Cloud Agent development environment, as described in the Section 2.",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Example Project</span>"
+    ]
+  },
+  {
+    "objectID": "section3/project-overview.html#roles",
+    "href": "section3/project-overview.html#roles",
+    "title": "10  Example Project",
+    "section": "10.3 Roles",
+    "text": "10.3 Roles\n\n10.3.1 Issuer: Airline\n\n\n10.3.2 Holder: Traveler\n\n\n10.3.3 Verifier: Airport Security Officer",
+    "crumbs": [
+      "Section III - Building",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Example Project</span>"
     ]
   },
   {

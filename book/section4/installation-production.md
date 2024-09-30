@@ -417,7 +417,6 @@ alonzo-genesis.json  byron-genesis.json   config.json          conway-genesis.js
 
 
 
----
 In this chapter we will discuss how to prepare a production envioronment for an Identus application.
 
 We will discuss:

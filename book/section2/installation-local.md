@@ -9,17 +9,15 @@ The initial component to set up is our Cloud Agent. This agent is responsible fo
 
 ## Identus Releases Overview
 
-Identus is built upon multiple interdependent building blocks, including the Cloud Agent, Wallet SDK, Mediator, and Apollo Crypto Library. To ensure compatibility among these components, it is crucial to identify the correct building block versions that are compatible between them. For this purpose, a dedicated repository named [atala-releases](https://github.com/input-output-hk/atala-releases) is available. This repository provides comprehensive documentation and a compatibility table for each Identus Release. We will be using [Identus v2.12](https://github.com/input-output-hk/atala-releases/blob/master/Atala%20PRISM/2.12.md) as our selected release because it is the latest at the time of writing (May 2024).
+Identus is built upon multiple interdependent building blocks, including the Cloud Agent, Wallet SDK, Mediator, and Apollo Crypto Library. To ensure compatibility among these components, it is crucial to identify the correct building block versions that are compatible between them. Identus releases are listed [here] (https://github.com/hyperledger/identus/releases). The release notes for each vesion provides a compatibility table for each Identus release.  This guide will focus on the latest stable Identus release at the time of writing (December 2024).
 
 ## Pre-requisites
 
 ### Git
 
-GitHub is currently the primary platform for hosting repositories. As of this writing, projects are transitioning from Atala PRISM's original repositories to Hyperledger ones, with the Cloud Agent being the first to migrate. For more details, you can read the press release [here](https://iohk.io/en/blog/posts/2023/12/04/iog-contributes-atala-prism-to-hyperledger-foundation/).
-
 If you're using a UNIX-based system (such as OS X or Linux), you likely already have `git` installed. If not, you can download the installer from [Git downloads](https://www.git-scm.com/downloads). Additionally, various [GUI clients](https://www.git-scm.com/downloads/guis) are available for those who prefer a graphical interface.
 
-To clone the Cloud Agent repository, first go to the [Releases page](https://github.com/hyperledger/identus-cloud-agent/releases) and identify the tagged release corresponding to the Identus release you are targeting (e.g. `cloud-agent-v1.33.0` is part of [Identus v2.12](https://github.com/input-output-hk/atala-releases/blob/master/Atala%20PRISM/2.12.md) release), then clone the repository with this command:
+To clone the Cloud Agent repository, first go to the [Releases page](https://github.com/hyperledger/identus/releases) and identify the tagged release corresponding to the Identus release you are targeting (e.g. `cloud-agent-v1.40.0` is part of [Identus v2.14](https://github.com/hyperledger/identus/releases/tag/v2.14) release), then clone the repository with this command:
 
 ```bash
 git clone --depth 1 --branch cloud-agent-v1.33.0 https://github.com/hyperledger/identus-cloud-agent

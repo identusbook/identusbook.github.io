@@ -20,7 +20,7 @@ If you're using a UNIX-based system (such as OS X or Linux), you likely already 
 To clone the Cloud Agent repository, first go to the [Releases page](https://github.com/hyperledger/identus/releases) and identify the tagged release corresponding to the Identus release you are targeting (e.g. `cloud-agent-v1.40.0` is part of [Identus v2.14](https://github.com/hyperledger/identus/releases/tag/v2.14) release), then clone the repository with this command:
 
 ```bash
-git clone --depth 1 --branch cloud-agent-v1.33.0 https://github.com/hyperledger/identus-cloud-agent
+git clone --depth 1 --branch cloud-agent-v1.40.0 https://github.com/hyperledger/identus-cloud-agent
 ```
 
 ::: {.callout-note}
@@ -47,9 +47,14 @@ Once you have cloned the `identus-cloud-agent` repository and Docker is up and r
 
 ### Atala Community Projects
 
-There is a growing list of community repositories that aim to provide some extra functionality, mostly maintained by official developers and community members on their spare time. At present time there are three [Atala Community Projects](https://github.com/atala-community-projects):
+There is a growing list of community repositories that aim to provide some extra functionality, mostly maintained by official developers and community members on their spare time. 
 
-- **Pluto Encrypted:** Implementation of Pluto storage engine with encryption support.
+Some notable projects are:
+
+- [**Pluto Encrypted:**](https://github.com/trust0-project/pluto-encrypted) Implementation of Pluto storage engine with encryption support.
+- [**Identus Store**](https://github.com/trust0-project/identus-store) A secure light-weight and dependency free database wrapper.
+- [**NeoPrism Resolver:**](https://neoprism.patlo.dev/resolver) A did:prism resover and explorer.
+- [**Blocktrust Mediator**](https://blocktrust.dev/mediator) A DIDCommv2 compliant mediator, written in C#.
 - **Edge Agent SDK Demos:** Browser and Node versions of Edge Agent SDK integrated with Pluto Encrypted.
 - **Identus Test:** Shell script helper that will checkout a particular Identus release and compatible components.
 

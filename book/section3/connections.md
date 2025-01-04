@@ -164,7 +164,191 @@ As a refresher from what we covered, a PeerDID is a way to package a set of keys
 
 Now, lets issue another kind of Out of Band invite, one from the cloud agent in order to connect.
 
-TODO: Create invite on cloud agent, connect sample SDK code. (Milestone 4)
+The Cloud Agent can generate Out of Band invites, this invite then can be parsed by another peer (say another Cloud Agent or Edge Client) and use it to establish a connection, the end result should be a DID Peer on both sides that allow them to send messages to each other over DIDCOMM.
+
+So, our first step is to generate the invite:
+
+```bash
+curl --location 'http://127.0.0.1:8080/cloud-agent/connections' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data '{"label": "test"}'
+```
+
+::: {.callout-note}
+The only parameter we can change when generating an invite is the `label`, this is optional and it is a simple string that you can use to identify the connection later, a good idea would be to use a `uuid` that you generate and manage on your systems, or could be an alias or the reason for the connection, this is all contextual to the interaction and use case so in our case we will go with "test".
+:::
+
+The Cloud Agent will respond with a payload that should look like this:
+
+```json
+{
+    "connectionId": "fb36eddd-d51e-42cf-a6fe-e76d2e638b70",
+    "thid": "fb36eddd-d51e-42cf-a6fe-e76d2e638b70",
+    "label": "test",
+    "role": "Inviter",
+    "state": "InvitationGenerated",
+    "invitation": {
+        "id": "fb36eddd-d51e-42cf-a6fe-e76d2e638b70",
+        "type": "https://didcomm.org/out-of-band/2.0/invitation",
+        "from": "did:peer:2.Ez6LSgY6Y67mJ75YCZfZYxYEPQJZs3vaEg2Cc91vppoTA7cpj.Vz6MkpX7H7SNA6ooG5snn2MzgyoRadEZtsjNSL1x7HiiLkqyV.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9ob3N0LmRvY2tlci5pbnRlcm5hbDo4MDgwL2RpZGNvbW0iLCJyIjpbXSwiYSI6WyJkaWRjb21tL3YyIl19fQ",
+        "invitationUrl": "https://my.domain.com/path?_oob=eyJpZCI6ImZiMzZlZGRkLWQ1MWUtNDJjZi1hNmZlLWU3NmQyZTYzOGI3MCIsInR5cGUiOiJodHRwczovL2RpZGNvbW0ub3JnL291dC1vZi1iYW5kLzIuMC9pbnZpdGF0aW9uIiwiZnJvbSI6ImRpZDpwZWVyOjIuRXo2TFNnWTZZNjdtSjc1WUNaZlpZeFlFUFFKWnMzdmFFZzJDYzkxdnBwb1RBN2Nwai5WejZNa3BYN0g3U05BNm9vRzVzbm4yTXpneW9SYWRFWnRzak5TTDF4N0hpaUxrcXlWLlNleUowSWpvaVpHMGlMQ0p6SWpwN0luVnlhU0k2SW1oMGRIQTZMeTlvYjNOMExtUnZZMnRsY2k1cGJuUmxjbTVoYkRvNE1EZ3dMMlJwWkdOdmJXMGlMQ0p5SWpwYlhTd2lZU0k2V3lKa2FXUmpiMjF0TDNZeUlsMTlmUSIsImJvZHkiOnsiYWNjZXB0IjpbXX19"
+    },
+    "createdAt": "2025-01-04T12:37:37.059649293Z",
+    "metaRetries": 5,
+    "self": "fb36eddd-d51e-42cf-a6fe-e76d2e638b70",
+    "kind": "Connection"
+}
+```
+
+Once the connection invite is created you can fetch it's details by a `GET`request passing the `connectionId`:
+
+```bash
+curl --location 'http://127.0.0.1:8080/cloud-agent/connections/fb36eddd-d51e-42cf-a6fe-e76d2e638b70' \
+--header 'Accept: application/json' \
+```
+
+You should get back the same payload as when it was created unless something changed, like the `state`:
+
+```json
+{
+    "connectionId": "fb36eddd-d51e-42cf-a6fe-e76d2e638b70",
+    "thid": "fb36eddd-d51e-42cf-a6fe-e76d2e638b70",
+    "label": "test",
+    "role": "Inviter",
+    "state": "InvitationGenerated",
+    "invitation": {
+        "id": "fb36eddd-d51e-42cf-a6fe-e76d2e638b70",
+        "type": "https://didcomm.org/out-of-band/2.0/invitation",
+        "from": "did:peer:2.Ez6LSgY6Y67mJ75YCZfZYxYEPQJZs3vaEg2Cc91vppoTA7cpj.Vz6MkpX7H7SNA6ooG5snn2MzgyoRadEZtsjNSL1x7HiiLkqyV.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9ob3N0LmRvY2tlci5pbnRlcm5hbDo4MDgwL2RpZGNvbW0iLCJyIjpbXSwiYSI6WyJkaWRjb21tL3YyIl19fQ",
+        "invitationUrl": "https://my.domain.com/path?_oob=eyJpZCI6ImZiMzZlZGRkLWQ1MWUtNDJjZi1hNmZlLWU3NmQyZTYzOGI3MCIsInR5cGUiOiJodHRwczovL2RpZGNvbW0ub3JnL291dC1vZi1iYW5kLzIuMC9pbnZpdGF0aW9uIiwiZnJvbSI6ImRpZDpwZWVyOjIuRXo2TFNnWTZZNjdtSjc1WUNaZlpZeFlFUFFKWnMzdmFFZzJDYzkxdnBwb1RBN2Nwai5WejZNa3BYN0g3U05BNm9vRzVzbm4yTXpneW9SYWRFWnRzak5TTDF4N0hpaUxrcXlWLlNleUowSWpvaVpHMGlMQ0p6SWpwN0luVnlhU0k2SW1oMGRIQTZMeTlvYjNOMExtUnZZMnRsY2k1cGJuUmxjbTVoYkRvNE1EZ3dMMlJwWkdOdmJXMGlMQ0p5SWpwYlhTd2lZU0k2V3lKa2FXUmpiMjF0TDNZeUlsMTlmUSIsImJvZHkiOnsiYWNjZXB0IjpbXX19"
+    },
+    "createdAt": "2025-01-04T12:37:37.059649Z",
+    "metaRetries": 5,
+    "self": "fb36eddd-d51e-42cf-a6fe-e76d2e638b70",
+    "kind": "Connection"
+}
+```
+
+Lets dig a bit deeper on what this payload represents. 
+
+This invite payload contains some important metadata:
+
+- **connectionId**: The unique identifier of the connection resource, used to fetch the connection details.
+- **thid**: The unique identifier of the *thread* this connection record belongs to. The value will identical on both sides of the connection (inviter and invitee).
+- **label**: A human readable alias for the connection.
+- **role**: The Cloud Agent role on this connection, either `Inviter` or `Invitee`.
+- **state**: The current status of this connection, note this is contextual to the Cloud Agent role, so as `Inviter` the states could be: `InvitationGenerated`, `ConnectionRequestReceived`, `ConnectionResponsePending`, `ConnectionResponseSent`. But is also possible for the Cloud Agent to parse someone else's invitation, in that case the Cloud Agent will generate a connection with the `Invitee` role and the possible states for that role are: `InvitationReceived`, `ConnectionRequestPending`, `ConnectionRequestSent`, `ConnectionResponseReceived`.
+- **invitation**: The DIDCOMM invitation details.
+- **createdAt**: Date and time when this connection was created or received.
+- **metaRetries**: The maximum background processing attempts remaining for this record.
+- **self**: The reference to the connection resource.
+- **kind**: The type of object returned. In this case a `Connection`.
+
+Now lets unpack the `invitation` details.
+
+- **id**: The unique identifier of the invitation. It should be used as parent thread ID (`pthid`) for the Connection Request message that follows.
+- **type**: The DIDComm Message Type URI (MTURI) the invitation message complies with.
+- **from**: The DID representing the sender to be used by recipients for future interactions.
+- **invitationUrl**: The invitation message encoded as a URL.
+
+Lets resolve the `from` DID:
+
+```bash
+curl https://dev.uniresolver.io/1.0/identifiers/did:peer:2.Ez6LSgY6Y67mJ75YCZfZYxYEPQJZs3vaEg2Cc91vppoTA7cpj.Vz6MkpX7H7SNA6ooG5snn2MzgyoRadEZtsjNSL1x7HiiLkqyV.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9ob3N0LmRvY2tlci5pbnRlcm5hbDo4MDgwL2RpZGNvbW0iLCJyIjpbXSwiYSI6WyJkaWRjb21tL3YyIl19fQ
+```
+```json
+{
+  "@context": "https://w3id.org/did-resolution/v1",
+  "didDocument": {
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      "https://w3id.org/security/multikey/v1",
+      {
+        "@base": "did:peer:2.Ez6LSgY6Y67mJ75YCZfZYxYEPQJZs3vaEg2Cc91vppoTA7cpj.Vz6MkpX7H7SNA6ooG5snn2MzgyoRadEZtsjNSL1x7HiiLkqyV.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9ob3N0LmRvY2tlci5pbnRlcm5hbDo4MDgwL2RpZGNvbW0iLCJyIjpbXSwiYSI6WyJkaWRjb21tL3YyIl19fQ"
+      }
+    ],
+    "id": "did:peer:2.Ez6LSgY6Y67mJ75YCZfZYxYEPQJZs3vaEg2Cc91vppoTA7cpj.Vz6MkpX7H7SNA6ooG5snn2MzgyoRadEZtsjNSL1x7HiiLkqyV.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9ob3N0LmRvY2tlci5pbnRlcm5hbDo4MDgwL2RpZGNvbW0iLCJyIjpbXSwiYSI6WyJkaWRjb21tL3YyIl19fQ",
+    "verificationMethod": [
+      {
+        "id": "#key-2",
+        "type": "Multikey",
+        "controller": "did:peer:2.Ez6LSgY6Y67mJ75YCZfZYxYEPQJZs3vaEg2Cc91vppoTA7cpj.Vz6MkpX7H7SNA6ooG5snn2MzgyoRadEZtsjNSL1x7HiiLkqyV.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9ob3N0LmRvY2tlci5pbnRlcm5hbDo4MDgwL2RpZGNvbW0iLCJyIjpbXSwiYSI6WyJkaWRjb21tL3YyIl19fQ",
+        "publicKeyMultibase": "z6MkpX7H7SNA6ooG5snn2MzgyoRadEZtsjNSL1x7HiiLkqyV"
+      },
+      {
+        "id": "#key-1",
+        "type": "Multikey",
+        "controller": "did:peer:2.Ez6LSgY6Y67mJ75YCZfZYxYEPQJZs3vaEg2Cc91vppoTA7cpj.Vz6MkpX7H7SNA6ooG5snn2MzgyoRadEZtsjNSL1x7HiiLkqyV.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9ob3N0LmRvY2tlci5pbnRlcm5hbDo4MDgwL2RpZGNvbW0iLCJyIjpbXSwiYSI6WyJkaWRjb21tL3YyIl19fQ",
+        "publicKeyMultibase": "z6LSgY6Y67mJ75YCZfZYxYEPQJZs3vaEg2Cc91vppoTA7cpj"
+      }
+    ],
+    "keyAgreement": [
+      "#key-1"
+    ],
+    "authentication": [
+      "#key-2"
+    ],
+    "assertionMethod": [
+      "#key-2"
+    ],
+    "service": [
+      {
+        "serviceEndpoint": {
+          "uri": "http://host.docker.internal:8080/didcomm",
+          "routingKeys": [],
+          "accept": [
+            "didcomm/v2"
+          ]
+        },
+        "type": "DIDCommMessaging",
+        "id": "#service"
+      }
+    ]
+  },
+  "didResolutionMetadata": {
+    "contentType": "application/did+ld+json",
+    "pattern": "^(did:peer:.+)$",
+    "driverUrl": "http://uni-resolver-driver-did-uport:8081/1.0/identifiers/",
+    "duration": 3,
+    "driverDuration": 3,
+    "did": {
+      "didString": "did:peer:2.Ez6LSgY6Y67mJ75YCZfZYxYEPQJZs3vaEg2Cc91vppoTA7cpj.Vz6MkpX7H7SNA6ooG5snn2MzgyoRadEZtsjNSL1x7HiiLkqyV.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9ob3N0LmRvY2tlci5pbnRlcm5hbDo4MDgwL2RpZGNvbW0iLCJyIjpbXSwiYSI6WyJkaWRjb21tL3YyIl19fQ",
+      "methodSpecificId": "2.Ez6LSgY6Y67mJ75YCZfZYxYEPQJZs3vaEg2Cc91vppoTA7cpj.Vz6MkpX7H7SNA6ooG5snn2MzgyoRadEZtsjNSL1x7HiiLkqyV.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9ob3N0LmRvY2tlci5pbnRlcm5hbDo4MDgwL2RpZGNvbW0iLCJyIjpbXSwiYSI6WyJkaWRjb21tL3YyIl19fQ",
+      "method": "peer"
+    }
+  },
+  "didDocumentMetadata": {}
+}
+```
+
+Now this looks familiar, we have the usual set of keys and it looks similar to the mediator DID but in this case we see a `serviceEndpoint` that contains accepts `didcomm/v2` and it's intended to be used for `DIDCommMessaging`. What all this means is the Cloud Agent DID is essentially advertising how it will receive DIDCOMM messages. In other words this could be translated as: "Here is an invite to connect to me, on it you will find a DID that has my public keys and a service endpoint where I receive DIDCOMM messages".
+
+The final piece to unpack is the `invitationUrl`, this looks a little odd at first:
+
+```
+"https://my.domain.com/path?_oob=eyJpZCI6ImZiMzZlZGRkLWQ1MWUtNDJjZi1hNmZlLWU3NmQyZTYzOGI3MCIsInR5cGUiOiJodHRwczovL2RpZGNvbW0ub3JnL291dC1vZi1iYW5kLzIuMC9pbnZpdGF0aW9uIiwiZnJvbSI6ImRpZDpwZWVyOjIuRXo2TFNnWTZZNjdtSjc1WUNaZlpZeFlFUFFKWnMzdmFFZzJDYzkxdnBwb1RBN2Nwai5WejZNa3BYN0g3U05BNm9vRzVzbm4yTXpneW9SYWRFWnRzak5TTDF4N0hpaUxrcXlWLlNleUowSWpvaVpHMGlMQ0p6SWpwN0luVnlhU0k2SW1oMGRIQTZMeTlvYjNOMExtUnZZMnRsY2k1cGJuUmxjbTVoYkRvNE1EZ3dMMlJwWkdOdmJXMGlMQ0p5SWpwYlhTd2lZU0k2V3lKa2FXUmpiMjF0TDNZeUlsMTlmUSIsImJvZHkiOnsiYWNjZXB0IjpbXX19"
+```
+
+The first thing that looks wrong is the domain, where does `my.domain.com` comes from? well, it comes from the Cloud Agent and it's hardcoded, you can't customize it but it really doesn't matter, what matters is the payload of the `_oob` field. The URL is not important as what we really need is inside the `base64` encoded field, lets unpack it.
+
+```bash
+echo 'eyJpZCI6ImZiMzZlZGRkLWQ1MWUtNDJjZi1hNmZlLWU3NmQyZTYzOGI3MCIsInR5cGUiOiJodHRwczovL2RpZGNvbW0ub3JnL291dC1vZi1iYW5kLzIuMC9pbnZpdGF0aW9uIiwiZnJvbSI6ImRpZDpwZWVyOjIuRXo2TFNnWTZZNjdtSjc1WUNaZlpZeFlFUFFKWnMzdmFFZzJDYzkxdnBwb1RBN2Nwai5WejZNa3BYN0g3U05BNm9vRzVzbm4yTXpneW9SYWRFWnRzak5TTDF4N0hpaUxrcXlWLlNleUowSWpvaVpHMGlMQ0p6SWpwN0luVnlhU0k2SW1oMGRIQTZMeTlvYjNOMExtUnZZMnRsY2k1cGJuUmxjbTVoYkRvNE1EZ3dMMlJwWkdOdmJXMGlMQ0p5SWpwYlhTd2lZU0k2V3lKa2FXUmpiMjF0TDNZeUlsMTlmUSIsImJvZHkiOnsiYWNjZXB0IjpbXX19' | base64 -d
+```
+```json
+{
+  "id": "fb36eddd-d51e-42cf-a6fe-e76d2e638b70",
+  "type": "https://didcomm.org/out-of-band/2.0/invitation",
+  "from": "did:peer:2.Ez6LSgY6Y67mJ75YCZfZYxYEPQJZs3vaEg2Cc91vppoTA7cpj.Vz6MkpX7H7SNA6ooG5snn2MzgyoRadEZtsjNSL1x7HiiLkqyV.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9ob3N0LmRvY2tlci5pbnRlcm5hbDo4MDgwL2RpZGNvbW0iLCJyIjpbXSwiYSI6WyJkaWRjb21tL3YyIl19fQ",
+  "body": {
+    "accept": []
+  }
+}
+```
+
+And there it is, the `_oob` encoded payload contains the bare minimum to tell you it's a DIDCOMM invitation from a DID Peer.
+
+TODO: ~~Create invite on cloud agent~~, connect sample SDK code. (Milestone 4)
 
 **TODO Checklist**
 

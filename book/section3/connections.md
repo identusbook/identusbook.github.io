@@ -5,7 +5,7 @@ title: "Connections"
 
 Now that we have a better understanding of Wallets and DIDs, it's time to embark on our first interaction. In this chapter we are going to explore conceptually what a Connection means in SSI, take a deep dive into DID Peers, explain how they work and why they are needed for secure connections, dissect Out of Band invites and finally hands on example code to achieve connecting edge client to an agent.
 
-Before we move forward we highly recommend to at least read the basic [Connection tutorial](https://docs.atalaprism.io/tutorials/connections/connection) on the official [Atala documentation](https://docs.atalaprism.io/).
+Before we move forward we highly recommend to at least read the basic [Connection tutorial](https://hyperledger.github.io/identus-docs/tutorials/connections/connection) on the official [Atala documentation](https://hyperledger.github.io/identus-docs/).
 
 ## Connections in Self-Sovereign Identity
 

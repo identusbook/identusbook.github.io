@@ -51,4 +51,4 @@ Pollux handles all Verifiable Credential operations.
 **Mercury:**
 Mercury is an interface to the DIDCommV2 protocol, allowing the sending and receiving of messages between DIDs.
 
-More info on each of the Building Blocks can be found in the [Docs](https://docs.atalaprism.io/docs/atala-prism/prism-cloud-agent/building-blocks)
+More info on each of the Building Blocks can be found in the [Docs](https://hyperledger.github.io/identus-docs/docs/identus/cloud-agent/building-blocks)

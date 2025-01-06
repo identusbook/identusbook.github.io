@@ -5,11 +5,11 @@ title: "Connections"
 
 Now that we have a better understanding of Wallets and DIDs, it's time to embark on our first interaction. In this chapter we are going to explore conceptually what a Connection means in SSI, take a deep dive into DID Peers, explain how they work and why they are needed for secure connections, dissect Out of Band invites and finally hands on example code to achieve connecting edge client to an agent.
 
-Before we move forward we highly recommend to at least read the basic [Connection tutorial](https://hyperledger.github.io/identus-docs/tutorials/connections/connection) on the official [Atala documentation](https://hyperledger.github.io/identus-docs/).
+Before we move forward we highly recommend to at least read the basic [Connection tutorial](https://hyperledger.github.io/identus-docs/tutorials/connections/connection) on the official [Identus documentation](https://hyperledger.github.io/identus-docs/).
 
 ## Connections in Self-Sovereign Identity
 
-Connections are fundamental to establishing *trusted interactions* between peers. They enable secure and verifiable communication, allowing entities to exchange credentials and proofs in a decentralized manner. This relationship is established using a specific decentralized identifier standard (**Peer DID**) and is governed by a protocol (**DIDCOMM**) that ensure the authenticity, integrity, and privacy of the interactions between the connected parties.
+Connections are fundamental to establishing *trusted interactions* between peers. They enable secure and verifiable communication, allowing entities to exchange credentials and proofs in a decentralized manner. This relationship is established using a specific decentralized identifier standard (**Peer DID**) and is governed by a protocol (**DIDComm**) that ensure the authenticity, integrity, and privacy of the interactions between the connected parties.
 
 There are three roles in an SSI connection:
 
@@ -156,7 +156,7 @@ If we decode the value of the `_oob` query variable from `base64` we get the `js
   "typ" : "application/didcomm-plain+json"
 }
 ```
-As you can see, an Out of Band invite is really just a way to package a PeerDID and signaling that it can be used for a particular interaction. In this case, for a `RequestMediate` goal over `DIDCOMM`.
+As you can see, an Out of Band invite is really just a way to package a PeerDID and signaling that it can be used for a particular interaction. In this case, for a `RequestMediate` goal over `DIDComm`.
 
 As a refresher from what we covered, a PeerDID is a way to package a set of keys and optional service endpoints, and so, *because this an OOB invite from a mediator*, this invite has everything you need (a PeerDID and set of service endpoints) to establish this service as your mediator.
 
@@ -164,7 +164,7 @@ As a refresher from what we covered, a PeerDID is a way to package a set of keys
 
 Now, lets issue another kind of Out of Band invite, one from the cloud agent in order to connect.
 
-The Cloud Agent can generate Out of Band invites, this invite then can be parsed by another peer (say another Cloud Agent or Edge Client) and use it to establish a connection, the end result should be a DID Peer on both sides that allow them to send messages to each other over DIDCOMM.
+The Cloud Agent can generate Out of Band invites, this invite then can be parsed by another peer (say another Cloud Agent or Edge Client) and use it to establish a connection, the end result should be a DID Peer on both sides that allow them to send messages to each other over `DIDComm`.
 
 So, our first step is to generate the invite:
 
@@ -239,7 +239,7 @@ This invite payload contains some important metadata:
 - **label**: A human readable alias for the connection.
 - **role**: The Cloud Agent role on this connection, either `Inviter` or `Invitee`.
 - **state**: The current status of this connection, note this is contextual to the Cloud Agent role, so as `Inviter` the states could be: `InvitationGenerated`, `ConnectionRequestReceived`, `ConnectionResponsePending`, `ConnectionResponseSent`. But is also possible for the Cloud Agent to parse someone else's invitation, in that case the Cloud Agent will generate a connection with the `Invitee` role and the possible states for that role are: `InvitationReceived`, `ConnectionRequestPending`, `ConnectionRequestSent`, `ConnectionResponseReceived`.
-- **invitation**: The DIDCOMM invitation details.
+- **invitation**: The `DIDComm` invitation details.
 - **createdAt**: Date and time when this connection was created or received.
 - **metaRetries**: The maximum background processing attempts remaining for this record.
 - **self**: The reference to the connection resource.
@@ -322,7 +322,7 @@ curl https://dev.uniresolver.io/1.0/identifiers/did:peer:2.Ez6LSgY6Y67mJ75YCZfZY
 }
 ```
 
-Now this looks familiar, we have the usual set of keys and it looks similar to the mediator DID but in this case we see a `serviceEndpoint` that contains accepts `didcomm/v2` and it's intended to be used for `DIDCommMessaging`. What all this means is the Cloud Agent DID is essentially advertising how it will receive DIDCOMM messages. In other words this could be translated as: "Here is an invite to connect to me, on it you will find a DID that has my public keys and a service endpoint where I receive DIDCOMM messages".
+Now this looks familiar, we have the usual set of keys and it looks similar to the mediator DID but in this case we see a `serviceEndpoint` that contains accepts `didcomm/v2` and it's intended to be used for `DIDCommMessaging`. What all this means is the Cloud Agent DID is essentially advertising how it will receive `DIDComm` messages. In other words this could be translated as: "Here is an invite to connect to me, on it you will find a DID that has my public keys and a service endpoint where I receive `DIDComm` messages".
 
 The final piece to unpack is the `invitationUrl`, this looks a little odd at first:
 
@@ -346,7 +346,7 @@ echo 'eyJpZCI6ImZiMzZlZGRkLWQ1MWUtNDJjZi1hNmZlLWU3NmQyZTYzOGI3MCIsInR5cGUiOiJodH
 }
 ```
 
-And there it is, the `_oob` encoded payload contains the bare minimum to tell you it's a DIDCOMM invitation from a DID Peer.
+And there it is, the `_oob` encoded payload contains the bare minimum to tell you it's a `DIDComm` invitation from a DID Peer.
 
 TODO: ~~Create invite on cloud agent~~, connect sample SDK code. (Milestone 4)
 

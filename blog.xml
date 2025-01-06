@@ -10,7 +10,7 @@
 <atom:link href="https://identusbook.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Mastering Identus: A Developer Handbook</description>
 <language>en-us</language>
-<generator>quarto-1.5.57</generator>
+<generator>quarto-1.6.40</generator>
 <lastBuildDate>Sat, 30 Mar 2024 00:00:00 GMT</lastBuildDate>
 <item>
   <title>We’re writing a Book</title>

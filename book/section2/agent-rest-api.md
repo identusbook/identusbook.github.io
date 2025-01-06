@@ -32,7 +32,7 @@ This will be useful when debugging a memory or performance issue or when develop
 
 ## OpenAPI Specification
 
-The OpenAPI Specification (`OAS`) defines a standard, language-agnostic interface to HTTP APIs. The Cloud Agent API documentation can be found at [https://docs.atalaprism.io/agent-api/](https://docs.atalaprism.io/agent-api/)  and besides being very detailed and always updated to the latest, it also comes with the OAS spec yaml file that will allow us to setup `Postman` to easily test our API or use the same OAS standard to auto generate code for client libraries on different language stacks. We will not attempt to repeat this API documentation in the book, rather lets focus on complement the existing documentation and explain with more detail how everything works.
+The OpenAPI Specification (`OAS`) defines a standard, language-agnostic interface to HTTP APIs. The Cloud Agent API documentation can be found at [https://hyperledger.github.io/identus-docs/agent-api/](https://hyperledger.github.io/identus-docs/agent-api/)  and besides being very detailed and always updated to the latest, it also comes with the OAS spec yaml file that will allow us to setup `Postman` to easily test our API or use the same OAS standard to auto generate code for client libraries on different language stacks. We will not attempt to repeat this API documentation in the book, rather lets focus on complement the existing documentation and explain with more detail how everything works.
 
 ## APISIX Gateway
 
@@ -92,7 +92,7 @@ curl -X 'GET' \
 The big time saver for us is that because it supports OAS, we can easily import the whole API definition. So, let's try it:
 
 1. If you don't already have it, first you should [Download Postman](https://www.postman.com/downloads/) and [Sign Up](https://identity.getpostman.com/signup?continue=https%3A%2F%2Fgo.postman.co%2Fhome) for a free account.
-2. Head to the [API docs](https://docs.atalaprism.io/agent-api/) and click the Download button, or copy this direct link `https://docs.atalaprism.io/redocusaurus/plugin-redoc-0.yaml`
+2. Head to the [API docs](https://hyperledger.github.io/identus-docs/agent-api/) and click the Download button, or copy this direct link `https://hyperledger.github.io/identus-docs/redocusaurus/plugin-redoc-0.yaml`
 3. Inside Postman, go to `File -> Import` and either drag & drop your yaml file if you downloaded it or paste the URL in the box, this will auto advance to the next step.
 4. On the "How to import" step select "OpenAPI 3.0 with a Postman Collection" and click import.
 
@@ -100,4 +100,4 @@ If everything goes correctly, you should see "Identus Cloud Agent API Reference"
 
 ## Tutorials
 
-The official documentation contains a [tutorials](https://docs.atalaprism.io/tutorials/) section with detailed walkthroughs for each of the most important interactions like connecting to another peer, managing DIDs, managing VC Schemas, issuing a VC, etc. We highly encourage you to follow those and get familiar with the API, this will come in very handy very soon when we start building our own example app.
+The official documentation contains a [tutorials](https://hyperledger.github.io/identus-docs/tutorials/) section with detailed walkthroughs for each of the most important interactions like connecting to another peer, managing DIDs, managing VC Schemas, issuing a VC, etc. We highly encourage you to follow those and get familiar with the API, this will come in very handy very soon when we start building our own example app.

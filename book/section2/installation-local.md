@@ -9,20 +9,30 @@ The initial component to set up is our Cloud Agent. This agent is responsible fo
 
 ## Identus Releases Overview
 
-Identus is built upon multiple interdependent building blocks, including the Cloud Agent, Wallet SDK, Mediator, and Apollo Crypto Library. To ensure compatibility among these components, it is crucial to identify the correct building block versions that are compatible between them. For this purpose, a dedicated repository named [atala-releases](https://github.com/input-output-hk/atala-releases) is available. This repository provides comprehensive documentation and a compatibility table for each Identus Release. We will be using [Identus v2.12](https://github.com/input-output-hk/atala-releases/blob/master/Atala%20PRISM/2.12.md) as our selected release because it is the latest at the time of writing (May 2024).
+Identus is built upon multiple interdependent building blocks, including the Cloud Agent, Wallet SDK, Mediator, and Apollo Crypto Library. To ensure compatibility among these components, it is crucial to identify the correct building block versions that are compatible between them. Identus releases are listed [here] (https://github.com/hyperledger/identus/releases). The release notes for each vesion provides a compatibility table for each Identus release.  This guide will focus on the latest stable Identus release at the time of writing (December 2024).
 
 ## Pre-requisites
 
-### Git
+### Java
 
-GitHub is currently the primary platform for hosting repositories. As of this writing, projects are transitioning from Atala PRISM's original repositories to Hyperledger ones, with the Cloud Agent being the first to migrate. For more details, you can read the press release [here](https://iohk.io/en/blog/posts/2023/12/04/iog-contributes-atala-prism-to-hyperledger-foundation/).
+```
+brew install openjdk@21
+```
+
+### sbt 
+
+```
+brew install sbt
+```
+
+### Git
 
 If you're using a UNIX-based system (such as OS X or Linux), you likely already have `git` installed. If not, you can download the installer from [Git downloads](https://www.git-scm.com/downloads). Additionally, various [GUI clients](https://www.git-scm.com/downloads/guis) are available for those who prefer a graphical interface.
 
-To clone the Cloud Agent repository, first go to the [Releases page](https://github.com/hyperledger/identus-cloud-agent/releases) and identify the tagged release corresponding to the Identus release you are targeting (e.g. `cloud-agent-v1.33.0` is part of [Identus v2.12](https://github.com/input-output-hk/atala-releases/blob/master/Atala%20PRISM/2.12.md) release), then clone the repository with this command:
+To clone the Cloud Agent repository, first go to the [Releases page](https://github.com/hyperledger/identus/releases) and identify the tagged release corresponding to the Identus release you are targeting (e.g. `cloud-agent-v1.40.0` is part of [Identus v2.14](https://github.com/hyperledger/identus/releases/tag/v2.14) release), then clone the repository with this command:
 
 ```bash
-git clone --depth 1 --branch cloud-agent-v1.33.0 https://github.com/hyperledger/identus-cloud-agent
+git clone --depth 1 --branch cloud-agent-v1.40.0 https://github.com/hyperledger/identus-cloud-agent
 ```
 
 ::: {.callout-note}
@@ -49,9 +59,14 @@ Once you have cloned the `identus-cloud-agent` repository and Docker is up and r
 
 ### Atala Community Projects
 
-There is a growing list of community repositories that aim to provide some extra functionality, mostly maintained by official developers and community members on their spare time. At present time there are three [Atala Community Projects](https://github.com/atala-community-projects):
+There is a growing list of community repositories that aim to provide some extra functionality, mostly maintained by official developers and community members on their spare time. 
 
-- **Pluto Encrypted:** Implementation of Pluto storage engine with encryption support.
+Some notable projects are:
+
+- [**Pluto Encrypted:**](https://github.com/trust0-project/pluto-encrypted) Implementation of Pluto storage engine with encryption support.
+- [**Identus Store**](https://github.com/trust0-project/identus-store) A secure light-weight and dependency free database wrapper.
+- [**NeoPrism Resolver:**](https://neoprism.patlo.dev/resolver) A did:prism resover and explorer.
+- [**Blocktrust Mediator**](https://blocktrust.dev/mediator) A DIDCommv2 compliant mediator, written in C#.
 - **Edge Agent SDK Demos:** Browser and Node versions of Edge Agent SDK integrated with Pluto Encrypted.
 - **Identus Test:** Shell script helper that will checkout a particular Identus release and compatible components.
 
@@ -77,8 +92,8 @@ Inside `infrastructure/local` directory, you will find three important files, `r
 Our `local` environment file should look like this
 
 ```bash
-AGENT_VERSION=1.33.0
-PRISM_NODE_VERSION=2.2.1
+AGENT_VERSION=1.40.0
+PRISM_NODE_VERSION=2.5.0
 VAULT_DEV_ROOT_TOKEN_ID=root
 ```
 

@@ -131,7 +131,7 @@ This will take a while the first time as Docker will fetch the required containe
 
 ```bash
 curl http://localhost/cloud-agent/_system/health
-{"version":"1.33.0"}
+{"version":"1.40.0"}
 ```
 
 The `version` should match the version of the Cloud Agent defined in the `.env`file.

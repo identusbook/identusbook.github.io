@@ -13,18 +13,6 @@ Identus is built upon multiple interdependent building blocks, including the Clo
 
 ## Pre-requisites
 
-### Java
-
-```
-brew install openjdk@21
-```
-
-### sbt 
-
-```
-brew install sbt
-```
-
 ### Git
 
 If you're using a UNIX-based system (such as OS X or Linux), you likely already have `git` installed. If not, you can download the installer from [Git downloads](https://www.git-scm.com/downloads). Additionally, various [GUI clients](https://www.git-scm.com/downloads/guis) are available for those who prefer a graphical interface.

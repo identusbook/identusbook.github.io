@@ -9,7 +9,7 @@ The initial component to set up is our Cloud Agent. This agent is responsible fo
 
 ## Identus Releases Overview
 
-Identus is built upon multiple interdependent building blocks, including the Cloud Agent, Wallet SDK, Mediator, and Apollo Crypto Library. To ensure compatibility among these components, it is crucial to identify the correct building block versions that are compatible between them. Identus releases are listed [here] (https://github.com/hyperledger/identus/releases). The release notes for each vesion provides a compatibility table for each Identus release.  This guide will focus on the latest stable Identus release at the time of writing (December 2024).
+Identus is built upon multiple interdependent building blocks, including the Cloud Agent, Wallet SDK, Mediator, and Apollo Crypto Library. To ensure compatibility among these components, it is crucial to identify the correct building block versions that are compatible between them. Identus releases are listed [here](https://github.com/hyperledger/identus/releases). The release notes for each vesion provides a compatibility table for each Identus release.  This guide will focus on the latest stable Identus release at the time of writing (December 2024).
 
 ## Pre-requisites
 

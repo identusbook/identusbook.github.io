@@ -400,11 +400,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#identus-releases-overview" id="toc-identus-releases-overview" class="nav-link" data-scroll-target="#identus-releases-overview"><span class="header-section-number">8.2</span> Identus Releases Overview</a></li>
   <li><a href="#pre-requisites" id="toc-pre-requisites" class="nav-link" data-scroll-target="#pre-requisites"><span class="header-section-number">8.3</span> Pre-requisites</a>
   <ul class="collapse">
-  <li><a href="#java" id="toc-java" class="nav-link" data-scroll-target="#java"><span class="header-section-number">8.3.1</span> Java</a></li>
-  <li><a href="#sbt" id="toc-sbt" class="nav-link" data-scroll-target="#sbt"><span class="header-section-number">8.3.2</span> sbt</a></li>
-  <li><a href="#git" id="toc-git" class="nav-link" data-scroll-target="#git"><span class="header-section-number">8.3.3</span> Git</a></li>
-  <li><a href="#docker" id="toc-docker" class="nav-link" data-scroll-target="#docker"><span class="header-section-number">8.3.4</span> Docker</a></li>
-  <li><a href="#wsl" id="toc-wsl" class="nav-link" data-scroll-target="#wsl"><span class="header-section-number">8.3.5</span> WSL</a></li>
+  <li><a href="#git" id="toc-git" class="nav-link" data-scroll-target="#git"><span class="header-section-number">8.3.1</span> Git</a></li>
+  <li><a href="#docker" id="toc-docker" class="nav-link" data-scroll-target="#docker"><span class="header-section-number">8.3.2</span> Docker</a></li>
+  <li><a href="#wsl" id="toc-wsl" class="nav-link" data-scroll-target="#wsl"><span class="header-section-number">8.3.3</span> WSL</a></li>
   </ul></li>
   <li><a href="#before-we-run-the-agent" id="toc-before-we-run-the-agent" class="nav-link" data-scroll-target="#before-we-run-the-agent"><span class="header-section-number">8.4</span> Before We Run The Agent</a>
   <ul class="collapse">
@@ -451,19 +449,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pre-requisites" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="pre-requisites"><span class="header-section-number">8.3</span> Pre-requisites</h2>
-<section id="java" class="level3" data-number="8.3.1">
-<h3 data-number="8.3.1" class="anchored" data-anchor-id="java"><span class="header-section-number">8.3.1</span> Java</h3>
-<pre><code>brew install openjdk@21</code></pre>
-</section>
-<section id="sbt" class="level3" data-number="8.3.2">
-<h3 data-number="8.3.2" class="anchored" data-anchor-id="sbt"><span class="header-section-number">8.3.2</span> sbt</h3>
-<pre><code>brew install sbt</code></pre>
-</section>
-<section id="git" class="level3" data-number="8.3.3">
-<h3 data-number="8.3.3" class="anchored" data-anchor-id="git"><span class="header-section-number">8.3.3</span> Git</h3>
+<section id="git" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="git"><span class="header-section-number">8.3.1</span> Git</h3>
 <p>If you’re using a UNIX-based system (such as OS X or Linux), you likely already have <code>git</code> installed. If not, you can download the installer from <a href="https://www.git-scm.com/downloads">Git downloads</a>. Additionally, various <a href="https://www.git-scm.com/downloads/guis">GUI clients</a> are available for those who prefer a graphical interface.</p>
 <p>To clone the Cloud Agent repository, first go to the <a href="https://github.com/hyperledger/identus/releases">Releases page</a> and identify the tagged release corresponding to the Identus release you are targeting (e.g.&nbsp;<code>cloud-agent-v1.40.0</code> is part of <a href="https://github.com/hyperledger/identus/releases/tag/v2.14">Identus v2.14</a> release), then clone the repository with this command:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--depth</span> 1 <span class="at">--branch</span> cloud-agent-v1.40.0 https://github.com/hyperledger/identus-cloud-agent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--depth</span> 1 <span class="at">--branch</span> cloud-agent-v1.40.0 https://github.com/hyperledger/identus-cloud-agent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -478,13 +468,13 @@ Note
 </div>
 </div>
 </section>
-<section id="docker" class="level3" data-number="8.3.4">
-<h3 data-number="8.3.4" class="anchored" data-anchor-id="docker"><span class="header-section-number">8.3.4</span> Docker</h3>
+<section id="docker" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="docker"><span class="header-section-number">8.3.2</span> Docker</h3>
 <p>The Cloud Agent and Mediator are distributed as Docker containers, which is the recommended method for starting and stopping the various components required to run the cloud infrastructure.</p>
 <p>To begin, install <a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>, which provides everything you need to get started.</p>
 </section>
-<section id="wsl" class="level3" data-number="8.3.5">
-<h3 data-number="8.3.5" class="anchored" data-anchor-id="wsl"><span class="header-section-number">8.3.5</span> WSL</h3>
+<section id="wsl" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="wsl"><span class="header-section-number">8.3.3</span> WSL</h3>
 <p>For Windows users, please refer to <a href="https://learn.microsoft.com/en-us/windows/wsl/install">How to install Linux on Windows with WSL</a>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -535,35 +525,35 @@ Note
 <h3 data-number="8.5.1" class="anchored" data-anchor-id="environment-variables"><span class="header-section-number">8.5.1</span> Environment Variables</h3>
 <p>Inside <code>infrastructure/local</code> directory, you will find three important files, <code>run.sh</code>and <code>stop.sh</code> scripts and the <code>.env</code> file.</p>
 <p>Our <code>local</code> environment file should look like this</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">AGENT_VERSION</span><span class="op">=</span>1.40.0</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">PRISM_NODE_VERSION</span><span class="op">=</span>2.5.0</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">VAULT_DEV_ROOT_TOKEN_ID</span><span class="op">=</span>root</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">AGENT_VERSION</span><span class="op">=</span>1.40.0</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">PRISM_NODE_VERSION</span><span class="op">=</span>2.5.0</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">VAULT_DEV_ROOT_TOKEN_ID</span><span class="op">=</span>root</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will tell Docker which versions of the Cloud Agent and PRISM Node to run, plus a default value for the <code>VAULT_DEV_ROOT_TOKEN_ID</code>, this value corresponds to the HashiCorp Token ID. HashiCorp is a secrets storage engine and it will become relevant later on when we need to prepare the agent to run in <code>prepod</code> and <code>production</code> modes, for now the <code>local</code> mode will ignore this value because by default it will use a local <code>postgres</code> database for it’s secret storage engine.</p>
 <p>The <code>run.sh</code> script options:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./run.sh</span> <span class="at">--help</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Run</span> an instance of the ATALA bulding-block stack locally</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Syntax:</span> run.sh [-n/--name NAME<span class="kw">|</span><span class="ex">-p/--port</span> PORT<span class="kw">|</span><span class="ex">-b/--background</span><span class="kw">|</span><span class="ex">-e/--env</span><span class="kw">|</span><span class="ex">-w/--wait</span><span class="kw">|</span><span class="ex">--network</span><span class="kw">|</span><span class="ex">-h/--help]</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">options:</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">-n/--name</span>              Name of this instance <span class="at">-</span> defaults to dev.</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">-p/--port</span>              Port to run this instance on <span class="at">-</span> defaults to 80.</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">-b/--background</span>        Run in docker-compose daemon mode in the background.</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-e/--env</span>               Provide your own .env file with versions.</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">-w/--wait</span>              Wait until all containers are healthy <span class="er">(</span><span class="ex">only</span> in the background<span class="kw">)</span><span class="bu">.</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ex">--network</span>              Specify a docker network to run containers on.</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ex">--webhook</span>              Specify webhook URL for agent events</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="ex">--webhook-api-key</span>      Specify api key to secure webhook if required</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="ex">--debug</span>                Run additional services for debug using docker-compose debug profile.</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="ex">-h/--help</span>              Print this help text.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./run.sh</span> <span class="at">--help</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Run</span> an instance of the ATALA bulding-block stack locally</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Syntax:</span> run.sh [-n/--name NAME<span class="kw">|</span><span class="ex">-p/--port</span> PORT<span class="kw">|</span><span class="ex">-b/--background</span><span class="kw">|</span><span class="ex">-e/--env</span><span class="kw">|</span><span class="ex">-w/--wait</span><span class="kw">|</span><span class="ex">--network</span><span class="kw">|</span><span class="ex">-h/--help]</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">options:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">-n/--name</span>              Name of this instance <span class="at">-</span> defaults to dev.</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">-p/--port</span>              Port to run this instance on <span class="at">-</span> defaults to 80.</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">-b/--background</span>        Run in docker-compose daemon mode in the background.</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-e/--env</span>               Provide your own .env file with versions.</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">-w/--wait</span>              Wait until all containers are healthy <span class="er">(</span><span class="ex">only</span> in the background<span class="kw">)</span><span class="bu">.</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">--network</span>              Specify a docker network to run containers on.</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">--webhook</span>              Specify webhook URL for agent events</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">--webhook-api-key</span>      Specify api key to secure webhook if required</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">--debug</span>                Run additional services for debug using docker-compose debug profile.</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">-h/--help</span>              Print this help text.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>For our first interaction with the agent all we have to do is to call the run script. If you have any conflicts with the port 80 already in use or you don’t want that as the default, you can pass <code>--port 8080</code> or any other available port that you would like to use.</p>
 <p>So, from the root of the repository you can run:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./infrastructure/local/run.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./infrastructure/local/run.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This will take a while the first time as Docker will fetch the required container images and get them running. To check the status of the Cloud Agent you can use <code>curl</code> or open a browser window at same endpoint URL (make sure to specify a custom port if you changed it in the previous step, e.g.&nbsp;use <code>http://localhost:8080</code>):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost/cloud-agent/_system/health</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">{</span><span class="st">"version"</span><span class="ex">:</span><span class="st">"1.40.0"</span><span class="ex">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost/cloud-agent/_system/health</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">{</span><span class="st">"version"</span><span class="ex">:</span><span class="st">"1.40.0"</span><span class="ex">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>version</code> should match the version of the Cloud Agent defined in the <code>.env</code>file.</p>
 <p>To stop the agent, you can press <code>Control + C</code> or run:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./infrastructure/local/stop.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./infrastructure/local/stop.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Congratulations! you have successfully setup the agent in <code>local</code> mode. Next we will explore our Docker file in detail and interact with our agent using the REST API.</p>
 
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.43">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -37,10 +71,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-798808f955742230a7130d3aba9a84b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-0a2e1f20be76fdf361422e853b6dfabf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -394,23 +428,112 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2" data-number="18.1">
 <h2 data-number="18.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">18.1</span> Overview</h2>
-<p>A Self-Sovereign Identity Mediator is a service that enables private and secure connections between peers. Its primary function is to relay encrypted messages between DIDs using <a href="../section3/didcomm.html">DIDComm V2</a> protocols. Since each participant wallet is Self-Sovereign, Mediators help route messages to their intended recipient without any one wallet knowing the details of the other. Encrypted messages can be sent to peers even if they are not online, and the Mediator will manage a queue for the offline party until they are able to connect and retrieve them.</p>
-<p>Think of a Mediator like a set of Post Office mailboxes. Each mailbox has a mailing address (<em>a DID</em>). Each mailbox can hold an stack of incoming mail <a href="../section3/didcomm.html">Encrypted DIDComm V2 messages</a> for its owner. Each mailbox also keeps a list of cryptographic <a href="../section3/connections.html">Connections</a> with whom its owner can send or receive mail with. In this way, Identus Mediators facilitate all types of important transactions, including routing both messages, Verifiable Credential issuance, and Credential Exchange.</p>
-<p>What’s important is that the Mediator, while messages are routed through it, is not a centralized actor. Mediators can not know the contents of any message, only what DIDs can talk to other DIDs and what encrypted messages they have yet to read.</p>
+<p>The <code>mediator</code> is a service that enables private and secure message routing between peers. Its primary function is to relay encrypted messages between agents using <a href="../section3/didcomm.html">DIDComm V2</a> set of communication protocols. Since each participant wallet is Self-Sovereign, mediators help route messages to their intended recipient without any details of each peer besides the agreed public keys over the initial connection protocol, upon which they both create a <code>did:peer</code>. Encrypted messages can be sent to peers even if they are not online by relaying on the mediator to manage a queue for the offline party until they are able to connect and retrieve them.</p>
+<p>Think of a mediator like a set of Post Office mailboxes. Each mailbox has a mailing address (<em>a <code>DID</code></em>). Each mailbox can hold an stack of incoming mail <a href="../section3/didcomm.html">Encrypted DIDComm V2 messages</a> for its owner. Each mailbox also keeps a list of cryptographic <a href="../section3/connections.html">Connections</a> with whom its owner can send or receive mail with. In this way, Identus mediators facilitate all types of important transactions, including routing both messages, Verifiable Credential issuance, Credential Exchange or any custom message for your own use.</p>
+<p>The key insight for this piece of infrastructure is that each agent can define their own <code>mediator</code> to be reachable at, so whenever they establish a <code>did:peer</code> with another agent, each peer defines their own reachable <code>DIDCOMM</code> endpoint, each one will tell the other their <code>mediator</code> as the way to send messages addressed to them.</p>
 <section id="why-use-a-mediator" class="level3" data-number="18.1.1">
 <h3 data-number="18.1.1" class="anchored" data-anchor-id="why-use-a-mediator"><span class="header-section-number">18.1.1</span> Why use a Mediator?</h3>
-<p>Why do we need a Mediator in the first place? If participants are Self-Sovereign, then why not connect an edge wallet directly to another edge wallet?</p>
-<p>SSI participants are connected through various types of devices and network conditions. <a href="../section2/installation-local.html">The Cloud Agent</a>, is expected to be online and available all the time, as it’s hosted in a remote server farm somewhere. However users who keep their wallets on mobile devices, or laptop computers, are only online sporadically, and can’t be expected to have a reliable connection to the Internet at all times. This is where Mediators earn their keep. If User A were to send a message to User B, who happens to be offline at the moment, the message could not be delivered, plus User A would also have to know sensitive data about how to contact User B. If User B changes devices, they would have to tell User A, and all other peer Connections. If User A instead, sends the message through the Mediator, it can be held securely and retrieved the next time User B connects to the Internet. Mediators provide reliability between <a href="../section3/connections.html">Connections</a>, without compromising privacy or security.</p>
+<p>Why do we need a <code>mediator</code> in the first place? If participants are Self-Sovereign, then why not connect an edge wallet directly to another edge wallet?</p>
+<p>SSI participants are connected through various types of devices and network conditions. <a href="../section2/installation-local.html">The Cloud Agent</a>, is expected to be online and available all the time, as it’s usually hosted in a cloud infrastructure somewhere. However users who keep their wallets on mobile devices, or laptop computers are only online sporadically and can’t be expected to have a reliable connection to the Internet at all times. This is where mediators earn their keep. If <code>Alice</code> were to send a message to <code>Bob</code>, who happens to be offline at the moment, the message could not be delivered, plus <code>Alice</code> would also have to know sensitive data about how to contact <code>Bob</code>. If <code>Bob</code> changes devices, they would have to tell <code>Alice</code>, and all other peer connections. If <code>Alice</code> instead, sends the message through the <code>mediator</code>, it can be held securely and retrieved the next time <code>Bob</code> connects to the Internet. Mediators provide reliability between <a href="../section3/connections.html">Connections</a>, without compromising privacy or security.</p>
 </section>
 </section>
 <section id="set-up-a-mediator" class="level2" data-number="18.2">
 <h2 data-number="18.2" class="anchored" data-anchor-id="set-up-a-mediator"><span class="header-section-number">18.2</span> Set up a Mediator</h2>
-<p>We will teach the reader how to</p>
-<ul>
-<li>Install, configure, and Run your own Mediator</li>
-<li>How to manage web sockets</li>
-<li>Performance Tuning</li>
-</ul>
+<p>As usual, we use Docker to setup our infrastructure, <code>mediator</code> is no different and here is an example <code>docker-compose.yml</code>, <code>mongo-initdb.js</code> and <code>.env</code> files, you should put all 3 files in a folder.</p>
+<p><code>docker-compose.yml</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">  ################</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">  ### MEDIATOR </span><span class="al">###</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  ################</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">mediator-mongo</span><span class="kw">:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> mongo:6.0</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">command</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> </span><span class="st">"--auth"</span><span class="at"> </span><span class="kw">]</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> MONGO_INITDB_ROOT_USERNAME=admin</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> MONGO_INITDB_ROOT_PASSWORD=admin</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> MONGO_INITDB_DATABASE=mediator</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./mongo-initdb.js:/docker-entrypoint-initdb.d/initdb.js</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">mediator</span><span class="kw">:</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> docker.io/identus/identus-mediator:${MEDIATOR_VERSION:latest}</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"${MEDIATOR_PORT:-8080}:8080"</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">      # Creates the identity:</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">      # These keys are for demo purpose only for production deployments generate keys</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">      # Please follow the README file in the Mediator repository for guidelines on How to generate JWK format keys</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">      # KEY_AGREEMENT KEY_AUTHENTICATION are using format JOSE(JWK) OKP type base64urlsafe encoded keys</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> KEY_AGREEMENT_D=${KEY_AGREEMENT_D:-Z6D8LduZgZ6LnrOHPrMTS6uU2u5Btsrk1SGs4fn8M7c}</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> KEY_AGREEMENT_X=${KEY_AGREEMENT_X:-Sr4SkIskjN_VdKTn0zkjYbhGTWArdUNE4j_DmUpnQGw}</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> KEY_AUTHENTICATION_D=${KEY_AUTHENTICATION_D:-INXCnxFEl0atLIIQYruHzGd5sUivMRyQOzu87qVerug}</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> KEY_AUTHENTICATION_X=${KEY_AUTHENTICATION_X:-MBjnXZxkMcoQVVL21hahWAw43RuAG-i64ipbeKKqwoA}</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> SERVICE_ENDPOINTS=${SERVICE_ENDPOINTS:-http://identus-mediator:8080;ws://identus-mediator:8080/ws}</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> MONGODB_USER=admin</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> MONGODB_PASSWORD=admin</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> MONGODB_PROTOCOL=mongodb</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> MONGODB_HOST=mediator-mongo</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> MONGODB_PORT=27017</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> MONGODB_DB_NAME=mediator</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">depends_on</span><span class="kw">:</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"mediator-mongo"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>mongo-initdb.js</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>db<span class="op">.</span><span class="fu">createUser</span>({</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">user</span><span class="op">:</span> <span class="st">"admin"</span><span class="op">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">pwd</span><span class="op">:</span> <span class="st">"admin"</span><span class="op">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">roles</span><span class="op">:</span> [</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        { <span class="dt">role</span><span class="op">:</span> <span class="st">"readWrite"</span><span class="op">,</span> <span class="dt">db</span><span class="op">:</span> <span class="st">"mediator"</span> }</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> database <span class="op">=</span> <span class="st">'mediator'</span><span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> collectionDidAccount <span class="op">=</span> <span class="st">'user.account'</span><span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> collectionMessages <span class="op">=</span> <span class="st">'messages'</span><span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> collectionMessagesSend <span class="op">=</span> <span class="st">'messages.outbound'</span><span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">// The current database to use.</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">use</span>(database)<span class="op">;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">// Create  collections.</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>db<span class="op">.</span><span class="fu">createCollection</span>(collectionDidAccount)<span class="op">;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>db<span class="op">.</span><span class="fu">createCollection</span>(collectionMessages)<span class="op">;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>db<span class="op">.</span><span class="fu">createCollection</span>(collectionMessagesSend)<span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">//create index</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>db<span class="op">.</span><span class="fu">getCollection</span>(collectionDidAccount)<span class="op">.</span><span class="fu">createIndex</span>({ <span class="st">'did'</span><span class="op">:</span> <span class="dv">1</span> }<span class="op">,</span> { <span class="dt">unique</span><span class="op">:</span> <span class="kw">true</span> })<span class="op">;</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">// Only enforce uniqueness on non-empty arrays</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>db<span class="op">.</span><span class="fu">getCollection</span>(collectionDidAccount)<span class="op">.</span><span class="fu">createIndex</span>({ <span class="st">'alias'</span><span class="op">:</span> <span class="dv">1</span> }<span class="op">,</span> { <span class="dt">unique</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">partialFilterExpression</span><span class="op">:</span> { <span class="st">"alias.0"</span><span class="op">:</span> { <span class="dt">$exists</span><span class="op">:</span> <span class="kw">true</span> } } })<span class="op">;</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>db<span class="op">.</span><span class="fu">getCollection</span>(collectionDidAccount)<span class="op">.</span><span class="fu">createIndex</span>({ <span class="st">"messagesRef.hash"</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="st">"messagesRef.recipient"</span><span class="op">:</span> <span class="dv">1</span> })<span class="op">;</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">// There are 2 message types  `Mediator`  and `User` Please follow the Readme for more details in the section Mediator storage</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> expireAfterSeconds <span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">24</span> <span class="op">*</span> <span class="dv">60</span> <span class="op">*</span> <span class="dv">60</span><span class="op">;</span> <span class="co">// 7 day * 24 hours * 60 minutes * 60 seconds</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>db<span class="op">.</span><span class="fu">getCollection</span>(collectionMessages)<span class="op">.</span><span class="fu">createIndex</span>(</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">ts</span><span class="op">:</span> <span class="dv">1</span> }<span class="op">,</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        <span class="dt">name</span><span class="op">:</span> <span class="st">"message-ttl-index"</span><span class="op">,</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        <span class="dt">partialFilterExpression</span><span class="op">:</span> { <span class="st">"message_type"</span><span class="op">:</span> <span class="st">"Mediator"</span> }<span class="op">,</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        <span class="dt">expireAfterSeconds</span><span class="op">:</span> expireAfterSeconds</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>.env</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">### MEDIATOR</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">MEDIATOR_PORT</span><span class="op">=</span>127.0.0.1:8080</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">MEDIATOR_VERSION</span><span class="op">=</span>1.0.0</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">KEY_AGREEMENT_D</span><span class="op">=</span>xxx</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">KEY_AGREEMENT_X</span><span class="op">=</span>xxx</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="va">KEY_AUTHENTICATION_D</span><span class="op">=</span>xxx</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="va">KEY_AUTHENTICATION_X</span><span class="op">=</span>xxx</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="va">SERVICE_ENDPOINTS</span><span class="op">=</span><span class="st">"https://example.com"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Your <code>.env</code> file will hold all the important bits, lets trough them.</p>
+<p><code>MEDIATOR_PORT</code> will define which port the container will be reachable at, I have also bound it to the local interface because I want to proxy this service over SSL with <code>apache</code> or <code>nginx</code>.</p>
+<p><code>MEDIATOR_VERSION</code> will default to <code>latest</code> but you can also define a specific version, this is important because sometimes there are breaking changes and your <code>cloud-agent</code> or SDK will be compatible with a specific version of the <code>mediator</code> that may not be the latest.</p>
+<p><code>KEY_AGREEMENT_D</code>, <code>KEY_AGREEMENT_X</code>, <code>KEY_AUTHENTICATION_D</code>, <code>KEY_AUTHENTICATION_X</code> are all the secret keys that are needed for the mediator to generate <code>DIDs</code>, in this case the <code>mediator</code> generates a <code>did:peer</code> so others can route messages trough it. Follow the latest updated <a href="https://github.com/hyperledger-identus/mediator/blob/main/mediator-identity-key-generation.md">guide to generate keys</a>.</p>
+<p><code>SERVICE_ENDPOINTS</code> is how you define the <em>public url</em> of your <code>mediator</code>, this is very important, this is how other agents will reach this service, it can be the public IP or domain, you can include specific ports as well. Make sure <code>MEDIATOR_PORT</code> and <code>SERVICE_ENDPOINTS</code> are in agreement, for example, if you bound <code>MEDIATOR_PORT</code> to the local interface and your <code>SERVICE_ENDPOINTS</code> defines a public URL, you need to proxy your local port trough <code>apache</code>, <code>nginx</code> or similar, if you decide to use expose a public IP, all you need to do is to define both to the same IP and port. This is all contextual of how you run your infrastructure.</p>
+<p>Once your done setting the environment you can run it with:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose up <span class="at">-d</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Your mediator should be reachable trough the same endpoint defined in <code>SERVICE_ENDPOINTS</code>.</p>
+<p>If successful, you should see a simple web page with an invite and a QR code for your <code>mediator</code>.</p>
 
 
 </section>

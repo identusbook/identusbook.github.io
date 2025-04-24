@@ -35,3 +35,12 @@ There is one building block that is *not* implemented and only provided as an in
 ## Custodial Wallets
 
 In an ideal world, everyone should be willing and able to manage their own identity wallets, this is one of the main characteristics of truly Self-Sovereign ecosystem. In practice, there are many good reasons why an identity wallet would be better managed by a service. Such is the case for companies and entities or even individuals that don't want to deal with the responsibility and risk of self-managing their wallets. For this use case Identus provides the concept of Custodial Wallets. What this really means is that an identity wallet can be managed by the Cloud Agent and used over a REST API. For this particular use case, the Cloud Agent supports a multi-tenant mode in order to onboard and serve multiple identity wallets on the same running instance. We will explain the setup in detail over the production installation section, for now the key insight is that when you access your identity wallet through a Cloud Agent, you are really trusting the storage and management of the private keys of your identity to that service.
+
+## Implementing an Edge SDK Wallet
+
+In our example project, the person traveling has the holder role in our SSI Triangle of Trust, meaning that they will hold a VC issued by the Airline and then present proof of it to Airport security. For this purpose we built an example app in all three main supported platforms: iOS, Android and TypeScript.
+
+
+TODO:
+- [ ] Add code examples
+- [ ] Finish wallet implementation

@@ -39,24 +39,24 @@ book:
       chapters:
       - section1/introduction.md
       - section1/ssi-basics.md
+      - section1/dids-and-diddocuments.md
       - section1/identus-concepts.md
     - part: "Section II - Getting Started"
       chapters:
       - section2/installation-local.md
       - section2/agent-rest-api.md
+      - section2/mediator.md
     - part: "Section III - Building"
       chapters: 
       - section3/project-overview.md
       - section3/wallets.md
-      - section3/dids-and-diddocuments.md
+      - section3/didcomm.md
       - section3/connections.md
       - section3/verifiable-credentials.md
-      - section3/didcomm.md
       - section3/verification.md
     - part: "Section IV - Deploy"
       chapters: 
       - section4/installation-production.md
-      - section4/mediator.md
       - section4/maintenance.md
     - part: "Section V - Addendum"
       chapters: 

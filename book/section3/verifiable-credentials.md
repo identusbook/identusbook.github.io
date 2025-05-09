@@ -1,6 +1,4 @@
----
-title: "Verifiable Credentials"
----
+# Verifiable Credentials {#sec-verifiable-credentials}
 
 ## Overview
 

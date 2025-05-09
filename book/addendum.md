@@ -1,3 +1,3 @@
-# Addendum
+# Addendum {#sec-addendum}
 
 More stuff here

@@ -1,6 +1,5 @@
----
-title: "Example Project"
----
+#  Example Project {#sec-example-project}
+
 ## Overview - Airline Ticket Wallet
 
 One of the best ways to learn and understand a software platform is to build something with it.  In the following chapters, we will build an example application showing how to use Identus to issue and verify airline tickets. 

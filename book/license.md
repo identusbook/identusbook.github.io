@@ -1,6 +1,4 @@
----
-title: "License"
----
+# License {#sec-license}
 
 ## Book Content:
 

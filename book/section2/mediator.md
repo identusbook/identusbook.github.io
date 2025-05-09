@@ -1,4 +1,4 @@
-# Mediator {#sec-mediators}
+# Mediator {#sec-mediator}
 
 ## Overview
 

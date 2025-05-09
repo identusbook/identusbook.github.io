@@ -48,7 +48,7 @@ book:
       - section2/mediator.md
     - part: "Section III - Building"
       chapters: 
-      - section3/project-overview.md
+      - section3/example-project.md
       - section3/wallets.md
       - section3/didcomm.md
       - section3/connections.md

@@ -1,4 +1,4 @@
-# Errata
+# Errata {#sec-errata}
 
 Errata goes here
 

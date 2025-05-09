@@ -1,6 +1,4 @@
----
-title: "Introduction"
----
+#  Introduction {#sec-introduction}
 
 This is a developer-centric book about creating and launching Self-Sovereign applications with Identus.  We aim to show the reader how to configure, build and deploy a complex idea from scratch.  
 

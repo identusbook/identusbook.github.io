@@ -18,10 +18,9 @@ Written in Scala, the Cloud Agent runs on a server and communicates with clients
 
 Edge Agents give agent capabilities to clients like Websites and mobile apps.  They can can never be assumed to be online at any given time, and therefore rely on sending and receiving all communications through an online proxy, the Mediator.
 
-**DIDComm:**
+**VDR:**
 
-DIDComm is a private, secure, and interoperable protocol for communication between decentralized identities. 
-Identus supports DIDCommV2 and allows peers to pass messages between each other, proxied by the Mediator. Messages contain a `to:` and `from:` DID
+The Verifiable Data Registry (VDR) system provides a unified API for storing, mutating, retrieving, and removing data. The system decouples the application layer from underlying storage mechanisms by leveraging pluggable components: **Drivers** and **URL Managers**. This specification defines the roles, relationships, and data model used by these components, as well as standard URL query parameters that facilitate driver selection and data integrity verification.
 
 **Mediator:**
 

@@ -6,6 +6,7 @@ Mastering Identus means maintaing your application once it's launched.
 
 In this chapter we will cover:
 
+- Restarting and cleanup
 - Observability
     - Manage nodes / Memory
     - Performance Testing

@@ -348,13 +348,21 @@ echo 'eyJpZCI6ImZiMzZlZGRkLWQ1MWUtNDJjZi1hNmZlLWU3NmQyZTYzOGI3MCIsInR5cGUiOiJodH
 
 And there it is, the `_oob` encoded payload contains the bare minimum to tell you it's a `DIDComm` invitation from a DID Peer.
 
-TODO: ~~Create invite on cloud agent~~, connect sample SDK code. (Milestone 4)
 
-**TODO Checklist**
+## Connectionless Presentations and Issuance
 
-- [x] Concept of Connections
-- [x] Explain PeerDIDs
-- [x] How connections are achieved trough PeerDIDs
-- [x] Out of Band invites
-- [ ] How to Connect two peers
-- [ ] DIDless connection (Atala Roadmap)
+TODO: Write the tutorial on how to use the Connectionless features
+
+## Example Project
+
+### Cloud Agent
+
+TODO: Instructions on how to create an invite on Cloud Agent.
+
+### Swift SDK
+
+TODO: Example code to parse invites on Swift SDK
+
+### TypeScript SDK
+
+TODO: Example code to parse invites on TypeScript SDK

@@ -10,6 +10,12 @@ title: "DIDComm"
 
 For details on how messages are sent and received in Identus, see [Mediators](../section4/mediator.md)
 
-## Sending Messages
+## Example Project
 
-## Sending Files
+### Swift SDK
+
+TODO: Example code for send/receive DIDCOMM messages on Swift SDK
+
+### TypeScript SDK
+
+TODO: Example code for send/receive DIDCOMM messages on TypeScript SDK

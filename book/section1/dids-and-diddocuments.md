@@ -3,9 +3,13 @@ title: "DIDs and DID Documents"
 ---
 ## Overview
 
+A **DID** (*Decentralized Identifier*) is the canonical representation of a DIDDocument; a portable, compact hash, which can be passed around easily or stored to a database or blockchain. A DID can be *resolved*, revealing the full, parsable JSON encoded DIDDocument.
+
 A **DID Document** (*Decentralized Identifier Document*) is a JSON-LD (*JavaScript Object Notation for Linked Data*) structure which describes a Subject. This can represent the identity of a person, a thing, or a relationship between one or many entities. Contained in the document is information which can verify that identity without relying on a centralized authority.
 
-A **DID** (*Decentralized Identifier*) is the canonical representation of a DIDDocument; a portable, compact hash, which can be passed around easily or stored to a database or blockchain. A DID can be *resolved*, revealing the full, parsable JSON encoded DIDDocument.
+TODO: Add DID Method overview
+A **DID Method** ..
+
 
 The spec for a `did:prism` DIDDocument can be found [here](https://github.com/input-output-hk/prism-did-method-spec/blob/main/w3c-spec/PRISM-method.md#did-documents).
 
@@ -71,6 +75,10 @@ Let's look at the components of a DID Document:
 - **`service`**: An array of advertised methods of interacting with the Subject. These could be API endpoints for messaging or file storage systems, but any remote service can be added to add value to the DID.
 
 An non-exhaustive example of a `did:prism` DIDDocument can be found [here](https://github.com/input-output-hk/prism-did-method-spec/blob/main/w3c-spec/PRISM-method.md#example-did-document-json-ld).
+
+## DID Lifecycle
+
+TODO: Describe the lifecycle of DIDs (creation, update, deactivation)
 
 ## Resolvers
 

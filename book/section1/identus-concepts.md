@@ -1,6 +1,4 @@
----
-title: "Identus Concepts"
----
+#  Identus Concepts {#sec-identus-concepts}
 
 [Identus Application Architecture Diagram]
 
@@ -32,7 +30,7 @@ Since instantiation of Identus Edge Agents requires a Mediator, there are severa
 - [RootsID Mediator](https://github.com/roots-id/didcomm-mediator)
 - [Blocktrust Mediator](https://github.com/bsandmann/blocktrust.Mediator)
 
-While extremely helpful during development, these are not recommended for production Identus deployments as they have no uptime guarantee and will not scale past a small number of concurrent users.  We will discuss how to run your own Mediator in [Chapter @sec-mediators]
+While extremely helpful during development, these are not recommended for production Identus deployments as they have no uptime guarantee and will not scale past a small number of concurrent users.  We will discuss how to run your own Mediator in [Chapter @sec-mediator]
 
 **Building Blocks:**
 

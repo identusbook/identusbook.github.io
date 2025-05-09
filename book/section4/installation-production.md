@@ -1,6 +1,5 @@
----
-title: "Installation - Production Environment"
----
+# Installation - Production Environment {#sec-installation-production}
+
 ## Overview
 
 A production environment setup requires connecting Hyperledger Identus to the Cardano blockchain as the Verifiable Data Registry (VDR). This is achieved through the `prism-node` component, which abstracts the VDR operations for publishing, resolving, updating, and deactivating Decentralized Identifiers (DIDs).

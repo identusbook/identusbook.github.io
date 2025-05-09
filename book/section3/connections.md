@@ -1,6 +1,5 @@
----
-title: "Connections"
----
+# Connections {#sec-connections}
+
 ## Overview
 
 Now that we have a better understanding of Wallets and DIDs, it's time to embark on our first interaction. In this chapter we are going to explore conceptually what a Connection means in SSI, take a deep dive into DID Peers, explain how they work and why they are needed for secure connections, dissect Out of Band invites and finally hands on example code to achieve connecting edge client to an agent.

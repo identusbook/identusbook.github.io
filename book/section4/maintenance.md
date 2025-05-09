@@ -1,6 +1,4 @@
----
-title: "Maintenance"
----
+# Maintenance {#sec-maintenance}
 
 Mastering Identus means maintaing your application once it's launched.
 

@@ -1,6 +1,4 @@
----
-title: "Trust Registries"
----
+# Trust Registries {#sec-trust-registries}
 
 Overview of the concept of a Trust Registry
 

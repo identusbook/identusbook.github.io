@@ -1,6 +1,5 @@
----
-title: "Verification"
----
+# Verification {#sec-verification}
+
 ## Presenting proof
 
 Verification is a crucial interaction between Self-Sovereign Identity (SSI) agents. This process involves a `verifier` creating a present proof request to a `holder`, who then responds with a proof presentation. The verifier agent subsequently verifies this presentation.

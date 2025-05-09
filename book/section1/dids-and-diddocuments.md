@@ -1,6 +1,5 @@
----
-title: "DIDs and DID Documents"
----
+# DIDs and DID Documents {#sec-did-and-diddocuments}
+
 ## Overview
 
 A **DID** (*Decentralized Identifier*) is the canonical representation of a DIDDocument; a portable, compact hash, which can be passed around easily or stored to a database or blockchain. A DID can be *resolved*, revealing the full, parsable JSON encoded DIDDocument.

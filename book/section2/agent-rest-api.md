@@ -1,6 +1,5 @@
----
-title: Agent REST API
----
+# Agent REST API {#sec-agent-rest-api}
+
 ## The Cloud Agent API
 
 The only way to interact with our newly created Cloud Agent is trough the REST API, this means any action of the Cloud Agent such as establishing connections, creating Credential Schemas, issuing Verifiable Credentials, etc. will be triggered trough the agent API endpoints.

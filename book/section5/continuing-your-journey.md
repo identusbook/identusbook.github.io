@@ -1,6 +1,4 @@
----
-title: "Continuing on Your Journey"
----
+# Continuing on Your Journey {#sec-continuing-your-journey}
 
 Information about becoming a Contributor to Identus
 

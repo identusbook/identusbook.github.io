@@ -1,6 +1,4 @@
----
-title: "DIDComm"
----
+#  DIDComm {#sec-didcomm}
 
 ## Overview
 

@@ -6,7 +6,18 @@ Identus is made up of several open source components.  Each could be used or for
 
 **PRISM Node:**
 
-PRISM Node implements the `did:prism` methods and is an interface to multiple [VDR (Verifiable Data Registries)](../glossary.md#vdr).  The node can resolve PRISM DIDs and write transactions to a blockchain or database. PRISM Node is expected to be online at all times.
+PRISM Node implements the `did:prism` method and serves as a second-layer node for the Distributed Ledger, acting as a comprehensive interface to multiple [VDR (Verifiable Data Registries)](../glossary.md#vdr). The node can resolve PRISM DIDs and write transactions to a blockchain or database, maintaining an indexed internal state that's synchronized with the underlying blockchain for efficient lookup operations.
+
+As a critical component in the Identus ecosystem, PRISM Node provides a secure and trustworthy platform for storing and managing decentralized identifiers. It handles the creation, update, resolution, and deactivation of PRISM DIDs by generating transactions with the necessary operation information, verifying and validating these operations, and publishing them to the blockchain. Once transactions are confirmed, the node updates its internal state accordingly.
+
+The PRISM Node's architecture enables users to:
+- Create DIDs without initially interacting with any PRISM Node, with the option to announce them publicly later. This means you can create unpublished DIDs via Apollo building block and make use of it, not all DIDs are required to be published on chain, but if you need to anchor a DID on chain, PRISM Node will handle that operation for you.
+- Update DID documents by publishing update operations on chain.
+- Deactivate DIDs by publishing deactivation operations on chain.
+- Resolving DIDs by querying historical changes on chain.
+- Track the status of operations submitted to the node.
+
+This second-layer approach is essential for making DIDs scalable and efficient, as it provides the necessary off-chain processing and data storage capabilities while leveraging the security and immutability of the underlying blockchain. PRISM Node is expected to be online at all times to ensure reliable service.
 
 **Cloud Agent:**
 

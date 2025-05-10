@@ -347,10 +347,17 @@ echo 'eyJpZCI6ImZiMzZlZGRkLWQ1MWUtNDJjZi1hNmZlLWU3NmQyZTYzOGI3MCIsInR5cGUiOiJodH
 
 And there it is, the `_oob` encoded payload contains the bare minimum to tell you it's a `DIDComm` invitation from a DID Peer.
 
+## Connectionless Credential Presentations and Issuance
 
-## Connectionless Presentations and Issuance
+In the realm of digital identity, establishing trust and exchanging verifiable credentials typically involves a series of interactions between an issuer or verfier and a holder. While many  protocols need an existing connection or relationship, connectionless flow offers a more streamlined approach for specific scenarios. This method is particularly useful when a prior relationship between the issuer or verfier and the holder has not yet been established or is not necessary for a particular interaction.
 
-TODO: Write the tutorial on how to use the Connectionless features
+The fundamental distinction of connectionless issuance and presentation lies in its initiation. Unlike traditional flows that might require a formal connection setup (e.g., exchanging DIDs and establishing a DIDComm channel) *before* a credential offer can be made, the connectionless flow leverages an Out-of-Band (OOB) invitation to kickstart the process directly.
+
+When an issuer or verifier intends to offer or request proof this way, they generate an OOB invitation. This invitation is essentially a self-contained message or a reference (like a URL or QR code) that the  holder can receive through various means (QR code, email, a website, etc). Upon parsing this OOB invitation, the holder's agent can immediately understand the intent to offer or proof a credential.
+
+The key here is that the OOB invitation itself contains enough information, or points to it, for the holder's agent to proceed with requesting the credential offer from the issuer or presenting proof to a verifier. This bypasses the need for a separate, preliminary connection handshake. The issuer or verifier, upon receiving a request derived from this OOB invitation, can then proceed to send the actual credential offer or proof request.
+
+From the holder's acceptance of the offer onwards, the subsequent steps closely mirror those in a standard issuance and proof request protocols. The primary efficiency and distinction of the connectionless approach are concentrated at the beginning of the interaction, enabling a quicker, more direct path when a persistent connection is not a prerequisite. This makes it ideal for scenarios like anonymous attestations, one-time verifications, or public credential offerings where the overhead of establishing and managing connections for every holder is impractical.
 
 ## Example Project
 

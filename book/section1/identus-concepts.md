@@ -38,7 +38,25 @@ When deployed, the Cloud Agent interacts with the PRISM Node over gRPC protocol,
 
 **Edge Agent:**
 
-Edge Agents give agent capabilities to clients like Websites and mobile apps.  They can can never be assumed to be online at any given time, and therefore rely on sending and receiving all communications through an online proxy, the Mediator.
+Edge Agents bring agent capabilities to client applications such as websites, mobile apps, and other user-facing software. Unlike Cloud Agents, Edge Agents cannot be assumed to be online at all times, and therefore rely on sending and receiving all communications through an online proxy called a Mediator.
+
+Edge Agents are implemented as SDKs that developers can integrate into their applications, providing a comprehensive suite of SSI functionality directly on the client side. These SDKs handle critical operations including:
+
+- Creating and managing DIDs
+- Storing and managing Verifiable Credentials
+- Secure communication via DIDComm
+- Cryptographic operations for signing and verification
+- Local secure storage of identity data
+
+Identus provides Edge Agent SDKs in multiple programming languages to support various platforms:
+
+- **TypeScript SDK**: For web applications
+- **Swift SDK**: For iOS applications
+- **Kotlin Multiplatform SDK**: For Android applications and cross-platform development
+
+Each SDK implements the same core building blocks (Apollo, Castor, Mercury, Pollux, and Pluto interfaces) as the Cloud Agent, ensuring consistent functionality and interoperability across the entire Identus ecosystem. This architectural consistency allows developers to create seamless experiences where identity operations can be performed either on the client or server side as appropriate for their use case.
+
+Edge Agents typically function as digital wallets, enabling users to maintain control over their credentials and identity data on their personal devices. This approach aligns with the core principles of Self-Sovereign Identity by keeping the user in control of their data and minimizing dependency on centralized services.
 
 **VDR:**
 

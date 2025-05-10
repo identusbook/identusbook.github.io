@@ -21,7 +21,20 @@ This second-layer approach is essential for making DIDs scalable and efficient, 
 
 **Cloud Agent:**
 
-Written in Scala, the Cloud Agent runs on a server and communicates with clients and peers via a REST API.  It is a critical component of an Identus application, able to manage identity wallets and their associated operations, as well as issue Verifiable Credentials.  The Cloud Agent is expected to be online at all times.
+Written in Scala, the Cloud Agent runs on a server and communicates with clients and peers via a REST API. It is a critical component of an Identus application, able to manage identity wallets and their associated operations, as well as issue Verifiable Credentials. The Cloud Agent is expected to be online at all times.
+
+The Cloud Agent is designed to be scalable, robust, and standards-compliant, providing comprehensive self-sovereign identity services. It supports W3C standards, DIDCommV2, and Hyperledger Aries protocols, ensuring interoperability within the broader SSI ecosystem. Key capabilities include:
+
+- Support for multiple agent roles including Issuer, Holder, Verifier
+- Management of W3C Standard Verifiable Credentials (JSON and JSON-LD formats encoded as JWT), SD-JWT and AnonCreds
+- Implementation of DIF Presentation Exchange for credential requests and submissions
+- Support for `did:prism` and `did:peer` DID methods
+- Full implementation of DIDCommV2 messaging and protocols
+- Compatibility with Aries RFCs including DID exchange, out-of-band protocol, issue credential, and present proof
+
+The Cloud Agent's REST API enables developers to build controllers in any programming language without needing deep expertise in the underlying SSI standards. This architecture allows business logic to be separated from the identity infrastructure, making it easier to develop specialized applications while leveraging the full power of decentralized identity.
+
+When deployed, the Cloud Agent interacts with the PRISM Node over gRPC protocol, using it as the Verifiable Data Registry to anchor DIDs on a distributed ledger for high security and availability.
 
 **Edge Agent:**
 

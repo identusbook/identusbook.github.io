@@ -32,20 +32,36 @@ Since instantiation of Identus Edge Agents requires a Mediator, there are severa
 
 While extremely helpful during development, these are not recommended for production Identus deployments as they have no uptime guarantee and will not scale past a small number of concurrent users.  We will discuss how to run your own Mediator in [Chapter @sec-mediator]
 
-**Building Blocks:**
+**Cloud Agent Building Blocks:**
 
-Identus separates the handling of important SSI operations into separate, focused libraries.
+Identus separates the handling of important SSI operations into separate, focused libraries called "building blocks." These modular components can be combined and configured to meet various use cases and product requirements. This modular architecture provides excellent flexibility and customization options, allowing developers to implement decentralized identity solutions tailored to their specific needs.
 
-**Apollo:**
-Apollo is a cryptographic primitives toolbox, which Identus uses to ensure data integrity, authenticity, and confidentiality. 
+**Apollo - Cryptography Module:**
+Apollo is a comprehensive cryptographic primitives toolbox that Identus uses to ensure data integrity, authenticity, and confidentiality. It provides the foundation for secure communication and data protection throughout the Identus ecosystem.
 
-**Castor:**
-Castor enables creation, management, and resolution of DIDs.
+Apollo employs cryptographic hash functions to create digital fingerprints of data, allowing the detection of any unauthorized modifications. For example, when a verifier receives a credential, Apollo's cryptographic functions can verify that the credential hasn't been tampered with since it was issued.
 
-**Pollux:**
-Pollux handles all Verifiable Credential operations.  
+Additionally, Apollo implements digital signatures to authenticate the identity of senders and recipients, and uses encryption algorithms to protect sensitive data from unauthorized access. In a healthcare scenario, Apollo's encryption would ensure that patient credentials remain confidential when shared between authorized parties.
 
-**Mercury:**
-Mercury is an interface to the DIDCommV2 protocol, allowing the sending and receiving of messages between DIDs.
+**Castor - DID Module:**
+Castor enables the creation, management, and resolution of Decentralized Identifiers (DIDs). It currently supports the native `did:prism` method and the `did:peer` method but the are discussions aligning the team to build a more flexible architecture that would allow anyone to write plugins that could support other DID methods.
 
-More info on each of the Building Blocks can be found in the [Docs](https://hyperledger.github.io/identus-docs/docs/identus/cloud-agent/building-blocks)
+When a user creates a new digital identity in an Identus application, Castor generates the DID and associated cryptographic material. For instance, a university issuing student credentials would use Castor to create and manage DIDs for both the institution and potentially for each student, establishing the foundation for trusted digital relationships.
+
+Castor's resolver component can look up a DID and retrieve its associated DID Document, which contains the public keys, authentication mechanisms, and service endpoints needed for secure interactions with that identity.
+
+**Pollux - Verifiable Credential Module:**
+Pollux handles all Verifiable Credential operations, allowing users to issue, manage, and verify credentials in a privacy-preserving manner. This building block is essential for implementing the core functionality of credential exchange in self-sovereign identity systems.
+
+In a real-world employment scenario, a company could use Pollux to issue employee credentials, which employees could then store in their digital wallets. When applying for a loan, an employee could selectively disclose relevant employment information from this credential without revealing unnecessary personal details. The bank could then use Pollux's verification capabilities to confirm the credential's authenticity and validity without contacting the employer directly.
+
+Pollux also manages credential status, enabling issuers to revoke credentials when necessary and allowing verifiers to check if a credential is still valid before accepting it.
+
+**Mercury - DIDComm Module:**
+Mercury provides an interface to the DIDCommV2 protocol, enabling secure, private communication between DIDs regardless of the underlying transport mechanisms. This building block establishes the foundation for all agent-to-agent communications in the Identus ecosystem.
+
+For example, when a citizen wants to share a government-issued credential with a service provider, Mercury facilitates the encrypted, authenticated message exchange between the citizen's wallet and the service provider's verification system. This communication happens peer-to-peer, without requiring centralized intermediaries to facilitate the exchange.
+
+Mercury's transport-agnostic design means that these secure communications can occur over various channels, including HTTP, WebSockets, or Bluetooth, making it versatile for different deployment scenarios from web applications to mobile devices.
+
+More detailed information on each of the Building Blocks can be found in the [Identus Documentation](https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/building-blocks).

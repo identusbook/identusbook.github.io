@@ -349,7 +349,7 @@ And there it is, the `_oob` encoded payload contains the bare minimum to tell yo
 
 ## Connectionless Credential Presentations and Issuance
 
-In the realm of digital identity, establishing trust and exchanging verifiable credentials typically involves a series of interactions between an issuer or verfier and a holder. While many  protocols need an existing connection or relationship, connectionless flow offers a more streamlined approach for specific scenarios. This method is particularly useful when a prior relationship between the issuer or verfier and the holder has not yet been established or is not necessary for a particular interaction.
+In the realm of digital identity, establishing trust and exchanging verifiable credentials typically involves a series of interactions between an issuer or verfier and a holder. While many protocols need an existing connection or relationship, a connectionless flow offers a more streamlined approach for specific scenarios. This method is particularly useful when a prior relationship between the issuer or verfier and the holder has not yet been established or is not necessary for a particular interaction.
 
 The fundamental distinction of connectionless issuance and presentation lies in its initiation. Unlike traditional flows that might require a formal connection setup (e.g., exchanging DIDs and establishing a DIDComm channel) *before* a credential offer can be made, the connectionless flow leverages an Out-of-Band (OOB) invitation to kickstart the process directly.
 

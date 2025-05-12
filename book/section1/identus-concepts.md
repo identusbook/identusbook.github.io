@@ -6,7 +6,7 @@ Identus is made up of several open source components.  Each could be used or for
 
 ## PRISM Node
 
-PRISM Node implements the `did:prism` method and serves as a second-layer node for the Distributed Ledger, acting as a comprehensive interface to multiple [VDR (Verifiable Data Registries)](../glossary.md#vdr). The node can resolve PRISM DIDs and write transactions to a blockchain or database, maintaining an indexed internal state that's synchronized with the underlying blockchain for efficient lookup operations.
+PRISM Node implements the `did:prism` method and serves as a second-layer node for the Distributed Ledger, currently it only supports Cardano blockchain or local database but in the future it will be acting as a comprehensive interface to multiple [VDR (Verifiable Data Registries)](../glossary.md#vdr). The node can resolve PRISM DIDs and write transactions to a blockchain or database, maintaining an indexed internal state that's synchronized with the underlying blockchain for efficient lookup operations.
 
 As a critical component in the Identus ecosystem, PRISM Node provides a secure and trustworthy platform for storing and managing decentralized identifiers. It handles the creation, update, resolution, and deactivation of PRISM DIDs by generating transactions with the necessary operation information, verifying and validating these operations, and publishing them to the blockchain. Once transactions are confirmed, the node updates its internal state accordingly.
 

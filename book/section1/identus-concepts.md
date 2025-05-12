@@ -23,7 +23,7 @@ This second-layer approach is essential for making DIDs scalable and efficient, 
 
 Written in Scala, the Cloud Agent runs on a server and communicates with clients and peers via a REST API. It is a critical component of an Identus application, able to manage identity wallets and their associated operations, as well as issue Verifiable Credentials. The Cloud Agent is expected to be online at all times.
 
-The Cloud Agent is designed to be scalable, robust, and standards-compliant, providing comprehensive self-sovereign identity services. It supports W3C standards, DIDCommV2, and Hyperledger Aries protocols, ensuring interoperability within the broader SSI ecosystem. Key capabilities include:
+The Cloud Agent is designed to be scalable, robust, and standards-compliant, providing comprehensive self-sovereign identity services. It supports W3C standards, DIDCommV2, and [Hyperledger Aries](https://www.lfdecentralizedtrust.org/projects/aries) protocols, ensuring interoperability within the broader SSI ecosystem. Key capabilities include:
 
 - Support for multiple agent roles including Issuer, Holder, Verifier
 - Management of W3C Standard Verifiable Credentials (JSON and JSON-LD formats encoded as JWT), SD-JWT and AnonCreds

@@ -49,7 +49,7 @@ Several common protocols have emerged in the SSI ecosystem:
 
 By standardizing these interaction patterns, DIDComm enables different implementations to work together seamlessly, fostering an open ecosystem rather than siloed solutions.
 
-You can find all currently published protocols in [here](https://didcomm.org/search/?page=1), as these are maintained by the communitity, you are also encouraged to build and define your own protocols that fit your particular use case, even if you may not decide to publish them.
+You can find all currently published protocols in [here](https://didcomm.org/search/?page=1), as these are maintained by the community, you are also encouraged to build and define your own protocols that fit your particular use case, even if you may not decide to publish them.
 
 ## Example interaction
 

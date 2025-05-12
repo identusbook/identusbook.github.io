@@ -2,11 +2,9 @@
 
 ## Overview
 
-**DIDComm** (*Decentralized Identifier Communication*) represents a crucial advancement in the Self-Sovereign Identity ecosystem, providing the secure messaging layer that enables DIDs to interact with one another. The current specification, **DIDComm v2**, evolved from earlier iterations to address the growing needs for privacy, security, and interoperability in digital identity communications.
+**DIDComm** (*Decentralized Identifier Communication*) is a crucial component in the Self-Sovereign Identity (SSI) ecosystem, providing the secure messaging layer that enables Decentralized Identifiers (DIDs) to interact. The current specification, **DIDComm v2**, evolved from earlier iterations to address the growing needs for privacy, security, and interoperability in digital identity communications. Its fundamental purpose is to enable secure, private, and authenticated communication between entities identified by DIDs, regardless of their underlying infrastructure or technology stack, transforming DIDs from static identifiers into dynamic communication endpoints capable of engaging in rich interactions.
 
-At its core, DIDComm serves a fundamental purpose: enabling secure, private, and authenticated communication between entities identified by DIDs, regardless of their underlying infrastructure or technology stack. This capability transforms DIDs from static identifiers into dynamic communication endpoints capable of engaging in rich interactions.
-
-Within the SSI technology stack, DIDComm occupies a pivotal middle layer. It sits above the foundational DID layer (which provides identifiers and cryptographic material) and below the application-specific protocols that define particular interactions like credential exchange. This positioning makes DIDComm the connective tissue of the SSI ecosystem, enabling all higher-level identity interactions.
+Within the SSI technology stack, DIDComm sits above the foundational DID layer (which provides identifiers and cryptographic material) and below the application-specific protocols that define particular interactions like credential exchange. This positioning makes DIDComm the connective tissue of the SSI interactions in Identus, enabling all higher-level identity interactions.
 
 ## Key Characteristics
 
@@ -57,15 +55,15 @@ You can find all currently published protocols in [here](https://didcomm.org/sea
 
 To illustrate how DIDComm works in practice, consider a typical credential issuance scenario:
 
-1. An issuer and holder establish a DIDComm connection, exchanging DIDs and service endpoints
-2. The issuer sends an offer message indicating which credentials it can provide
-3. The holder responds with a request message for a specific credential
-4. The issuer creates the credential and sends it in an issuance message
-5. The holder acknowledges receipt with an acknowledgment message
+1. An Issuer and Holder establish a DIDComm connection, exchanging DIDs and service endpoints
+2. The Issuer sends an offer message indicating which credentials it can provide
+3. The Holder responds with a request message for a specific credential
+4. The Issuer creates the credential and sends it in an issuance message
+5. The Holder acknowledges receipt with an acknowledgment message
 
-Throughout this interaction, all messages are encrypted end-to-end, ensuring that even if they pass through intermediaries, the content remains private between the issuer and holder. The messages might travel over different transport mechanisms—perhaps starting with an HTTPS connection but switching to Bluetooth for later messages if the parties come into proximity.
+Throughout this interaction, all messages are encrypted end-to-end, ensuring that even if they pass through intermediaries, the content remains private between the Issuer and Holder. The messages might travel over different transport mechanisms—perhaps starting with an HTTPS connection but switching to Bluetooth for later messages if the parties come into proximity.
 
-In mediated scenarios, the flow becomes more complex but even more powerful. A holder might receive messages through a mediator service that provides consistent message delivery even when the holder's device is offline. The mediator receives encrypted messages, stores them until the holder connects, and then forwards them without ever being able to read the encrypted contents.
+In mediated scenarios, the flow becomes more complex but even more powerful. A Holder might receive messages through a mediator service that provides consistent message delivery even when the Holder's device is offline. The mediator receives encrypted messages, stores them until the Holder connects, and then forwards them without ever being able to read the encrypted contents.
 
 ## Benefits
 
@@ -75,7 +73,7 @@ DIDComm delivers several crucial benefits that advance the core principles of Se
 
 **Decentralized communication** frees identity interactions from dependence on centralized messaging providers or identity hubs. Parties can communicate directly or through mediators of their choosing, avoiding vendor lock-in and single points of failure.
 
-**Interoperability** between different SSI implementations ensures that the ecosystem remains open and competitive. A holder using one wallet implementation can interact seamlessly with verifiers and issuers using entirely different software stacks, as long as they all support the DIDComm protocols.
+**Interoperability** between different SSI implementations ensures that the ecosystem remains open and competitive. A Holder using one wallet implementation can interact seamlessly with verifiers and issuers using entirely different software stacks, as long as they all support the DIDComm protocols.
 
 **User control** extends beyond just identity data to encompass the communication channels themselves. Individuals can choose how, when, and where they receive communications related to their digital identity, reinforcing the self-sovereign nature of the system.
 

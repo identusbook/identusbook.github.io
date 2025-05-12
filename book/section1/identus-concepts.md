@@ -11,7 +11,7 @@ PRISM Node implements the `did:prism` method and serves as a second-layer node f
 As a critical component in the Identus ecosystem, PRISM Node provides a secure and trustworthy platform for storing and managing decentralized identifiers. It handles the creation, update, resolution, and deactivation of PRISM DIDs by generating transactions with the necessary operation information, verifying and validating these operations, and publishing them to the blockchain. Once transactions are confirmed, the node updates its internal state accordingly.
 
 The PRISM Node's architecture enables users to:
-- Create DIDs without initially interacting with any PRISM Node, with the option to announce them publicly later. This means you can create unpublished DIDs via Apollo building block and make use of it, not all DIDs are required to be published on chain, but if you need to anchor a DID on chain, PRISM Node will handle that operation for you.
+- Create unpublished DIDs via Apollo building block with the option to announce them publicly later. This means that not all DIDs are required to be published on a VDR, for example, as a Holder you don't beed your DID to be public, but as an Issuer, the Cloud Agent will require the issuing DID to be public and anchored in a VDR. In this case, PRISM Node will handle that operation for you.
 - Update DID documents by publishing update operations on chain.
 - Deactivate DIDs by publishing deactivation operations on chain.
 - Resolving DIDs by querying historical changes on chain.

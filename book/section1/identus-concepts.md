@@ -66,7 +66,7 @@ Pollux also manages credential status, enabling issuers to revoke credentials wh
 
 ### Mercury - DIDComm
 
-Mercury provides an interface to the DIDCommV2 protocol, enabling secure, private communication between DIDs regardless of the underlying transport mechanisms. This building block establishes the foundation for all agent-to-agent communications in the Identus ecosystem.
+Mercury provides an interface to the [DIDCommV2](https://www.didcomm.org) protocol, enabling secure, private communication between DIDs regardless of the underlying transport mechanisms. This building block establishes the foundation for all agent-to-agent communications in the Identus ecosystem.
 
 For example, when a citizen wants to share a government-issued credential with a service provider, Mercury facilitates the encrypted, authenticated message exchange between the citizen's wallet and the service provider's verification system. This communication happens peer-to-peer, without requiring centralized intermediaries to facilitate the exchange.
 
@@ -100,13 +100,13 @@ Edge Agents typically function as digital wallets, enabling users to maintain co
 
 Mediators act as middlemen between Peer DIDs.  In order for any agent to send a message to any other agent, it must know the `to` and `from` DIDs of each message. The sender and recipient together make up a cryptographic connection called a `DIDPair`.  Mediators maintain queues of messages for each `DIDPair`. If an Edge Agent is offline, the Mediator will hold incoming messages for them until the agent is back online and able to receive them. Mediators can deliver messages when polled, or push via web sockets. Mediators are expected to be online at all times and be highly available.
 
-Since instantiation of Identus Edge Agents requires a Mediator, there are several publicly available Mediator services which make development simple.
+Identus officially supports and releases updates for their own Mediator implementation but there are a couple of alternative implementations close to the Identus community. In theory, any DIDCommV2 compatible mediator should work with Identus so this is not an exhaustive list.
 
-- [PRISM Mediator](https://github.com/input-output-hk/atala-prism-mediator)
+- [PRISM Mediator](https://github.com/hyperledger-identus/mediator)
 - [RootsID Mediator](https://github.com/roots-id/didcomm-mediator)
 - [Blocktrust Mediator](https://github.com/bsandmann/blocktrust.Mediator)
 
-While extremely helpful during development, these are not recommended for production Identus deployments as they have no uptime guarantee and will not scale past a small number of concurrent users.  We will discuss how to run your own Mediator in [Chapter @sec-mediator]
+Both RootsID and Blocktrust provide hosted instances of their mediators that are publicly accessible. While extremely helpful during development, these are not recommended for production Identus deployments as they have no uptime guarantee and will not scale past a small number of concurrent users. We will discuss how to run your own Mediator in [Chapter @sec-mediator].
 
 ## Verifiable Data Registry (VDR)
 

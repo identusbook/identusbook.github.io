@@ -28,19 +28,19 @@ The Cloud Agent is designed to be scalable, robust, and standards-compliant, pro
 - Support for multiple agent roles including Issuer, Holder, Verifier
 - Management of W3C Standard Verifiable Credentials (JSON and JSON-LD formats encoded as JWT), SD-JWT and AnonCreds
 - Implementation of DIF Presentation Exchange for credential requests and submissions
-- Support for `did:prism` and `did:peer` DID methods
+- Support for `did:prism` and `did:peer` (version 2) DID methods
 - Full implementation of DIDCommV2 messaging and protocols
-- Compatibility with Aries RFCs including DID exchange, out-of-band protocol, issue credential, and present proof
+- Compatibility with [Hyperledger Aries](https://www.lfdecentralizedtrust.org/projects/aries) RFCs including DID exchange, out-of-band protocol, issue credential, and present proof
 
 The Cloud Agent's REST API enables developers to build controllers in any programming language without needing deep expertise in the underlying SSI standards. This architecture allows business logic to be separated from the identity infrastructure, making it easier to develop specialized applications while leveraging the full power of decentralized identity.
 
 When deployed, the Cloud Agent interacts with the PRISM Node over gRPC protocol, using it as the Verifiable Data Registry to anchor DIDs on a distributed ledger for high security and availability.
 
-## Cloud Agent Building Blocks
+## Building Blocks
 
-Identus separates the handling of important SSI operations into separate, focused libraries called "building blocks." These modular components can be combined and configured to meet various use cases and product requirements. This modular architecture provides excellent flexibility and customization options, allowing developers to implement decentralized identity solutions tailored to their specific needs.
+Identus separates the handling of important SSI operations into separate, focused libraries called "building blocks". These modular components can be combined and configured to meet various use cases and product requirements. This modular architecture provides excellent flexibility and customization options, allowing developers to implement decentralized identity solutions tailored to their specific needs.
 
-### Apollo - Cryptography Module
+### Apollo - Cryptography
 
 Apollo is a comprehensive cryptographic primitives toolbox that Identus uses to ensure data integrity, authenticity, and confidentiality. It provides the foundation for secure communication and data protection throughout the Identus ecosystem.
 
@@ -48,7 +48,7 @@ Apollo employs cryptographic hash functions to create digital fingerprints of da
 
 Additionally, Apollo implements digital signatures to authenticate the identity of senders and recipients, and uses encryption algorithms to protect sensitive data from unauthorized access. In a healthcare scenario, Apollo's encryption would ensure that patient credentials remain confidential when shared between authorized parties.
 
-### Castor - DID Module
+### Castor - DID
 
 Castor enables the creation, management, and resolution of Decentralized Identifiers (DIDs). It currently supports the native `did:prism` method and the `did:peer` method but the are discussions aligning the team to build a more flexible architecture that would allow anyone to write plugins that could support other DID methods.
 
@@ -56,7 +56,7 @@ When a user creates a new digital identity in an Identus application, Castor gen
 
 Castor's resolver component can look up a DID and retrieve its associated DID Document, which contains the public keys, authentication mechanisms, and service endpoints needed for secure interactions with that identity.
 
-### Pollux - Verifiable Credential Module
+### Pollux - Verifiable Credential
 
 Pollux handles all Verifiable Credential operations, allowing users to issue, manage, and verify credentials in a privacy-preserving manner. This building block is essential for implementing the core functionality of credential exchange in self-sovereign identity systems.
 
@@ -64,7 +64,7 @@ In a real-world employment scenario, a company could use Pollux to issue employe
 
 Pollux also manages credential status, enabling issuers to revoke credentials when necessary and allowing verifiers to check if a credential is still valid before accepting it.
 
-### Mercury - DIDComm Module
+### Mercury - DIDComm
 
 Mercury provides an interface to the DIDCommV2 protocol, enabling secure, private communication between DIDs regardless of the underlying transport mechanisms. This building block establishes the foundation for all agent-to-agent communications in the Identus ecosystem.
 

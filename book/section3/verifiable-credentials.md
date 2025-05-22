@@ -2,40 +2,25 @@
 
 ## Overview
 
-Verifiable Credentials are an integral part of Self-Sovereign Identity, allowing individuals to keep and control how their personal information is shared.
+Verifiable Credentials (VCs) are a cornerstone of Self-Sovereign Identity (SSI), empowering individuals to manage and control the sharing of their personal information. Throughout this book, we will explore VCs by building an example airline ticket wallet, where Verifiable Credential serves a digital flight ticket, illustrating the concepts in a practical manner.
 
-A Verifiable Credential (VC) is a digital statement made by an **Issuer** about a **Subject**. This statement is cryptographically secured and can be verified by a third party without the need for the **Verifier** to directly contact the **Issuer**. Verifiable Credentials are used to represent information such as identity documents, academic records, professional certifications, and other forms of credentials that traditionally exist in paper form.  Coupled with other technology such as Self-Sovereign Identity, Verifiable Credentials can unlock novel and exciting use cases.
+At its core, a Verifiable Credential is a digital assertion made by an **Issuer** concerning a **Subject**. This assertion is cryptographically secured, enabling a **Verifier** to confirm its authenticity and integrity without needing to directly contact the Issuer. VCs can represent a wide array of information, from identity documents and academic degrees to professional certifications and, as in our project, airline tickets. They offer a digital, secure, and verifiable alternative to traditional paper-based credentials, unlocking innovative applications when combined with SSI principles.
 
-Components of a Verifiable Credential:
+Understanding VCs involves recognizing their key components. The **Issuer** is the entity that creates and cryptographically signs the credential; in our airline example, this is the Airline company responsible for issuing flight tickets. The **Holder** is the individual or entity to whom the credential is issued and who controls its presentation; this role is filled by the passenger who has purchased the ticket. When the passenger needs to prove their right to board a flight, they present their ticket to a **Verifier**, in this case, the Airport Security Officer, who then checks the credential's authenticity and validity. The **Subject** is the entity the credential's claims are about. Keep in mind that very often, as with our example, the Holder and the Subject are one and the same, in our case is the passenger. The credential contains **Claims**, which are specific statements about the Subject, such as the passenger's name, flight number, and seat assignment for an airline ticket. The security and trustworthiness of a VC are guaranteed by its **Proof**, typically a digital signature, which provides cryptographic evidence of authenticity and integrity. Finally, **Metadata** offers additional context, such as the credential's expiration date or a description of its purpose, like "Airline Boarding Pass."
 
-- **Issuer**: The entity that creates and signs the credential. This could be an organization, institution, government entity or individual.
-- **Holder**: The entity or individual to whom the credential is issued to and who can present proof to a **Verifier**.
-- **Verifier**: The entity or individual that checks the authenticity and validity of the credential trough requesting proof from a **Holder**.
-- **Subject**: The entity or individual about which the claims are made. In many cases, the **Holder** and the **Subject** are the same entity.
-- **Claims**: Statements about the **Subject**, such as "Alice has an Educational Credential from Vienna University."
-- **Proof**: Cryptographic evidence, using Digital Signatures, that the credential is authentic and has not been tampered with.
-- **Metadata**: Additional contextual information which may have content or application specific meaning, like expiration date or credential description.
+The lifecycle of a Verifiable Credential involves several key stages, which we will implement in our example project:
 
-How Verifiable Credentials Work:
+The **Issuance** process is how a VC is created and delivered. As per the Identus Cloud Agent's implementation of the Issue Credential Protocol 3.0, this flow is initiated by the Issuer. For instance, the Airline (Issuer) would first create a credential offer—a proposal to issue a specific ticket—and send it to the passenger (Holder) via DIDComm. If the passenger accepts this offer, they respond with a credential request. The Airline then issues the Verifiable Credential containing claims like flight details and the passenger's DID. In the last step of issuance, the Issuer signs with their private key and sends it to the Holder.
 
-- **Issuance**: The issuer creates a credential containing claims about the subject, the subject DID (public key) and signs it with their private key.
-- **Storage**: The holder receives the credential and stores it in a digital wallet.
-- **Presentation**: When required, the holder presents the credential to a verifier. Selective Disclosure can be used to reveal only relevant context about a claim, and not all user data.
-- **Verification**: The verifier checks the credential’s authenticity by validating the issuer’s digital signature and ensuring the credential has not been tampered with.
+Once received, the **Storage** phase begins. The passenger (Holder) stores this digital ticket securely in their digital wallet, such as the airline ticket wallet mobile application we will develop.
 
-Benefits of Verifiable Credentials:
+When the passenger passes trough security at the airport, a **Presentation** occurs. The passenger (Holder) presents their digital airline ticket to the Airport Security Officer (Verifier). This can involve presenting the entire credential or, through mechanisms like Selective Disclosure, only specific relevant claims (e.g., just the name and flight number, without revealing the ticket price or other details), thereby enhancing privacy.
 
-- **Interoperability**: VCs follow standard formats, making them compatible across different systems and platforms.
-- **Privacy**: Holders can share only the necessary information, protecting their privacy.
-- **Security**: Cryptographic techniques ensure the integrity and authenticity of credentials.
-- **Decentralization**: VCs do not rely on a central authority for verification, reducing single points of failure.
+Finally, **Verification** is performed by the Airport Security Officer. They use their systems to check the digital signature on the ticket to confirm its authenticity (i.e., it was indeed issued by the legitimate Airline) and integrity (i.e., it has not been tampered with since issuance). This step ensures that the ticket is valid and trustworthy.
 
-Use Cases:
+A note on **Trust**. Just because a Verifiable Credential is legitimate and passes the cryptographic verification, it doesn't mean the presentation will be accepted. There might be other business rules and checks needed to establish a final decision. For example, the passenger might be part of a "no fly" list or lack a required visa for international travel, and even though it has a legitimate ticket, the Airport Security Officer might reject the presentation. The important insight is that after the presentation reaches the verified status, there needs to a **manual** final decision to accept or reject a presentation.
 
-- **Digital Identity**: Proof of identity for accessing services.
-- **Education**: Digital diplomas and certificates.
-- **Healthcare**: Vaccination records and medical certificates.
-- **Employment**: Professional qualifications and work experience.
+In general, Verifiable Credentials offer significant advantages. Their adherence to standard formats promotes **Interoperability**, ensuring they can be used across diverse ecosystems and platforms without vendor lock-in. **Privacy** is also a key benefit, as Holders can selectively disclose only the necessary information, rather than revealing all data contained within a credential, giving them granular control over their personal data. The use of cryptographic techniques provides robust **Security**, guaranteeing the integrity and authenticity of credentials against tampering and forgery. Furthermore, VCs used within Self-Soverign Identity interactions support **Decentralization**, as verification often doesn't require real-time communication with the original Issuer or reliance on a central authority, thereby reducing single points of failure and control.
 
 ## Formats
 

@@ -11,7 +11,7 @@ This is not a book about Self-Sovereign Identity.  There are already great resou
 
 It should be noted that Identus is still new and at the time of writing this book, there are very few best practices, in fact, very little practices at all.  A handful of adventurous developers have been building on the platform and sharing their experiences, and we hope to share our own learnings in hopes of magnifying that knowledge and helping developers skip the common pitfalls and bring their ideas to market.
 
-We hope this text will be accessible to anyone who's curious about what's 
+We hope this text will be accessible to anyone who is curious about building decentralized digital identity applications. 
 
 We hope that newcomers will be able to use this text to skip common pitfalls and misunderstandings, and bring their ideas to market faster. 
 

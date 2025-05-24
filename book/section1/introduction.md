@@ -9,7 +9,7 @@ This is not a book about Self-Sovereign Identity.  There are already great resou
 
 - [Self-Sovereign Identity](https://www.manning.com/books/self-sovereign-identity) by Alex Preukschat, Drummond Reed, et al.  This is the definitive book on SSI and it's ecosystem of topics.  
 
-- [Identus Documentation](https://hyperledger.github.io/identus-docs/)
+- [Identus Documentation](https://hyperledger-identus.github.io/docs/)
 
 It should be noted that Identus is still new and at the time of writing this book, there are very few best practices, in fact, very little practices at all.  A handful of adventurous developers have been building on the platform and sharing their experiences, and we hope to share our own learnings in hopes of magnifying that knowledge and helping developers skip the common pitfalls and bring their ideas to market.
 

@@ -1,75 +1,98 @@
 # SSI Basics {#sec-ssi-basics}
 
-## Introduction to Self-Sovereign Identity
+## What SSI Means in This Book
 
-Self-Sovereign Identity (SSI) represents a paradigm shift in how we manage digital identity. Unlike traditional centralized identity systems where third parties control and store our personal data, SSI puts individuals in control of their own identity information.
+Self-Sovereign Identity (SSI) describes identity systems built around user-held credentials and verifiable proofs, rather than a single identity provider that stores the user's account profile. A person, organization, device, or software agent can receive a credential from an issuer, store it in a wallet or agent, and present proof to a verifier. The verifier checks the proof and applies its own policy without a custom account integration with every issuer.
 
-Imagine your digital life today: you have dozens of accounts across various websites and services, each with different login credentials and each storing pieces of your personal information. When you apply for a loan, you must provide the same information repeatedly. If a service is breached, your data is exposed. And for over a billion people worldwide without formal identification, accessing basic services remains impossible.
+SSI does not make holder-provided claims trustworthy by itself. A verifier checks who issued the credential, what the credential says, whether the proof is valid, whether the credential is still in good standing, and whether the issuer is acceptable for that transaction. SSI changes custody and exchange of identity data; governance, law, contracts, and reputation still shape trust decisions.
 
-SSI addresses these challenges by creating a decentralized identity layer for the internet where individuals own and control their identity data, sharing only what's necessary with whom they choose.
+This chapter uses standard terms from the [W3C Decentralized Identifiers (DIDs) v1.0 Recommendation](https://www.w3.org/TR/did-1.0/) and the [W3C Verifiable Credentials Data Model v2.0 Recommendation](https://www.w3.org/TR/vc-data-model-2.0/). DID Core defines DIDs as identifiers for verifiable, decentralized digital identity that can be decoupled from centralized registries, identity providers, and certificate authorities. The VC Data Model defines credentials, presentations, issuers, holders, subjects, and verifiers. The [Identus Quick Start Guide](https://hyperledger-identus.github.io/docs/home/quick-start/) describes Identus as core libraries for SSI interactions between issuers, holders, and verifiers.
 
-## Core Concepts of SSI
+## The SSI Interaction
 
-To begin understanding SSI and how it works, these are the fundamental building blocks that you must get familiar with, we will explore in depth each one of these concepts and how to use them in Identus as we progress trough the book.
+A typical exchange has four steps.
 
-### Decentralized Identifiers (DIDs)
+1. An issuer makes claims about a subject and packages those claims as a credential.
+2. A holder receives the credential and stores it in a wallet or agent.
+3. A verifier asks the holder for proof that satisfies a specific request.
+4. The holder returns a presentation, and the verifier checks cryptography, status, and business policy.
 
-DIDs are globally unique identifiers that enable verifiable, decentralized digital identity. Think of a DID as a digital address that belongs exclusively to you—not assigned by Facebook or Google, but created and controlled by you.
+Example: a university issues a degree credential to Alice. Alice receives the credential in her wallet and acts as holder. The degree describes Alice, making Alice the subject. An employer acts as verifier and requests proof that Alice has a computer science degree from an accredited university. Alice's wallet creates a presentation from the credential. The employer's software checks that the university signed the credential, that Alice can prove control of the holder keys required by the credential format, that the issuer has not suspended or revoked the credential, and that the university is accepted under the employer's hiring policy.
 
-For example, when Alice creates her digital identity in an SSI ecosystem, she generates a DID like `did:prism:4a9bce8d72e4c30017c42f2b` that she controls through cryptographic keys on her smartphone.
+Policy evaluation is validation. Cryptographic verification can show that an issuer's key secured the credential and that no one modified the credential after issuance. It cannot show that the issuer is acceptable for a particular decision. A diploma from an unknown training provider can pass cryptographic verification and still fail an employer's policy. The W3C VC specification describes validation as the verifier's business-rule check for whether a credential is proper for a particular use.
 
-### DID Documents
+## DIDs and DID Documents
 
-A DID Document contains the information payload associated with your DID. It contains public keys for verification and might include service endpoints, for example, with descriptions of ways to communicate with the DID owner, a URL to an asset, etc.
+A Decentralized Identifier (DID) is a URI. It has a `did:` scheme, a DID method, and a method-specific identifier. In `did:prism:4a9bce8d72e4c30017c42f2b`, the method is `prism`; the last segment is the identifier data defined by that method.
 
-When a bank wants to verify Alice's identity, it can use her DID Document to establish secure communication and verify her credentials without relying on a central authority.
+The DID method tells software how to create, resolve, update, and deactivate that class of DID. DID Core does not require one storage technology. A DID method can use a distributed ledger, a database, a peer-to-peer network, or another verifiable data registry, as long as the method defines the required operations.
 
-### Verifiable Credentials (VCs)
+A DID resolves to a DID Document. DID Documents express public verification material, verification relationships, and services. A DID Document can tell software which public keys can be used for authentication, assertion, key agreement, capability invocation, or capability delegation. It can list service endpoints for communication protocols such as DIDComm. It should not contain secrets, private keys, or a personal profile.
 
-Verifiable Credentials are digital equivalents of physical credentials. Just as your physical wallet might contain a driver's license, university diploma, and health insurance card, your digital wallet contains VCs that prove various aspects of your identity.
+The DID subject and DID controller may be the same entity, but they do not have to be. The subject is the person, organization, device, data model, or other thing identified by the DID. The controller is the entity that can change the DID Document according to the DID method. A company DID might identify the company as subject, and the company might delegate key operations to a Cloud Agent it controls.
 
-For instance, Alice's digital wallet might contain a VC issued by her university confirming her degree, another from her employer verifying her employment, and one from her government confirming her citizenship, all cryptographically secured and under her control.
+DIDs can create correlation risk. DID Core warns that globally unambiguous identifiers can link activity across contexts. Pairwise DIDs reduce that risk by giving each relationship its own pseudonymous DID. Apply the same privacy review to DID Documents: reused keys, unusual service endpoints, or descriptive properties can still link activity across relationships.
 
-### Verifiable Presentations (VPs)
+## Verifiable Credentials
 
-A Verifiable Presentation allow a holder to interchange cryptographic proof with a verifier about a particular VC. Depending on the format of the Verifiable Credencial, the proof could be about the whole credential or a subset of particular claims. For example, during a regular Verifiable Presentation of a standard W3C JWT VC, the whole credential is presented plus a signed challenge as proof as opposed with a SD-JWT VC, where only a selective disclosure of information from the credential is presented. So when Alice applies for a job, she doesn't need to share her entire identity, just relevant qualifications. Using a VP, she can prove she has a computer science degree without revealing her birth date or address that might also be in that credential.
+A credential is a set of claims made by an issuer. A Verifiable Credential (VC) is a credential with a securing mechanism that lets software detect tampering and check authorship. The VC can be about a person, organization, device, account, shipment, software artifact, or any other subject.
 
-## The Triangle of Trust
+The issuer decides what to claim and signs or otherwise secures the credential. The holder stores the credential. The subject is the entity the claims describe. The holder and subject often match, but not always. A parent can hold a credential about a child. A company officer can hold a credential about the company. A device fleet manager can hold credentials about devices.
 
-The SSI ecosystem operates through what's commonly called the "Triangle of Trust", a relationship between three primary roles in any given interaction. Keep in mind that any person or entity can fulfill each role depending on the context of the interaction, for example, at some point you may receive a credential, this makes you the holder in that interaction, and later that day you may want to verify someone's credential, that would make you a verifier in that interaction. This is one of the first insights that you need to internalize.
+The data model is separate from the credential format. W3C VC 2.0 defines the model. Implementations can secure and transport credentials through different formats and protocols. Identus chapters later in the book use JWT-VC, SD-JWT-VC, and AnonCreds in implementation flows, so the right choice depends on the credential formats supported by the agents and wallets in that flow.
 
-### Issuer
+Credential status is part of production verification. W3C VC 2.0 defines `credentialStatus` for discovering status information such as suspension or revocation. The details depend on the status method. A verifier that accepts a credential without checking status may accept a credential the issuer no longer stands behind.
 
-The entity that issues a Verifiable Credential to a Holder. This could be a bank, government agency or anyone that accepts responsibility for making credentials. For example a governmental agency can issue a passport to a citizen, or a gym can issue a membership to a member. The type of agency is not important, only that they issue a credential. This role accepts responsibility for having issued that credential and should look to establish trust and reputation with Holders and Verifiers. 
+## Verifiable Presentations
 
-For example, when the Department of Motor Vehicles issues Alice a digital driver's license, it acts as an Issuer, cryptographically signing a credential that contains her driving privileges and personal information.
+A Verifiable Presentation (VP) is data derived from one or more credentials and shared with a specific verifier. A presentation can include one credential, parts of one credential, or data from more than one credential, depending on the credential format and proof mechanism.
 
-The credential includes the DMV's DID in the Issuer field, allowing anyone to verify its origin. The DMV maintains its reputation by issuing accurate credentials and properly verifying identities before issuance.
+A holder uses presentations to respond to verifier requests. A verifier asks for the data it needs. The wallet shows the request to the holder. The holder approves or rejects the disclosure. The wallet then builds a presentation that fits the request and the credential format.
 
-### Holder
+Selective disclosure depends on the credential format and proof mechanism. The W3C VC Data Model defines selective disclosure as the holder's ability to make fine-grained choices about what to share. The same specification treats data minimization as a best practice: verifiers should request the minimum information needed for a transaction. A credential format that supports selective disclosure can let Alice prove she is over 21 without revealing her full birth date. A format that lacks that feature may require sharing more data.
 
-The Holder receives and stores credentials. Alice becomes a Holder when she receives her digital driver's license in her wallet app. She controls this credential completely—deciding when, how, and with whom to share it.
+## The Roles in the Trust Triangle
 
-When a police officer asks for identification during a traffic stop, Alice can present her digital license through her wallet. The wallet application handles the cryptographic proof that she is indeed the rightful owner of this credential.
+SSI discussions often use the "Triangle of Trust" to describe issuer, holder, and verifier. Treat the triangle as roles in an interaction, not permanent labels for people or organizations.
 
-### Verifier
+An issuer creates a credential and takes responsibility for the claims it makes. A department of motor vehicles can issue a driver's license credential. A university can issue a degree credential. A gym can issue a membership credential. The issuer's authority comes from the surrounding context: law, accreditation, contract, community rules, reputation, or governance.
 
-A Verifier is any person or entity that performs a verification on a Verifiable Credential or any of its referenced entities. A Verifier might perform a check on cryptographic elements of a VC, or make sure that the Issuer DID belongs to the expected entity. Verifiers usually only care to double check that the Verifiable Credential is legitimate and that the included claims meet their expectations.
+A holder receives credentials and creates presentations from them. The holder may be a person using a mobile wallet, a company using a Cloud Agent, or software managing credentials for devices. Holder control means the holder decides whether to present a credential in a given interaction, subject to wallet design, custody model, law, and policy.
 
-Following our previous examples, when Alice uses her digital driver's license at a bar, the bartender becomes a Verifier. The bartender's verification app confirms that:
+A verifier receives a presentation and decides whether to accept it. Verification usually checks syntax, cryptographic proofs, issuer keys, holder binding, credential status, and schema. Validation checks business rules. For a bar, "over 21 and issued by a recognized state DMV" may be enough. For a hospital employee credential, the verifier may need role, facility, license status, and trust registry checks.
 
-- The credential was issued by a legitimate DMV (by checking the Issuer's DID)
-- The credential hasn't been tampered with (through cryptographic verification)
-- The credential hasn't been revoked (by checking a revocation registry)
-- Alice is the rightful owner (through cryptographic proof)
-- Alice is over 21 (by reading the birthdate claim in the credential)
+Roles are interaction-specific. The same entity can hold one credential, verify another credential, and issue a third credential.
 
-All this happens digitally in seconds, with greater security than visual inspection of a physical ID.
+## Trust Registries and Governance
 
-### Trust Registry
+A DID can prove control over keys. A credential can prove that an issuer made a claim. A verifier still needs a way to decide whether that issuer has the right authority for the verifier's context. Trust registries publish that authorization information for a defined ecosystem.
 
-When Verifiers need to know who a DID belongs to, there needs to be a way to look up that information. A Trust Registry is a mapping between DIDs and the entities they represent. You can think of this like a phone book for DIDs. Trust Registries need to be trusted themselves, and can be as broad or as specific as they need to be. For example, a Real Estate specific Trust Registry that lists real estate agents can be a way to validate that a particular agent is an accepted member of that industry.
+The Trust over IP Foundation describes a trust registry query in plain terms: "Does entity X hold authorization Y under ecosystem governance framework Z?" The [ToIP Trust Registry Query Protocol v2.0 announcement](https://www.trustoverip.org/blog/2024/04/03/toip-announces-the-implementers-draft-of-thetrust-registry-protocol-specification-v2-0/) frames TRQP as a read-only way to discover who is authorized to do what within a digital trust ecosystem. LF Decentralized Trust describes a trust registry as a system of record containing authoritative information that relying parties use for trust decisions.
 
-In essence, a Trust Registry provides the foundation for knowing which issuers to trust. When the bartender's app verifies Alice's driver's license, it consults a Trust Registry to confirm that the DID belongs to the actual DMV and not an impostor.
+A trust registry does not create authority by itself. Authority comes from the governance framework behind it. For a real estate credential, the registry might list licensed agents and the credential types they can issue or verify. For a university degree, a registry might list accredited institutions. For a supply-chain credential, it might list auditors accepted by a particular industry group.
 
-For example, a national Trust Registry might list all authorized government agencies and their DIDs, while an industry-specific registry might list accredited universities or professional certification bodies.
+A verifier should treat technical verification and acceptance policy as separate checks. Verification checks proofs, keys, syntax, and status. Acceptance policy checks whether the issuer and credential type fit the relying party's rules.
+
+## Exchange Protocols
+
+DIDs and VCs define data models and verification material. Applications still need protocols to exchange messages, issue credentials, and request presentations.
+
+[DIDComm Messaging v2.1](https://identity.foundation/didcomm-messaging/spec/v2.1/) defines encrypted message formats used by many agent-to-agent SSI systems. DIDComm encrypted messages hide content from everyone except authorized recipients, disclose and prove the sender to those recipients in authenticated mode, and provide integrity guarantees. Identus uses DIDComm V2 for Cloud Agent-to-Cloud Agent communication and for many agent flows.
+
+The OpenID Foundation defines OAuth-based protocols for credential exchange. [OpenID4VCI 1.0](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html) defines an API for issuing Verifiable Credentials. [OpenID4VP 1.0](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html) defines a protocol for requesting and presenting credentials. Production ecosystems may support DIDComm, OpenID4VCI, OpenID4VP, QR-code handoff, offline presentation, or a mix of these paths.
+
+## How This Maps to Identus
+
+Identus gives developers components for these SSI roles, so application code can use agents, SDKs, and APIs instead of reimplementing the standards stack.
+
+The [Identus Cloud Agent](https://hyperledger-identus.github.io/docs/home/quick-start/) can issue, hold, and verify VCs; manage DIDs and DID-based connections; expose a REST API; and use DIDComm V2 for agent communication. Typical uses include custodial wallets, enterprise issuers, verifier services, and backend workflows.
+
+The [Identus DID management documentation](https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/did-management/) explains that Cloud Agent manages PRISM DIDs and Peer DIDs. PRISM DIDs fit public issuer identity and ledger-backed resolution. Peer DIDs fit DIDComm activities where relationship-specific identifiers reduce correlation.
+
+The [Identus Quick Start Guide](https://hyperledger-identus.github.io/docs/home/quick-start/) describes PRISM Node as the Verifiable Data Registry component used to anchor key information for issuance and verification, and describes mediators as services that store and relay messages between Cloud Agents and wallet SDKs. PRISM Node supports public DID resolution. Mediators handle message relay for offline or intermittently connected agents without reading encrypted DIDComm content.
+
+## Developer Takeaways
+
+SSI lets issuers, holders, and verifiers exchange claims with cryptographic proof and holder participation. DIDs identify and resolve verification material. DID Documents publish public keys and services, not private identity profiles. Verifiable Credentials carry issuer claims. Verifiable Presentations let holders respond to verifier requests. Verification checks proofs and status. Validation applies policy. Trust registries and governance help verifiers decide which issuers and credential types count in a specific ecosystem.
+
+In Identus, these ideas map to components: PRISM Node for public DID resolution, Cloud Agent for server-side issuer/holder/verifier work, Edge Agent SDKs for wallets, DIDComm for secure agent messages, and mediators for routing when edge agents are offline.

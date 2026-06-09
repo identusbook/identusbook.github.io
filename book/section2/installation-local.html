@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>9&nbsp; Installation - Local Environment – Mastering Identus: A Developer Handbook</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -73,10 +76,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-159dcd933d098fd7a23177614e7361d2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-8b4c8dcaf9eb10a19fe4d48ae90d5fb6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -455,7 +458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="9.3.1" class="anchored" data-anchor-id="git"><span class="header-section-number">9.3.1</span> Git</h3>
 <p>If you’re using a UNIX-based system (such as OS X or Linux), you likely already have <code>git</code> installed. If not, you can download the installer from <a href="https://www.git-scm.com/downloads">Git downloads</a>. Additionally, various <a href="https://www.git-scm.com/downloads/guis">GUI clients</a> are available for those who prefer a graphical interface.</p>
 <p>To clone the Cloud Agent repository, first go to the <a href="https://github.com/hyperledger/identus/releases">Releases page</a> and identify the tagged release corresponding to the Identus release you are targeting (e.g.&nbsp;<code>cloud-agent-v1.40.0</code> is part of <a href="https://github.com/hyperledger/identus/releases/tag/v2.14">Identus v2.14</a> release), then clone the repository with this command:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--depth</span> 1 <span class="at">--branch</span> cloud-agent-v1.40.0 https://github.com/hyperledger/identus-cloud-agent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--depth</span> 1 <span class="at">--branch</span> cloud-agent-v1.40.0 https://github.com/hyperledger/identus-cloud-agent</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -527,12 +530,12 @@ Note
 <h3 data-number="9.5.1" class="anchored" data-anchor-id="environment-variables"><span class="header-section-number">9.5.1</span> Environment Variables</h3>
 <p>Inside <code>infrastructure/local</code> directory, you will find three important files, <code>run.sh</code>and <code>stop.sh</code> scripts and the <code>.env</code> file.</p>
 <p>Our <code>local</code> environment file should look like this</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">AGENT_VERSION</span><span class="op">=</span>1.40.0</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">AGENT_VERSION</span><span class="op">=</span>1.40.0</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">PRISM_NODE_VERSION</span><span class="op">=</span>2.5.0</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">VAULT_DEV_ROOT_TOKEN_ID</span><span class="op">=</span>root</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">VAULT_DEV_ROOT_TOKEN_ID</span><span class="op">=</span>root</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This will tell Docker which versions of the Cloud Agent and PRISM Node to run, plus a default value for the <code>VAULT_DEV_ROOT_TOKEN_ID</code>, this value corresponds to the HashiCorp Token ID. HashiCorp is a secrets storage engine and it will become relevant later on when we need to prepare the agent to run in <code>prepod</code> and <code>production</code> modes, for now the <code>local</code> mode will ignore this value because by default it will use a local <code>postgres</code> database for it’s secret storage engine.</p>
 <p>The <code>run.sh</code> script options:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./run.sh</span> <span class="at">--help</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./run.sh</span> <span class="at">--help</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Run</span> an instance of the ATALA bulding-block stack locally</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Syntax:</span> run.sh [-n/--name NAME<span class="kw">|</span><span class="ex">-p/--port</span> PORT<span class="kw">|</span><span class="ex">-b/--background</span><span class="kw">|</span><span class="ex">-e/--env</span><span class="kw">|</span><span class="ex">-w/--wait</span><span class="kw">|</span><span class="ex">--network</span><span class="kw">|</span><span class="ex">-h/--help]</span></span>
@@ -546,16 +549,16 @@ Note
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">--webhook</span>              Specify webhook URL for agent events</span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">--webhook-api-key</span>      Specify api key to secure webhook if required</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">--debug</span>                Run additional services for debug using docker-compose debug profile.</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">-h/--help</span>              Print this help text.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">-h/--help</span>              Print this help text.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For our first interaction with the agent all we have to do is to call the run script. If you have any conflicts with the port 80 already in use or you don’t want that as the default, you can pass <code>--port 8080</code> or any other available port that you would like to use.</p>
 <p>So, from the root of the repository you can run:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./infrastructure/local/run.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./infrastructure/local/run.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This will take a while the first time as Docker will fetch the required container images and get them running. To check the status of the Cloud Agent you can use <code>curl</code> or open a browser window at same endpoint URL (make sure to specify a custom port if you changed it in the previous step, e.g.&nbsp;use <code>http://localhost:8080</code>):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost/cloud-agent/_system/health</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">{</span><span class="st">"version"</span><span class="ex">:</span><span class="st">"1.40.0"</span><span class="ex">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost/cloud-agent/_system/health</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">{</span><span class="st">"version"</span><span class="ex">:</span><span class="st">"1.40.0"</span><span class="ex">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The <code>version</code> should match the version of the Cloud Agent defined in the <code>.env</code>file.</p>
 <p>To stop the agent, you can press <code>Control + C</code> or run:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./infrastructure/local/stop.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./infrastructure/local/stop.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Congratulations! you have successfully setup the agent in <code>local</code> mode. Next we will explore our Docker file in detail and interact with our agent using the REST API.</p>
 
 
@@ -614,13 +617,14 @@ Note
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

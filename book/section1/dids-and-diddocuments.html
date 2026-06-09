@@ -402,9 +402,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">7.1</span> Overview</a></li>
-  <li><a href="#did-lifecycle" id="toc-did-lifecycle" class="nav-link" data-scroll-target="#did-lifecycle"><span class="header-section-number">7.2</span> DID Lifecycle</a></li>
-  <li><a href="#resolvers" id="toc-resolvers" class="nav-link" data-scroll-target="#resolvers"><span class="header-section-number">7.3</span> Resolvers</a></li>
-  <li><a href="#controllers" id="toc-controllers" class="nav-link" data-scroll-target="#controllers"><span class="header-section-number">7.4</span> Controllers</a></li>
+  <li><a href="#did-syntax-and-did-methods" id="toc-did-syntax-and-did-methods" class="nav-link" data-scroll-target="#did-syntax-and-did-methods"><span class="header-section-number">7.2</span> DID Syntax and DID Methods</a></li>
+  <li><a href="#did-subjects-and-controllers" id="toc-did-subjects-and-controllers" class="nav-link" data-scroll-target="#did-subjects-and-controllers"><span class="header-section-number">7.3</span> DID Subjects and Controllers</a></li>
+  <li><a href="#did-document-structure" id="toc-did-document-structure" class="nav-link" data-scroll-target="#did-document-structure"><span class="header-section-number">7.4</span> DID Document Structure</a></li>
+  <li><a href="#example-prism-did-document" id="toc-example-prism-did-document" class="nav-link" data-scroll-target="#example-prism-did-document"><span class="header-section-number">7.5</span> Example PRISM DID Document</a></li>
+  <li><a href="#did-lifecycle" id="toc-did-lifecycle" class="nav-link" data-scroll-target="#did-lifecycle"><span class="header-section-number">7.6</span> DID Lifecycle</a></li>
+  <li><a href="#resolvers" id="toc-resolvers" class="nav-link" data-scroll-target="#resolvers"><span class="header-section-number">7.7</span> Resolvers</a></li>
+  <li><a href="#controllers" id="toc-controllers" class="nav-link" data-scroll-target="#controllers"><span class="header-section-number">7.8</span> Controllers</a></li>
+  <li><a href="#verification-flow" id="toc-verification-flow" class="nav-link" data-scroll-target="#verification-flow"><span class="header-section-number">7.9</span> Verification Flow</a></li>
+  <li><a href="#privacy-checks" id="toc-privacy-checks" class="nav-link" data-scroll-target="#privacy-checks"><span class="header-section-number">7.10</span> Privacy Checks</a></li>
   </ul>
 </nav>
     </div>
@@ -432,88 +438,198 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="overview" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">7.1</span> Overview</h2>
-<p>A <strong>DID</strong> (<em>Decentralized Identifier</em>) is the canonical representation of a DIDDocument; a portable, compact hash, which can be passed around easily or stored to a database or blockchain. A DID can be <em>resolved</em>, revealing the full, parsable JSON encoded DIDDocument.</p>
-<p>A <strong>DID Document</strong> (<em>Decentralized Identifier Document</em>) is a JSON-LD (<em>JavaScript Object Notation for Linked Data</em>) structure which describes a Subject. This can represent the identity of a person, a thing, or a relationship between one or many entities. Contained in the document is information which can verify that identity without relying on a centralized authority.</p>
-<p>TODO: Add DID Method overview A <strong>DID Method</strong> ..</p>
-<p>The spec for a <code>did:prism</code> DIDDocument can be found <a href="https://github.com/input-output-hk/prism-did-method-spec/blob/main/w3c-spec/PRISM-method.md#did-documents">here</a>.</p>
-<p>An Example DID: <code>did:prism:4a5b5cf0a513e83b598bbea25cd6196746747f065246f1d3743344b4b81b5a74:Cr4BCrsBElsKBmF1dGgwMRJRCglzZWNwMjU2azESBHRlc3QaOmtleTE6Ly8wMjM5MmYxNjc4NmNlNmQ0NzJlOGViNzA4ZWRjMmE3OTFmZGMxNzNkNjVkNTBhODNhMTk3N2I5ZmIwMmU0MjQSWwoGYXV0aDAyElEKCXNlY3AyNTZrMRIEdGVzdBo6a2V5MjovLzAyMzkyZjE2Nzg2Y2U2ZDQ3MmU4ZWI3MDhlZGMyYTc5MWZkYzE3M2Q2NWQ1MGE4M2ExOTc3YjlmYjAyZTQyNA</code></p>
-<p>Let’s break down the format of this example DID:</p>
-<ul>
-<li><code>did:prism:</code> The prefix of the DID</li>
-<li><code>4a5b5cf0a513e83b598bbea25cd6196746747f065246f1d3743344b4b81b5a74</code>: The DID identifier. This can be anything, as long as it is unique to the DID Document it is describing, and means something to your application.</li>
-<li><code>Cr4BCrsBElsKBmF1dGgwMRJRCglzZWNwMjU...</code>: The DID Document itself, encoded in base58</li>
-</ul>
-<p>An Example DIDDocument:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"@context"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"https://www.w3.org/ns/did/v1"</span><span class="ot">,</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"https://w3id.org/security/suites/jws-2020/v1"</span><span class="ot">,</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"https://didcomm.org/messaging/contexts/v2"</span><span class="ot">,</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"https://identity.foundation/.well-known/did-configuration/v1"</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:123456789abcdefghi"</span><span class="fu">,</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"controller"</span><span class="fu">:</span> <span class="st">"did:example:bcehfew7h32f32h7af3"</span><span class="fu">,</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"verificationMethod"</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:123456789abcdefghi#key-1"</span><span class="fu">,</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"JsonWebKey2020"</span><span class="fu">,</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"controller"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"did:prism:123456789abcdefghi"</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"publicKeyJwk"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"kty"</span><span class="fu">:</span> <span class="st">"OKP"</span><span class="fu">,</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"crv"</span><span class="fu">:</span> <span class="st">"Ed25519"</span><span class="fu">,</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"x"</span><span class="fu">:</span> <span class="st">"VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"authentication"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"did:prism:123456789abcdefghi#key-1"</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"assertionMethod"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"did:prism:123456789abcdefghi#key-1"</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"keyAgreement"</span><span class="fu">:</span> <span class="ot">[</span> <span class="st">"did:prism:123456789abcdefghi#key-1"</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"service"</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:123456789abcdefghi#messaging"</span><span class="fu">,</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"DIDCommMessaging"</span><span class="fu">,</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"serviceEndpoint"</span><span class="fu">:</span> <span class="st">"https://example.com/endpoint"</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="ot">]</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Let’s look at the components of a DID Document:</p>
-<ul>
-<li><strong><code>id</code></strong>: The DID of the Subject described by the DIDDocument</li>
-<li><strong><code>@context</code></strong>: This is an array of specifications used in this DIDDocument. The first element is usually <a href="https://www.w3.org/ns/did/v1">https://www.w3.org/ns/did/v1</a> but any other common definitions are <a href="https://w3id.org/security/suites/jws-2020/v1">JSONWebSignature</a> or <a href="https://didcomm.org/messaging/contexts/v2">DIDComm2 Messaging</a> protocols.</li>
-<li><strong><code>controller</code></strong>: An array of DIDs that are allowed to mutate the DIDDocument</li>
-<li><strong><code>verificationMethod</code></strong>: An array of information which can be used to verify the identity of the Subject.
-<ul>
-<li><code>id</code>: The DID of the Subject</li>
-<li><code>controller</code>: The DID of the Subject (author’s note: When could this be different than id?)</li>
-<li><a href="https://www.w3.org/TR/did-core/#dfn-publickeyjwk">publicKeyJwk</a> or <a href="https://www.w3.org/TR/did-core/#dfn-publickeymultibase">publicKeyMultibase</a>:
-<ul>
-<li><code>publicKeyJwk</code>: A JSON Web Key (JWK) representation of the Subject’s Public Key</li>
-<li><code>publicKeyMultibase</code>: An encoded public key using <a href="https://www.ietf.org/archive/id/draft-multiformats-multibase-08.html">Multibase</a> encoding</li>
-</ul></li>
-<li><code>type</code>: The type of <a href="https://www.w3.org/TR/did-core/#dfn-verification-method">Verification Method</a>, ie <a href="https://www.w3.org/community/reports/credentials/CG-FINAL-di-eddsa-2020-20220724/#ed25519verificationkey2020"><code>Ed25519VerificationKey2020</code></a> or <a href="https://www.w3.org/community/reports/credentials/CG-FINAL-lds-jws2020-20220721/#json-web-key-2020">JsonWebKey2020</a></li>
-</ul></li>
-<li><strong>Authentication Methods</strong>:
-<ul>
-<li><code>authentication</code>, <code>assertionMethod</code>, <code>keyAgreement</code>: Arrays of locations in the Subject DID, referenced in a DID + anchor format (<code>did:prism:1234#authentication0</code>)</li>
-<li>*Author’s note - Specify these in a more concrete way</li>
-</ul></li>
-<li><strong><code>service</code></strong>: An array of advertised methods of interacting with the Subject. These could be API endpoints for messaging or file storage systems, but any remote service can be added to add value to the DID.</li>
-</ul>
-<p>An non-exhaustive example of a <code>did:prism</code> DIDDocument can be found <a href="https://github.com/input-output-hk/prism-did-method-spec/blob/main/w3c-spec/PRISM-method.md#example-did-document-json-ld">here</a>.</p>
+<p>A <strong>Decentralized Identifier (DID)</strong> is a URI for a subject. The subject can be a person, organization, device, software agent, data model, or another entity chosen by the DID controller. The <a href="https://www.w3.org/TR/did-1.0/">W3C DID Core specification</a> defines a DID as a URI with three parts: the <code>did:</code> scheme, a method name, and a method-specific identifier.</p>
+<p>The DID itself is only the identifier. A resolver resolves the DID and returns a DID resolution result. A successful result includes a <strong>DID Document</strong>, resolution metadata, and DID Document metadata. The <a href="https://www.w3.org/TR/did-resolution/">W3C DID Resolution specification</a> defines this resolver interface and leaves the method-specific retrieval steps to the DID method.</p>
+<p>A <strong>DID Document</strong> publishes the public information software needs to interact with the DID subject: verification methods, verification relationships, and services. A DID Document should not contain private keys, secrets, or personal profile data. DID Core warns that public DID Documents can create privacy and correlation risk, so personal data belongs in credentials, peer-to-peer exchanges, or controlled service endpoints rather than the public document.</p>
+<p>Identus developers use <code>did:prism</code> and <code>did:peer</code> for different jobs. <code>did:prism</code> fits public issuer and verifier identities that need ledger-backed resolution. <code>did:peer</code> fits relationship-specific DIDComm activity. A wallet, Cloud Agent, or mediator can use separate Peer DIDs to reduce correlation between relationships. The <a href="https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/did-management/">Identus DID management documentation</a> describes Cloud Agent support for both managed PRISM DIDs and managed Peer DIDs.</p>
 </section>
-<section id="did-lifecycle" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="did-lifecycle"><span class="header-section-number">7.2</span> DID Lifecycle</h2>
-<p>TODO: Describe the lifecycle of DIDs (creation, update, deactivation)</p>
+<section id="did-syntax-and-did-methods" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="did-syntax-and-did-methods"><span class="header-section-number">7.2</span> DID Syntax and DID Methods</h2>
+<p>The generic syntax is:</p>
+<pre class="text"><code>did:&lt;method&gt;:&lt;method-specific-id&gt;</code></pre>
+<p>For <code>did:prism</code>, the <a href="https://github.com/input-output-hk/prism-did-method-spec/blob/main/w3c-spec/PRISM-method.md">PRISM DID method specification</a> defines this shape:</p>
+<pre class="text"><code>did:prism:&lt;initial-hash&gt;[:&lt;encoded-state&gt;]</code></pre>
+<p>The short form contains the <code>did:prism:</code> prefix and a 64-character initial hash. The long form appends encoded initial state after another colon. PRISM uses the long form before the controller anchors the DID. After the controller publishes the DID operation and the PRISM VDR accepts it, software can use the short form as the published PRISM DID.</p>
+<p>The encoded state in a long-form PRISM DID is not a JSON DID Document. It is method-specific state encoded by the PRISM method so a resolver can construct the initial DID Document before a public create operation appears in the VDR.</p>
+<p>A <strong>DID method</strong> defines how software creates, resolves, updates, and deactivates DIDs and DID Documents for that method. DID Core defines the shared data model. The method specification defines the registry, protocol operations, encoding, validation rules, and lifecycle.</p>
+<p>For <code>did:prism</code>, the PRISM method defines create, update, and deactivate operations. PRISM nodes read operations from the VDR and maintain the current state needed to construct DID Documents. The <a href="https://github.com/hyperledger-identus/prism-vdr-driver/blob/main/prism-vdr-specification.md">PRISM VDR specification</a> describes SSI entries as event chains with create, update, and deactivate events.</p>
 </section>
-<section id="resolvers" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="resolvers"><span class="header-section-number">7.3</span> Resolvers</h2>
-<p>A resolver is a service that can resolve a DID to a DIDDocument. There are PRISM specific resolvers built into Identus SDKs, or you can also run your own resolver service.</p>
-<p>Some third-party PRISM resolvers:</p>
-<ul>
-<li><a href="https://analytics.blocktrust.dev/resolve">Blocktrust Resolver</a></li>
-<li><a href="https://neoprism.patlo.dev/resolver">NeoPrism Resolver</a></li>
-</ul>
+<section id="did-subjects-and-controllers" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="did-subjects-and-controllers"><span class="header-section-number">7.3</span> DID Subjects and Controllers</h2>
+<p>The DID identifies the DID subject. The DID method authorizes the DID controller to change the DID Document. These roles can be the same entity, but they do not have to be.</p>
+<p>For example, a university can be the subject of <code>did:prism:...</code>. The university can run an Identus Cloud Agent that holds the controller keys and publishes DID updates through PRISM Node. The university is still the issuer in the credential exchange; the Cloud Agent is infrastructure acting for the university.</p>
+<p>The top-level <code>controller</code> property in a DID Document names one or more controller DIDs. DID Core treats this authorization separately from <code>authentication</code>. A verifier that checks an authentication proof checks the <code>authentication</code> relationship. Software that processes DID update authority follows the DID method’s controller rules.</p>
+<p>The <code>controller</code> property inside a <code>verificationMethod</code> has a different scope. It identifies the controller of that verification method. It can match the DID Document <code>id</code>, or it can point to another DID when a system delegates key control.</p>
 </section>
-<section id="controllers" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="controllers"><span class="header-section-number">7.4</span> Controllers</h2>
-<p><strong>Controllers</strong> are entities that can mutate the DIDDocument. Controllers are specified in the DIDDocument as an array of DIDs so they can be a person, thing, or organization.</p>
-<p>Remember that DIDs can all be resolved to DIDDocuments, and each DIDDocument can point to people, things, machines, or services. Every mention of a DID can potentially be a chain of references to other services, or endpoints. There is plenty of room to be creative with this relationship graph.</p>
+<section id="did-document-structure" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="did-document-structure"><span class="header-section-number">7.4</span> DID Document Structure</h2>
+<p>DID Documents share a common data model and can have different representations. DID Core and PRISM examples use JSON-LD with <code>@context</code>; JSON representations can omit JSON-LD context.</p>
+<p>Common DID Document properties are:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Property</th>
+<th>What software uses it for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td>The DID of the subject described by the DID Document.</td>
+</tr>
+<tr class="even">
+<td><code>controller</code></td>
+<td>One or more DIDs authorized to control the DID Document under the DID method’s rules.</td>
+</tr>
+<tr class="odd">
+<td><code>verificationMethod</code></td>
+<td>Public verification material, such as JWKs, plus an <code>id</code>, <code>type</code>, and method controller.</td>
+</tr>
+<tr class="even">
+<td><code>authentication</code></td>
+<td>Verification methods approved for challenge-response authentication as the DID subject.</td>
+</tr>
+<tr class="odd">
+<td><code>assertionMethod</code></td>
+<td>Verification methods approved for making claims, including issuing Verifiable Credentials.</td>
+</tr>
+<tr class="even">
+<td><code>keyAgreement</code></td>
+<td>Verification methods approved for key agreement, including DIDComm encryption setup.</td>
+</tr>
+<tr class="odd">
+<td><code>capabilityInvocation</code></td>
+<td>Verification methods approved for invoking object capabilities.</td>
+</tr>
+<tr class="even">
+<td><code>capabilityDelegation</code></td>
+<td>Verification methods approved for delegating object capabilities.</td>
+</tr>
+<tr class="odd">
+<td><code>service</code></td>
+<td>Endpoints or service descriptors for interaction, such as DIDComm messaging.</td>
+</tr>
+<tr class="even">
+<td><code>@context</code></td>
+<td>JSON-LD context used by JSON-LD representations.</td>
+</tr>
+</tbody>
+</table>
+<p>Verification methods can be embedded directly in a verification relationship or referenced by DID URL. PRISM examples define methods once under <code>verificationMethod</code> and reference them from <code>authentication</code>, <code>assertionMethod</code>, or <code>keyAgreement</code>.</p>
+</section>
+<section id="example-prism-did-document" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="example-prism-did-document"><span class="header-section-number">7.5</span> Example PRISM DID Document</h2>
+<p>This example uses fake, shortened values so the structure stays readable. Do not treat these identifiers or keys as resolvable PRISM data.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"@context"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://www.w3.org/ns/did/v1"</span><span class="ot">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://w3id.org/security/suites/jws-2020/v1"</span><span class="ot">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://didcomm.org/messaging/contexts/v2"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:example-university"</span><span class="fu">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"verificationMethod"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:example-university#authentication-key-1"</span><span class="fu">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"JsonWebKey2020"</span><span class="fu">,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"controller"</span><span class="fu">:</span> <span class="st">"did:prism:example-university"</span><span class="fu">,</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"publicKeyJwk"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"kty"</span><span class="fu">:</span> <span class="st">"OKP"</span><span class="fu">,</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"crv"</span><span class="fu">:</span> <span class="st">"Ed25519"</span><span class="fu">,</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"x"</span><span class="fu">:</span> <span class="st">"fake-authentication-public-key"</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:example-university#issuing-key-1"</span><span class="fu">,</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"JsonWebKey2020"</span><span class="fu">,</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"controller"</span><span class="fu">:</span> <span class="st">"did:prism:example-university"</span><span class="fu">,</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"publicKeyJwk"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"kty"</span><span class="fu">:</span> <span class="st">"OKP"</span><span class="fu">,</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"crv"</span><span class="fu">:</span> <span class="st">"Ed25519"</span><span class="fu">,</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"x"</span><span class="fu">:</span> <span class="st">"fake-issuing-public-key"</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:example-university#key-agreement-key-1"</span><span class="fu">,</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"JsonWebKey2020"</span><span class="fu">,</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"controller"</span><span class="fu">:</span> <span class="st">"did:prism:example-university"</span><span class="fu">,</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"publicKeyJwk"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"kty"</span><span class="fu">:</span> <span class="st">"OKP"</span><span class="fu">,</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"crv"</span><span class="fu">:</span> <span class="st">"X25519"</span><span class="fu">,</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"x"</span><span class="fu">:</span> <span class="st">"fake-key-agreement-public-key"</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"authentication"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"did:prism:example-university#authentication-key-1"</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"assertionMethod"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="st">"did:prism:example-university#issuing-key-1"</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"keyAgreement"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="st">"did:prism:example-university#key-agreement-key-1"</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"service"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:example-university#didcomm-1"</span><span class="fu">,</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"DIDCommMessaging"</span><span class="fu">,</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"serviceEndpoint"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"uri"</span><span class="fu">:</span> <span class="st">"https://agent.example.edu/didcomm"</span><span class="fu">,</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"accept"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"didcomm/v2"</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"routingKeys"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"did:peer:example-mediator#key-1"</span><span class="ot">]</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In the example, the issuer’s software can use <code>#issuing-key-1</code> to sign a Verifiable Credential, and a verifier can check that the referenced key appears in <code>assertionMethod</code>. A DIDComm implementation can use <code>#key-agreement-key-1</code> to prepare encrypted messages and the <code>DIDCommMessaging</code> service to learn the accepted DIDComm profile, endpoint URI, and routing keys.</p>
+</section>
+<section id="did-lifecycle" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="did-lifecycle"><span class="header-section-number">7.6</span> DID Lifecycle</h2>
+<p>Every DID method defines its own lifecycle rules. The common operations are create, resolve, update, and deactivate. Identus developers see those operations through Cloud Agent APIs, resolver APIs, SDK resolver configuration, and PRISM Node behavior.</p>
+<p>For a managed PRISM DID in Cloud Agent, the controller creates a DID from a document template. Cloud Agent derives PRISM key material from a wallet seed and derivation path, stores the derivation path, and can reconstruct key material at runtime from the seed. The Identus Quick Start creates a long-form PRISM DID, publishes it through Cloud Agent, and then uses the short form as <code>publishedPrismDID</code> for schema and credential flows.</p>
+<p>PRISM updates publish method operations that change the DID state, such as adding or removing verification methods or services. The VDR state machine treats deactivation as a final state. After deactivation, resolvers should no longer treat the DID as active.</p>
+<p>For a managed Peer DID, Cloud Agent generates random key material and stores it in secret storage. Peer DIDs are not used as global public issuer identifiers. They fit DIDComm relationships and mediation, where each relationship can use separate identifiers and keys.</p>
+</section>
+<section id="resolvers" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="resolvers"><span class="header-section-number">7.7</span> Resolvers</h2>
+<p>A resolver takes a DID and returns the DID Document plus metadata. The resolver must understand the DID method. A generic resolver can route different methods to method-specific drivers, but the method driver still performs the method-specific retrieval and validation.</p>
+<p>For <code>did:prism</code>, a resolver needs the current PRISM state for the DID. Identus documents these resolution paths: Cloud Agent with PRISM Node, Universal Resolver support for PRISM DIDs, SDK resolver configuration, and community indexers. The <a href="https://hyperledger-identus.github.io/docs/home/identus/did-prism-resolver/">Identus DID PRISM Resolver documentation</a> describes Cloud Agent and PRISM Node as a solution for creating, updating, deactivating, and resolving PRISM DIDs.</p>
+<p>Resolver choice is a trust decision. A verifier can use a hosted resolver, run its own resolver, or resolve against local indexed state. The verifier software should treat resolver output as input to verification, not as the whole trust decision. Credential verification still checks the proof, the verification relationship, credential status, schema, and verifier policy.</p>
+</section>
+<section id="controllers" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="controllers"><span class="header-section-number">7.8</span> Controllers</h2>
+<p>Controllers are entities authorized to change the DID Document under the DID method’s rules. A controller can be a person using a wallet, an organization running Cloud Agent, or a service acting under an organization’s operational control. The DID Document records controllers as DIDs; the legal or governance authority behind those controllers lives outside the DID Document.</p>
+<p>In <code>did:prism</code>, the controller proves authority through the method’s signed operations. PRISM VDR validation rules require create operations to be signed with the DID’s master key and update or deactivate events to be signed by a current master key. Cloud Agent-managed PRISM DID APIs perform this protocol work for the application, but the controller model still determines who can rotate keys, add services, or deactivate the DID.</p>
+</section>
+<section id="verification-flow" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="verification-flow"><span class="header-section-number">7.9</span> Verification Flow</h2>
+<p>A verifier that checks a credential issued from a PRISM DID uses this flow.</p>
+<ol type="1">
+<li>The verifier receives a presentation from the holder’s wallet or Edge Agent.</li>
+<li>The verifier extracts the issuer DID and the verification method referenced by the credential proof.</li>
+<li>The resolver resolves the issuer DID to a DID Document.</li>
+<li>The verifier dereferences the verification method and checks that the method appears under <code>assertionMethod</code>.</li>
+<li>The verifier checks the cryptographic proof with the public key in the verification method.</li>
+<li>The verifier checks credential status, schema, and policy, including whether the issuer is trusted for the requested transaction.</li>
+</ol>
+<p>DID verification relationships prevent key reuse across proof purposes. A key listed only under <code>authentication</code> cannot be used to issue a credential. A key listed only under <code>assertionMethod</code> cannot be used for DIDComm key agreement. The verifier software has to check the relationship that matches the operation it is validating.</p>
+</section>
+<section id="privacy-checks" class="level2" data-number="7.10">
+<h2 data-number="7.10" class="anchored" data-anchor-id="privacy-checks"><span class="header-section-number">7.10</span> Privacy Checks</h2>
+<p>Public DIDs are useful for issuers, verifiers, schemas, and trust registries, but they create correlation. A public issuer DID should remain stable so verifiers can resolve issuer keys and policy systems can refer to the issuer. A holder’s wallet should use pairwise or relationship-specific DIDs for DIDComm connections unless the holder intends public correlation.</p>
+<p>Before publishing a DID Document, the controller should check that it contains only the public material needed for the DID method and protocol flows:</p>
+<ol type="1">
+<li>No private keys, seeds, bearer tokens, credentials, or personal profile attributes.</li>
+<li>No service endpoint URL that embeds a username, customer identifier, account number, or other correlating value.</li>
+<li>No reused verification method across relationships intended to stay unlinkable.</li>
+<li>No descriptive <code>type</code> or custom property that reveals the subject’s category without a protocol need.</li>
+</ol>
+<p>DIDs stay focused on public verification and routing. Credentials and presentations carry claims. Agents and wallets handle disclosure to specific verifiers.</p>
 
 
 </section>

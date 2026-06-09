@@ -175,18 +175,51 @@
     "href": "section1/dids-and-diddocuments.html",
     "title": "7  DIDs and DID Documents",
     "section": "",
-    "text": "7.1 Overview\nA DID (Decentralized Identifier) is the canonical representation of a DIDDocument; a portable, compact hash, which can be passed around easily or stored to a database or blockchain. A DID can be resolved, revealing the full, parsable JSON encoded DIDDocument.\nA DID Document (Decentralized Identifier Document) is a JSON-LD (JavaScript Object Notation for Linked Data) structure which describes a Subject. This can represent the identity of a person, a thing, or a relationship between one or many entities. Contained in the document is information which can verify that identity without relying on a centralized authority.\nTODO: Add DID Method overview A DID Method ..\nThe spec for a did:prism DIDDocument can be found here.\nAn Example DID: did:prism:4a5b5cf0a513e83b598bbea25cd6196746747f065246f1d3743344b4b81b5a74:Cr4BCrsBElsKBmF1dGgwMRJRCglzZWNwMjU2azESBHRlc3QaOmtleTE6Ly8wMjM5MmYxNjc4NmNlNmQ0NzJlOGViNzA4ZWRjMmE3OTFmZGMxNzNkNjVkNTBhODNhMTk3N2I5ZmIwMmU0MjQSWwoGYXV0aDAyElEKCXNlY3AyNTZrMRIEdGVzdBo6a2V5MjovLzAyMzkyZjE2Nzg2Y2U2ZDQ3MmU4ZWI3MDhlZGMyYTc5MWZkYzE3M2Q2NWQ1MGE4M2ExOTc3YjlmYjAyZTQyNA\nLet’s break down the format of this example DID:\nAn Example DIDDocument:\nLet’s look at the components of a DID Document:\nAn non-exhaustive example of a did:prism DIDDocument can be found here.",
+    "text": "7.1 Overview\nA Decentralized Identifier (DID) is a URI for a subject. The subject can be a person, organization, device, software agent, data model, or another entity chosen by the DID controller. The W3C DID Core specification defines a DID as a URI with three parts: the did: scheme, a method name, and a method-specific identifier.\nThe DID itself is only the identifier. A resolver resolves the DID and returns a DID resolution result. A successful result includes a DID Document, resolution metadata, and DID Document metadata. The W3C DID Resolution specification defines this resolver interface and leaves the method-specific retrieval steps to the DID method.\nA DID Document publishes the public information software needs to interact with the DID subject: verification methods, verification relationships, and services. A DID Document should not contain private keys, secrets, or personal profile data. DID Core warns that public DID Documents can create privacy and correlation risk, so personal data belongs in credentials, peer-to-peer exchanges, or controlled service endpoints rather than the public document.\nIdentus developers use did:prism and did:peer for different jobs. did:prism fits public issuer and verifier identities that need ledger-backed resolution. did:peer fits relationship-specific DIDComm activity. A wallet, Cloud Agent, or mediator can use separate Peer DIDs to reduce correlation between relationships. The Identus DID management documentation describes Cloud Agent support for both managed PRISM DIDs and managed Peer DIDs.",
     "crumbs": [
       "Section I",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
     ]
   },
   {
-    "objectID": "section1/dids-and-diddocuments.html#overview",
-    "href": "section1/dids-and-diddocuments.html#overview",
+    "objectID": "section1/dids-and-diddocuments.html#did-syntax-and-did-methods",
+    "href": "section1/dids-and-diddocuments.html#did-syntax-and-did-methods",
     "title": "7  DIDs and DID Documents",
-    "section": "",
-    "text": "did:prism: The prefix of the DID\n4a5b5cf0a513e83b598bbea25cd6196746747f065246f1d3743344b4b81b5a74: The DID identifier. This can be anything, as long as it is unique to the DID Document it is describing, and means something to your application.\nCr4BCrsBElsKBmF1dGgwMRJRCglzZWNwMjU...: The DID Document itself, encoded in base58\n\n\n{\n  \"@context\": [\n      \"https://www.w3.org/ns/did/v1\",\n      \"https://w3id.org/security/suites/jws-2020/v1\",\n      \"https://didcomm.org/messaging/contexts/v2\",\n      \"https://identity.foundation/.well-known/did-configuration/v1\"\n    ],\n  \"id\": \"did:prism:123456789abcdefghi\",\n  \"controller\": \"did:example:bcehfew7h32f32h7af3\",\n  \"verificationMethod\": [{\n    \"id\": \"did:prism:123456789abcdefghi#key-1\",\n    \"type\": \"JsonWebKey2020\",\n    \"controller\": [\"did:prism:123456789abcdefghi\"],\n    \"publicKeyJwk\": {\n      \"kty\": \"OKP\",\n      \"crv\": \"Ed25519\",\n      \"x\": \"VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ\"\n    }\n  }],\n  \"authentication\": [\"did:prism:123456789abcdefghi#key-1\"],\n  \"assertionMethod\": [\"did:prism:123456789abcdefghi#key-1\"],\n  \"keyAgreement\": [ \"did:prism:123456789abcdefghi#key-1\"],\n  \"service\": [{\n    \"id\": \"did:prism:123456789abcdefghi#messaging\",\n    \"type\": \"DIDCommMessaging\",\n    \"serviceEndpoint\": \"https://example.com/endpoint\"\n  }]\n}\n\n\nid: The DID of the Subject described by the DIDDocument\n@context: This is an array of specifications used in this DIDDocument. The first element is usually https://www.w3.org/ns/did/v1 but any other common definitions are JSONWebSignature or DIDComm2 Messaging protocols.\ncontroller: An array of DIDs that are allowed to mutate the DIDDocument\nverificationMethod: An array of information which can be used to verify the identity of the Subject.\n\nid: The DID of the Subject\ncontroller: The DID of the Subject (author’s note: When could this be different than id?)\npublicKeyJwk or publicKeyMultibase:\n\npublicKeyJwk: A JSON Web Key (JWK) representation of the Subject’s Public Key\npublicKeyMultibase: An encoded public key using Multibase encoding\n\ntype: The type of Verification Method, ie Ed25519VerificationKey2020 or JsonWebKey2020\n\nAuthentication Methods:\n\nauthentication, assertionMethod, keyAgreement: Arrays of locations in the Subject DID, referenced in a DID + anchor format (did:prism:1234#authentication0)\n*Author’s note - Specify these in a more concrete way\n\nservice: An array of advertised methods of interacting with the Subject. These could be API endpoints for messaging or file storage systems, but any remote service can be added to add value to the DID.",
+    "section": "7.2 DID Syntax and DID Methods",
+    "text": "7.2 DID Syntax and DID Methods\nThe generic syntax is:\ndid:&lt;method&gt;:&lt;method-specific-id&gt;\nFor did:prism, the PRISM DID method specification defines this shape:\ndid:prism:&lt;initial-hash&gt;[:&lt;encoded-state&gt;]\nThe short form contains the did:prism: prefix and a 64-character initial hash. The long form appends encoded initial state after another colon. PRISM uses the long form before the controller anchors the DID. After the controller publishes the DID operation and the PRISM VDR accepts it, software can use the short form as the published PRISM DID.\nThe encoded state in a long-form PRISM DID is not a JSON DID Document. It is method-specific state encoded by the PRISM method so a resolver can construct the initial DID Document before a public create operation appears in the VDR.\nA DID method defines how software creates, resolves, updates, and deactivates DIDs and DID Documents for that method. DID Core defines the shared data model. The method specification defines the registry, protocol operations, encoding, validation rules, and lifecycle.\nFor did:prism, the PRISM method defines create, update, and deactivate operations. PRISM nodes read operations from the VDR and maintain the current state needed to construct DID Documents. The PRISM VDR specification describes SSI entries as event chains with create, update, and deactivate events.",
+    "crumbs": [
+      "Section I",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
+    ]
+  },
+  {
+    "objectID": "section1/dids-and-diddocuments.html#did-subjects-and-controllers",
+    "href": "section1/dids-and-diddocuments.html#did-subjects-and-controllers",
+    "title": "7  DIDs and DID Documents",
+    "section": "7.3 DID Subjects and Controllers",
+    "text": "7.3 DID Subjects and Controllers\nThe DID identifies the DID subject. The DID method authorizes the DID controller to change the DID Document. These roles can be the same entity, but they do not have to be.\nFor example, a university can be the subject of did:prism:.... The university can run an Identus Cloud Agent that holds the controller keys and publishes DID updates through PRISM Node. The university is still the issuer in the credential exchange; the Cloud Agent is infrastructure acting for the university.\nThe top-level controller property in a DID Document names one or more controller DIDs. DID Core treats this authorization separately from authentication. A verifier that checks an authentication proof checks the authentication relationship. Software that processes DID update authority follows the DID method’s controller rules.\nThe controller property inside a verificationMethod has a different scope. It identifies the controller of that verification method. It can match the DID Document id, or it can point to another DID when a system delegates key control.",
+    "crumbs": [
+      "Section I",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
+    ]
+  },
+  {
+    "objectID": "section1/dids-and-diddocuments.html#did-document-structure",
+    "href": "section1/dids-and-diddocuments.html#did-document-structure",
+    "title": "7  DIDs and DID Documents",
+    "section": "7.4 DID Document Structure",
+    "text": "7.4 DID Document Structure\nDID Documents share a common data model and can have different representations. DID Core and PRISM examples use JSON-LD with @context; JSON representations can omit JSON-LD context.\nCommon DID Document properties are:\n\n\n\n\n\n\n\nProperty\nWhat software uses it for\n\n\n\n\nid\nThe DID of the subject described by the DID Document.\n\n\ncontroller\nOne or more DIDs authorized to control the DID Document under the DID method’s rules.\n\n\nverificationMethod\nPublic verification material, such as JWKs, plus an id, type, and method controller.\n\n\nauthentication\nVerification methods approved for challenge-response authentication as the DID subject.\n\n\nassertionMethod\nVerification methods approved for making claims, including issuing Verifiable Credentials.\n\n\nkeyAgreement\nVerification methods approved for key agreement, including DIDComm encryption setup.\n\n\ncapabilityInvocation\nVerification methods approved for invoking object capabilities.\n\n\ncapabilityDelegation\nVerification methods approved for delegating object capabilities.\n\n\nservice\nEndpoints or service descriptors for interaction, such as DIDComm messaging.\n\n\n@context\nJSON-LD context used by JSON-LD representations.\n\n\n\nVerification methods can be embedded directly in a verification relationship or referenced by DID URL. PRISM examples define methods once under verificationMethod and reference them from authentication, assertionMethod, or keyAgreement.",
+    "crumbs": [
+      "Section I",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
+    ]
+  },
+  {
+    "objectID": "section1/dids-and-diddocuments.html#example-prism-did-document",
+    "href": "section1/dids-and-diddocuments.html#example-prism-did-document",
+    "title": "7  DIDs and DID Documents",
+    "section": "7.5 Example PRISM DID Document",
+    "text": "7.5 Example PRISM DID Document\nThis example uses fake, shortened values so the structure stays readable. Do not treat these identifiers or keys as resolvable PRISM data.\n{\n  \"@context\": [\n    \"https://www.w3.org/ns/did/v1\",\n    \"https://w3id.org/security/suites/jws-2020/v1\",\n    \"https://didcomm.org/messaging/contexts/v2\"\n  ],\n  \"id\": \"did:prism:example-university\",\n  \"verificationMethod\": [\n    {\n      \"id\": \"did:prism:example-university#authentication-key-1\",\n      \"type\": \"JsonWebKey2020\",\n      \"controller\": \"did:prism:example-university\",\n      \"publicKeyJwk\": {\n        \"kty\": \"OKP\",\n        \"crv\": \"Ed25519\",\n        \"x\": \"fake-authentication-public-key\"\n      }\n    },\n    {\n      \"id\": \"did:prism:example-university#issuing-key-1\",\n      \"type\": \"JsonWebKey2020\",\n      \"controller\": \"did:prism:example-university\",\n      \"publicKeyJwk\": {\n        \"kty\": \"OKP\",\n        \"crv\": \"Ed25519\",\n        \"x\": \"fake-issuing-public-key\"\n      }\n    },\n    {\n      \"id\": \"did:prism:example-university#key-agreement-key-1\",\n      \"type\": \"JsonWebKey2020\",\n      \"controller\": \"did:prism:example-university\",\n      \"publicKeyJwk\": {\n        \"kty\": \"OKP\",\n        \"crv\": \"X25519\",\n        \"x\": \"fake-key-agreement-public-key\"\n      }\n    }\n  ],\n  \"authentication\": [\n    \"did:prism:example-university#authentication-key-1\"\n  ],\n  \"assertionMethod\": [\n    \"did:prism:example-university#issuing-key-1\"\n  ],\n  \"keyAgreement\": [\n    \"did:prism:example-university#key-agreement-key-1\"\n  ],\n  \"service\": [\n    {\n      \"id\": \"did:prism:example-university#didcomm-1\",\n      \"type\": \"DIDCommMessaging\",\n      \"serviceEndpoint\": [\n        {\n          \"uri\": \"https://agent.example.edu/didcomm\",\n          \"accept\": [\"didcomm/v2\"],\n          \"routingKeys\": [\"did:peer:example-mediator#key-1\"]\n        }\n      ]\n    }\n  ]\n}\nIn the example, the issuer’s software can use #issuing-key-1 to sign a Verifiable Credential, and a verifier can check that the referenced key appears in assertionMethod. A DIDComm implementation can use #key-agreement-key-1 to prepare encrypted messages and the DIDCommMessaging service to learn the accepted DIDComm profile, endpoint URI, and routing keys.",
     "crumbs": [
       "Section I",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
@@ -196,8 +229,8 @@
     "objectID": "section1/dids-and-diddocuments.html#did-lifecycle",
     "href": "section1/dids-and-diddocuments.html#did-lifecycle",
     "title": "7  DIDs and DID Documents",
-    "section": "7.2 DID Lifecycle",
-    "text": "7.2 DID Lifecycle\nTODO: Describe the lifecycle of DIDs (creation, update, deactivation)",
+    "section": "7.6 DID Lifecycle",
+    "text": "7.6 DID Lifecycle\nEvery DID method defines its own lifecycle rules. The common operations are create, resolve, update, and deactivate. Identus developers see those operations through Cloud Agent APIs, resolver APIs, SDK resolver configuration, and PRISM Node behavior.\nFor a managed PRISM DID in Cloud Agent, the controller creates a DID from a document template. Cloud Agent derives PRISM key material from a wallet seed and derivation path, stores the derivation path, and can reconstruct key material at runtime from the seed. The Identus Quick Start creates a long-form PRISM DID, publishes it through Cloud Agent, and then uses the short form as publishedPrismDID for schema and credential flows.\nPRISM updates publish method operations that change the DID state, such as adding or removing verification methods or services. The VDR state machine treats deactivation as a final state. After deactivation, resolvers should no longer treat the DID as active.\nFor a managed Peer DID, Cloud Agent generates random key material and stores it in secret storage. Peer DIDs are not used as global public issuer identifiers. They fit DIDComm relationships and mediation, where each relationship can use separate identifiers and keys.",
     "crumbs": [
       "Section I",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
@@ -207,8 +240,8 @@
     "objectID": "section1/dids-and-diddocuments.html#resolvers",
     "href": "section1/dids-and-diddocuments.html#resolvers",
     "title": "7  DIDs and DID Documents",
-    "section": "7.3 Resolvers",
-    "text": "7.3 Resolvers\nA resolver is a service that can resolve a DID to a DIDDocument. There are PRISM specific resolvers built into Identus SDKs, or you can also run your own resolver service.\nSome third-party PRISM resolvers:\n\nBlocktrust Resolver\nNeoPrism Resolver",
+    "section": "7.7 Resolvers",
+    "text": "7.7 Resolvers\nA resolver takes a DID and returns the DID Document plus metadata. The resolver must understand the DID method. A generic resolver can route different methods to method-specific drivers, but the method driver still performs the method-specific retrieval and validation.\nFor did:prism, a resolver needs the current PRISM state for the DID. Identus documents these resolution paths: Cloud Agent with PRISM Node, Universal Resolver support for PRISM DIDs, SDK resolver configuration, and community indexers. The Identus DID PRISM Resolver documentation describes Cloud Agent and PRISM Node as a solution for creating, updating, deactivating, and resolving PRISM DIDs.\nResolver choice is a trust decision. A verifier can use a hosted resolver, run its own resolver, or resolve against local indexed state. The verifier software should treat resolver output as input to verification, not as the whole trust decision. Credential verification still checks the proof, the verification relationship, credential status, schema, and verifier policy.",
     "crumbs": [
       "Section I",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
@@ -218,8 +251,30 @@
     "objectID": "section1/dids-and-diddocuments.html#controllers",
     "href": "section1/dids-and-diddocuments.html#controllers",
     "title": "7  DIDs and DID Documents",
-    "section": "7.4 Controllers",
-    "text": "7.4 Controllers\nControllers are entities that can mutate the DIDDocument. Controllers are specified in the DIDDocument as an array of DIDs so they can be a person, thing, or organization.\nRemember that DIDs can all be resolved to DIDDocuments, and each DIDDocument can point to people, things, machines, or services. Every mention of a DID can potentially be a chain of references to other services, or endpoints. There is plenty of room to be creative with this relationship graph.",
+    "section": "7.8 Controllers",
+    "text": "7.8 Controllers\nControllers are entities authorized to change the DID Document under the DID method’s rules. A controller can be a person using a wallet, an organization running Cloud Agent, or a service acting under an organization’s operational control. The DID Document records controllers as DIDs; the legal or governance authority behind those controllers lives outside the DID Document.\nIn did:prism, the controller proves authority through the method’s signed operations. PRISM VDR validation rules require create operations to be signed with the DID’s master key and update or deactivate events to be signed by a current master key. Cloud Agent-managed PRISM DID APIs perform this protocol work for the application, but the controller model still determines who can rotate keys, add services, or deactivate the DID.",
+    "crumbs": [
+      "Section I",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
+    ]
+  },
+  {
+    "objectID": "section1/dids-and-diddocuments.html#verification-flow",
+    "href": "section1/dids-and-diddocuments.html#verification-flow",
+    "title": "7  DIDs and DID Documents",
+    "section": "7.9 Verification Flow",
+    "text": "7.9 Verification Flow\nA verifier that checks a credential issued from a PRISM DID uses this flow.\n\nThe verifier receives a presentation from the holder’s wallet or Edge Agent.\nThe verifier extracts the issuer DID and the verification method referenced by the credential proof.\nThe resolver resolves the issuer DID to a DID Document.\nThe verifier dereferences the verification method and checks that the method appears under assertionMethod.\nThe verifier checks the cryptographic proof with the public key in the verification method.\nThe verifier checks credential status, schema, and policy, including whether the issuer is trusted for the requested transaction.\n\nDID verification relationships prevent key reuse across proof purposes. A key listed only under authentication cannot be used to issue a credential. A key listed only under assertionMethod cannot be used for DIDComm key agreement. The verifier software has to check the relationship that matches the operation it is validating.",
+    "crumbs": [
+      "Section I",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>DIDs and DID Documents</span>"
+    ]
+  },
+  {
+    "objectID": "section1/dids-and-diddocuments.html#privacy-checks",
+    "href": "section1/dids-and-diddocuments.html#privacy-checks",
+    "title": "7  DIDs and DID Documents",
+    "section": "7.10 Privacy Checks",
+    "text": "7.10 Privacy Checks\nPublic DIDs are useful for issuers, verifiers, schemas, and trust registries, but they create correlation. A public issuer DID should remain stable so verifiers can resolve issuer keys and policy systems can refer to the issuer. A holder’s wallet should use pairwise or relationship-specific DIDs for DIDComm connections unless the holder intends public correlation.\nBefore publishing a DID Document, the controller should check that it contains only the public material needed for the DID method and protocol flows:\n\nNo private keys, seeds, bearer tokens, credentials, or personal profile attributes.\nNo service endpoint URL that embeds a username, customer identifier, account number, or other correlating value.\nNo reused verification method across relationships intended to stay unlinkable.\nNo descriptive type or custom property that reveals the subject’s category without a protocol need.\n\nDIDs stay focused on public verification and routing. Credentials and presentations carry claims. Agents and wallets handle disclosure to specific verifiers.",
     "crumbs": [
       "Section I",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>DIDs and DID Documents</span>"

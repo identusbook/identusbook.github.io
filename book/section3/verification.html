@@ -367,8 +367,10 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#presenting-proof" id="toc-presenting-proof" class="nav-link active" data-scroll-target="#presenting-proof"><span class="header-section-number">17.1</span> Presenting proof</a></li>
-  <li><a href="#presentation-policies" id="toc-presentation-policies" class="nav-link" data-scroll-target="#presentation-policies"><span class="header-section-number">17.2</span> Presentation policies</a></li>
-  <li><a href="#selective-disclosure" id="toc-selective-disclosure" class="nav-link" data-scroll-target="#selective-disclosure"><span class="header-section-number">17.3</span> Selective disclosure</a></li>
+  <li><a href="#verification-and-acceptance" id="toc-verification-and-acceptance" class="nav-link" data-scroll-target="#verification-and-acceptance"><span class="header-section-number">17.2</span> Verification and acceptance</a></li>
+  <li><a href="#direct-credential-verification" id="toc-direct-credential-verification" class="nav-link" data-scroll-target="#direct-credential-verification"><span class="header-section-number">17.3</span> Direct credential verification</a></li>
+  <li><a href="#verification-policies" id="toc-verification-policies" class="nav-link" data-scroll-target="#verification-policies"><span class="header-section-number">17.4</span> Verification policies</a></li>
+  <li><a href="#selective-disclosure" id="toc-selective-disclosure" class="nav-link" data-scroll-target="#selective-disclosure"><span class="header-section-number">17.5</span> Selective disclosure</a></li>
   </ul>
 </nav>
     </div>
@@ -396,68 +398,60 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="presenting-proof" class="level2" data-number="17.1">
 <h2 data-number="17.1" class="anchored" data-anchor-id="presenting-proof"><span class="header-section-number">17.1</span> Presenting proof</h2>
-<p>Verification is a crucial interaction between Self-Sovereign Identity (SSI) agents. This process involves a <code>verifier</code> creating a present proof request to a <code>holder</code>, who then responds with a proof presentation. The verifier agent subsequently verifies this presentation.</p>
-<p>The verification process consists of several key steps:</p>
+<p>Verification in Identus starts when a verifier asks a holder to present evidence from one or more credentials. For DIDComm flows, Identus Cloud Agent uses the Present Proof protocol. The verifier Cloud Agent sends a presentation request over an existing DIDComm connection, the holder Cloud Agent returns a presentation, and the verifier Cloud Agent checks the received proof material.</p>
+<p>The <a href="https://github.com/hyperledger-identus/cloud-agent/blob/main/docs/docusaurus/credentials/didcomm/present-proof.md">Identus Present Proof guide</a> describes the DIDComm API flow:</p>
 <ol type="1">
-<li>The verifier initiates a present proof request.</li>
-<li>The holder responds with a proof presentation.</li>
-<li>The verifier agent automatically verifies the presentation’s cryptographic integrity.</li>
-<li>The verifier makes a final decision to accept or reject the Verifiable Credential (VC).</li>
+<li>The verifier controller calls <code>POST /present-proof/presentations</code> on its Cloud Agent. The request identifies the DIDComm connection and describes the proof the verifier wants.</li>
+<li>The holder controller reads pending presentation records from <code>GET /present-proof/presentations</code>.</li>
+<li>The holder controller accepts a request with <code>PATCH /present-proof/presentations/{id}</code> using <code>action: "request-accept"</code>. For JWT and SD-JWT credentials it supplies credential record IDs through <code>proofId</code>. For AnonCreds it supplies the credential proof mapping under <code>anoncredPresentationRequest</code>.</li>
+<li>The holder Cloud Agent generates the presentation and sends it to the verifier Cloud Agent.</li>
+<li>The verifier Cloud Agent verifies the presentation. A successful verifier-side record moves through <code>PresentationReceived</code> and <code>PresentationVerified</code>.</li>
+<li>The verifier controller accepts the verified presentation with <code>PATCH /present-proof/presentations/{id}</code> using <code>action: "presentation-accept"</code>, or rejects it in application logic.</li>
 </ol>
-<p>It’s important to note that a valid and correctly formatted VC alone is insufficient for acceptance. While the verifier agent automatically checks the cryptography, the verifier must also:</p>
-<ol type="1">
-<li>Confirm the trustworthiness of the issuer.</li>
-<li>Evaluate and accept the claims within the VC.</li>
-</ol>
-<p>Thus, the verifier has the final say in accepting or rejecting the verified proof presentation.</p>
-<p>The core of the verification process involves the holder signing a random challenge along with the presentation. The verifier agent extracts the public key from this signature and compares it with the public key of the VC’s <code>subject</code>. If these public keys match, it confirms that the entity responding to the proof presentation request has access to the private key of the VC’s subject.</p>
+<p>The exact request shape depends on the credential format. JWT and SD-JWT presentation requests can include <code>options.challenge</code> and <code>options.domain</code> so the holder signs material bound to the verifier’s request. AnonCreds presentation requests use an <code>anoncredPresentationRequest</code> object with a nonce, requested attributes, requested predicates, restrictions, and optional non-revocation intervals.</p>
+<p>The <a href="https://didcomm.org/present-proof/3.0/">DIDComm Present Proof 3.0 protocol</a> is format-neutral. It carries a presentation request and a presentation, but the credential format decides which cryptographic checks run.</p>
 </section>
-<section id="presentation-policies" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="presentation-policies"><span class="header-section-number">17.2</span> Presentation policies</h2>
-<p>To streamline the verification process, verifier cloud agents can implement <code>presentation policies</code>. These policies serve as an automated mechanism to enhance efficiency and consistency in verifying Verifiable Credentials (VCs).</p>
-<p>Key aspects of presentation policies include:</p>
+<section id="verification-and-acceptance" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="verification-and-acceptance"><span class="header-section-number">17.2</span> Verification and acceptance</h2>
+<p>Cryptographic verification and verifier acceptance are separate decisions.</p>
+<p>The verifier Cloud Agent can check whether the presentation is well formed for its format, bound to the verifier request, and backed by the expected cryptographic material. For JWT-VC, the verifier checks JWT signatures and DID-resolved keys. For SD-JWT-VC, the verifier checks the issuer signature, disclosed claim digests, and holder key binding when the credential carries a <code>cnf</code> key. For AnonCreds, the verifier checks equality proofs, predicate proofs, aggregate proofs, and any non-revocation proofs requested by the verifier.</p>
+<p>The verifier controller still decides whether the proof should be accepted for the business action. The <a href="https://www.w3.org/TR/vc-data-model-2.0/">W3C Verifiable Credentials Data Model 2.0</a> separates verification from validation: verification checks the securing mechanism, and validation applies business rules to a specific use of the credential.</p>
+<p>After Cloud Agent reports a verified presentation, the verifier controller should check:</p>
 <ol type="1">
-<li>Trusted Issuer Lists:
-<ul>
-<li>Policies establish sets of <code>trusted issuers</code> for specific VC <code>schemas</code>.</li>
-<li>This allows verifiers to pre-approve credible sources for particular types of credentials.</li>
-</ul></li>
-<li>Dynamic Management:
-<ul>
-<li>Policies can be updated and managed over time.</li>
-<li>Verifiers can add or remove trusted issuers as needed, adapting to changes in the ecosystem or their own requirements.</li>
-</ul></li>
-<li>Automated Rejection:
-<ul>
-<li>The verifier cloud agent can automatically reject a presentation proof if the issuer is not listed in the relevant presentation policy.</li>
-<li>This reduces manual intervention and speeds up the verification process for non-compliant credentials.</li>
-</ul></li>
-<li>Schema-Specific Trust:
-<ul>
-<li>Policies are tied to specific VC schemas, allowing for granular control over which issuers are trusted for different types of credentials.</li>
-</ul></li>
+<li>The verifier trusts the issuer DID for the credential type and schema.</li>
+<li>The credential uses the schema or credential definition named in the verifier’s request.</li>
+<li>The disclosed claims satisfy the verifier’s policy.</li>
+<li>The credential validity period and any status or revocation data fit the verifier’s time of interest.</li>
+<li>The verifier accepts the holder or presenter as authorized for this use case.</li>
 </ol>
-<p>By implementing presentation policies, verifiers can significantly reduce the manual effort required in the verification process, while maintaining control over which issuers they deem trustworthy for different types of credentials. This approach balances automation with the flexibility to adapt to changing trust relationships in the Self-Sovereign Identity ecosystem.</p>
+<p>A valid proof can still fail acceptance. A venue verifier can receive a cryptographically valid age credential, reject it if the issuer is outside its trusted issuer list, and reject it if the revealed claim does not meet the venue’s age rule.</p>
 </section>
-<section id="selective-disclosure" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="selective-disclosure"><span class="header-section-number">17.3</span> Selective disclosure</h2>
-<p>Standard Verifiable Credentials (VCs) presented in JWT format require holders to disclose all content for verifiers to validate integrity and confirm authenticity. However, this approach can compromise privacy when verifiers only need to check specific claims.</p>
-<p>Consider a common scenario: age verification at a bar. While establishments typically only need to confirm if a customer is of legal drinking age (18 or 21 in many jurisdictions), traditional ID checks reveal excessive personal information, including full name, address, and exact date of birth. This over-disclosure becomes particularly problematic in digital interactions, where shared information can be easily copied and archived across the internet.</p>
-<p>To address this privacy concern, the concept of <code>selective disclosure</code> was developed. This approach utilizes <code>zero knowledge proofs</code>, a cryptographic technique allowing the sharing of specific information subsets without revealing the entire content.</p>
-<p>Hyperledger Identus currently supports two VC formats that enable selective disclosure proofs:</p>
+<section id="direct-credential-verification" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="direct-credential-verification"><span class="header-section-number">17.3</span> Direct credential verification</h2>
+<p>Cloud Agent exposes a direct verification endpoint at <code>POST /verification/credential</code>. Use this endpoint when verifier software has an encoded JWT credential and needs explicit check results outside a DIDComm present-proof exchange.</p>
+<p>The endpoint accepts a list of encoded credentials and verification checks. The current service implementation includes checks such as signature verification, algorithm verification, issuer identification, expiration, not-before, audience, schema validation, subject schema validation, and semantic parsing of claims.</p>
+<p>The direct verification endpoint does not replace a presentation request. It verifies credential data supplied to the endpoint. It does not prove that the current holder controls the credential subject’s key for a verifier challenge, and it does not decide whether an issuer or claim should be accepted by the application.</p>
+</section>
+<section id="verification-policies" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="verification-policies"><span class="header-section-number">17.4</span> Verification policies</h2>
+<p>Identus uses the term <code>verification policy</code> for stored verifier rules. The Cloud Agent source exposes <code>/verification/policies</code> endpoints to create, update, fetch, list, and delete those policies. The current policy model contains a <code>CredentialSchemaAndTrustedIssuersConstraint</code> with:</p>
 <ol type="1">
-<li>SD-JWT (Selective Disclosure JSON Web Token)</li>
-<li>AnonCreds (Anonymous Credentials)</li>
+<li><code>schemaId</code>, the schema the verifier expects.</li>
+<li><code>trustedIssuers</code>, the issuer DIDs the verifier accepts for that schema.</li>
 </ol>
-<p>These formats allow holders to prove specific claims (e.g., being over 21) without disclosing unnecessary personal details, striking a balance between verification needs and privacy protection.</p>
-<p>Some of the benefits of Selective Disclosure include:</p>
-<ol type="1">
-<li>Enhanced Privacy: Minimizes the exposure of sensitive personal information.</li>
-<li>Compliance: Aligns with data protection regulations by adhering to data minimization principles.</li>
-<li>User Control: Empowers individuals to manage their digital identity more effectively.</li>
-<li>Reduced Risk: Limits the potential for data breaches or misuse of personal information.</li>
-</ol>
-<p>TODO: Add API request and code examples (Milestone 3)</p>
+<p>The endpoint description in the Cloud Agent source says these policies apply to W3C Verifiable Credentials in JWT format and currently use <code>schemaId</code> and <code>trustedIssuers</code> constraints.</p>
+<p>A verifier controller can use a verification policy before sending a presentation request, after receiving a verified presentation, or both. Before the request, the policy can help the verifier ask for the schema it accepts. After verification, the policy can help the verifier reject a credential from an untrusted issuer. The Cloud Agent’s cryptographic verification result should feed into this policy decision; it should not be treated as the whole decision.</p>
+<p>If a deployment uses an external trust registry, keep the registry lookup separate from proof verification. The verifier or its controller queries the registry, resolves the trusted issuer set for the requested schema, and passes that result into its policy decision.</p>
+</section>
+<section id="selective-disclosure" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="selective-disclosure"><span class="header-section-number">17.5</span> Selective disclosure</h2>
+<p>Selective disclosure lets a holder reveal only the claims needed for a verifier request. Identus supports selective-disclosure presentations through SD-JWT and AnonCreds, but the two formats use different mechanisms.</p>
+<p>Plain JWT-VC presentation exposes the credential payload needed for verifier checks. The format works for use cases where the verifier needs the full credential, such as a boarding gate checking a complete boarding pass. It fits poorly when the verifier needs one attribute or one predicate.</p>
+<p>SD-JWT uses salted hashes. The issuer signs a JWT payload that contains digests for selectively disclosable claims. During presentation, the holder sends the issuer-signed SD-JWT plus the disclosures selected for that verifier. The verifier hashes each disclosed value with its salt and checks that the digest appears in the signed payload. SD-JWT gives selective disclosure for JSON claims; it is not a zero-knowledge predicate proof system.</p>
+<p>Identus adds one key-binding detail for SD-JWT presentations. If the holder accepts an SD-JWT credential offer with a <code>keyId</code>, the issued credential can include a <code>cnf</code> key binding. A later holder presentation can then sign the verifier’s <code>challenge</code> and <code>domain</code>. If the SD-JWT credential has no <code>cnf</code> key, the Identus Present Proof guide says the holder cannot create a presentation that signs the verifier’s <code>challenge</code> and <code>domain</code>.</p>
+<p>AnonCreds uses zero-knowledge proofs. The verifier’s presentation request can ask for revealed attributes, predicates such as <code>age &gt;= 18</code>, restrictions such as <code>schema_id</code> or <code>cred_def_id</code>, and non-revocation intervals. The holder selects credentials that satisfy the request and creates a proof. The verifier resolves the required schemas, credential definitions, and revocation data, then verifies the presentation.</p>
+<p>AnonCreds lets the holder prove a predicate without revealing the raw attribute. For age verification, a government issuer can issue a credential containing a date-derived age attribute. An age-restricted venue can request an AnonCreds predicate for <code>age &gt;= 21</code>. The holder presents a proof that satisfies the predicate, and the verifier checks the proof, issuer restriction, credential definition, and revocation interval without receiving the holder’s full date of birth.</p>
+<p>Selective disclosure does not remove verifier policy. The verifier still checks issuer trust, schema fit, credential status, request binding, and local acceptance rules for the disclosed claims or predicates.</p>
 
 
 </section>

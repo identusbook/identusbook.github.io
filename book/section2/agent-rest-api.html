@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8b4c8dcaf9eb10a19fe4d48ae90d5fb6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-eaa34da2ee74a03fa3a7673f1be1cfd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -434,37 +434,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="the-cloud-agent-api" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="the-cloud-agent-api"><span class="header-section-number">10.1</span> The Cloud Agent API</h2>
-<p>The only way to interact with our newly created Cloud Agent is trough the REST API, this means any action of the Cloud Agent such as establishing connections, creating Credential Schemas, issuing Verifiable Credentials, etc. will be triggered trough the agent API endpoints.</p>
-<p>It is crucial to understand that the API is essentially an abstraction of the agent’s Identity Wallet. In our initial setup our agent is running on single-tenant mode, therefor it is managing a single default wallet which is assigned the following Entity ID (UUID) <code>00000000-0000-0000-0000-000000000000</code>. You can confirm this by running the following command:</p>
+<p>The local Cloud Agent exposes two public protocol surfaces through APISIX. Your controller application uses the REST API to create DIDs, register credential schemas, issue Verifiable Credentials, manage connection records, request presentations, and inspect protocol state. Other agents and wallets use the DIDComm endpoint to deliver encrypted agent messages.</p>
+<p>Those two surfaces share the same wallet state. A REST request changes or reads records in the Cloud Agent wallet. A DIDComm message may change the same records after the Cloud Agent processes an inbound connection, issuance, or presentation message. The <a href="https://github.com/hyperledger-identus/cloud-agent/blob/main/README.md">Cloud Agent README</a> describes this pattern as a controller that sends HTTP requests to the agent and processes webhook notifications from it.</p>
+<p>The local stack from the previous chapter runs in single-tenant mode. In that mode, the Cloud Agent uses the default entity and the default wallet for REST API and DIDComm operations. The <a href="https://github.com/hyperledger-identus/docs/blob/main/documentation/develop/cloud-agent/authentication.md#default-entity-and-wallet">Cloud Agent authentication documentation</a> defines both IDs as <code>00000000-0000-0000-0000-000000000000</code>.</p>
+<p>You can confirm that default wallet initialization in the container logs:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> logs local-cloud-agent-1 <span class="kw">|</span> <span class="fu">grep</span> <span class="st">"default"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> Initializing default wallet.</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> Default wallet seed is not provided. New seed will be generated.</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span> Entity created: Entity<span class="er">(</span><span class="ex">00000000-0000-0000-0000-000000000000,default,00000000-0000-0000-0000-000000000000,1970-01-01T00:00:00Z,1970-01-01T00:00:00Z</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Later on the book, once we start building our example app, we will setup the agent in multi-tenant mode, meaning that a single agent instance will be capable of managing multiple wallets, we refer to those wallets as custodian wallets. This more advanced setup is useful when your users would want to delegate their Identity Wallet custody to a service instead of managing the wallet themselves.</p>
-<p>Besides the <code>_system/health</code> endpoint we used earlier to confirm the agent version, there is one more endpoint used to debug runtime metrics:</p>
+<p>Later, the example application will use multi-tenant mode. In multi-tenant mode, the Cloud Agent serves multiple tenants from one shared Cloud Agent instance. The <a href="https://github.com/hyperledger-identus/docs/blob/main/documentation/learn/advanced-explainers/cloud-agent/multi-tenancy.md">multi-tenancy documentation</a> defines an entity as the tenant representation and a wallet as the isolated container for that tenant’s DIDs, connections, credentials, keys, credential schemas, and related assets. A service-managed wallet fits a server-side issuer, verifier, or custodial wallet service where the operator manages the runtime, database, secret storage, API access, and backups.</p>
+<p>The <code>_system/health</code> endpoint from the previous chapter reports the running service version. The system API exposes one more endpoint for runtime metrics:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost/cloud-agent/_system/metrics</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># HELP jvm_memory_bytes_used  </span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># TYPE jvm_memory_bytes_used gauge</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">jvm_memory_bytes_used</span><span class="dt">{area=</span><span class="st">"heap"</span><span class="op">,</span><span class="dt">}</span> 1.07522616E8</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">jvm_memory_bytes_used</span><span class="dt">{area=</span><span class="st">"nonheap"</span><span class="op">,</span><span class="dt">}</span> 1.74044936E8</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This will be useful when debugging a memory or performance issue or when developing.</p>
+<p>The Cloud Agent OpenAPI specification describes the metrics endpoint as Prometheus text output from the internal metrics registry. Use it when you need local runtime data for memory, latency, or health investigations.</p>
 </section>
 <section id="openapi-specification" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="openapi-specification"><span class="header-section-number">10.2</span> OpenAPI Specification</h2>
-<p>The OpenAPI Specification (<code>OAS</code>) defines a standard, language-agnostic interface to HTTP APIs. The Cloud Agent API documentation can be found at <a href="https://hyperledger.github.io/identus-docs/agent-api/">https://hyperledger.github.io/identus-docs/agent-api/</a> and besides being very detailed and always updated to the latest, it also comes with the OAS spec yaml file that will allow us to setup <code>Postman</code> to easily test our API or use the same OAS standard to auto generate code for client libraries on different language stacks. We will not attempt to repeat this API documentation in the book, rather lets focus on complement the existing documentation and explain with more detail how everything works.</p>
+<p>The OpenAPI Specification (<code>OAS</code>) is a standard description format for HTTP APIs. It gives humans and tools a shared contract for paths, request bodies, response bodies, authentication schemes, and schemas. The Cloud Agent source repository includes an OpenAPI 3.1 document titled <code>Identus Cloud Agent API Reference</code>, and the local Docker stack exposes that document through APISIX.</p>
+<p>For the local agent started in the previous chapter, use this URL as the version-matched API contract:</p>
+<pre class="text"><code>http://localhost/docs/cloud-agent/api/docs.yaml</code></pre>
+<p>If you started the agent with a different <code>run.sh --port</code> value, replace <code>localhost</code> with <code>localhost:&lt;port&gt;</code>. Swagger UI reads this same document. Postman and client generators can import it to create a collection or client stub for the exact Cloud Agent version you are running.</p>
+<p>The hosted Identus docs provide current tutorials and conceptual material at <a href="https://hyperledger-identus.github.io/docs/">https://hyperledger-identus.github.io/docs/</a>. For endpoint-level work in this local stack, prefer the OpenAPI document served by your running agent. It avoids mismatches between the book, a hosted page, and the Docker image version.</p>
 </section>
 <section id="apisix-gateway" class="level2" data-number="10.3">
 <h2 data-number="10.3" class="anchored" data-anchor-id="apisix-gateway"><span class="header-section-number">10.3</span> APISIX Gateway</h2>
-<p>APISIX is in charge of proxying different services inside the container, exposing three routes trough the port you specified to the <code>run.sh</code> script (remember it runs on <code>port 80</code> by default).</p>
-<ul>
-<li><a href="http://localhost/cloud-agent/">http://localhost/cloud-agent/</a> This will be the Cloud Agent API.</li>
-<li><a href="http://localhost/apidocs/">http://localhost/apidocs/</a> Swagger UI interface test the API.</li>
-<li><a href="http://localhost/didcomm/">http://localhost/didcomm/</a> Our public <a href="../section3/didcomm.html">DIDCOMM</a> endpoint, this is our communication channel and it’s how we send end to end encrypted messages to another peer trough a mediator. We will take a deep dive into <a href="../section3/didcomm.html">DIDCOMM</a> later in the book.</li>
-</ul>
-<p>APISIX by default will just expose this services but trough plugins it can be setup as Ingress controller, load balancer, authentication and much more. You can read the <a href="https://apisix.apache.org/docs/">APISIX documentation</a> to learn more.</p>
+<p>APISIX proxies the Cloud Agent services inside the local Docker stack. The <code>run.sh</code> script binds APISIX to the port you selected, with <code>80</code> as the default. The Cloud Agent’s shared APISIX configuration defines these routes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Local route</th>
+<th>Upstream service</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="http://localhost/cloud-agent/">http://localhost/cloud-agent/</a></td>
+<td><code>cloud-agent:8085</code></td>
+<td>REST API for controller applications.</td>
+</tr>
+<tr class="even">
+<td><a href="http://localhost/docs/cloud-agent/api/docs.yaml">http://localhost/docs/cloud-agent/api/docs.yaml</a></td>
+<td><code>cloud-agent:8085</code></td>
+<td>OpenAPI document for the running Cloud Agent.</td>
+</tr>
+<tr class="odd">
+<td><a href="http://localhost/apidocs/">http://localhost/apidocs/</a></td>
+<td><code>swagger-ui:8080</code></td>
+<td>Swagger UI for interactive API calls.</td>
+</tr>
+<tr class="even">
+<td><a href="http://localhost/didcomm/">http://localhost/didcomm/</a></td>
+<td><code>cloud-agent:8090</code></td>
+<td>Public DIDComm endpoint for encrypted agent messages.</td>
+</tr>
+</tbody>
+</table>
+<p>The DIDComm endpoint is the transport endpoint advertised in invitations and DID documents. A peer uses it to send encrypted DIDComm messages to this Cloud Agent. The <a href="../section3/didcomm.html">DIDComm chapter</a> covers the message model and protocol flow later in the book.</p>
+<p>APISIX routes match incoming requests, apply route plugins, and forward requests to upstream services. The Cloud Agent local configuration uses <code>proxy-rewrite</code> to strip the public route prefix before forwarding the request, and it enables the APISIX <code>cors</code> plugin on the REST and DIDComm routes.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -475,19 +508,18 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This is where <code>CORS</code> (<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">Cross-Origin Resource Sharing</a>) is setup, be default it will allow any origin, here you can restrict which domains should be allowed to connect to this endpoints. We will revisit this on our customization guide.</p>
+<p>The local APISIX CORS configuration allows all origins on the <code>/cloud-agent/*</code> and <code>/didcomm*</code> routes. That setting is convenient for local browser testing. A deployed service should restrict allowed origins to the domains that host the controller application, admin tools, or wallet front ends that need browser access.</p>
 </div>
 </div>
 </section>
 <section id="swagger-ui" class="level2" data-number="10.4">
 <h2 data-number="10.4" class="anchored" data-anchor-id="swagger-ui"><span class="header-section-number">10.4</span> Swagger UI</h2>
-<p><a href="https://swagger.io/tools/swagger-ui/">Swagger UI</a> it’s a visualization and interactive tool to explore an API. It’s automatically generated from your OpenAPI (formerly known as Swagger) Specification and it’s often used to support the API documentation.</p>
-<p>Our Cloud Agent Docker file includes a container for Swagger UI that is exposed trough APISIX as explained earlier. This means you can use this tool right away after the agent is running.</p>
-<p>To use it, just open <a href="http://localhost/apidocs/">http://localhost/apidocs/</a> in your browser and from the server list select:</p>
+<p><a href="https://swagger.io/tools/swagger-ui/">Swagger UI</a> renders API documentation and an interactive request form from an OpenAPI document. The local Docker stack includes a Swagger UI container, and APISIX exposes it at <a href="http://localhost/apidocs/">http://localhost/apidocs/</a>.</p>
+<p>Open <a href="http://localhost/apidocs/">http://localhost/apidocs/</a> in your browser. In the server list, select:</p>
 <ul>
 <li><code>http://localhost/cloud-agent - The local instance of the Cloud Agent behind the APISIX proxy</code>.</li>
 </ul>
-<p>Then, click the <code>Authorize</code> button and a small modal window will popup, in there you need to define an <code>apikey</code>, even if by default you haven’t defined one, this means you can put any value in here, of course later in the book when we set an actual <code>apikey</code> you will need to use it here, for now just use <code>test</code> as value and it should be fine.</p>
+<p>Click <code>Authorize</code>. Swagger UI opens a modal for the <code>apikey</code> header. The local stack has API key authentication disabled by default, so the Cloud Agent will accept the request even if Swagger UI sends any value. Use <code>test</code> for now. In later chapters, after the book enables API key authentication, this field must contain the API key assigned to the default entity or tenant entity.</p>
 <p>After authorizing, the modal should look like this:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -495,10 +527,10 @@ Warning
 <figcaption>Swagger UI Apikey Modal</figcaption>
 </figure>
 </div>
-<p>You can close that modal window and try your first request, click to expand the <code>GET /connections</code> endpoint and click <code>Try it out</code> button, that will enable the text inputs for any available parameters, for now, all three parameters should be blank (<code>offet</code>, <code>limit</code>, <code>thid</code>).</p>
-<p>Finally, just click the <code>Execute</code> button to actually perform the request. This should return something like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">"contents"</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span> <span class="dt">"kind"</span><span class="fu">:</span> <span class="st">"ConnectionsPage"</span><span class="fu">,</span> <span class="dt">"self"</span><span class="fu">:</span> <span class="st">""</span><span class="fu">,</span> <span class="dt">"pageOf"</span><span class="fu">:</span> <span class="st">""</span> <span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Congratulations! you have connected to the API and asked for a list of <code>connections</code>, right now there are no connections so the empty array you get back is correct.</p>
+<p>Close the modal and try the first request. Expand <code>GET /connections</code> and click <code>Try it out</code>. Leave <code>offset</code>, <code>limit</code>, and <code>thid</code> blank. Click <code>Execute</code> to send the request.</p>
+<p>The response should look similar to this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">"contents"</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span> <span class="dt">"kind"</span><span class="fu">:</span> <span class="st">"ConnectionsPage"</span><span class="fu">,</span> <span class="dt">"self"</span><span class="fu">:</span> <span class="st">""</span><span class="fu">,</span> <span class="dt">"pageOf"</span><span class="fu">:</span> <span class="st">""</span> <span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>An empty <code>contents</code> array means the default wallet has no connection records yet. That is the expected result for a new local agent.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -509,30 +541,31 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You can use Swagger UI to copy <code>curl</code> commands that you can paste in your terminal, this will run exactly the same API request. For example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> <span class="st">'GET'</span> <span class="dt">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'http://localhost/cloud-agent/connections'</span> <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">'accept: application/json'</span> <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">'apikey: test'</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="dt">{</span><span class="st">"contents"</span><span class="dt">:[]</span><span class="op">,</span><span class="st">"kind"</span><span class="dt">:</span><span class="st">"ConnectionsPage"</span><span class="op">,</span><span class="st">"self"</span><span class="dt">:</span><span class="st">""</span><span class="op">,</span><span class="st">"pageOf"</span><span class="dt">:</span><span class="st">""</span><span class="dt">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Swagger UI can generate a <code>curl</code> command for the request it sends. You can paste that command in your terminal to run the same API call outside the browser. For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> <span class="st">'GET'</span> <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'http://localhost/cloud-agent/connections'</span> <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">'accept: application/json'</span> <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">'apikey: test'</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="dt">{</span><span class="st">"contents"</span><span class="dt">:[]</span><span class="op">,</span><span class="st">"kind"</span><span class="dt">:</span><span class="st">"ConnectionsPage"</span><span class="op">,</span><span class="st">"self"</span><span class="dt">:</span><span class="st">""</span><span class="op">,</span><span class="st">"pageOf"</span><span class="dt">:</span><span class="st">""</span><span class="dt">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
 <section id="postman" class="level2" data-number="10.5">
 <h2 data-number="10.5" class="anchored" data-anchor-id="postman"><span class="header-section-number">10.5</span> Postman</h2>
-<p><code>Postman</code>is perhaps the most popular API tool among developers, it allow us to easily interact and debug API endpoints but has many killer feature like enabling teams to share and work together on the same API, run automated tests, automatically renew tokens, keeps the state of your interactions with the API, copy code snippets to make API calls over many languages, etc. So it’s really a better overall option versus the Swagger UI interface or just directly using <code>curl</code>.</p>
-<p>The big time saver for us is that because it supports OAS, we can easily import the whole API definition. So, let’s try it:</p>
+<p>Swagger UI is useful for quick checks against the running agent. Postman is better when you need saved environments, request variables, scripted assertions, shared collections, or repeated manual testing across issuer, holder, and verifier agents.</p>
+<p>Postman can import OpenAPI definitions from a file, a URL, pasted YAML or JSON, or a repository. Use the local Cloud Agent OpenAPI URL so the collection matches your running Docker image.</p>
 <ol type="1">
-<li>If you don’t already have it, first you should <a href="https://www.postman.com/downloads/">Download Postman</a> and <a href="https://identity.getpostman.com/signup?continue=https%3A%2F%2Fgo.postman.co%2Fhome">Sign Up</a> for a free account.</li>
-<li>Head to the <a href="https://hyperledger.github.io/identus-docs/agent-api/">API docs</a> and click the Download button, or copy this direct link <code>https://hyperledger.github.io/identus-docs/redocusaurus/plugin-redoc-0.yaml</code></li>
-<li>Inside Postman, go to <code>File -&gt; Import</code> and either drag &amp; drop your yaml file if you downloaded it or paste the URL in the box, this will auto advance to the next step.</li>
-<li>On the “How to import” step select “OpenAPI 3.0 with a Postman Collection” and click import.</li>
+<li>Install <a href="https://www.postman.com/downloads/">Postman</a> if you do not already have it.</li>
+<li>Copy the local OpenAPI URL: <code>http://localhost/docs/cloud-agent/api/docs.yaml</code>. If you changed the <code>run.sh --port</code> value, include that port in the URL.</li>
+<li>In Postman, go to <code>File -&gt; Import</code>.</li>
+<li>Paste the OpenAPI URL in the import box, or download the YAML from that URL and import the file.</li>
+<li>Import the definition as a collection.</li>
 </ol>
-<p>If everything goes correctly, you should see “Identus Cloud Agent API Reference” in your collections.</p>
+<p>After import, Postman should show a collection named <code>Identus Cloud Agent API Reference</code>. Set any collection base URL or server variable to <code>http://localhost/cloud-agent</code> if Postman does not select that server for you.</p>
 </section>
 <section id="tutorials" class="level2" data-number="10.6">
 <h2 data-number="10.6" class="anchored" data-anchor-id="tutorials"><span class="header-section-number">10.6</span> Tutorials</h2>
-<p>The official documentation contains a <a href="https://hyperledger.github.io/identus-docs/tutorials/">tutorials</a> section with detailed walkthroughs for each of the most important interactions like connecting to another peer, managing DIDs, managing VC Schemas, issuing a VC, etc. We highly encourage you to follow those and get familiar with the API, this will come in very handy very soon when we start building our own example app.</p>
+<p>The official <a href="https://hyperledger-identus.github.io/docs/tutorials/">Identus tutorials</a> cover the main API flows: connections, DID management, credential schemas, credential issuance, presentation requests, webhooks, multi-tenancy, and VDR interaction. Use those tutorials as the endpoint reference for the next chapters. This book will connect those API operations to the example application, the wallet model, DIDComm flows, and verifier policy checks.</p>
 
 
 </section>

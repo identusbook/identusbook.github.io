@@ -2,131 +2,168 @@
 
 ## Overview
 
-Hyperledger Identus, previously known as Atala PRISM, is distributed across various repositories. These repositories group together different building blocks to provide the necessary functionality for fulfilling each of the essential roles in Self-Sovereign Identity (SSI), as introduced in [Identus Concepts](/section1/identus-concepts.html) and [SSI Basics](/section1/ssi-basics.html). Throughout this book, we will detail the setup of each component.
+Hyperledger Identus maintains component code across separate repositories. The Cloud Agent repository contains the server-side agent used in this chapter. A controller application sends HTTP requests to the Cloud Agent REST API. The Cloud Agent manages DIDs, DIDComm V2 messages, credential issuance, credential verification, credential storage, and tenant configuration. The official Cloud Agent README describes it as a server-side W3C/Aries cloud agent. Holder wallet applications use the Edge Agent SDKs.
 
-The initial component to set up is our Cloud Agent. This agent is responsible for creating and publishing DID Documents into a Verifiable Data Registry ([VDR](/glossary.html#vdr)), issuing Verifiable Credentials, and, depending on the configuration, even providing Identity Wallets to multiple users through a multi-tenancy setup. For now, our focus will be on setting up the Cloud Agent to run locally in development mode, supporting only a single tenant. This step is crucial for learning the basics and getting started. As we progress and build our example application, we will deploy the Cloud Agent in development mode first, then set it up to connect to Cardano `testnet` as our VDR on pre-production mode and, finally, in production mode with multi-tenancy support connected to Cardano `mainnet`. This will be a gradual process as we need to familiarize on each stage of the Cloud Agent.
+The local setup runs the Cloud Agent in a development configuration. Docker starts the Cloud Agent with its supporting services, including PostgreSQL, HashiCorp Vault, APISIX, and a PRISM Node. The official Quick Start describes this setup as single-tenant, with API key authentication disabled and an in-memory ledger for published DID storage.
 
-## Identus Releases Overview
+This chapter starts two local Cloud Agent instances:
 
-Identus is built upon multiple interdependent building blocks, including the Cloud Agent, Wallet SDK, Mediator, and Apollo Crypto Library. To ensure compatibility among these components, it is crucial to identify the correct building block versions that are compatible between them. Identus releases are listed [here](https://github.com/hyperledger/identus/releases). The release notes for each vesion provides a compatibility table for each Identus release.  This guide will focus on the latest stable Identus release at the time of writing (December 2024).
+- `issuer` on port `8000`, used to create issuer DIDs, schemas, and credential offers.
+- `verifier` on port `9000`, used later for proof request flows.
 
-## Pre-requisites
+For the REST API chapter, you can run only the issuer instance. The verifier becomes useful when the book reaches connections, issuance, and verification flows.
 
-### Git
+## Version Selection
 
-If you're using a UNIX-based system (such as OS X or Linux), you likely already have `git` installed. If not, you can download the installer from [Git downloads](https://www.git-scm.com/downloads). Additionally, various [GUI clients](https://www.git-scm.com/downloads/guis) are available for those who prefer a graphical interface.
+Use the platform release notes before changing component versions. The current platform release page lists Identus Platform `v2.16` as the latest platform release and includes Cloud Agent `2.1.0`, Mediator `1.2.0`, NeoPRISM `0.6.2`, and SDK-TS `7.0.0`. The Quick Start pins the local issuer/verifier tutorial to Cloud Agent `2.0.0` and PRISM Node `2.6.0`.
 
-To clone the Cloud Agent repository, first go to the [Releases page](https://github.com/hyperledger/identus/releases) and identify the tagged release corresponding to the Identus release you are targeting (e.g. `cloud-agent-v1.40.0` is part of [Identus v2.14](https://github.com/hyperledger/identus/releases/tag/v2.14) release), then clone the repository with this command:
+This chapter follows the Quick Start version pair. Treat `AGENT_VERSION` and `PRISM_NODE_VERSION` as a tested pair. If you change one value, check the component release notes and rerun the health checks at the end of this chapter.
+
+## Prerequisites
+
+Install Git, Docker, and Docker Compose before running the local Cloud Agent stack. Docker Desktop includes the Docker CLI and Compose plugin on macOS and Windows. Linux users can use Docker Engine with the Compose plugin.
 
 ```bash
-git clone --depth 1 --branch cloud-agent-v1.40.0 https://github.com/hyperledger/identus-cloud-agent
+git --version
+docker --version
+docker compose version
 ```
 
-::: {.callout-note}
-Using `--depth 1` will skip the history of changes in the repository up until the point of the tag, this is optional.
-:::
+Each command should print a version. If one command fails, install or repair that tool before starting the Cloud Agent.
 
-### Docker
+On Windows, use WSL 2 and run the Linux commands inside the WSL distribution. The Microsoft WSL guide shows how to install a distribution, list installed distributions, and confirm whether a distribution uses WSL 1 or WSL 2.
 
-The Cloud Agent and Mediator are distributed as Docker containers, which is the recommended method for starting and stopping the various components required to run the cloud infrastructure.
+## Clone the Cloud Agent Repository
 
-To begin, install [Docker Desktop](https://www.docker.com/products/docker-desktop/), which provides everything you need to get started.
-
-### WSL
-
-For Windows users, please refer to [How to install Linux on Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install). 
-
-::: {.callout-note}
-Windows is the least tested environment, the community has already found some issues and workarounds on how to get the Cloud Agent working. We will try to always include instructions regarding this use case.
-:::
-
-## Before We Run The Agent
-
-Once you have cloned the `identus-cloud-agent` repository and Docker is up and running you can jump right ahead and [run the agent](#running-the-cloud-agent), but before we do that if you are not yet familiar with the community projects or the structure of the agent itself, we recommend you to spend a little time exploring the following information, this is optional and you can skip it.
-
-### Atala Community Projects
-
-There is a growing list of community repositories that aim to provide some extra functionality, mostly maintained by official developers and community members on their spare time. 
-
-Some notable projects are:
-
-- [**Pluto Encrypted:**](https://github.com/trust0-project/pluto-encrypted) Implementation of Pluto storage engine with encryption support.
-- [**Identus Store**](https://github.com/trust0-project/identus-store) A secure light-weight and dependency free database wrapper.
-- [**NeoPrism Resolver:**](https://neoprism.patlo.dev/resolver) A did:prism resover and explorer.
-- [**Blocktrust Mediator**](https://blocktrust.dev/mediator) A DIDCommv2 compliant mediator, written in C#.
-- **Edge Agent SDK Demos:** Browser and Node versions of Edge Agent SDK integrated with Pluto Encrypted.
-- **Identus Test:** Shell script helper that will checkout a particular Identus release and compatible components.
-
-### Exploring The Repository
-
-There are two fundamental directories inside the repository if you are an end user.
-
-1. `docs` Where all the latest *technical documentation* will be available, this includes the Architecture Decision Records ([ADR](/glossary.html#adr)), general insights, guides to deploy, examples and tutorials about how to handle VC Schemas, Connections, secrets, etc. We will do our best to explain in detail all this procedures as we build our example app.
-2. `infrastructure` This directory holds the agent's Docker file and related scripts to run the agent in different modes such as `dev`, `local` or `multi`. **The way to change the agent setup is by customizing environmental variables trough the Docker file**, so we really advise you to get familiar with the `shared` directory content, because that's the base for every other mode, in essence, every mode is a customization of the shared Docker file.
-
-Our first mode to explore and the simplest one should be `local` mode, which by default will run a single agent as a single-tenant, meaning that this instance will control only a single [Identity Wallet](/glossary.html#identity-wallet) that will be automatically created and seeded upon the first start of the agent.
-
-The `multi` mode essentially runs 3 different `local` agents but each is assigned a particular role such as `issuer`, `holder` and `verifier`. This is useful in order try test more complex interactions between independent actors.
-
-Finally the `dev` mode is meant to be used for development and provides an easy way to modify the Cloud Agent source code, it does not rely on the pre-built Docker images that the `local` mode fetches and run. We will not use this mode at all trough the book but feel free to explore this option if you would like to make contributions to the Cloud Agent in the future.
-
-## Running The Cloud Agent
-
-### Environment Variables
-
-Inside `infrastructure/local` directory, you will find three important files, `run.sh`and `stop.sh` scripts and the `.env` file.
-
-Our `local` environment file should look like this
+Clone the current Cloud Agent repository and keep the local directory name used by the official Quick Start:
 
 ```bash
-AGENT_VERSION=1.40.0
-PRISM_NODE_VERSION=2.5.0
+git clone https://github.com/hyperledger-identus/cloud-agent identus-cloud-agent
+cd identus-cloud-agent
+```
+
+Older Identus material may use `https://github.com/hyperledger/identus-cloud-agent`. Identus Platform `v2.15` records the repository move to `hyperledger-identus/cloud-agent`.
+
+## Configure Local Agent Instances
+
+The `infrastructure/local` directory contains the scripts and environment files for local runs. The local README states that the scripts pull remote images, `.env` controls image versions, `run.sh` starts named instances, and `stop.sh` stops named instances.
+
+Create the issuer configuration:
+
+```bash
+cat > ./infrastructure/local/.env-issuer <<'EOF'
+API_KEY_ENABLED=false
+AGENT_VERSION=2.0.0
+PRISM_NODE_VERSION=2.6.0
+PORT=8000
+NETWORK=identus
 VAULT_DEV_ROOT_TOKEN_ID=root
+PG_PORT=5432
+EOF
 ```
 
-This will tell Docker which versions of the Cloud Agent and PRISM Node to run, plus a default value for the `VAULT_DEV_ROOT_TOKEN_ID`, this value corresponds to the HashiCorp Token ID. HashiCorp is a secrets storage engine and it will become relevant later on when we need to prepare the agent to run in `prepod` and `production` modes, for now the `local` mode will ignore this value because by default it will use a local `postgres` database for it's secret storage engine.
-
-The `run.sh` script options:
+Create the verifier configuration:
 
 ```bash
-./run.sh --help
-Run an instance of the ATALA bulding-block stack locally
-
-Syntax: run.sh [-n/--name NAME|-p/--port PORT|-b/--background|-e/--env|-w/--wait|--network|-h/--help]
-options:
--n/--name              Name of this instance - defaults to dev.
--p/--port              Port to run this instance on - defaults to 80.
--b/--background        Run in docker-compose daemon mode in the background.
--e/--env               Provide your own .env file with versions.
--w/--wait              Wait until all containers are healthy (only in the background).
---network              Specify a docker network to run containers on.
---webhook              Specify webhook URL for agent events
---webhook-api-key      Specify api key to secure webhook if required
---debug                Run additional services for debug using docker-compose debug profile.
--h/--help              Print this help text.
+cat > ./infrastructure/local/.env-verifier <<'EOF'
+API_KEY_ENABLED=false
+AGENT_VERSION=2.0.0
+PRISM_NODE_VERSION=2.6.0
+PORT=9000
+NETWORK=identus
+VAULT_DEV_ROOT_TOKEN_ID=root
+PG_PORT=5433
+EOF
 ```
 
-For our first interaction with the agent all we have to do is to call the run script. If you have any conflicts with the port 80 already in use or you don't want that as the default, you can pass `--port 8080` or any other available port that you would like to use.
+::: {.callout-warning}
+`API_KEY_ENABLED=false` disables API key authentication. Use this setting for local development only.
+:::
 
-So, from the root of the repository you can run:
+The `PORT` values expose the two REST APIs on different host ports. The `PG_PORT` values prevent the two PostgreSQL containers from binding to the same host port. The `NETWORK=identus` value is retained from the official Quick Start configuration; the current local Compose file creates the runtime network from the named Compose project.
+
+Current Hyperledger Identus releases publish the Cloud Agent image on Docker Hub as `docker.io/hyperledgeridentus/identus-cloud-agent`. The older local README mentions `GITHUB_TOKEN` and `ghcr.io`; that note predates the Docker registry move recorded in Identus Platform `v2.15`.
+
+## Start the Issuer Cloud Agent
+
+Run the issuer from the repository root. Use the command for your operating system.
+
+macOS:
 
 ```bash
-./infrastructure/local/run.sh
+./infrastructure/local/run.sh -n issuer -b -w -e ./infrastructure/local/.env-issuer -p 8000 -d "$(ipconfig getifaddr $(route get default | grep interface | awk '{print $2}'))"
 ```
 
-This will take a while the first time as Docker will fetch the required container images and get them running. To check the status of the Cloud Agent you can use `curl` or open a browser window at same endpoint URL (make sure to specify a custom port if you changed it in the previous step, e.g. use `http://localhost:8080`):
+Linux:
 
 ```bash
-curl http://localhost/cloud-agent/_system/health
-{"version":"1.40.0"}
+./infrastructure/local/run.sh -n issuer -b -w -e ./infrastructure/local/.env-issuer -p 8000 -d "$(ip addr show $(ip route show default | awk '/default/ {print $5}') | grep 'inet ' | awk '{print $2}' | cut -d/ -f1)"
 ```
 
-The `version` should match the version of the Cloud Agent defined in the `.env`file.
-
-To stop the agent, you can press `Control + C` or run:
+The first run downloads container images and creates Docker volumes. Wait for Docker to report healthy containers, then check the issuer health endpoint:
 
 ```bash
-./infrastructure/local/stop.sh
+curl http://localhost:8000/cloud-agent/_system/health
 ```
 
-Congratulations! you have successfully setup the agent in `local` mode. Next we will explore our Docker file in detail and interact with our agent using the REST API.
+The response should include the configured Cloud Agent version:
+
+```json
+{"version":"2.0.0"}
+```
+
+The Cloud Agent serves the issuer REST API at `http://localhost:8000/cloud-agent/`. Swagger UI is available at `http://localhost:8000/apidocs/`, and the OpenAPI document is available at `http://localhost:8000/docs/cloud-agent/api/docs.yaml`.
+
+## Start the Verifier Cloud Agent
+
+Start the verifier when you need a second Cloud Agent actor for proof request and verification flows.
+
+macOS:
+
+```bash
+./infrastructure/local/run.sh -n verifier -b -w -e ./infrastructure/local/.env-verifier -p 9000 -d "$(ipconfig getifaddr $(route get default | grep interface | awk '{print $2}'))"
+```
+
+Linux:
+
+```bash
+./infrastructure/local/run.sh -n verifier -b -w -e ./infrastructure/local/.env-verifier -p 9000 -d "$(ip addr show $(ip route show default | awk '/default/ {print $5}') | grep 'inet ' | awk '{print $2}' | cut -d/ -f1)"
+```
+
+Check the verifier health endpoint:
+
+```bash
+curl http://localhost:9000/cloud-agent/_system/health
+```
+
+Expected response:
+
+```json
+{"version":"2.0.0"}
+```
+
+The Cloud Agent serves the verifier REST API at `http://localhost:9000/cloud-agent/`. Swagger UI is available at `http://localhost:9000/apidocs/`, and the OpenAPI document is available at `http://localhost:9000/docs/cloud-agent/api/docs.yaml`.
+
+## Stop Local Instances
+
+Stop each named instance with the same `-n` value used at startup:
+
+```bash
+./infrastructure/local/stop.sh -n issuer
+./infrastructure/local/stop.sh -n verifier
+```
+
+To remove the local Docker volumes for an instance, add `-d`:
+
+```bash
+./infrastructure/local/stop.sh -n issuer -d
+./infrastructure/local/stop.sh -n verifier -d
+```
+
+Use `-d` when you want a clean local state. Omit it when you want to keep local wallets, DIDs, schemas, credential records, and other development data across restarts.
+
+## Local SSI Model
+
+Each Cloud Agent instance acts as one SSI actor in this local setup. The issuer controls issuer DIDs and signs credentials. The verifier creates proof requests and verifies presentations. A holder wallet enters the flow later through an Edge Agent SDK or wallet application.
+
+The local PRISM Node gives the Cloud Agent a development VDR target for `did:prism` operations. The in-memory ledger keeps the setup fast and disposable. Production deployments use different configuration for persistence, tenant isolation, API authentication, secrets, and Cardano network access.

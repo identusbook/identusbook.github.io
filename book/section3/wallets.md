@@ -2,45 +2,128 @@
 
 ## Overview
 
-Wallets are an essential component on every Self-Sovereign Identity interaction, and as you might have guessed, just like in the physical world where a wallet holds your identifiers (IDs), a digital SSI wallet's function is to store and manage Decentralized Identifiers (DIDs), Verifiable Credentials (VCs), cryptographic keys, and other related assets.
+An SSI wallet is software that stores and protects the material a holder, issuer, or verifier needs to act in an identity protocol. In the [W3C Verifiable Credentials Data Model 2.0](https://www.w3.org/TR/vc-data-model-2.0/), a credential repository stores and protects access to a holder's credentials. In [W3C DID Core](https://www.w3.org/TR/did-1.0/), a DID resolves to a DID document that can expose public verification methods and service endpoints. The private keys, credentials, DIDComm records, and local wallet state live in wallet storage, not in the DID document.
 
-Since many SSI frameworks rely on a Blockchain to publish DIDs, there is a common misconception that SSI wallets work in a similar way. Although both SSI and Blockchain wallets require a `seed phrase` built from a random set of `mnemonics`, thats where the overlap ends, because the balance and history of a Blockchain wallet can be restored from the ledger itself as opposed to an SSI wallet, where all the stored information exists only on the device and needs to be manually backed up and restored.
+Identus uses the word wallet in two common places:
 
-In essence, a wallet in SSI is piece of software that allows users to store, manage, and present proof of their digital identities and credentials. It acts as a repository for digital assets required to fulfill every SSI interaction, ensuring that users and entities have complete control over their data. In the case of Identus, the [Edge Agent SDK](https://github.com/hyperledger/identus-edge-agent-sdk-ts) provides all the abstractions needed to operate a wallet by an individual on a browser or mobile app, and the [Cloud Agent](https://github.com/hyperledger/identus-cloud-agent), provides a `REST API` to operate a wallet in the cloud, either to itself (single tenant) or for third-parties (multi tenant) as a custodial wallet.
+- An Edge Agent wallet runs inside a holder-facing application, such as a browser app, mobile app, or desktop app. The application embeds an Identus Edge SDK and provides storage through Pluto.
+- A Cloud Agent wallet is a server-side wallet container accessed through the Cloud Agent REST API. A controller or tenant uses API calls and webhooks rather than direct in-process SDK calls.
 
-## Edge Agent SDK in Identus
+Do not treat a ledger, PRISM Node, or DID resolver as a wallet backup. Public DID state can help other parties resolve issuer keys and service endpoints. It cannot reconstruct holder-held credentials, Peer DID private keys, DIDComm message history, connection records, or presentation state. A production wallet needs an explicit storage, encryption, backup, and recovery design.
 
-Identus provides it's wallet interface through the Edge Agent SDKs, available in 3 flavors:
+For the airline ticket example in this section, the airline runs Cloud Agent as an issuer. The traveler uses an Edge Agent wallet as the holder. Airport security can use Cloud Agent, an Edge SDK, or another verifier implementation, depending on the deployment.
 
-- [TypeScript](https://github.com/hyperledger/identus-edge-agent-sdk-ts) for Web and Node apps.
-- [Swift](https://github.com/hyperledger/identus-edge-agent-sdk-swift) for iOS and Mac.
-- [Kotlin](https://github.com/hyperledger/identus-edge-agent-sdk-kmp) for Android and JVM.
+## Wallet Responsibilities
 
-Each of the flavors provide the same building block implementations:
+A wallet has more work to do than storing credentials. It owns the local state needed to continue protocol flows across app restarts, device changes, and network interruptions.
 
-- Apollo: Provides a suite of necessary cryptographic operations.
-- Castor: Provides a suite of operations to create, manage and resolve decentralized identifiers.
-- Pollux: Provides a suite of operations for handling [verifiable credentials](https://github.com/hyperledger/identus-docs/blob/master/documentation/docs/concepts/glossary.md#verifiable-credentials).
-- Mercury: Provides a suite of operations for handling DIDComm V2 messages.
-- Pluto: Provides an interface for storage operations in a portable, storage-agnostic manner.
-- Agent: A component using all other building blocks, provides basic edge agent capabilities, including implementing DIDComm V2 protocols.
+The wallet stores or references:
 
-And all of them abstract the usage of each building block through the Agent component.
+- DID records and DID metadata.
+- Private keys, wallet seeds, or secret references used by DID operations.
+- Verifiable Credentials received from issuers.
+- Presentation records created for verifiers.
+- DIDComm messages, connection records, and protocol state.
+- Mediator configuration for offline delivery.
+- Credential status and schema references needed by later verification flows.
 
-Most of the time you will be operating the wallet trough the Agent interface unless you require to directly call lower level building block API, for example, you may require to send a custom DIDCOMM message payload format which is not directly supported via the Agent building block, you can still use Mercury directly to achieve that. This approach gives you a simple to use interface trough the Agent but also the flexibility and control that comes with also providing access to the lower level APIs. We highly encourage to dig inside each of the building blocks and study how the Agent is using them, this will come handy when you need to add custom features to your own software.
+The wallet uses that state to perform protocol work. The holder wallet receives credential offers, asks the holder for consent, stores issued credentials, creates presentations, and sends DIDComm responses. The issuer wallet signs credentials and tracks issuance records. The verifier wallet or verifier agent receives presentations, checks cryptographic proofs, resolves issuer material, checks credential status, and then applies verifier policy.
 
-There is one building block that is *not* implemented and only provided as an interface, this is Pluto, the storage layer for DIDs, VCs, messages, keys, etc. Identus does not have an opinion on how you should store and retrieve the contents of the wallet, so it's your job to implement this part according to your needs. Fortunately, there is a community project providing one implementation called [Pluto Encrypted](https://github.com/atala-community-projects/pluto-encrypted), this project provides 3 different storage engines: InMemory, IndexDB, LevelDB. As the name suggest, Pluto Encrypted provides full Pluto compatibility plus handles encryption and decryption of the wallet contents, this is very important due to the fact that the wallet stores your DIDs (private keys), VCs, messages and a lot of sensitive information. If you are starting out we highly recommend you to use this implementation before attempting to role your own, it's a great starting place that you can extend and customize to your needs.
+Keep the verification layers separate. A cryptographic check answers whether the presentation, credential proof, issuer key, holder binding, and status data verify. A policy check answers whether the verifier accepts that issuer, credential type, schema, subject, freshness, or assurance level for the business action.
 
-## Custodial Wallets
+## Edge Agent Wallets
 
-In an ideal world, everyone should be willing and able to manage their own identity wallets, this is one of the main characteristics of truly Self-Sovereign ecosystem. In practice, there are many good reasons why an identity wallet would be better managed by a service. Such is the case for companies and entities or even individuals that don't want to deal with the responsibility and risk of self-managing their wallets. For this use case Identus provides the concept of Custodial Wallets. What this really means is that an identity wallet can be managed by the Cloud Agent and used over a REST API. For this particular use case, the Cloud Agent supports a multi-tenant mode in order to onboard and serve multiple identity wallets on the same running instance. We will explain the setup in detail over the production installation section, for now the key insight is that when you access your identity wallet through a Cloud Agent, you are really trusting the storage and management of the private keys of your identity to that service.
+Identus Edge Agent SDKs let an application run wallet and agent capabilities close to the holder. Current Identus repositories provide:
 
-## Example Project
+- [TypeScript SDK](https://github.com/hyperledger-identus/sdk-ts) for browser and Node.js applications. The [current TypeScript SDK docs](https://hyperledger-identus.github.io/docs/sdk-ts/docs/sdk/) name the package `@hyperledger/identus-sdk` and note the rename from `@hyperledger/identus-edge-agent-sdk`.
+- [Swift SDK](https://github.com/hyperledger-identus/sdk-swift) for Apple platforms.
+- [Kotlin Multiplatform SDK](https://github.com/hyperledger-identus/sdk-kmp) for Android and JVM applications.
 
-### Swift SDK
+The SDKs use the same architectural vocabulary:
 
-TODO: Example code for running an Edge Wallet on Swift SDK
+- Apollo provides cryptographic operations.
+- Castor creates, manages, and resolves DIDs.
+- Pollux handles credential operations in the Swift and Kotlin SDKs. The current TypeScript SDK exposes credential capabilities through its modules and plugins.
+- Mercury handles DIDComm v2 messages and related secure messaging work.
+- Pluto provides the storage interface.
+- Agent or EdgeAgent composes the building blocks into a higher-level agent API.
 
-### TypeScript SDK
+Start with Agent or EdgeAgent for application code. Direct calls into Apollo, Castor, Mercury, Pollux, or Pluto fit cases where the application needs a lower-level operation that the agent API does not expose. For example, a wallet that implements a custom DIDComm protocol can build and pack messages through Mercury, then store the resulting protocol records through the same wallet storage layer.
 
-TODO: Example code for running an Edge Wallet on TypeScript SDK
+### Pluto Storage
+
+Pluto is the key implementation boundary in an Edge Agent wallet. Identus defines the storage interface, and the application provides the storage implementation that matches its platform and threat model.
+
+For a browser wallet, the implementation can use IndexedDB or another browser database. For a mobile wallet, it can use the platform database plus Keychain or Keystore-backed key protection. For a server-side test wallet, an in-memory store works for a disposable run. Production storage should encrypt sensitive data at rest, bind encryption keys to the platform security model where possible, and support tested backup and restore.
+
+Storage design changes wallet behavior. If the application stores credentials but loses private keys, the holder can lose the ability to prove control of the DID used during issuance or presentation. If the application stores keys but loses credentials, the holder can still control the DID but no longer has the credential payload. If the application loses DIDComm protocol records, it can fail to resume issuance, connection, or proof flows after restart.
+
+Treat community Pluto stores as dependencies to evaluate, not as Identus defaults. Check maintenance status, encryption behavior, migration support, and compatibility with the SDK version used by the application before selecting one.
+
+## Cloud Agent Wallets
+
+Cloud Agent runs on a server and exposes wallet operations through REST APIs and webhook-driven workflows. The [Cloud Agent README](https://github.com/hyperledger-identus/cloud-agent) describes it as a W3C and Aries standards-based cloud agent that supports [DIDComm v2](https://identity.foundation/didcomm-messaging/spec/v2.1/), credential issuance, credential verification, credential holding, secret management, and multi-tenancy.
+
+A Cloud Agent wallet fits services that need server-side identity operations. An airline can use Cloud Agent to manage issuer DIDs, sign ticket credentials, send offers, and track issuance state. An airport verifier can use Cloud Agent to request presentations and receive verification results. A company can run Cloud Agent in multi-tenant mode when each customer or department needs a separate wallet.
+
+Cloud Agent custody has a different trust boundary from an Edge Agent wallet. The tenant or business controller interacts with the wallet through an API. The service operator controls the runtime, database, secret storage, networking, and operational access. A service-managed wallet can be a good fit for organizations and delegated user wallets, but the deployment must define who can administer wallets, export data, rotate secrets, recover seeds, and inspect logs.
+
+### Multi-Tenant Wallets
+
+In Cloud Agent multi-tenancy, an administrator creates a wallet, creates an entity for the tenant, and provisions an authentication method for that entity. The [Identus tenant onboarding documentation](https://hyperledger-identus.github.io/docs/tutorials/multitenancy/tenant-onboarding/) describes the wallet as the container for tenant assets, including DIDs, credentials, and connections. After provisioning, Cloud Agent scopes tenant API calls to that wallet.
+
+This model fits service-managed wallets. It does not remove custody risk. The administrator API, tenant authentication, wallet identifiers, database rows, Vault paths, and webhook routing must all preserve tenant separation.
+
+### Cloud Agent Key Material
+
+Identus Cloud Agent uses different key-management paths for PRISM DIDs and Peer DIDs.
+
+For managed PRISM DIDs, Cloud Agent derives key material from a wallet seed and derivation path. The [DID management documentation](https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/did-management/) states that Cloud Agent stores the derivation path rather than the PRISM key material itself, then reconstructs key material at runtime from the seed and path.
+
+For managed Peer DIDs, Cloud Agent generates key material and stores it in secret storage. Peer DIDs support DIDComm activity, so these keys protect relationship-specific communications.
+
+The [Cloud Agent secrets storage documentation](https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/secrets-storage/) names HashiCorp Vault as the default secret storage service. It describes secret types such as seeds, private keys, credential-definition data, and AnonCreds link secrets. In multi-tenant configuration, Vault asset paths include the wallet ID so each wallet's secrets live under its own path.
+
+## Choosing Edge or Cloud Custody
+
+Use an Edge Agent wallet when the holder should keep credentials and keys in a user-controlled application. This model fits traveler wallets, employee wallets, citizen wallets, and mobile proof presentation. The application team must own storage, encryption, backup, recovery, mediator use, and local user consent.
+
+Use a Cloud Agent wallet when a server must act for an organization or delegated tenant. This model fits issuers, verifiers, service-managed organizational wallets, and backend workflows that need REST APIs and webhooks. The deployment team must own secret storage, authentication, tenant separation, monitoring, and operational controls.
+
+Many Identus systems use both. The issuer and verifier run Cloud Agent. The holder uses an Edge Agent wallet. DIDComm, credentials, DIDs, and presentation protocols connect the two custody models without requiring the same wallet implementation on every side.
+
+## Airline Ticket Flow
+
+The airline ticket example uses the wallet boundary in a concrete way:
+
+1. The airline creates or selects a Cloud Agent wallet for issuer operations.
+2. The airline creates an issuer `did:prism` with an `assertionMethod` verification method and publishes the DID when verifiers need ledger-backed resolution.
+3. The traveler opens an Edge Agent wallet. The wallet creates or selects holder DIDs and stores local secret material through Pluto.
+4. The airline sends a ticket credential offer to the traveler wallet through DIDComm or another supported issuance path.
+5. The traveler wallet shows the offer, records holder consent, requests the credential, receives it, and stores it.
+6. Airport security requests proof of ticket status, flight, passenger binding, or another accepted claim set.
+7. The traveler wallet creates a presentation from the stored credential and sends it to the verifier.
+8. The verifier software checks the presentation proof, issuer DID resolution, credential status, holder binding, schema, and format-specific rules.
+9. Airport security policy decides whether the verified result satisfies the checkpoint rule.
+
+Steps 8 and 9 are separate decisions. The verifier software can report that the credential proof is valid, the issuer DID resolved, and the credential is active. Airport policy can still reject the presentation if the flight date, airport, issuer, credential type, or passenger binding does not match the checkpoint rule.
+
+## Implementation Notes
+
+For Edge Agent wallets:
+
+- Pick the SDK for the host platform before designing storage.
+- Treat Pluto as a required wallet component, not an optional cache.
+- Encrypt wallet contents that include credentials, DIDComm records, seeds, private keys, or secret references.
+- Test restore on a clean device or browser profile.
+- Use `did:peer` for relationship-specific DIDComm activity and `did:prism` for public resolution.
+
+For Cloud Agent wallets:
+
+- Decide whether the deployment uses a default wallet or multi-tenancy before onboarding users.
+- Keep administrator credentials separate from tenant credentials.
+- Place wallet seeds and private key material in the configured secret storage.
+- Back up the Cloud Agent database and secret storage as one recovery unit.
+- Audit webhook delivery, tenant API keys, wallet IDs, and Vault paths during tenant onboarding.
+
+A team completes wallet work only after it tests restore and protocol resumption. A wallet that can issue or receive credentials during a happy-path demo can still fail in production if the holder changes devices, the browser storage is cleared, the mediator queue grows, or a Cloud Agent tenant needs recovery after database restore.

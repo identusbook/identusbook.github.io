@@ -2,9 +2,13 @@
 
 ## The Cloud Agent API
 
-The only way to interact with our newly created Cloud Agent is trough the REST API, this means any action of the Cloud Agent such as establishing connections, creating Credential Schemas, issuing Verifiable Credentials, etc. will be triggered trough the agent API endpoints.
+The local Cloud Agent exposes two public protocol surfaces through APISIX. Your controller application uses the REST API to create DIDs, register credential schemas, issue Verifiable Credentials, manage connection records, request presentations, and inspect protocol state. Other agents and wallets use the DIDComm endpoint to deliver encrypted agent messages.
 
-It is crucial to understand that the API is essentially an abstraction of the agent's Identity Wallet. In our initial setup our agent is running on single-tenant mode, therefor it is managing a single default wallet which is assigned the following Entity ID (UUID) `00000000-0000-0000-0000-000000000000`. You can confirm this by running the following command:
+Those two surfaces share the same wallet state. A REST request changes or reads records in the Cloud Agent wallet. A DIDComm message may change the same records after the Cloud Agent processes an inbound connection, issuance, or presentation message. The [Cloud Agent README](https://github.com/hyperledger-identus/cloud-agent/blob/main/README.md) describes this pattern as a controller that sends HTTP requests to the agent and processes webhook notifications from it.
+
+The local stack from the previous chapter runs in single-tenant mode. In that mode, the Cloud Agent uses the default entity and the default wallet for REST API and DIDComm operations. The [Cloud Agent authentication documentation](https://github.com/hyperledger-identus/docs/blob/main/documentation/develop/cloud-agent/authentication.md#default-entity-and-wallet) defines both IDs as `00000000-0000-0000-0000-000000000000`.
+
+You can confirm that default wallet initialization in the container logs:
 
 ```bash
 docker logs local-cloud-agent-1 | grep "default"
@@ -15,9 +19,9 @@ docker logs local-cloud-agent-1 | grep "default"
 ... Entity created: Entity(00000000-0000-0000-0000-000000000000,default,00000000-0000-0000-0000-000000000000,1970-01-01T00:00:00Z,1970-01-01T00:00:00Z)
 ```
 
-Later on the book, once we start building our example app, we will setup the agent in multi-tenant mode, meaning that a single agent instance will be capable of managing multiple wallets, we refer to those wallets as custodian wallets. This more advanced setup is useful when your users would want to delegate their Identity Wallet custody to a service instead of managing the wallet themselves.
+Later, the example application will use multi-tenant mode. In multi-tenant mode, the Cloud Agent serves multiple tenants from one shared Cloud Agent instance. The [multi-tenancy documentation](https://github.com/hyperledger-identus/docs/blob/main/documentation/learn/advanced-explainers/cloud-agent/multi-tenancy.md) defines an entity as the tenant representation and a wallet as the isolated container for that tenant's DIDs, connections, credentials, keys, credential schemas, and related assets. A service-managed wallet fits a server-side issuer, verifier, or custodial wallet service where the operator manages the runtime, database, secret storage, API access, and backups.
 
-Besides the `_system/health` endpoint we used earlier to confirm the agent version, there is one more endpoint used to debug runtime metrics:
+The `_system/health` endpoint from the previous chapter reports the running service version. The system API exposes one more endpoint for runtime metrics:
 
 ```bash
 curl http://localhost/cloud-agent/_system/metrics
@@ -27,54 +31,68 @@ jvm_memory_bytes_used{area="heap",} 1.07522616E8
 jvm_memory_bytes_used{area="nonheap",} 1.74044936E8
 ...
 ```
-This will be useful when debugging a memory or performance issue or when developing.
+
+The Cloud Agent OpenAPI specification describes the metrics endpoint as Prometheus text output from the internal metrics registry. Use it when you need local runtime data for memory, latency, or health investigations.
 
 ## OpenAPI Specification
 
-The OpenAPI Specification (`OAS`) defines a standard, language-agnostic interface to HTTP APIs. The Cloud Agent API documentation can be found at [https://hyperledger.github.io/identus-docs/agent-api/](https://hyperledger.github.io/identus-docs/agent-api/)  and besides being very detailed and always updated to the latest, it also comes with the OAS spec yaml file that will allow us to setup `Postman` to easily test our API or use the same OAS standard to auto generate code for client libraries on different language stacks. We will not attempt to repeat this API documentation in the book, rather lets focus on complement the existing documentation and explain with more detail how everything works.
+The OpenAPI Specification (`OAS`) is a standard description format for HTTP APIs. It gives humans and tools a shared contract for paths, request bodies, response bodies, authentication schemes, and schemas. The Cloud Agent source repository includes an OpenAPI 3.1 document titled `Identus Cloud Agent API Reference`, and the local Docker stack exposes that document through APISIX.
+
+For the local agent started in the previous chapter, use this URL as the version-matched API contract:
+
+```text
+http://localhost/docs/cloud-agent/api/docs.yaml
+```
+
+If you started the agent with a different `run.sh --port` value, replace `localhost` with `localhost:<port>`. Swagger UI reads this same document. Postman and client generators can import it to create a collection or client stub for the exact Cloud Agent version you are running.
+
+The hosted Identus docs provide current tutorials and conceptual material at [https://hyperledger-identus.github.io/docs/](https://hyperledger-identus.github.io/docs/). For endpoint-level work in this local stack, prefer the OpenAPI document served by your running agent. It avoids mismatches between the book, a hosted page, and the Docker image version.
 
 ## APISIX Gateway
 
-APISIX is in charge of proxying different services inside the container, exposing three routes trough the port you specified to the `run.sh` script (remember it runs on `port 80` by default).
+APISIX proxies the Cloud Agent services inside the local Docker stack. The `run.sh` script binds APISIX to the port you selected, with `80` as the default. The Cloud Agent's shared APISIX configuration defines these routes:
 
-- [http://localhost/cloud-agent/](http://localhost/cloud-agent/) This will be the Cloud Agent API.
-- [http://localhost/apidocs/](http://localhost/apidocs/) Swagger UI interface test the API.
-- [http://localhost/didcomm/](http://localhost/didcomm/) Our public [DIDCOMM](/section3/didcomm.html) endpoint, this is our communication channel and it's how we send end to end encrypted messages to another peer trough a mediator. We will take a deep dive into [DIDCOMM](/section3/didcomm.html) later in the book.
+| Local route | Upstream service | Purpose |
+| --- | --- | --- |
+| [http://localhost/cloud-agent/](http://localhost/cloud-agent/) | `cloud-agent:8085` | REST API for controller applications. |
+| [http://localhost/docs/cloud-agent/api/docs.yaml](http://localhost/docs/cloud-agent/api/docs.yaml) | `cloud-agent:8085` | OpenAPI document for the running Cloud Agent. |
+| [http://localhost/apidocs/](http://localhost/apidocs/) | `swagger-ui:8080` | Swagger UI for interactive API calls. |
+| [http://localhost/didcomm/](http://localhost/didcomm/) | `cloud-agent:8090` | Public DIDComm endpoint for encrypted agent messages. |
 
-APISIX by default will just expose this services but trough plugins it can be setup as Ingress controller, load balancer, authentication and much more. You can read the [APISIX documentation](https://apisix.apache.org/docs/) to learn more.
+The DIDComm endpoint is the transport endpoint advertised in invitations and DID documents. A peer uses it to send encrypted DIDComm messages to this Cloud Agent. The [DIDComm chapter](/section3/didcomm.html) covers the message model and protocol flow later in the book.
+
+APISIX routes match incoming requests, apply route plugins, and forward requests to upstream services. The Cloud Agent local configuration uses `proxy-rewrite` to strip the public route prefix before forwarding the request, and it enables the APISIX `cors` plugin on the REST and DIDComm routes.
 
 ::: {.callout-warning}
-This is where `CORS` ([Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)) is setup, be default it will allow any origin, here you can restrict which domains should be allowed to connect to this endpoints. We will revisit this on our customization guide.
+The local APISIX CORS configuration allows all origins on the `/cloud-agent/*` and `/didcomm*` routes. That setting is convenient for local browser testing. A deployed service should restrict allowed origins to the domains that host the controller application, admin tools, or wallet front ends that need browser access.
 :::
 
 ## Swagger UI
 
-[Swagger UI](https://swagger.io/tools/swagger-ui/) it's a visualization and interactive tool to explore an API. It's automatically generated from your OpenAPI (formerly known as Swagger) Specification and it's often used to support the API documentation.
+[Swagger UI](https://swagger.io/tools/swagger-ui/) renders API documentation and an interactive request form from an OpenAPI document. The local Docker stack includes a Swagger UI container, and APISIX exposes it at [http://localhost/apidocs/](http://localhost/apidocs/).
 
-Our Cloud Agent Docker file includes a container for Swagger UI that is exposed trough APISIX as explained earlier. This means you can use this tool right away after the agent is running.
-
-To use it, just open [http://localhost/apidocs/](http://localhost/apidocs/) in your browser and from the server list select:
+Open [http://localhost/apidocs/](http://localhost/apidocs/) in your browser. In the server list, select:
 
 - `http://localhost/cloud-agent - The local instance of the Cloud Agent behind the APISIX proxy`.
 
-Then, click the `Authorize` button and a small modal window will popup, in there you need to define an `apikey`, even if by default you haven't defined one, this means you can put any value in here, of course later in the book when we set an actual `apikey` you will need to use it here, for now just use `test` as value and it should be fine.
+Click `Authorize`. Swagger UI opens a modal for the `apikey` header. The local stack has API key authentication disabled by default, so the Cloud Agent will accept the request even if Swagger UI sends any value. Use `test` for now. In later chapters, after the book enables API key authentication, this field must contain the API key assigned to the default entity or tenant entity.
 
 After authorizing, the modal should look like this:
 
 ![Swagger UI Apikey Modal](/section2/swagger-ui-apikey-modal.png)
 
-You can close that modal window and try your first request, click to expand the `GET /connections` endpoint and click `Try it out` button, that will enable the text inputs for any available parameters, for now, all three parameters should be blank (`offet`, `limit`, `thid`).
+Close the modal and try the first request. Expand `GET /connections` and click `Try it out`. Leave `offset`, `limit`, and `thid` blank. Click `Execute` to send the request.
 
-Finally, just click the `Execute` button to actually perform the request. This should return something like this:
+The response should look similar to this:
 
 ```json
 { "contents": [], "kind": "ConnectionsPage", "self": "", "pageOf": "" }
 ```
 
-Congratulations! you have connected to the API and asked for a list of `connections`, right now there are no connections so the empty array you get back is correct.
+An empty `contents` array means the default wallet has no connection records yet. That is the expected result for a new local agent.
 
 ::: {.callout-note}
-You can use Swagger UI to copy `curl` commands that you can paste in your terminal, this will run exactly the same API request. For example:
+Swagger UI can generate a `curl` command for the request it sends. You can paste that command in your terminal to run the same API call outside the browser. For example:
 
 ```bash
 curl -X 'GET' \
@@ -84,19 +102,21 @@ curl -X 'GET' \
 {"contents":[],"kind":"ConnectionsPage","self":"","pageOf":""}
 ```
 :::
+
 ## Postman
 
-`Postman`is perhaps the most popular API tool among developers, it allow us to easily interact and debug API endpoints but has many killer feature like  enabling teams to share and work together on the same API, run automated tests, automatically renew tokens, keeps the state of your interactions with the API, copy code snippets to make API calls over many languages, etc. So it's really a better overall option versus the Swagger UI interface or just directly using `curl`.
+Swagger UI is useful for quick checks against the running agent. Postman is better when you need saved environments, request variables, scripted assertions, shared collections, or repeated manual testing across issuer, holder, and verifier agents.
 
-The big time saver for us is that because it supports OAS, we can easily import the whole API definition. So, let's try it:
+Postman can import OpenAPI definitions from a file, a URL, pasted YAML or JSON, or a repository. Use the local Cloud Agent OpenAPI URL so the collection matches your running Docker image.
 
-1. If you don't already have it, first you should [Download Postman](https://www.postman.com/downloads/) and [Sign Up](https://identity.getpostman.com/signup?continue=https%3A%2F%2Fgo.postman.co%2Fhome) for a free account.
-2. Head to the [API docs](https://hyperledger.github.io/identus-docs/agent-api/) and click the Download button, or copy this direct link `https://hyperledger.github.io/identus-docs/redocusaurus/plugin-redoc-0.yaml`
-3. Inside Postman, go to `File -> Import` and either drag & drop your yaml file if you downloaded it or paste the URL in the box, this will auto advance to the next step.
-4. On the "How to import" step select "OpenAPI 3.0 with a Postman Collection" and click import.
+1. Install [Postman](https://www.postman.com/downloads/) if you do not already have it.
+2. Copy the local OpenAPI URL: `http://localhost/docs/cloud-agent/api/docs.yaml`. If you changed the `run.sh --port` value, include that port in the URL.
+3. In Postman, go to `File -> Import`.
+4. Paste the OpenAPI URL in the import box, or download the YAML from that URL and import the file.
+5. Import the definition as a collection.
 
-If everything goes correctly, you should see "Identus Cloud Agent API Reference" in your collections.
+After import, Postman should show a collection named `Identus Cloud Agent API Reference`. Set any collection base URL or server variable to `http://localhost/cloud-agent` if Postman does not select that server for you.
 
 ## Tutorials
 
-The official documentation contains a [tutorials](https://hyperledger.github.io/identus-docs/tutorials/) section with detailed walkthroughs for each of the most important interactions like connecting to another peer, managing DIDs, managing VC Schemas, issuing a VC, etc. We highly encourage you to follow those and get familiar with the API, this will come in very handy very soon when we start building our own example app.
+The official [Identus tutorials](https://hyperledger-identus.github.io/docs/tutorials/) cover the main API flows: connections, DID management, credential schemas, credential issuance, presentation requests, webhooks, multi-tenancy, and VDR interaction. Use those tutorials as the endpoint reference for the next chapters. This book will connect those API operations to the example application, the wallet model, DIDComm flows, and verifier policy checks.

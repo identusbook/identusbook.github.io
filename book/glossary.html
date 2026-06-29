@@ -385,13 +385,483 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Glossary or Index here</p>
-<p>This will reference key concepts and Identus terms and where they are mentioned in the book, allowing someone to look up a term and know what section it is referenced in.</p>
-<p>TODO: First draft will just lay down the glossary terms, we want to add detailed descriptions later.</p>
+<p>This glossary collects the Self-Sovereign Identity (SSI), decentralized-identity, and Identus-specific terms used throughout the book. Definitions are written for the working developer: enough to follow the surrounding chapters, with pointers to the standards where a term is formally defined. Terms are listed alphabetically.</p>
 <dl>
-<dt><span id="vdr">VDR</span></dt>
+<dt><span id="ada">ADA</span></dt>
 <dd>
-<p>Verifiable Data Registry</p>
+<p>The native cryptocurrency of the <a href="#cardano">Cardano</a> blockchain. PRISM Node spends ADA on transaction fees when it anchors <code>did:prism</code> operations on-chain — test ADA on test networks such as <code>preprod</code>, real ADA on <code>mainnet</code>.</p>
+</dd>
+<dt><span id="anoncreds">AnonCreds (Anonymous Credentials)</span></dt>
+<dd>
+<p>A privacy-preserving <a href="#verifiable-credential">Verifiable Credential</a> format originating in the Hyperledger Indy ecosystem. It uses <a href="#zero-knowledge-proof">zero-knowledge proofs</a> and <a href="#predicate-proof">predicate proofs</a> so a holder can prove facts (for example, “age over 21”) without revealing the underlying attribute values. Supported by the Identus Cloud Agent.</p>
+</dd>
+<dt><span id="api-key">API key</span></dt>
+<dd>
+<p>A per-<a href="#tenant">tenant</a> credential (sent in an <code>apikey</code> header) that scopes Cloud Agent API calls to a specific tenant’s <a href="#wallet">wallet</a>. Privileged administrative operations instead use an admin token.</p>
+</dd>
+<dt><span id="apollo">Apollo</span></dt>
+<dd>
+<p>The Identus <a href="section1/identus-concepts.html#building-blocks">building block</a> that provides cryptographic primitives — hashing, digital signatures, encryption, and key generation — used across the platform to ensure data integrity, authenticity, and confidentiality.</p>
+</dd>
+<dt><span id="approle">AppRole</span></dt>
+<dd>
+<p>A <a href="#hashicorp-vault">HashiCorp Vault</a> authentication method (a role ID plus a secret ID) preferred over a static root token for automated, production Cloud Agent deployments.</p>
+</dd>
+<dt><span id="aries">Aries (Hyperledger Aries)</span></dt>
+<dd>
+<p>A family of Hyperledger interoperability protocols (RFCs) for SSI agents — covering DID exchange, out-of-band invitations, issue-credential, and present-proof flows. The Identus Cloud Agent is built to be W3C- and Aries-compatible.</p>
+</dd>
+<dt><span id="assertion-method">assertionMethod</span></dt>
+<dd>
+<p>A <a href="#verification-relationship">verification relationship</a> in a <a href="#did-document">DID Document</a> listing the keys approved for making assertions, including signing (issuing) Verifiable Credentials. A verifier checks that the credential’s signing key appears here.</p>
+</dd>
+<dt><span id="authentication">authentication</span></dt>
+<dd>
+<p>A <a href="#verification-relationship">verification relationship</a> in a <a href="#did-document">DID Document</a> listing the keys approved for proving control of the DID through challenge-response authentication.</p>
+</dd>
+<dt><span id="building-blocks">Building Blocks</span></dt>
+<dd>
+<p>The set of focused, modular Identus libraries that each handle one area of SSI functionality: <a href="#apollo">Apollo</a> (cryptography), <a href="#castor">Castor</a> (DIDs), <a href="#pollux">Pollux</a> (credentials), <a href="#mercury">Mercury</a> (DIDComm), and <a href="#pluto">Pluto</a> (storage). Both the Cloud Agent and the Edge Agent SDKs implement the same building blocks.</p>
+</dd>
+<dt><span id="cardano">Cardano</span></dt>
+<dd>
+<p>The public blockchain Identus uses as its production <a href="#vdr">Verifiable Data Registry</a>, anchoring <code>did:prism</code> operations so that anyone can resolve a published PRISM DID. Anchoring requires <a href="#ada">ADA</a> to pay transaction fees.</p>
+</dd>
+<dt><span id="cardano-db-sync">Cardano DB Sync</span></dt>
+<dd>
+<p>A Cardano component that follows the chain and indexes blocks into a PostgreSQL database so that PRISM Node can read ledger data efficiently. Typically the heaviest resource consumer in a self-hosted Cardano stack.</p>
+</dd>
+<dt><span id="cardano-wallet">Cardano Wallet</span></dt>
+<dd>
+<p>The Cardano-ecosystem service PRISM Node uses to manage funds and submit Cardano transactions when publishing DID operations. Distinct from an SSI <a href="#wallet">wallet</a>.</p>
+</dd>
+<dt><span id="castor">Castor</span></dt>
+<dd>
+<p>The Identus <a href="section1/identus-concepts.html#building-blocks">building block</a> that creates, manages, and resolves <a href="#did">Decentralized Identifiers</a>, currently supporting the <code>did:prism</code> and <code>did:peer</code> methods.</p>
+</dd>
+<dt><span id="certificate-authority">Certificate Authority (CA)</span></dt>
+<dd>
+<p>The traditional centralized model of digital trust, in which a central authority vouches for identities. Contrasted in this book with a <a href="#trust-registry">Trust Registry</a>, which records authority within a governed ecosystem but does not itself issue or hold credentials.</p>
+</dd>
+<dt><span id="claim">Claim</span></dt>
+<dd>
+<p>A single statement or attribute about a <a href="#subject">subject</a> within a credential — for example a name, a date of birth, or a license category. A <a href="#verifiable-credential">Verifiable Credential</a> is a set of claims made by an <a href="#issuer">issuer</a>.</p>
+</dd>
+<dt><span id="cloud-agent">Cloud Agent</span></dt>
+<dd>
+<p>The server-side Identus agent (written in Scala) that manages wallets, DIDs, and DIDComm messaging, and that can issue, hold, and verify Verifiable Credentials. It is driven by a <a href="#controller">controller</a> application through its REST API and is expected to be online at all times.</p>
+</dd>
+<dt><span id="cnf">cnf (confirmation key)</span></dt>
+<dd>
+<p>A key-binding element embedded in an <a href="#sd-jwt">SD-JWT</a> credential. It binds the credential to a holder key so the holder can later prove control by signing the verifier’s <a href="#challenge">challenge</a> and <a href="#domain">domain</a>.</p>
+</dd>
+<dt><span id="confirmation-depth">Confirmation depth</span></dt>
+<dd>
+<p>The number of blocks that must be added after a DID transaction before its state is treated as final and safe to resolve. A tuning knob when anchoring DIDs on a ledger.</p>
+</dd>
+<dt><span id="connection">Connection</span></dt>
+<dd>
+<p>An established, secure, ongoing <a href="#didcomm">DIDComm</a> relationship between two agents, typically underpinned by <a href="#peer-did">Peer DIDs</a> and tracked as a connection record in each party’s wallet.</p>
+</dd>
+<dt><span id="controller">Controller (application)</span></dt>
+<dd>
+<p>The application that drives a <a href="section1/identus-concepts.html#cloud-agent">Cloud Agent</a> through its REST API and webhook callbacks. The controller holds the business logic; the agent handles the SSI standards work. (Not to be confused with a <a href="#did-controller">DID controller</a>.)</p>
+</dd>
+<dt><span id="coordinate-mediation">Coordinate Mediation</span></dt>
+<dd>
+<p>The DIDComm protocol (<code>coordinate-mediation/2.0</code>) a wallet uses to request <a href="#mediation">mediation</a> from a <a href="section1/identus-concepts.html#mediator">mediator</a> and register the <a href="#recipient-keys">recipient keys</a> for which the mediator should accept messages.</p>
+</dd>
+<dt><span id="correlation">Correlation</span></dt>
+<dd>
+<p>The linking of a person’s or organization’s activity across different contexts by means of a shared identifier or reused key. Public DIDs and reused DID Document material create correlation risk; <a href="#pairwise-did">pairwise DIDs</a> reduce it.</p>
+</dd>
+<dt><span id="cose">COSE</span></dt>
+<dd>
+<p>The CBOR-based family of cryptographic standards for signing and encryption — the binary counterpart to <a href="#jose">JOSE</a> — referenced by the W3C VC “Securing with JOSE/COSE” recommendation.</p>
+</dd>
+<dt><span id="credential-offer">Credential offer</span></dt>
+<dd>
+<p>A message from an <a href="#issuer">issuer</a> proposing to issue a specific credential to a <a href="#holder">holder</a>, which begins the <a href="#credential-issuance">credential issuance</a> flow.</p>
+</dd>
+<dt><span id="credential-issuance">Credential issuance</span></dt>
+<dd>
+<p>The protocol flow by which an issuer creates, signs, and delivers a <a href="#verifiable-credential">Verifiable Credential</a> into a holder’s wallet. In Identus this follows the Issue Credential protocol over DIDComm, or <a href="#openid4vci">OpenID4VCI</a>.</p>
+</dd>
+<dt><span id="credential-schema">Credential schema</span></dt>
+<dd>
+<p>A registered, shared definition of a credential type’s structure — its fields, types, and required attributes. Issuers issue against it, and verifiers and <a href="#verification-policy">verification policies</a> are scoped to it. Identus supports JSON Schema (for JWT/SD-JWT) and AnonCreds schemas.</p>
+</dd>
+<dt><span id="credential-status">credentialStatus</span></dt>
+<dd>
+<p>The property inside a revocable credential that points to its <a href="#status-list">status list</a> entry, allowing a verifier to discover whether the credential has been <a href="#revocation">revoked or suspended</a>. Defined by the W3C VC Data Model.</p>
+</dd>
+<dt><span id="did">Decentralized Identifier (DID)</span></dt>
+<dd>
+<p>A globally unique identifier that an entity controls without a central registrar. Defined by the <a href="#w3c">W3C</a> DID Core specification, a DID is a URI with three parts — the <code>did:</code> scheme, a <a href="#did-method">method</a> name, and a method-specific identifier — and it resolves to a <a href="#did-document">DID Document</a>.</p>
+</dd>
+<dt><span id="derivation-path">Derivation path</span></dt>
+<dd>
+<p>The deterministic path used together with a <a href="#wallet-seed">wallet seed</a> to regenerate a specific DID’s keys (hierarchical-deterministic key derivation). The Cloud Agent stores the path rather than the derived keys.</p>
+</dd>
+<dt><span id="did-controller">DID controller</span></dt>
+<dd>
+<p>The entity authorized, under a DID method’s rules, to change a <a href="#did-document">DID Document</a> (rotate keys, add services, deactivate). The controller may be the same as the <a href="#did-subject">DID subject</a> or a different entity acting on its behalf.</p>
+</dd>
+<dt><span id="did-document">DID Document</span></dt>
+<dd>
+<p>The document a DID resolves to. It publishes the public material needed to interact with the DID subject — <a href="#verification-method">verification methods</a>, <a href="#verification-relationship">verification relationships</a>, and <a href="#service-endpoint">service endpoints</a>. It should never contain private keys, secrets, or a personal profile.</p>
+</dd>
+<dt><span id="did-method">DID method</span></dt>
+<dd>
+<p>The scheme (the part after <code>did:</code>, such as <code>prism</code> or <code>peer</code>) that defines how a particular class of DID is created, resolved, updated, and deactivated. The W3C defines the shared data model; each method specification defines its own registry, operations, and lifecycle.</p>
+</dd>
+<dt><span id="did-peer"><code>did:peer</code></span></dt>
+<dd>
+<p>See <a href="#peer-did">Peer DID</a>.</p>
+</dd>
+<dt><span id="did-prism"><code>did:prism</code></span></dt>
+<dd>
+<p>See <a href="#prism-did">PRISM DID</a>.</p>
+</dd>
+<dt><span id="did-resolution">DID resolution</span></dt>
+<dd>
+<p>The process of looking up a DID and returning its <a href="#did-document">DID Document</a> plus resolution metadata. Performed by a <a href="#resolver">resolver</a> that understands the relevant DID method.</p>
+</dd>
+<dt><span id="didcomm">DIDComm (DIDComm Messaging V2)</span></dt>
+<dd>
+<p>A secure, encrypted, transport-agnostic messaging protocol for communication between DID-identified agents. DIDComm V2 (the version Identus uses) hides message content from everyone except authorized recipients, proves the sender in authenticated mode, and works over any transport (HTTP, WebSockets, Bluetooth, and so on).</p>
+</dd>
+<dt><span id="didpair">DIDPair</span></dt>
+<dd>
+<p>The cryptographic pairing of a sender DID and a recipient DID that together identify a DIDComm channel. A <a href="section1/identus-concepts.html#mediator">mediator</a> maintains a message queue per DIDPair.</p>
+</dd>
+<dt><span id="dif">DIF (Decentralized Identity Foundation)</span></dt>
+<dd>
+<p>An industry organization that develops decentralized-identity standards, including DIDComm and Presentation Exchange.</p>
+</dd>
+<dt><span id="presentation-exchange">DIF Presentation Exchange</span></dt>
+<dd>
+<p>A DIF specification for expressing what proof a verifier requires and how a holder’s wallet responds. The Identus Cloud Agent implements it for credential requests and submissions.</p>
+</dd>
+<dt><span id="disclosure">Disclosure (SD-JWT)</span></dt>
+<dd>
+<p>In an <a href="#sd-jwt">SD-JWT</a> credential, the salted claim value a holder reveals at presentation time so the verifier can hash it and match it against the signed digest in the credential. Undisclosed claims stay hidden.</p>
+</dd>
+<dt><span id="edge-agent">Edge Agent</span></dt>
+<dd>
+<p>An Identus agent that runs inside a user-facing application (web, mobile, desktop), implemented as an <a href="#edge-sdk">SDK</a>. Unlike a <a href="section1/identus-concepts.html#cloud-agent">Cloud Agent</a>, an Edge Agent cannot be assumed to be online and relies on a <a href="section1/identus-concepts.html#mediator">mediator</a> to send and receive messages. Edge Agents typically act as the user’s <a href="#wallet">wallet</a>.</p>
+</dd>
+<dt><span id="edge-sdk">Edge SDK</span></dt>
+<dd>
+<p>The Identus client libraries — available in TypeScript, Swift, and Kotlin Multiplatform — that embed <a href="section1/identus-concepts.html#edge-agent">Edge Agent</a> capabilities into an application. They implement the same <a href="section1/identus-concepts.html#building-blocks">building blocks</a> as the Cloud Agent.</p>
+</dd>
+<dt><span id="ecosystem">Ecosystem</span></dt>
+<dd>
+<p>A community of participants operating under a shared <a href="#governance-framework">governance framework</a> within which trust relationships and authorizations are defined. A <a href="#trust-registry">Trust Registry</a> answers questions about authority within a specific ecosystem.</p>
+</dd>
+<dt><span id="ed25519">Ed25519</span></dt>
+<dd>
+<p>A widely used elliptic-curve digital-signature algorithm and key type, used for authentication and credential signing (for example, required for SD-JWT issuer and holder keys in Identus).</p>
+</dd>
+<dt><span id="entity">Entity</span></dt>
+<dd>
+<p>In the Cloud Agent, the administrative object that represents a <a href="#tenant">tenant</a> and is bound to a <a href="#wallet">wallet</a>. Authentication (an <a href="#api-key">API key</a> or Keycloak permission) is attached to an entity. In single-tenant mode a default entity (ID all-zeros) is used automatically.</p>
+</dd>
+<dt><span id="forward-message"><code>forward</code> message</span></dt>
+<dd>
+<p>A DIDComm routing message (from the <code>routing/2.0</code> protocol) that wraps an already-encrypted message for a final recipient inside an outer envelope addressed to a <a href="section1/identus-concepts.html#mediator">mediator</a>, so the mediator can route it without reading the inner content.</p>
+</dd>
+<dt><span id="governance-authority">Governance authority</span></dt>
+<dd>
+<p>The body that defines an <a href="#ecosystem">ecosystem’s</a> rules and maintains, or oversees, its <a href="#trust-registry">Trust Registry</a>.</p>
+</dd>
+<dt><span id="governance-framework">Governance framework</span></dt>
+<dd>
+<p>The set of rules, published by a <a href="#governance-authority">governance authority</a>, describing who may do what within an <a href="#ecosystem">ecosystem</a>. A <a href="#trust-registry">Trust Registry</a> is its runtime, queryable expression. Authority comes from the governance framework, not from the registry technology itself.</p>
+</dd>
+<dt><span id="hashicorp-vault">HashiCorp Vault</span></dt>
+<dd>
+<p>A secrets-management service that the Cloud Agent can use as its production <a href="#secret-storage">secret storage</a> backend for wallet seeds and key material, with per-wallet paths in multi-tenant deployments.</p>
+</dd>
+<dt><span id="holder">Holder</span></dt>
+<dd>
+<p>The role that receives <a href="#verifiable-credential">Verifiable Credentials</a>, stores them (usually in a <a href="#wallet">wallet</a>), and creates <a href="#verifiable-presentation">presentations</a> from them in response to verifier requests. The holder is often, but not always, the <a href="#subject">subject</a> of the credential.</p>
+</dd>
+<dt><span id="holder-binding">Holder binding</span></dt>
+<dd>
+<p>Cryptographic evidence that the party presenting a credential actually controls the key associated with the credential’s subject. See also <a href="#key-binding">key binding</a>.</p>
+</dd>
+<dt><span id="hyperledger-indy">Hyperledger Indy</span></dt>
+<dd>
+<p>A Hyperledger blockchain/SSI ecosystem from which the <a href="section3/verifiable-credentials.html#anoncreds">AnonCreds</a> credential format originated.</p>
+</dd>
+<dt><span id="identus">Identus (Hyperledger Identus)</span></dt>
+<dd>
+<p>The open-source decentralized-identity platform this book is about, hosted under the Linux Foundation’s decentralized-trust umbrella. It provides the <a href="section1/identus-concepts.html#cloud-agent">Cloud Agent</a>, <a href="section1/identus-concepts.html#prism-node">PRISM Node</a>, <a href="#edge-sdk">Edge SDKs</a>, and <a href="section1/identus-concepts.html#mediator">Mediator</a> for issuing, holding, and verifying credentials.</p>
+</dd>
+<dt><span id="issue-credential">Issue Credential protocol</span></dt>
+<dd>
+<p>The DIDComm protocol (Issue Credential 3.0 in Identus) that governs the credential offer, request, and issuance message exchange between issuer and holder.</p>
+</dd>
+<dt><span id="issuer">Issuer</span></dt>
+<dd>
+<p>The role that makes <a href="#claim">claims</a> about a <a href="#subject">subject</a>, packages them as a <a href="#verifiable-credential">Verifiable Credential</a>, and cryptographically signs it. The issuer’s authority comes from the surrounding context — law, accreditation, contract, or governance.</p>
+</dd>
+<dt><span id="issuer-did">Issuer DID</span></dt>
+<dd>
+<p>A DID controlled by an <a href="#issuer">issuer</a> and used to sign the credentials it issues, so verifiers can resolve the issuer’s keys and check authorship. Issuer DIDs are typically public (<a href="#prism-did">PRISM DIDs</a>).</p>
+</dd>
+<dt><span id="jose">JOSE</span></dt>
+<dd>
+<p>The JSON-based family of cryptographic standards (JSON Web Signature, JSON Web Encryption, JSON Web Key, JSON Web Token) commonly used to secure credentials. See also <a href="#cose">COSE</a>.</p>
+</dd>
+<dt><span id="jwk">JSON Web Key (JWK)</span></dt>
+<dd>
+<p>A JSON format for representing a cryptographic key. DID Documents and DIDComm key material are often expressed as JWKs.</p>
+</dd>
+<dt><span id="jwt-vc">JWT-VC</span></dt>
+<dd>
+<p>A <a href="#verifiable-credential">Verifiable Credential</a> format that packages claims inside a signed JSON Web Token (JWT). A JWT-VC is generally presented whole, so all of its claims are revealed (no <a href="section3/verification.html#selective-disclosure">selective disclosure</a>).</p>
+</dd>
+<dt><span id="key-agreement">keyAgreement</span></dt>
+<dd>
+<p>A <a href="#verification-relationship">verification relationship</a> in a <a href="#did-document">DID Document</a> listing keys approved for key agreement — for example, establishing the encryption used by <a href="#didcomm">DIDComm</a>. Typically backed by an <a href="#x25519">X25519</a> key.</p>
+</dd>
+<dt><span id="key-binding">Key binding</span></dt>
+<dd>
+<p>Cryptographically tying a credential to a holder’s key so the holder can prove control of that key when presenting the credential. See also <a href="#holder-binding">holder binding</a> and <a href="#cnf">cnf</a>.</p>
+</dd>
+<dt><span id="keycloak">Keycloak</span></dt>
+<dd>
+<p>An identity and access-management server that Identus can integrate so that <a href="#tenant">tenants</a> authenticate via <a href="#oidc">OIDC</a> and receive wallet permissions via <a href="#uma">UMA</a>, replacing static API keys.</p>
+</dd>
+<dt><span id="ledger-anchoring">Ledger anchoring</span></dt>
+<dd>
+<p>Recording DID operations as transactions on a blockchain (such as <a href="#cardano">Cardano</a>) so they become tamper-evident and publicly resolvable.</p>
+</dd>
+<dt><span id="link-secret">Link secret</span></dt>
+<dd>
+<p>A holder-controlled secret used by <a href="section3/verifiable-credentials.html#anoncreds">AnonCreds</a> to bind issued credentials to the holder and to enable zero-knowledge proofs across multiple credentials.</p>
+</dd>
+<dt><span id="long-short-form">Long-form / Short-form PRISM DID</span></dt>
+<dd>
+<p>Two encodings of a <a href="#prism-did">PRISM DID</a>. The long form embeds the DID’s full initial state in the identifier and is resolvable before the DID is published. The short form is the compact identifier used once the DID has been <a href="#published-did">published</a> to the ledger.</p>
+</dd>
+<dt><span id="mediation">Mediation</span></dt>
+<dd>
+<p>The arrangement a holder’s wallet establishes with a <a href="section1/identus-concepts.html#mediator">mediator</a> so the mediator will receive and relay DIDComm messages on its behalf. It produces routing information the wallet then advertises in its DID Document.</p>
+</dd>
+<dt><span id="mediator">Mediator</span></dt>
+<dd>
+<p>A DIDComm V2 service that acts as a stable, always-online relay for agents — such as mobile wallets — that are not continuously reachable. It queues encrypted messages per <a href="#didpair">DIDPair</a> and delivers them when the recipient polls or connects, without being able to read the encrypted content. It is <em>not</em> a <a href="#vdr">VDR</a>.</p>
+</dd>
+<dt><span id="mercury">Mercury</span></dt>
+<dd>
+<p>The Identus <a href="section1/identus-concepts.html#building-blocks">building block</a> that provides the <a href="#didcomm">DIDComm</a> V2 interface for secure agent-to-agent messaging, independent of the underlying transport.</p>
+</dd>
+<dt><span id="message-pickup">Message Pickup</span></dt>
+<dd>
+<p>The DIDComm protocol (<code>messagepickup/3.0</code>) a wallet uses to poll a <a href="section1/identus-concepts.html#mediator">mediator</a> for queued messages, request their delivery, and confirm receipt.</p>
+</dd>
+<dt><span id="multi-tenancy">Multi-tenancy</span></dt>
+<dd>
+<p>A <a href="section1/identus-concepts.html#cloud-agent">Cloud Agent</a> mode in which a single agent instance hosts many isolated <a href="#tenant">tenants</a>, each with its own <a href="#wallet">wallet</a>, DIDs, credentials, and connections. The opposite is single-tenant mode, which serves one default wallet.</p>
+</dd>
+<dt><span id="neoprism">NeoPRISM</span></dt>
+<dd>
+<p>A newer DID-node backend for Identus, recommended for production, that can replace the legacy <a href="section1/identus-concepts.html#prism-node">PRISM Node</a> as the way <code>did:prism</code> operations are published and resolved.</p>
+</dd>
+<dt><span id="openid4vci">OpenID4VCI (OID4VCI)</span></dt>
+<dd>
+<p>OpenID for Verifiable Credential Issuance — an OAuth 2.0-based protocol for a wallet to obtain credentials from an issuer’s credential endpoint. An alternative issuance path to DIDComm.</p>
+</dd>
+<dt><span id="openid4vp">OpenID4VP</span></dt>
+<dd>
+<p>OpenID for Verifiable Presentations — an OAuth 2.0-based protocol for requesting and presenting credentials. An alternative presentation path to DIDComm.</p>
+</dd>
+<dt><span id="oidc">OIDC (OpenID Connect)</span></dt>
+<dd>
+<p>A standard authentication protocol layered on OAuth 2.0, used (via <a href="#keycloak">Keycloak</a>) to authenticate tenants and issue access tokens.</p>
+</dd>
+<dt><span id="oob-invitation">Out-of-Band (OOB) invitation</span></dt>
+<dd>
+<p>A self-contained DIDComm invitation — often delivered as a URL or QR code (carried in an <code>_oob</code> query parameter) — that lets a new party start a <a href="#connection">connection</a>, <a href="#mediation">mediation</a>, or a connectionless issuance/presentation without a pre-existing channel.</p>
+</dd>
+<dt><span id="pairwise-did">Pairwise DID</span></dt>
+<dd>
+<p>A DID created uniquely for a single relationship, so that each relationship uses a different pseudonymous identifier. Pairwise (relationship-specific) DIDs reduce <a href="#correlation">correlation</a> across contexts; <a href="#peer-did">Peer DIDs</a> are typically used this way.</p>
+</dd>
+<dt><span id="peer-did">Peer DID</span></dt>
+<dd>
+<p>A DID (method <code>did:peer</code>) shared privately between the parties to a relationship and not published to any public ledger. Identus uses Peer DIDs for <a href="#didcomm">DIDComm</a> connections and <a href="#mediation">mediation</a>, where relationship-specific identifiers reduce correlation.</p>
+</dd>
+<dt><span id="pluto">Pluto</span></dt>
+<dd>
+<p>The Identus <a href="section1/identus-concepts.html#building-blocks">building block</a> that defines the storage interface for identity data (DIDs, keys, credentials, connection state). The application supplies the concrete storage implementation.</p>
+</dd>
+<dt><span id="pollux">Pollux</span></dt>
+<dd>
+<p>The Identus <a href="section1/identus-concepts.html#building-blocks">building block</a> (and Cloud Agent subsystem) responsible for <a href="#verifiable-credential">Verifiable Credential</a> operations — issuance, verification, <a href="section3/verification.html#selective-disclosure">selective disclosure</a>, and <a href="#status-list">credential status</a>.</p>
+</dd>
+<dt><span id="predicate-proof">Predicate proof</span></dt>
+<dd>
+<p>A proof that an attribute satisfies a condition (for example, <code>age &gt;= 21</code>) without disclosing the underlying value. A core feature of <a href="section3/verifiable-credentials.html#anoncreds">AnonCreds</a> and <a href="#zero-knowledge-proof">zero-knowledge proofs</a>.</p>
+</dd>
+<dt><span id="presentation-request">Presentation request</span></dt>
+<dd>
+<p>A message (also called a proof request) in which a <a href="#verifier">verifier</a> specifies exactly what proof it needs from a holder. Carried by the Present Proof protocol.</p>
+</dd>
+<dt><span id="present-proof">Present Proof protocol</span></dt>
+<dd>
+<p>The DIDComm, format-neutral protocol (Present Proof 3.0 in Identus) that carries a <a href="#presentation-request">presentation request</a> from a verifier and a <a href="#verifiable-presentation">presentation</a> back from a holder.</p>
+</dd>
+<dt><span id="prism-did">PRISM DID</span></dt>
+<dd>
+<p>A DID using Identus’s <code>did:prism</code> method, whose create, update, and deactivate operations are anchored to the <a href="#cardano">Cardano</a> ledger via <a href="section1/identus-concepts.html#prism-node">PRISM Node</a>. PRISM DIDs suit public issuer and verifier identities that need ledger-backed resolution. See also <a href="#long-short-form">long-form / short-form</a>.</p>
+</dd>
+<dt><span id="prism-node">PRISM Node</span></dt>
+<dd>
+<p>The Identus component that implements the <code>did:prism</code> method, acting as a second-layer node over the ledger. It publishes and resolves PRISM DIDs, maintaining an indexed internal state synchronized with the underlying blockchain. It serves as the <a href="#vdr">VDR</a> for PRISM DIDs and is expected to be online at all times.</p>
+</dd>
+<dt><span id="published-did">Published DID</span></dt>
+<dd>
+<p>A DID whose operations have been anchored to the ledger so that any party can resolve it. Contrasted with an unpublished DID — for example, a holder usually does not need to publish their DID, whereas an issuer typically must.</p>
+</dd>
+<dt><span id="recipient-keys">Recipient keys</span></dt>
+<dd>
+<p>The keys a wallet registers with a <a href="section1/identus-concepts.html#mediator">mediator</a> so the mediator knows which incoming messages to queue for that recipient.</p>
+</dd>
+<dt><span id="relying-party">Relying party</span></dt>
+<dd>
+<p>The party that consumes a verification result and applies business and trust policy — accepted issuers, schemas, and credential types — to decide whether to act. Often the same actor as the <a href="#verifier">verifier</a>.</p>
+</dd>
+<dt><span id="resolver">Resolver</span></dt>
+<dd>
+<p>Software that performs <a href="#did-resolution">DID resolution</a>: given a DID, it returns the <a href="#did-document">DID Document</a>. A <a href="#universal-resolver">Universal Resolver</a> routes many methods to method-specific drivers. Resolver choice is itself a trust decision.</p>
+</dd>
+<dt><span id="revocation">Revocation / Suspension</span></dt>
+<dd>
+<p>Invalidating a previously issued credential — permanently (revocation) or temporarily (suspension) — before its natural expiry. The change is reflected through a <a href="#status-list">status list</a> that verifiers check via <a href="#credential-status">credentialStatus</a>.</p>
+</dd>
+<dt><span id="sd-jwt">SD-JWT / SD-JWT-VC</span></dt>
+<dd>
+<p>Selective Disclosure JWT — a JWT variant that uses salted hashes (digests) so a holder can reveal only selected claims while the verifier checks each disclosed value against the signed digest. SD-JWT-VC is the Verifiable Credential format built on it. Supported by Identus. See <a href="#disclosure">disclosure</a> and <a href="#cnf">cnf</a>.</p>
+</dd>
+<dt><span id="secp256k1">secp256k1</span></dt>
+<dd>
+<p>An elliptic-curve key and signature algorithm (also used by Bitcoin and Cardano) supported by Identus for certain credential and status-list proofs.</p>
+</dd>
+<dt><span id="secret-storage">Secret storage</span></dt>
+<dd>
+<p>The Cloud Agent’s configurable store for wallet seeds and private keys. A <code>postgres</code> backend stores secrets in plaintext (lab use only); a <a href="#hashicorp-vault">HashiCorp Vault</a> backend is recommended for production.</p>
+</dd>
+<dt><span id="selective-disclosure">Selective disclosure</span></dt>
+<dd>
+<p>A holder’s ability to reveal only the specific claims a verifier needs, rather than an entire credential — for example, proving “over 21” without revealing a full birth date. It depends on the credential format (<a href="#sd-jwt">SD-JWT</a> and <a href="section3/verifiable-credentials.html#anoncreds">AnonCreds</a> support it; plain <a href="#jwt-vc">JWT-VC</a> does not) and supports the practice of data minimization.</p>
+</dd>
+<dt><span id="ssi">Self-Sovereign Identity (SSI)</span></dt>
+<dd>
+<p>A model of digital identity built around user-held credentials and cryptographic proofs rather than a central identity provider. A subject receives a credential from an <a href="#issuer">issuer</a>, stores it as a <a href="#holder">holder</a>, and presents proof to a <a href="#verifier">verifier</a> who checks it against its own policy. SSI changes the custody and exchange of identity data; governance, law, and reputation still shape trust.</p>
+</dd>
+<dt><span id="service-endpoint">Service endpoint</span></dt>
+<dd>
+<p>An entry in a <a href="#did-document">DID Document</a> advertising where and how to interact with the DID subject — for example, a <code>DIDCommMessaging</code> endpoint that names the URL, accepted DIDComm profile, and routing keys.</p>
+</dd>
+<dt><span id="status-list">Status list</span></dt>
+<dd>
+<p>A published, space-efficient revocation mechanism (such as a Bitstring Status List / StatusList2021) in which each bit represents the <a href="#revocation">revocation or suspension</a> status of one credential. A verifier reads the bit referenced by a credential’s <a href="#credential-status">credentialStatus</a>. In Identus this is provided by <a href="#pollux">Pollux</a>.</p>
+</dd>
+<dt><span id="subject">Subject</span></dt>
+<dd>
+<p>The person, organization, device, account, or thing that a credential’s <a href="#claim">claims</a> describe. The subject is often the <a href="#holder">holder</a> but need not be — a parent may hold a credential about a child, or a fleet manager about a device.</p>
+</dd>
+<dt><span id="tenant">Tenant</span></dt>
+<dd>
+<p>A logical user or organization served by a <a href="section1/identus-concepts.html#cloud-agent">Cloud Agent</a>, represented by an <a href="#entity">entity</a> and backed by an isolated <a href="#wallet">wallet</a>. See <a href="#multi-tenancy">multi-tenancy</a>.</p>
+</dd>
+<dt><span id="toip">ToIP (Trust over IP Foundation)</span></dt>
+<dd>
+<p>A Linux Foundation body developing standards for decentralized digital trust, including the ToIP Stack (a layered model of DIDs, DIDComm, data-exchange protocols, and application ecosystems) and the <a href="#trqp">Trust Registry Query Protocol</a>.</p>
+</dd>
+<dt><span id="triangle-of-trust">Triangle of Trust</span></dt>
+<dd>
+<p>A common way of describing the three SSI roles — <a href="#issuer">issuer</a>, <a href="#holder">holder</a>, and <a href="#verifier">verifier</a> — and the credential/presentation flows between them. The roles are interaction-specific: the same entity can issue one credential, hold another, and verify a third.</p>
+</dd>
+<dt><span id="trqp">TRQP (Trust Registry Query Protocol)</span></dt>
+<dd>
+<p>A <a href="#toip">ToIP</a> read-only protocol for asking a <a href="#trust-registry">Trust Registry</a> whether an entity holds a given authorization under a given ecosystem’s governance — in plain terms, “Does entity X hold authorization Y under governance framework Z?” Sometimes described as “DNS for trust registries.”</p>
+</dd>
+<dt><span id="trust-registry">Trust Registry</span></dt>
+<dd>
+<p>An authoritative, governed, machine-readable record of which entities are authorized to play which roles in an <a href="#ecosystem">ecosystem</a>. A verifier queries it to confirm an issuer’s <em>authority</em> — a separate question from the cryptographic <em>validity</em> of a credential. A Trust Registry is not a <a href="#certificate-authority">Certificate Authority</a> and is not a <a href="#vdr">VDR</a>.</p>
+</dd>
+<dt><span id="trusted-issuers">Trusted issuers</span></dt>
+<dd>
+<p>The set of <a href="#issuer-did">issuer DIDs</a>, usually scoped to a <a href="#credential-schema">credential schema</a>, that a verifier accepts as authoritative. In Identus this is configured today in a <a href="#verification-policy">verification policy</a> and is the concept a <a href="#trust-registry">Trust Registry</a> generalizes.</p>
+</dd>
+<dt><span id="uma">UMA (User-Managed Access)</span></dt>
+<dd>
+<p>An OAuth 2.0-based authorization standard that <a href="#keycloak">Keycloak</a> uses to grant a subject permission to a specific Cloud Agent <a href="#wallet">wallet</a> resource, issuing a Requesting Party Token (RPT) the tenant presents to the agent.</p>
+</dd>
+<dt><span id="universal-resolver">Universal Resolver</span></dt>
+<dd>
+<p>A public <a href="#resolver">resolver</a> service able to resolve many different <a href="#did-method">DID methods</a> by routing each to a method-specific driver.</p>
+</dd>
+<dt><span id="validation">Validation</span></dt>
+<dd>
+<p>The verifier’s business-rule check on whether a credential is <em>appropriate</em> for a particular decision — for example, whether the issuer is acceptable under a hiring policy. Distinct from <a href="#verification">verification</a>: a credential can be cryptographically valid yet fail validation.</p>
+</dd>
+<dt><span id="verifiable-credential">Verifiable Credential (VC)</span></dt>
+<dd>
+<p>A set of <a href="#claim">claims</a> made by an <a href="#issuer">issuer</a>, secured with a cryptographic mechanism so that software can detect tampering and confirm authorship. Defined by the <a href="#w3c">W3C</a> Verifiable Credentials Data Model. The data model is separate from the credential format (see <a href="#jwt-vc">JWT-VC</a>, <a href="#sd-jwt">SD-JWT-VC</a>, <a href="section3/verifiable-credentials.html#anoncreds">AnonCreds</a>).</p>
+</dd>
+<dt><span id="vdr">Verifiable Data Registry (VDR)</span></dt>
+<dd>
+<p>A system — often a blockchain, but potentially a database, distributed network, or in-memory store — against which DIDs and related data are published and resolved, so that independent parties can verify authenticity and integrity without a central authority. Identus accesses VDRs through pluggable drivers (for example, the <a href="section1/identus-concepts.html#prism-node">PRISM Node</a> and <a href="#neoprism">NeoPRISM</a> drivers). A <a href="section1/identus-concepts.html#mediator">mediator</a> is not a VDR.</p>
+</dd>
+<dt><span id="verifiable-presentation">Verifiable Presentation (VP)</span></dt>
+<dd>
+<p>Data derived from one or more <a href="#verifiable-credential">Verifiable Credentials</a> and shared with a specific <a href="#verifier">verifier</a> in response to a request. Depending on the credential format, a presentation can include a whole credential, parts of one (see <a href="section3/verification.html#selective-disclosure">selective disclosure</a>), or data from several.</p>
+</dd>
+<dt><span id="verification">Verification</span></dt>
+<dd>
+<p>The technical check that a credential or presentation is cryptographically sound: valid signatures, correctly resolved issuer keys, proper key usage (<a href="#verification-relationship">verification relationships</a>), current <a href="#status-list">status</a>, and <a href="#holder-binding">holder binding</a>. Distinct from <a href="#validation">validation</a>, which applies business policy.</p>
+</dd>
+<dt><span id="verification-method">Verification method</span></dt>
+<dd>
+<p>An entry in a <a href="#did-document">DID Document</a> that specifies a public key (for example as a <a href="#jwk">JWK</a>), its type, and its controller. Verification methods are referenced by <a href="#verification-relationship">verification relationships</a> for specific purposes.</p>
+</dd>
+<dt><span id="verification-policy">Verification policy</span></dt>
+<dd>
+<p>The verifier-side configuration in Identus expressing which <a href="#credential-schema">credential schemas</a> and <a href="#trusted-issuers">trusted issuers</a> are accepted. Applied after cryptographic checks, it is the practical form of acceptance policy / <a href="#validation">validation</a>.</p>
+</dd>
+<dt><span id="verification-relationship">Verification relationship</span></dt>
+<dd>
+<p>The association in a <a href="#did-document">DID Document</a> between a <a href="#verification-method">verification method</a> and a permitted purpose — <a href="#authentication">authentication</a>, <a href="#assertion-method">assertionMethod</a>, <a href="#key-agreement">keyAgreement</a>, <code>capabilityInvocation</code>, or <code>capabilityDelegation</code>. These relationships prevent a key from being reused across proof purposes.</p>
+</dd>
+<dt><span id="verifier">Verifier</span></dt>
+<dd>
+<p>The role that requests a <a href="#verifiable-presentation">presentation</a> from a holder and decides whether to accept it, performing both <a href="#verification">verification</a> (cryptographic checks) and <a href="#validation">validation</a> (business policy). See also <a href="#relying-party">relying party</a>.</p>
+</dd>
+<dt><span id="wallet">Wallet</span></dt>
+<dd>
+<p>In SSI, software that stores and protects a party’s DIDs, keys, <a href="#connection">connections</a>, and credentials, and that creates presentations. In the Identus Cloud Agent, a wallet is also the unit of <a href="#tenant">tenant</a> isolation. A holder’s wallet is usually an <a href="section1/identus-concepts.html#edge-agent">Edge Agent</a>; a server-side wallet runs in a <a href="section1/identus-concepts.html#cloud-agent">Cloud Agent</a>. Distinct from a <a href="#cardano-wallet">Cardano Wallet</a>.</p>
+</dd>
+<dt><span id="wallet-seed">Wallet seed</span></dt>
+<dd>
+<p>The secret root key material from which a wallet deterministically derives its DID keys, via a stored <a href="#derivation-path">derivation path</a>. It is a high-value secret: losing it can permanently break the ability to use or update existing DIDs.</p>
+</dd>
+<dt><span id="webhook">Webhook</span></dt>
+<dd>
+<p>The HTTP callback mechanism by which the <a href="section1/identus-concepts.html#cloud-agent">Cloud Agent</a> notifies a <a href="#controller">controller</a> of state changes — a received connection, a credential issued or received, a presentation verified, and so on.</p>
+</dd>
+<dt><span id="x25519">X25519</span></dt>
+<dd>
+<p>An elliptic-curve key type used for Diffie-Hellman key agreement to set up the encryption used by <a href="#didcomm">DIDComm</a>. Appears in DID Documents under the <a href="#key-agreement">keyAgreement</a> relationship.</p>
+</dd>
+<dt><span id="zero-knowledge-proof">Zero-knowledge proof (ZKP)</span></dt>
+<dd>
+<p>A cryptographic technique that proves a statement is true without revealing the underlying data. The basis of <a href="section3/verifiable-credentials.html#anoncreds">AnonCreds</a> <a href="#predicate-proof">predicate proofs</a> such as “over 21” without disclosing a birth date.</p>
 </dd>
 </dl>
 

@@ -86,13 +86,3 @@ The integration with mediators is particularly important in the Identus architec
 At the moment of writing this chapter Identus supports DIDComm over HTTP endpoints by polling, which is by far the most tested and stable implementation, but also via WebSockets enabled as a feature flag in the Cloud Agent.
 
 For details on how messages are sent and received in Identus via mediators, see [Chapter @sec-mediator].
-
-## Example Project
-
-### Swift SDK
-
-TODO: Example code for send/receive DIDCOMM messages on Swift SDK
-
-### TypeScript SDK
-
-TODO: Example code for send/receive DIDCOMM messages on TypeScript SDK

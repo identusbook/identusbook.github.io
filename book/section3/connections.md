@@ -358,17 +358,3 @@ When an issuer or verifier intends to offer or request proof this way, they gene
 The key here is that the OOB invitation itself contains enough information, or points to it, for the holder's agent to proceed with requesting the credential offer from the issuer or presenting proof to a verifier. This bypasses the need for a separate, preliminary connection handshake. The issuer or verifier, upon receiving a request derived from this OOB invitation, can then proceed to send the actual credential offer or proof request.
 
 From the holder's acceptance of the offer onwards, the subsequent steps closely mirror those in a standard issuance and proof request protocols. The primary efficiency and distinction of the connectionless approach are concentrated at the beginning of the interaction, enabling a quicker, more direct path when a persistent connection is not a prerequisite. This makes it ideal for scenarios like anonymous attestations, one-time verifications, or public credential offerings where the overhead of establishing and managing connections for every holder is impractical.
-
-## Example Project
-
-### Cloud Agent
-
-TODO: Instructions on how to create an invite on Cloud Agent.
-
-### Swift SDK
-
-TODO: Example code to parse invites on Swift SDK
-
-### TypeScript SDK
-
-TODO: Example code to parse invites on TypeScript SDK

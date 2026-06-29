@@ -407,12 +407,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#out-of-band-invites" id="toc-out-of-band-invites" class="nav-link" data-scroll-target="#out-of-band-invites"><span class="header-section-number">15.4</span> Out of Band invites</a></li>
   <li><a href="#connecting-two-peers" id="toc-connecting-two-peers" class="nav-link" data-scroll-target="#connecting-two-peers"><span class="header-section-number">15.5</span> Connecting two peers</a></li>
   <li><a href="#connectionless-credential-presentations-and-issuance" id="toc-connectionless-credential-presentations-and-issuance" class="nav-link" data-scroll-target="#connectionless-credential-presentations-and-issuance"><span class="header-section-number">15.6</span> Connectionless Credential Presentations and Issuance</a></li>
-  <li><a href="#example-project" id="toc-example-project" class="nav-link" data-scroll-target="#example-project"><span class="header-section-number">15.7</span> Example Project</a>
-  <ul class="collapse">
-  <li><a href="#cloud-agent" id="toc-cloud-agent" class="nav-link" data-scroll-target="#cloud-agent"><span class="header-section-number">15.7.1</span> Cloud Agent</a></li>
-  <li><a href="#swift-sdk" id="toc-swift-sdk" class="nav-link" data-scroll-target="#swift-sdk"><span class="header-section-number">15.7.2</span> Swift SDK</a></li>
-  <li><a href="#typescript-sdk" id="toc-typescript-sdk" class="nav-link" data-scroll-target="#typescript-sdk"><span class="header-section-number">15.7.3</span> TypeScript SDK</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -749,23 +743,8 @@ Note
 <p>When an issuer or verifier intends to offer or request proof this way, they generate an OOB invitation. This invitation is essentially a self-contained message or a reference (like a URL or QR code) that the holder can receive through various means (QR code, email, a website, etc). Upon parsing this OOB invitation, the holder’s agent can immediately understand the intent to offer or proof a credential.</p>
 <p>The key here is that the OOB invitation itself contains enough information, or points to it, for the holder’s agent to proceed with requesting the credential offer from the issuer or presenting proof to a verifier. This bypasses the need for a separate, preliminary connection handshake. The issuer or verifier, upon receiving a request derived from this OOB invitation, can then proceed to send the actual credential offer or proof request.</p>
 <p>From the holder’s acceptance of the offer onwards, the subsequent steps closely mirror those in a standard issuance and proof request protocols. The primary efficiency and distinction of the connectionless approach are concentrated at the beginning of the interaction, enabling a quicker, more direct path when a persistent connection is not a prerequisite. This makes it ideal for scenarios like anonymous attestations, one-time verifications, or public credential offerings where the overhead of establishing and managing connections for every holder is impractical.</p>
-</section>
-<section id="example-project" class="level2" data-number="15.7">
-<h2 data-number="15.7" class="anchored" data-anchor-id="example-project"><span class="header-section-number">15.7</span> Example Project</h2>
-<section id="cloud-agent" class="level3" data-number="15.7.1">
-<h3 data-number="15.7.1" class="anchored" data-anchor-id="cloud-agent"><span class="header-section-number">15.7.1</span> Cloud Agent</h3>
-<p>TODO: Instructions on how to create an invite on Cloud Agent.</p>
-</section>
-<section id="swift-sdk" class="level3" data-number="15.7.2">
-<h3 data-number="15.7.2" class="anchored" data-anchor-id="swift-sdk"><span class="header-section-number">15.7.2</span> Swift SDK</h3>
-<p>TODO: Example code to parse invites on Swift SDK</p>
-</section>
-<section id="typescript-sdk" class="level3" data-number="15.7.3">
-<h3 data-number="15.7.3" class="anchored" data-anchor-id="typescript-sdk"><span class="header-section-number">15.7.3</span> TypeScript SDK</h3>
-<p>TODO: Example code to parse invites on TypeScript SDK</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

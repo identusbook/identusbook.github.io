@@ -40,6 +40,16 @@
     ]
   },
   {
+    "objectID": "dedication.html",
+    "href": "dedication.html",
+    "title": "3  Dedication",
+    "section": "",
+    "text": "We dedicate this book to the many contributors, at Input/Output, Hyperledger, LF Decentralized Trust, and community at large who have made this software what it is today.\nYour work is appreicated, thank you!",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Dedication</span>"
+    ]
+  },
+  {
     "objectID": "preface.html",
     "href": "preface.html",
     "title": "4  Preface",

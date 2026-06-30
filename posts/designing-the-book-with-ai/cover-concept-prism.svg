@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900" viewBox="0 0 600 900" role="img" aria-label="Mastering Identus book cover concept, prism dispersion theme">
+  <defs>
+    <linearGradient id="pbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c1326"/>
+      <stop offset="0.55" stop-color="#080d1c"/>
+      <stop offset="1" stop-color="#04060d"/>
+    </linearGradient>
+
+    <!-- rainbow across the dispersion fan -->
+    <linearGradient id="spectrum" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.00" stop-color="#ff3b46"/>
+      <stop offset="0.20" stop-color="#ff8a3c"/>
+      <stop offset="0.40" stop-color="#ffe14a"/>
+      <stop offset="0.60" stop-color="#46e07a"/>
+      <stop offset="0.80" stop-color="#3aa6ff"/>
+      <stop offset="1.00" stop-color="#8a5dff"/>
+    </linearGradient>
+
+    <!-- title fill reuses the spectrum, left-to-right -->
+    <linearGradient id="spectrumH" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0.00" stop-color="#ff5a63"/>
+      <stop offset="0.30" stop-color="#ffc24a"/>
+      <stop offset="0.55" stop-color="#46e07a"/>
+      <stop offset="0.80" stop-color="#3aa6ff"/>
+      <stop offset="1.00" stop-color="#9a6dff"/>
+    </linearGradient>
+
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="0.5" stop-color="#9fb4d8" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.12"/>
+    </linearGradient>
+
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+    <filter id="beamblur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.4"/>
+    </filter>
+  </defs>
+
+  <rect width="600" height="900" fill="url(#pbg)"/>
+
+  <!-- dispersed spectrum fan: blurred glow underneath, crisp on top -->
+  <g opacity="0.95">
+    <polygon points="346,300 600,232 600,486" fill="url(#spectrum)" opacity="0.55" filter="url(#soft)"/>
+    <polygon points="346,300 600,250 600,470" fill="url(#spectrum)"/>
+  </g>
+
+  <!-- incoming white beam -->
+  <line x1="36" y1="250" x2="268" y2="255" stroke="#eaf2ff" stroke-width="3.2" filter="url(#beamblur)"/>
+  <line x1="36" y1="250" x2="268" y2="255" stroke="#ffffff" stroke-width="1.6"/>
+  <!-- internal ray -->
+  <line x1="268" y1="255" x2="346" y2="300" stroke="#ffffff" stroke-width="1.4" opacity="0.85"/>
+
+  <!-- prism -->
+  <polygon points="300,150 235,360 365,360" fill="url(#glass)" stroke="#cdd9f2" stroke-width="2.6" stroke-linejoin="round"/>
+  <!-- bright entry/exit edge highlights -->
+  <line x1="300" y1="150" x2="235" y2="360" stroke="#ffffff" stroke-width="1.4" opacity="0.5"/>
+  <line x1="300" y1="150" x2="365" y2="360" stroke="#aebfe0" stroke-width="1.2" opacity="0.4"/>
+
+  <!-- title -->
+  <text x="300" y="500" text-anchor="middle" fill="#f4f7fb" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="700" letter-spacing="2">MASTERING</text>
+  <text x="300" y="572" text-anchor="middle" fill="url(#spectrumH)" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="700" letter-spacing="2">IDENTUS</text>
+
+  <text x="300" y="624" text-anchor="middle" fill="#7f8aa0" font-family="'Courier New', monospace" font-size="20" letter-spacing="3">did:prism</text>
+
+  <line x1="225" y1="654" x2="375" y2="654" stroke="#3aa6ff" stroke-width="2"/>
+
+  <text x="300" y="700" text-anchor="middle" fill="#c4ccd8" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="1">A Developer Handbook for</text>
+  <text x="300" y="730" text-anchor="middle" fill="#c4ccd8" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="1">Decentralized Identity</text>
+
+  <text x="300" y="830" text-anchor="middle" fill="#8a94a6" font-family="Helvetica, Arial, sans-serif" font-size="20" letter-spacing="2">JON BAUER &amp; ROBERTO CARVAJAL</text>
+
+  <text x="300" y="60" text-anchor="middle" fill="#4a5870" font-family="Helvetica, Arial, sans-serif" font-size="13" letter-spacing="4">DRAFT CONCEPT</text>
+</svg>

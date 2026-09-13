@@ -2,7 +2,7 @@
 
 # Read the Book
 
-You can read the book here: [https://identusbook.com/book/](https://identusbook.com/book/) 
+You can read the book here: [https://identusbook.com/book/](https://identusbook.com/book/)
 
 # Example Applications
 

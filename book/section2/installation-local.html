@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -76,10 +79,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-eaa34da2ee74a03fa3a7673f1be1cfd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4882f93b36e2f024d701cb1d811d6096.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -504,6 +507,16 @@ Warning
 </div>
 </div>
 <p>The <code>PORT</code> values expose the two REST APIs on different host ports. The <code>PG_PORT</code> values prevent the two PostgreSQL containers from binding to the same host port. The <code>NETWORK=identus</code> value is retained from the official Quick Start configuration; the current local Compose file creates the runtime network from the named Compose project.</p>
+<figure id="d05-local-agent-stacks" aria-label="Two local Cloud Agent instances" class="figure">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"> <style> #d05-local-agent-stacks { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d05-local-agent-stacks svg { display: block; width: 100%; height: auto; } #d05-local-agent-stacks svg text { font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d05-local-agent-stacks svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, ‘Liberation Mono’, ‘Courier New’, monospace; } #d05-local-agent-stacks figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; } </style> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 960 896" role="img" aria-labelledby="d05-local-agent-stacks-title d05-local-agent-stacks-desc">
+<title id="d05-local-agent-stacks-title">
+Two local Cloud Agent instances
+</title>
+<desc id="d05-local-agent-stacks-desc">The controller reaches separate issuer and verifier Docker Compose projects through host ports 8000 and 9000; each project has APISIX, Cloud Agent, PostgreSQL, PRISM Node, and Vault, with distinct host database ports 5432 and 5433.</desc> <defs> <marker id="d05-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker> </defs> <rect width="960" height="896" fill="#ffffff"></rect> <text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Two local Cloud Agent instances</text> <text x="40" y="80" fill="#56616b" font-size="20">Separate Compose projects on one development machine</text> <g fill="#ffffff" stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6"> <rect x="40" y="320" width="408" height="496" rx="4"></rect> <rect x="512" y="320" width="408" height="496" rx="4"></rect> </g> <g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d05-arrow)"> <path d="M400 192 V272 Q400 280 392 280 H252 Q244 280 244 288 V384"></path> <path d="M560 192 V272 Q560 280 568 280 H708 Q716 280 716 288 V384"></path> <path d="M244 448 V512"></path> <path d="M716 448 V512"></path> <path d="M244 584 V648"></path> <path d="M716 584 V648"></path> </g> <rect x="360" y="112" width="240" height="80" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <text x="480" y="144" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Controller</text> <text x="480" y="172" fill="#56616b" font-size="16" text-anchor="middle">REST requests</text> <rect x="108" y="212" width="272" height="60" fill="#ffffff"></rect> <text class="technical" x="244" y="236" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">localhost:8000</text> <text class="technical" x="244" y="264" fill="#56616b" font-size="16" text-anchor="middle">/cloud-agent/</text> <text x="64" y="348" fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">COMPOSE PROJECT</text> <text class="technical" x="64" y="376" fill="#212529" font-size="24" font-weight="600">issuer</text> <rect x="88" y="384" width="312" height="64" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <text x="244" y="412" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">APISIX</text> <text class="technical" x="244" y="436" fill="#56616b" font-size="16" text-anchor="middle">Host :8000 → container :9080</text> <rect x="256" y="468" width="112" height="28" fill="#ffffff"></rect> <text class="technical" x="264" y="488" fill="#56616b" font-size="16">HTTP :8085</text> <rect x="88" y="512" width="312" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <text x="244" y="544" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud Agent</text> <text class="technical" x="244" y="572" fill="#56616b" font-size="16" text-anchor="middle">2.0.0</text> <rect x="256" y="604" width="112" height="28" fill="#ffffff"></rect> <text class="technical" x="264" y="624" fill="#56616b" font-size="16">SQL :5432</text> <rect x="88" y="648" width="312" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"></rect> <text x="244" y="680" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">PostgreSQL</text> <text class="technical" x="244" y="708" fill="#56616b" font-size="16" text-anchor="middle">Host :5432 → container :5432</text> <path d="M64 744 H424" stroke="#dce1e4" stroke-width="1"></path> <text x="64" y="772" fill="#212529" font-size="16" font-weight="600">Supporting services in this project</text> <text x="64" y="800" fill="#56616b" font-size="16">PRISM Node 2.6.0 · Vault · Swagger UI</text> <rect x="580" y="212" width="272" height="60" fill="#ffffff"></rect> <text class="technical" x="716" y="236" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">localhost:9000</text> <text class="technical" x="716" y="264" fill="#56616b" font-size="16" text-anchor="middle">/cloud-agent/</text> <text x="536" y="348" fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">COMPOSE PROJECT</text> <text class="technical" x="536" y="376" fill="#212529" font-size="24" font-weight="600">verifier</text> <rect x="560" y="384" width="312" height="64" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <text x="716" y="412" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">APISIX</text> <text class="technical" x="716" y="436" fill="#56616b" font-size="16" text-anchor="middle">Host :9000 → container :9080</text> <rect x="728" y="468" width="112" height="28" fill="#ffffff"></rect> <text class="technical" x="736" y="488" fill="#56616b" font-size="16">HTTP :8085</text> <rect x="560" y="512" width="312" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <text x="716" y="544" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud Agent</text> <text class="technical" x="716" y="572" fill="#56616b" font-size="16" text-anchor="middle">2.0.0</text> <rect x="728" y="604" width="112" height="28" fill="#ffffff"></rect> <text class="technical" x="736" y="624" fill="#56616b" font-size="16">SQL :5432</text> <rect x="560" y="648" width="312" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"></rect> <text x="716" y="680" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">PostgreSQL</text> <text class="technical" x="716" y="708" fill="#56616b" font-size="16" text-anchor="middle">Host :5433 → container :5432</text> <path d="M536 744 H896" stroke="#dce1e4" stroke-width="1"></path> <text x="536" y="772" fill="#212529" font-size="16" font-weight="600">Supporting services in this project</text> <text x="536" y="800" fill="#56616b" font-size="16">PRISM Node 2.6.0 · Vault · Swagger UI</text> <path d="M40 848 H920" stroke="#dce1e4" stroke-width="1"></path> <text x="40" y="880" fill="#56616b" font-size="16">Host ports differ; container ports can repeat inside separate Compose networks.</text> </svg>
+<figcaption>
+The controller selects an instance through its host API port. Each Compose project starts its own agent, database, and supporting services. PostgreSQL exposes its host port on the loopback interface; the agent uses the database’s internal port.
+</figcaption>
+</figure>
 <p>Current Hyperledger Identus releases publish the Cloud Agent image on Docker Hub as <code>docker.io/hyperledgeridentus/identus-cloud-agent</code>. The older local README mentions <code>GITHUB_TOKEN</code> and <code>ghcr.io</code>; that note predates the Docker registry move recorded in Identus Platform <code>v2.15</code>.</p>
 </section>
 <section id="start-the-issuer-cloud-agent" class="level2" data-number="9.6">

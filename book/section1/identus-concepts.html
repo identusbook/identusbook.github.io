@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -41,10 +44,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-eaa34da2ee74a03fa3a7673f1be1cfd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4882f93b36e2f024d701cb1d811d6096.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -403,7 +406,16 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>[Identus Application Architecture Diagram]</p>
+<figure id="d04-identus-components" aria-label="Identus components and communication paths" class="figure">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"> <style> #d04-identus-components { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d04-identus-components svg { display: block; width: 100%; height: auto; } #d04-identus-components svg text { font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d04-identus-components svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, ‘Liberation Mono’, ‘Courier New’, monospace; } #d04-identus-components figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; } </style> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 960 744" role="img" aria-labelledby="d04-identus-components-title d04-identus-components-desc">
+<title id="d04-identus-components-title">
+Identus components and communication paths
+</title>
+<desc id="d04-identus-components-desc">A controller calls the Cloud Agent through REST; an Edge Agent wallet sends DIDComm messages to the Cloud Agent and retrieves incoming messages through a mediator; the Cloud Agent uses PRISM Node to publish and resolve DIDs against a registry.</desc> <defs> <marker id="d04-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker> </defs> <rect width="960" height="744" fill="#ffffff"></rect> <text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Identus components and communication paths</text> <text x="40" y="80" fill="#56616b" font-size="20">PRISM Node configuration with a mediated holder wallet</text> <g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d04-arrow)"> <path d="M232 232 H384"></path> <path d="M576 232 H728"></path> <path d="M136 512 V400 Q136 392 144 392 H424 Q432 392 432 384 V288"></path> <path d="M528 288 V512"></path> <path d="M384 576 H232" marker-start="url(#d04-arrow)"></path> <path d="M824 288 V512" marker-start="url(#d04-arrow)"></path> </g> <g fill="#ffffff"> <rect x="272" y="196" width="72" height="28"></rect> <rect x="584" y="172" width="136" height="52"></rect> <rect x="192" y="356" width="192" height="28"></rect> <rect x="540" y="412" width="144" height="52"></rect> <rect x="240" y="516" width="136" height="52"></rect> <rect x="620" y="356" width="192" height="56"></rect> </g> <g fill="#212529" font-size="20" font-weight="600" text-anchor="middle"> <text class="technical" x="308" y="216">REST</text> <text class="technical" x="652" y="192">gRPC</text> <text x="288" y="376">DIDComm · send</text> </g> <g fill="#56616b" font-size="16" text-anchor="middle"> <text x="652" y="216">Publish / resolve</text> <text class="technical" x="308" y="536">DIDComm</text> <text x="308" y="560">Pickup / delivery</text> </g> <text class="technical" x="548" y="432" fill="#212529" font-size="20" font-weight="600">DIDComm</text> <text x="548" y="456" fill="#56616b" font-size="16">Forward to wallet</text> <g fill="#56616b" font-size="16" text-anchor="end"> <text x="800" y="376">Publish operations</text> <text x="800" y="404">Read confirmed state</text> </g> <g stroke-width="1"> <rect x="40" y="176" width="192" height="112" rx="4" fill="#ffffff" stroke="#2c3e50"></rect> <rect x="384" y="176" width="192" height="112" rx="4" fill="#eefaf7" stroke="#18bc9c"></rect> <rect x="728" y="176" width="192" height="112" rx="4" fill="#ffffff" stroke="#2c3e50"></rect> <rect x="40" y="512" width="192" height="128" rx="4" fill="#eefaf7" stroke="#18bc9c"></rect> <rect x="384" y="512" width="192" height="128" rx="4" fill="#ffffff" stroke="#2c3e50"></rect> <rect x="728" y="512" width="192" height="128" rx="4" fill="#f0f3f4" stroke="#b8c2c8"></rect> </g> <g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle"> <text x="136" y="200">APPLICATION</text> <text x="480" y="200">SERVER</text> <text x="824" y="200">DID BACKEND</text> <text x="136" y="536">HOLDER DEVICE</text> <text x="480" y="536">MESSAGE RELAY</text> <text x="824" y="536">PUBLIC STATE</text> </g> <g fill="#212529" font-size="24" font-weight="600" text-anchor="middle"> <text x="136" y="232">Controller</text> <text x="480" y="232">Cloud Agent</text> <text x="824" y="232">PRISM Node</text> <text x="136" y="572">Edge Agent</text> <text x="480" y="572">Mediator</text> <text x="824" y="572">Registry</text> </g> <g fill="#56616b" font-size="16" text-anchor="middle"> <text x="136" y="264">Business logic</text> <text x="480" y="264">Issuer / verifier</text> <text x="824" y="264">Indexed DID state</text> <text x="136" y="600">Wallet application</text> <text x="136" y="624">Keys and credentials</text> <text x="480" y="600">Encrypted messages</text> <text x="480" y="624">Queue and delivery</text> <text x="824" y="600">Cardano</text> <text x="824" y="624">DID operations</text> </g> <path d="M40 680 H920" stroke="#dce1e4" stroke-width="1"></path> <text x="40" y="712" fill="#56616b" font-size="16">Arrows show requests and message delivery. Two-way paths include pickup or state retrieval.</text> </svg>
+<figcaption>
+The controller runs business logic through the Cloud Agent API. The wallet exchanges DIDComm messages with the Cloud Agent and retrieves incoming messages from the mediator. PRISM Node publishes DID operations and resolves DID state using the registry.
+</figcaption>
+</figure>
 <p>Identus is made up of several open source components. Each could be used or forked separately but they are designed to work well together.</p>
 <section id="prism-node" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="prism-node"><span class="header-section-number">8.1</span> PRISM Node</h2>

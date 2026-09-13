@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -41,10 +44,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-eaa34da2ee74a03fa3a7673f1be1cfd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4882f93b36e2f024d701cb1d811d6096.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -423,6 +426,16 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>These components are assembled into a JWM, which is then typically encrypted and/or signed according to the security requirements of the interaction. The resulting structure provides a consistent envelope format that can carry any type of content while ensuring its security and integrity.</p>
 <p>Each message contains a unique identifier and can reference other messages through threading mechanisms, enabling complex multi-message conversations. Messages also declare their type, which connects them to specific protocols that define the expected sequence and semantics of the interaction.</p>
+<figure id="d09-didcomm-envelope" aria-label="Inside a mediated DIDComm message" class="figure">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"> <style> #d09-didcomm-envelope { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d09-didcomm-envelope svg { display: block; width: 100%; height: auto; } #d09-didcomm-envelope svg text { font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d09-didcomm-envelope svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, ‘Liberation Mono’, ‘Courier New’, monospace; } #d09-didcomm-envelope figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; } </style> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 960 752" role="img" aria-labelledby="d09-didcomm-envelope-title d09-didcomm-envelope-desc">
+<title id="d09-didcomm-envelope-title">
+Inside a mediated DIDComm message
+</title>
+<desc id="d09-didcomm-envelope-desc">A message encrypted for the mediator contains forwarding instructions and an attachment encrypted for the recipient; the mediator reads the routing instructions, and the recipient decrypts the attachment to read the application message.</desc> <rect width="960" height="752" fill="#ffffff"></rect> <text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Inside a mediated DIDComm message</text> <text x="40" y="80" fill="#56616b" font-size="20">One mediator hop; encryption layers shown expanded</text> <rect x="40" y="144" width="880" height="512" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"></rect> <text x="64" y="172" fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">1 · ROUTING ENVELOPE</text> <text x="64" y="208" fill="#212529" font-size="24" font-weight="600">Encrypted for the mediator</text> <text x="64" y="240" fill="#56616b" font-size="20">The mediator decrypts this layer and reads the forwarding instructions.</text> <text class="technical" x="64" y="280" fill="#212529" font-size="16">type: https://didcomm.org/routing/2.0/forward</text> <text class="technical" x="64" y="308" fill="#212529" font-size="16">body.next: recipient DID or routing identifier</text> <rect x="72" y="336" width="816" height="288" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <text x="96" y="364" fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">2 · ENCRYPTED ATTACHMENT</text> <text x="96" y="400" fill="#212529" font-size="24" font-weight="600">Encrypted for the recipient</text> <text x="96" y="432" fill="#56616b" font-size="20">The mediator queues or forwards this ciphertext without reading its content.</text> <rect x="104" y="464" width="752" height="128" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <text x="128" y="492" fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">3 · APPLICATION MESSAGE</text> <text x="128" y="528" fill="#212529" font-size="24" font-weight="600">The recipient decrypts the attachment to read this message</text> <text class="technical" x="128" y="564" fill="#212529" font-size="16">id · type · body · attachments (optional)</text> <path d="M40 696 H920" stroke="#dce1e4" stroke-width="1"></path> <text x="40" y="728" fill="#56616b" font-size="16">The mediator reads the next routing destination. The recipient reads the application content.</text> </svg>
+<figcaption>
+The sender encrypts the application message for the recipient, attaches that ciphertext to a <code>forward</code> message, and encrypts the outer message for the mediator. The expanded layers show contents after each decryption step.
+</figcaption>
+</figure>
 </section>
 <section id="protocols" class="level2" data-number="14.4">
 <h2 data-number="14.4" class="anchored" data-anchor-id="protocols"><span class="header-section-number">14.4</span> Protocols</h2>

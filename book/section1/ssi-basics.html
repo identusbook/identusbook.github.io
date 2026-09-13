@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -41,10 +44,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-eaa34da2ee74a03fa3a7673f1be1cfd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4882f93b36e2f024d701cb1d811d6096.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -418,6 +421,16 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>Example: a university issues a degree credential to Alice. Alice receives the credential in her wallet and acts as holder. The degree describes Alice, making Alice the subject. An employer acts as verifier and requests proof that Alice has a computer science degree from an accredited university. Alice’s wallet creates a presentation from the credential. The employer’s software checks that the university signed the credential, that Alice can prove control of the holder keys required by the credential format, that the issuer has not suspended or revoked the credential, and that the university is accepted under the employer’s hiring policy.</p>
 <p>Policy evaluation is validation. Cryptographic verification can show that an issuer’s key secured the credential and that no one modified the credential after issuance. It cannot show that the issuer is acceptable for a particular decision. A diploma from an unknown training provider can pass cryptographic verification and still fail an employer’s policy. The W3C VC specification describes validation as the verifier’s business-rule check for whether a credential is proper for a particular use.</p>
+<figure id="d01-ssi-interaction" aria-label="The SSI interaction" class="figure">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"> <style> #d01-ssi-interaction { margin: 24px auto; max-width: 960px; color: #212529; font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d01-ssi-interaction svg { display: block; width: 100%; height: auto; } #d01-ssi-interaction svg text { font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d01-ssi-interaction figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; } </style> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 960 776" role="img" aria-labelledby="d01-ssi-interaction-title d01-ssi-interaction-desc">
+<title id="d01-ssi-interaction-title">
+The SSI interaction
+</title>
+<desc id="d01-ssi-interaction-desc">A university issues a degree credential to Alice, who stores it and approves an employer’s proof request before her wallet sends a presentation for technical checks and the employer’s acceptance policy.</desc> <defs> <marker id="d01-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker> <marker id="d01-arrow-accent" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#18bc9c"></path></marker> <marker id="d01-arrow-link" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#18bc9c"></path></marker> </defs> <rect width="960" height="776" fill="#ffffff"></rect> <g fill="#212529"> <text x="40" y="48" font-size="28" font-weight="600">The SSI interaction</text> <text x="40" y="80" font-size="20" fill="#56616b">A university degree, held by Alice and presented to an employer</text> </g> <g stroke="#b8c2c8" stroke-width="1" stroke-dasharray="4 4"> <path d="M160 176 V688"></path><path d="M456 176 V688"></path><path d="M752 176 V488"></path> </g> <g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d01-arrow)"> <path d="M160 240 H456"></path> <path d="M752 352 H456"></path> <path d="M752 552 V600"></path> </g> <path d="M456 464 H752" fill="none" stroke="#18bc9c" stroke-width="2" marker-end="url(#d01-arrow-accent)"></path> <g fill="#ffffff"> <rect x="216" y="200" width="184" height="32"></rect> <rect x="520" y="312" width="168" height="32"></rect> <rect x="504" y="424" width="200" height="32"></rect> <rect x="772" y="560" width="140" height="24"></rect> </g> <g fill="#212529" font-size="20" text-anchor="middle" font-weight="600"> <text x="308" y="224">CREDENTIAL</text> <text x="604" y="336">PROOF REQUEST</text> <text x="604" y="448">PRESENTATION</text> </g> <text x="780" y="580" fill="#56616b" font-size="16">If checks pass</text> <g fill="#ffffff" stroke="#2c3e50" stroke-width="1"> <rect x="80" y="112" width="160" height="64" rx="4"></rect> <rect x="376" y="112" width="160" height="64" rx="4"></rect> <rect x="672" y="112" width="160" height="64" rx="4"></rect> </g> <g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle"> <text x="160" y="132">ISSUER</text><text x="456" y="132">HOLDER</text><text x="752" y="132">VERIFIER</text> </g> <g fill="#212529" font-size="24" font-weight="600" text-anchor="middle"> <text x="160" y="160">University</text><text x="456" y="160">Alice</text><text x="752" y="160">Employer</text> </g> <g fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"> <rect x="328" y="264" width="256" height="40" rx="4"></rect> <rect x="328" y="376" width="256" height="40" rx="4"></rect> </g> <g fill="#212529" font-size="20" text-anchor="middle"> <text x="456" y="292">Wallet stores credential</text> <text x="456" y="404">Alice approves disclosure</text> </g> <rect x="600" y="488" width="304" height="64" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <text x="752" y="516" fill="#212529" font-size="20" text-anchor="middle" font-weight="600">Verifier checks the proof</text> <text x="752" y="540" fill="#56616b" font-size="16" text-anchor="middle">Issuer keys · holder binding · status</text> <rect x="600" y="600" width="304" height="80" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <text x="752" y="628" fill="#212529" font-size="20" text-anchor="middle" font-weight="600">Employer applies its policy</text> <text x="752" y="652" fill="#56616b" font-size="16" text-anchor="middle">Accepted university and degree</text> <text x="752" y="672" fill="#212529" font-size="16" text-anchor="middle" font-weight="600">Accept or reject</text> <rect x="64" y="528" width="432" height="72" fill="#ffffff"></rect> <g fill="#56616b" font-size="20"> <text x="80" y="556">The degree describes Alice.</text> <text x="80" y="584">She is both holder and subject.</text> </g> <path d="M40 712 H920" stroke="#dce1e4" stroke-width="1"></path> <text x="40" y="744" fill="#56616b" font-size="16">Read top to bottom. Dashed vertical lines track each role through the exchange.</text> </svg>
+<figcaption>
+The issuer supplies the credential; the holder supplies the presentation. The employer decides whether to accept it after technical checks.
+</figcaption>
+</figure>
 </section>
 <section id="dids-and-did-documents" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="dids-and-did-documents"><span class="header-section-number">6.3</span> DIDs and DID Documents</h2>

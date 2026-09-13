@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -76,10 +79,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-eaa34da2ee74a03fa3a7673f1be1cfd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4882f93b36e2f024d701cb1d811d6096.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -436,6 +439,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="10.1" class="anchored" data-anchor-id="the-cloud-agent-api"><span class="header-section-number">10.1</span> The Cloud Agent API</h2>
 <p>The local Cloud Agent exposes two public protocol surfaces through APISIX. Your controller application uses the REST API to create DIDs, register credential schemas, issue Verifiable Credentials, manage connection records, request presentations, and inspect protocol state. Other agents and wallets use the DIDComm endpoint to deliver encrypted agent messages.</p>
 <p>Those two surfaces share the same wallet state. A REST request changes or reads records in the Cloud Agent wallet. A DIDComm message may change the same records after the Cloud Agent processes an inbound connection, issuance, or presentation message. The <a href="https://github.com/hyperledger-identus/cloud-agent/blob/main/README.md">Cloud Agent README</a> describes this pattern as a controller that sends HTTP requests to the agent and processes webhook notifications from it.</p>
+<figure id="d06-api-wallet-state" aria-label="REST and DIDComm share wallet state" class="figure">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"> <style> #d06-api-wallet-state { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d06-api-wallet-state svg { display: block; width: 100%; height: auto; } #d06-api-wallet-state svg text { font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d06-api-wallet-state svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, ‘Liberation Mono’, ‘Courier New’, monospace; } #d06-api-wallet-state figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; } </style> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 960 832" role="img" aria-labelledby="d06-api-wallet-state-title d06-api-wallet-state-desc">
+<title id="d06-api-wallet-state-title">
+REST and DIDComm share wallet state
+</title>
+<desc id="d06-api-wallet-state-desc">APISIX routes controller REST requests and peer DIDComm messages to separate Cloud Agent endpoints that use the same wallet records, and the Cloud Agent sends configured webhook notifications to the controller when protocol state changes.</desc> <defs> <marker id="d06-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker> </defs> <rect width="960" height="832" fill="#ffffff"></rect> <text x="40" y="48" fill="#212529" font-size="28" font-weight="600">REST and DIDComm share wallet state</text> <text x="40" y="80" fill="#56616b" font-size="20">Two inbound routes and a configured notification path</text> <g fill="#ffffff" stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6"> <rect x="344" y="208" width="224" height="520" rx="4"></rect> <rect x="648" y="208" width="272" height="520" rx="4"></rect> </g> <g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d06-arrow)"> <path d="M240 288 H360"></path> <path d="M552 288 H672"></path> <path d="M240 624 H360"></path> <path d="M552 624 H672"></path> <path d="M784 336 V432"></path> <path d="M784 592 V544"></path> <path d="M848 208 V152 Q848 144 840 144 H144 Q136 144 136 152 V240" stroke-dasharray="6 6"></path> </g> <g fill="#ffffff"> <rect x="308" y="104" width="380" height="32"></rect> <rect x="264" y="252" width="72" height="28"></rect> <rect x="248" y="588" width="104" height="28"></rect> <rect x="560" y="252" width="104" height="28"></rect> <rect x="560" y="588" width="104" height="28"></rect> <rect x="796" y="368" width="112" height="28"></rect> <rect x="796" y="556" width="80" height="28"></rect> </g> <text x="496" y="128" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Webhook · protocol state change</text> <g fill="#212529" font-size="20" font-weight="600" text-anchor="middle"> <text x="300" y="272">REST</text> <text x="300" y="608">DIDComm</text> </g> <g fill="#56616b" font-size="16"> <text class="technical" x="612" y="272" text-anchor="middle">HTTP :8085</text> <text class="technical" x="612" y="608" text-anchor="middle">HTTP :8090</text> <text x="804" y="388">Read / write</text> <text x="804" y="576">Update</text> </g> <g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2"> <text x="360" y="232">APISIX</text> <text x="664" y="232">CLOUD AGENT</text> </g> <g fill="#ffffff" stroke="#2c3e50" stroke-width="1"> <rect x="40" y="240" width="200" height="96" rx="4"></rect> <rect x="40" y="592" width="200" height="96" rx="4"></rect> <rect x="360" y="240" width="192" height="96" rx="4"></rect> <rect x="360" y="592" width="192" height="96" rx="4"></rect> <rect x="672" y="240" width="224" height="96" rx="4"></rect> <rect x="672" y="592" width="224" height="96" rx="4"></rect> </g> <rect x="672" y="432" width="224" height="112" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <g fill="#212529" font-size="24" font-weight="600" text-anchor="middle"> <text x="140" y="280">Controller</text> <text x="140" y="632">Peer agent</text> <text x="784" y="280">REST API</text> <text x="784" y="632">DIDComm handler</text> <text x="784" y="464">Wallet records</text> </g> <g fill="#212529" font-size="20" font-weight="600" text-anchor="middle"> <text x="456" y="280">REST route</text> <text x="456" y="632">DIDComm route</text> </g> <g fill="#56616b" font-size="16" text-anchor="middle"> <text x="140" y="312">Requests and callbacks</text> <text x="140" y="664">Agent or holder wallet</text> <text class="technical" x="456" y="312">/cloud-agent/*</text> <text class="technical" x="456" y="664">/didcomm*</text> <text x="784" y="312">Run API operations</text> <text x="784" y="664">Process peer messages</text> <text x="784" y="496">Connections, credentials,</text> <text x="784" y="520">presentations and DIDs</text> <text x="784" y="716">Default wallet in local mode</text> </g> <path d="M40 768 H920" stroke="#dce1e4" stroke-width="1"></path> <text x="40" y="800" fill="#56616b" font-size="16">Solid arrows show requests and record access. The dashed arrow shows an asynchronous notification.</text> </svg>
+<figcaption>
+A controller API action can continue through later DIDComm messages that change the same protocol record. The Cloud Agent sends state-change events to the controller’s configured webhook endpoint.
+</figcaption>
+</figure>
 <p>The local stack from the previous chapter runs in single-tenant mode. In that mode, the Cloud Agent uses the default entity and the default wallet for REST API and DIDComm operations. The <a href="https://github.com/hyperledger-identus/docs/blob/main/documentation/develop/cloud-agent/authentication.md#default-entity-and-wallet">Cloud Agent authentication documentation</a> defines both IDs as <code>00000000-0000-0000-0000-000000000000</code>.</p>
 <p>You can confirm that default wallet initialization in the container logs:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> logs local-cloud-agent-1 <span class="kw">|</span> <span class="fu">grep</span> <span class="st">"default"</span></span>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -41,10 +44,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-eaa34da2ee74a03fa3a7673f1be1cfd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4882f93b36e2f024d701cb1d811d6096.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -481,6 +484,16 @@ ul.task-list li input[type="checkbox"] {
 <p>Use an Edge Agent wallet when the holder should keep credentials and keys in a user-controlled application. This model fits traveler wallets, employee wallets, citizen wallets, and mobile proof presentation. The application team must own storage, encryption, backup, recovery, mediator use, and local user consent.</p>
 <p>Use a Cloud Agent wallet when a server must act for an organization or delegated tenant. This model fits issuers, verifiers, service-managed organizational wallets, and backend workflows that need REST APIs and webhooks. The deployment team must own secret storage, authentication, tenant separation, monitoring, and operational controls.</p>
 <p>Many Identus systems use both. The issuer and verifier run Cloud Agent. The holder uses an Edge Agent wallet. DIDComm, credentials, DIDs, and presentation protocols connect the two custody models without requiring the same wallet implementation on every side.</p>
+<figure id="d08-wallet-custody" aria-label="Edge and Cloud wallet custody" class="figure">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"> <style> #d08-wallet-custody { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d08-wallet-custody svg { display: block; width: 100%; height: auto; } #d08-wallet-custody svg text { font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d08-wallet-custody svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, ‘Liberation Mono’, ‘Courier New’, monospace; } #d08-wallet-custody figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; } </style> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 960 840" role="img" aria-labelledby="d08-wallet-custody-title d08-wallet-custody-desc">
+<title id="d08-wallet-custody-title">
+Edge and Cloud wallet custody
+</title>
+<desc id="d08-wallet-custody-desc">The traveler’s application runs an Edge SDK and supplies local storage through Pluto; the organization runs a controller and Cloud Agent with a database and secret storage under service-operator control, and the agents exchange DIDComm messages.</desc> <defs> <marker id="d08-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker> </defs> <rect width="960" height="840" fill="#ffffff"></rect> <text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Edge and Cloud wallet custody</text> <text x="40" y="80" fill="#56616b" font-size="20">Traveler wallet and organizational wallet in the airline example</text> <g fill="#ffffff" stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6"> <rect x="40" y="120" width="384" height="640" rx="4"></rect> <rect x="512" y="120" width="408" height="640" rx="4"></rect> </g> <g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d08-arrow)"> <path d="M232 280 V360"></path> <path d="M648 280 V360"></path> <path d="M784 360 V280" stroke-dasharray="6 6"></path> <path d="M368 408 H568" marker-start="url(#d08-arrow)"></path> <path d="M232 440 V568"></path> <path d="M624 440 V568"></path> <path d="M808 440 V568"></path> </g> <g fill="#ffffff"> <rect x="244" y="304" width="128" height="28"></rect> <rect x="580" y="304" width="56" height="28"></rect> <rect x="796" y="304" width="108" height="28"></rect> <rect x="412" y="372" width="112" height="28"></rect> <rect x="244" y="484" width="160" height="56"></rect> <rect x="636" y="492" width="80" height="28"></rect> <rect x="820" y="492" width="84" height="28"></rect> </g> <g fill="#212529" font-size="20" font-weight="600"> <text x="252" y="324">SDK calls</text> <text x="632" y="324" text-anchor="end">REST</text> <text x="804" y="324">Webhooks</text> <text x="468" y="392" text-anchor="middle">DIDComm</text> <text x="252" y="508">Pluto</text> </g> <g fill="#56616b" font-size="16"> <text x="252" y="532">Storage interface</text> <text x="644" y="512">Records</text> <text x="828" y="512">Secrets</text> </g> <g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2"> <text x="64" y="148">TRAVELER’S DEVICE</text> <text x="536" y="148">ORGANIZATION’S SERVICE</text> </g> <g fill="#212529" font-size="20" font-weight="600"> <text x="64" y="180">Traveler controls the device</text> <text x="536" y="180">Operator controls the service</text> </g> <g stroke-width="1"> <rect x="96" y="208" width="272" height="72" rx="4" fill="#ffffff" stroke="#2c3e50"></rect> <rect x="568" y="208" width="296" height="72" rx="4" fill="#ffffff" stroke="#2c3e50"></rect> <rect x="96" y="360" width="272" height="80" rx="4" fill="#eefaf7" stroke="#18bc9c"></rect> <rect x="568" y="360" width="296" height="80" rx="4" fill="#eefaf7" stroke="#18bc9c"></rect> <rect x="96" y="568" width="272" height="144" rx="4" fill="#f0f3f4" stroke="#b8c2c8"></rect> <rect x="536" y="568" width="176" height="144" rx="4" fill="#f0f3f4" stroke="#b8c2c8"></rect> <rect x="728" y="568" width="168" height="144" rx="4" fill="#f0f3f4" stroke="#b8c2c8"></rect> </g> <g fill="#212529" font-size="24" font-weight="600" text-anchor="middle"> <text x="232" y="240">Wallet application</text> <text x="716" y="240">Business controller</text> <text x="232" y="392">Edge SDK</text> <text x="716" y="392">Cloud Agent</text> <text x="232" y="604">Local wallet storage</text> <text x="624" y="604">Database</text> </g> <text x="812" y="604" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Secret storage</text> <g fill="#56616b" font-size="16" text-anchor="middle"> <text x="232" y="264">Traveler consent and actions</text> <text x="716" y="264">Issuer or verifier business logic</text> <text x="232" y="424">Wallet operations in the app</text> <text x="716" y="424">Server wallet operations</text> <text x="232" y="636">Credentials and protocol records</text> <text x="232" y="660">Keys or protected key references</text> <text x="232" y="692">Application provides the store</text> <text x="624" y="640">Wallet records</text> <text x="624" y="664">and metadata</text> <text x="812" y="640">Seeds and keys</text> <text x="812" y="692">e.g.&nbsp;Vault</text> </g> <path d="M40 792 H920" stroke="#dce1e4" stroke-width="1"></path> <text x="40" y="824" fill="#56616b" font-size="16">Boundaries show runtime and storage custody. DIDComm connects the two wallet implementations.</text> </svg>
+<figcaption>
+The application team implements storage, key protection, and recovery for the traveler’s wallet. The service operator manages the Cloud Agent runtime, database, secret storage, and recovery. The DIDComm link represents protocol exchange; delivery can use a mediator.
+</figcaption>
+</figure>
 </section>
 <section id="airline-ticket-flow" class="level2" data-number="13.6">
 <h2 data-number="13.6" class="anchored" data-anchor-id="airline-ticket-flow"><span class="header-section-number">13.6</span> Airline Ticket Flow</h2>

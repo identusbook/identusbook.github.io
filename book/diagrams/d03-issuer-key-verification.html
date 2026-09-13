@@ -1,0 +1,74 @@
+<figure id="d03-issuer-key-verification" aria-label="Finding and checking an issuer key">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap">
+<style>
+#d03-issuer-key-verification { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d03-issuer-key-verification svg { display: block; width: 100%; height: auto; }
+#d03-issuer-key-verification svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d03-issuer-key-verification svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
+#d03-issuer-key-verification figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 880" role="img" aria-labelledby="d03-issuer-key-verification-title d03-issuer-key-verification-desc">
+<title id="d03-issuer-key-verification-title">Finding and checking an issuer key</title>
+<desc id="d03-issuer-key-verification-desc">The holder sends a presentation. The verifier extracts the credential's issuer DID and key reference, resolves the DID, checks the referenced method's assertionMethod relationship, and verifies the credential signature before continuing to status, schema, and policy checks.</desc>
+<defs>
+<marker id="d03-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+</defs>
+<rect width="960" height="880" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Finding and checking an issuer key</text>
+<text x="40" y="80" fill="#56616b" font-size="20">Issuer-key verification for a credential issued from a PRISM DID</text>
+<g stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6">
+<path d="M152 184 V808"/>
+<path d="M456 184 V808"/>
+<path d="M800 184 V808"/>
+</g>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d03-arrow)">
+<path d="M152 232 H456"/>
+<path d="M456 384 H800"/>
+<path d="M800 464 H456" stroke-dasharray="6 6"/>
+<path d="M456 588 V620"/>
+<path d="M456 692 V724"/>
+</g>
+<g fill="#ffffff" stroke="#2c3e50" stroke-width="1">
+<rect x="40" y="112" width="224" height="72" rx="4"/>
+<rect x="344" y="112" width="224" height="72" rx="4"/>
+<rect x="688" y="112" width="224" height="72" rx="4"/>
+</g>
+<g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle">
+<text x="152" y="136">HOLDER</text>
+<text x="456" y="136">VERIFIER</text>
+<text x="800" y="136">RESOLVER</text>
+</g>
+<g fill="#212529" font-size="24" font-weight="600" text-anchor="middle">
+<text x="152" y="164">Wallet</text>
+<text x="456" y="164">Verifier software</text>
+<text x="800" y="164">DID resolver</text>
+</g>
+<g fill="#ffffff">
+<rect x="232" y="196" width="144" height="28"/>
+<rect x="512" y="348" width="232" height="28"/>
+<rect x="516" y="404" width="224" height="52"/>
+</g>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle">
+<text x="304" y="216">Presentation</text>
+<text x="628" y="368">Resolve the issuer DID</text>
+<text x="628" y="424">DID document</text>
+</g>
+<text x="628" y="448" fill="#56616b" font-size="16" text-anchor="middle">and resolution metadata</text>
+<rect x="296" y="260" width="320" height="64" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"/>
+<text x="456" y="288" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Read the credential</text>
+<text x="456" y="312" fill="#56616b" font-size="16" text-anchor="middle">Extract issuer DID and key reference</text>
+<rect x="296" y="492" width="320" height="96" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"/>
+<text x="456" y="520" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Check key authorization</text>
+<text x="456" y="544" fill="#56616b" font-size="16" text-anchor="middle">Find the referenced method under</text>
+<text class="technical" x="456" y="572" fill="#212529" font-size="20" text-anchor="middle">assertionMethod</text>
+<rect x="296" y="620" width="320" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"/>
+<text x="456" y="648" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Check credential signature</text>
+<text x="456" y="676" fill="#56616b" font-size="16" text-anchor="middle">Use this method's public key</text>
+<rect x="296" y="724" width="320" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"/>
+<text x="456" y="752" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Continue verification</text>
+<text x="456" y="780" fill="#56616b" font-size="16" text-anchor="middle">Check status, schema, and policy</text>
+<path d="M40 832 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="864" fill="#56616b" font-size="16">Successful path. The verifier stops if resolution, key authorization, or signature checks fail.</text>
+</svg>
+<figcaption>The resolver supplies the DID document. The verifier checks the issuer key's authorization and the credential signature, then applies the remaining credential checks and trust policy.</figcaption>
+</figure>

@@ -92,6 +92,8 @@ Use a Cloud Agent wallet when a server must act for an organization or delegated
 
 Many Identus systems use both. The issuer and verifier run Cloud Agent. The holder uses an Edge Agent wallet. DIDComm, credentials, DIDs, and presentation protocols connect the two custody models without requiring the same wallet implementation on every side.
 
+{{< include ../diagrams/d08-wallet-custody.html >}}
+
 ## Airline Ticket Flow
 
 The airline ticket example uses the wallet boundary in a concrete way:

@@ -1,6 +1,6 @@
 #  Identus Concepts {#sec-identus-concepts}
 
-[Identus Application Architecture Diagram]
+{{< include ../diagrams/d04-identus-components.html >}}
 
 Identus is made up of several open source components.  Each could be used or forked separately but they are designed to work well together.
 

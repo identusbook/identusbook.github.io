@@ -159,11 +159,15 @@ As you can see, an Out of Band invite is really just a way to package a PeerDID 
 
 As a refresher from what we covered, a PeerDID is a way to package a set of keys and optional service endpoints, and so, *because this an OOB invite from a mediator*, this invite has everything you need (a PeerDID and set of service endpoints) to establish this service as your mediator.
 
+{{< include ../diagrams/d10-invitation-decoding.html >}}
+
 ## Connecting two peers
 
 Now, lets issue another kind of Out of Band invite, one from the cloud agent in order to connect.
 
 The Cloud Agent can generate Out of Band invites, this invite then can be parsed by another peer (say another Cloud Agent or Edge Client) and use it to establish a connection, the end result should be a DID Peer on both sides that allow them to send messages to each other over `DIDComm`.
+
+{{< include ../diagrams/d11-connection-establishment.html >}}
 
 So, our first step is to generate the invite:
 

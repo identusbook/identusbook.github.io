@@ -40,6 +40,8 @@ A production Identus deployment has several actors and services:
 - Cardano Wallet connects to a Cardano node through the node socket and exposes an HTTP API to PRISM Node.
 - Cardano DB Sync follows the same Cardano node and indexes blocks into PostgreSQL for PRISM Node.
 
+{{< include ../diagrams/d16-production-boundaries.html >}}
+
 For a `did:prism` publication path:
 
 1. The issuer controller asks the Cloud Agent to create, update, or deactivate a `did:prism` DID.
@@ -47,6 +49,8 @@ For a `did:prism` publication path:
 3. The Cloud Agent signs the operation and sends it to the configured DID node backend.
 4. PRISM Node receives the signed operation, schedules it, uses Cardano Wallet to submit a Cardano transaction, and reads indexed blocks through Cardano DB Sync.
 5. The Cloud Agent or resolver reads the DID state after the operation reaches the configured confirmation depth.
+
+{{< include ../diagrams/d17-did-publication-readback.html >}}
 
 Credential verification is a different decision path. Verifier software performs technical checks such as proof verification, DID resolution, key use, credential status, and presentation binding. The relying party then applies policy checks such as accepted issuer DIDs, schemas, credential types, trust registry entries, or business rules.
 
@@ -590,6 +594,8 @@ API_KEY_AUTHENTICATE_AS_DEFAULT_USER=false
 DEFAULT_WALLET_ENABLED=false
 ```
 
+{{< include ../diagrams/d18-api-key-tenant-provisioning.html >}}
+
 With those settings, the Cloud Agent starts with an empty tenant wallet set. The administrator creates a wallet, creates an entity tied to that wallet, and registers an API key for that entity:
 
 ```bash
@@ -664,6 +670,8 @@ Authorization: Bearer replace-with-rpt
 ```
 
 If `KEYCLOAK_UMA_AUTO_UPGRADE_RPT=true`, the Cloud Agent can accept the tenant's access token and perform the RPT upgrade path described in the Cloud Agent external IAM guide. Keep `false` until the controller application owns the token exchange and error handling.
+
+{{< include ../diagrams/d19-keycloak-wallet-authorization.html >}}
 
 ## Cardano Wallet Operations
 

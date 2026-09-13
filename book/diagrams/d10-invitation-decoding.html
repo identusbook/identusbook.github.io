@@ -1,0 +1,76 @@
+<figure id="d10-invitation-decoding" aria-label="From invitation to keys and endpoint">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap">
+<style>
+#d10-invitation-decoding { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d10-invitation-decoding svg { display: block; width: 100%; height: auto; }
+#d10-invitation-decoding svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d10-invitation-decoding svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
+#d10-invitation-decoding figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 848" role="img" aria-labelledby="d10-invitation-decoding-title d10-invitation-decoding-desc">
+<title id="d10-invitation-decoding-title">From invitation to keys and endpoint</title>
+<desc id="d10-invitation-decoding-desc">The wallet reads a QR code or link, extracts and Base64url-decodes the _oob value into invitation JSON, reads the inviter's from DID, and resolves the embedded did:peer:2 keys and services to obtain public keys and a DIDComm endpoint.</desc>
+<defs>
+<marker id="d10-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+</defs>
+<rect width="960" height="848" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">From invitation to keys and endpoint</text>
+<text x="40" y="80" fill="#56616b" font-size="20">The invitee wallet reads an OOB invitation containing a Peer DID</text>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d10-arrow)">
+<path d="M264 208 H368"/>
+<path d="M592 208 H696"/>
+<path d="M808 272 V368 Q808 376 800 376 H488 Q480 376 480 384 V432"/>
+<path d="M392 544 V600 Q392 608 384 608 H240 Q232 608 232 616 V656"/>
+<path d="M568 544 V600 Q568 608 576 608 H720 Q728 608 728 616 V656"/>
+</g>
+<g fill="#ffffff">
+<rect x="276" y="172" width="80" height="28"/>
+<rect x="604" y="172" width="80" height="28"/>
+<rect x="560" y="336" width="176" height="32"/>
+</g>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle">
+<text x="316" y="192">Extract</text>
+<text x="644" y="192">Decode</text>
+<text x="648" y="360">Read the from DID</text>
+</g>
+<g stroke-width="1">
+<rect x="40" y="144" width="224" height="128" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+<rect x="368" y="144" width="224" height="128" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<rect x="696" y="144" width="224" height="128" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<rect x="272" y="432" width="416" height="112" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<rect x="40" y="656" width="384" height="128" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+<rect x="536" y="656" width="384" height="128" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+</g>
+<g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle">
+<text x="152" y="168">URL</text>
+<text x="480" y="168">QUERY PARAMETER</text>
+<text x="808" y="168">MESSAGE</text>
+</g>
+<g fill="#212529" font-size="24" font-weight="600" text-anchor="middle">
+<text x="152" y="204">QR code or link</text>
+<text class="technical" x="480" y="204">_oob</text>
+<text x="808" y="204">Invitation JSON</text>
+<text x="480" y="464">Inviter's Peer DID</text>
+<text x="232" y="692">Public keys</text>
+<text x="728" y="692">DIDComm service</text>
+</g>
+<g fill="#56616b" font-size="16" text-anchor="middle">
+<text x="152" y="232">Carries the invitation</text>
+<text class="technical" x="152" y="256">https://…/?_oob=…</text>
+<text x="480" y="232">Base64url-encoded JSON</text>
+<text class="technical" x="480" y="256">eyJ…</text>
+<text class="technical" x="808" y="232">id · type · body</text>
+<text class="technical" x="808" y="256">from: did:peer:2.…</text>
+<text class="technical" x="480" y="496">did:peer:2.E….V….S…</text>
+<text x="480" y="528">Wallet reconstructs the DID document locally</text>
+<text class="technical" x="232" y="724">keyAgreement · authentication</text>
+<text x="232" y="756">Keys and their verification relationships</text>
+<text class="technical" x="728" y="724">uri · accept · routingKeys</text>
+<text x="728" y="756">Endpoint and any configured routing keys</text>
+</g>
+<text x="480" y="576" fill="#56616b" font-size="16" text-anchor="middle">DID document</text>
+<path d="M40 808 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="836" fill="#56616b" font-size="16">The wallet uses these public keys and routing details in the next protocol step.</text>
+</svg>
+<figcaption>This example uses <code>did:peer:2</code> with embedded service information. The wallet decodes the invitation, resolves its <code>from</code> DID, and reads the public keys and DIDComm service. Ellipses abbreviate the encoded values.</figcaption>
+</figure>

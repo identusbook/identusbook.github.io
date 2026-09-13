@@ -82,6 +82,8 @@ EOF
 
 The `PORT` values expose the two REST APIs on different host ports. The `PG_PORT` values prevent the two PostgreSQL containers from binding to the same host port. The `NETWORK=identus` value is retained from the official Quick Start configuration; the current local Compose file creates the runtime network from the named Compose project.
 
+{{< include ../diagrams/d05-local-agent-stacks.html >}}
+
 Current Hyperledger Identus releases publish the Cloud Agent image on Docker Hub as `docker.io/hyperledgeridentus/identus-cloud-agent`. The older local README mentions `GITHUB_TOKEN` and `ghcr.io`; that note predates the Docker registry move recorded in Identus Platform `v2.15`.
 
 ## Start the Issuer Cloud Agent

@@ -23,6 +23,8 @@ The current Mediator repository documents support for these DIDComm protocols:
 
 For setup, the important protocols are Coordinate Mediation, Routing, and Message Pickup. Coordinate Mediation lets a recipient wallet request mediation and register recipient keys. Routing defines the `forward` message used to send traffic through the mediator. Message Pickup lets the recipient wallet retrieve queued messages.
 
+{{< include ../diagrams/d07-mediation-delivery.html >}}
+
 ## Version selection
 
 Check both release streams before pinning a mediator image. The current Identus Platform `v2.16` release lists Mediator `1.2.0`. The standalone Mediator repository lists `v1.2.1` as the latest stable Mediator release.

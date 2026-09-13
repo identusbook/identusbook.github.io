@@ -21,6 +21,8 @@ Example: a university issues a degree credential to Alice. Alice receives the cr
 
 Policy evaluation is validation. Cryptographic verification can show that an issuer's key secured the credential and that no one modified the credential after issuance. It cannot show that the issuer is acceptable for a particular decision. A diploma from an unknown training provider can pass cryptographic verification and still fail an employer's policy. The W3C VC specification describes validation as the verifier's business-rule check for whether a credential is proper for a particular use.
 
+{{< include ../diagrams/d01-ssi-interaction.html >}}
+
 ## DIDs and DID Documents
 
 A Decentralized Identifier (DID) is a URI. It has a `did:` scheme, a DID method, and a method-specific identifier. In `did:prism:4a9bce8d72e4c30017c42f2b`, the method is `prism`; the last segment is the identifier data defined by that method.

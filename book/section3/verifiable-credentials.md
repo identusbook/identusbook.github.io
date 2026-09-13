@@ -152,6 +152,8 @@ OfferReceived -> RequestPending -> RequestSent -> CredentialReceived
 
 These states are useful when a wallet or controller needs to resume a flow, show progress to a user, or decide whether a manual issuer action is still required.
 
+{{< include ../diagrams/d12-credential-issuance.html >}}
+
 ### Issuer flow
 
 An issuer starts by preparing four pieces of data: the issuer DID, the credential schema or credential definition, the claims, and the credential format.
@@ -331,6 +333,8 @@ A revocable credential contains status data like this:
 ```
 
 The `statusListCredential` URL points to a Status List Credential. That credential contains an encoded bitstring where each bit position corresponds to a credential. The `statusListIndex` identifies the credential's position in that bitstring. When the issuer revokes a credential, the issuer flips the corresponding bit from 0 to 1.
+
+{{< include ../diagrams/d13-status-list-revocation.html >}}
 
 ### Revoking a credential
 

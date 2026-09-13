@@ -6,6 +6,8 @@ The local Cloud Agent exposes two public protocol surfaces through APISIX. Your 
 
 Those two surfaces share the same wallet state. A REST request changes or reads records in the Cloud Agent wallet. A DIDComm message may change the same records after the Cloud Agent processes an inbound connection, issuance, or presentation message. The [Cloud Agent README](https://github.com/hyperledger-identus/cloud-agent/blob/main/README.md) describes this pattern as a controller that sends HTTP requests to the agent and processes webhook notifications from it.
 
+{{< include ../diagrams/d06-api-wallet-state.html >}}
+
 The local stack from the previous chapter runs in single-tenant mode. In that mode, the Cloud Agent uses the default entity and the default wallet for REST API and DIDComm operations. The [Cloud Agent authentication documentation](https://github.com/hyperledger-identus/docs/blob/main/documentation/develop/cloud-agent/authentication.md#default-entity-and-wallet) defines both IDs as `00000000-0000-0000-0000-000000000000`.
 
 You can confirm that default wallet initialization in the container logs:

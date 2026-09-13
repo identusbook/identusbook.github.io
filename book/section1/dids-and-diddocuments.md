@@ -142,6 +142,8 @@ For a managed PRISM DID in Cloud Agent, the controller creates a DID from a docu
 
 PRISM updates publish method operations that change the DID state, such as adding or removing verification methods or services. The VDR state machine treats deactivation as a final state. After deactivation, resolvers should no longer treat the DID as active.
 
+{{< include ../diagrams/d02-prism-did-lifecycle.html >}}
+
 For a managed Peer DID, Cloud Agent generates random key material and stores it in secret storage. Peer DIDs are not used as global public issuer identifiers. They fit DIDComm relationships and mediation, where each relationship can use separate identifiers and keys.
 
 ## Resolvers
@@ -168,6 +170,8 @@ A verifier that checks a credential issued from a PRISM DID uses this flow.
 4. The verifier dereferences the verification method and checks that the method appears under `assertionMethod`.
 5. The verifier checks the cryptographic proof with the public key in the verification method.
 6. The verifier checks credential status, schema, and policy, including whether the issuer is trusted for the requested transaction.
+
+{{< include ../diagrams/d03-issuer-key-verification.html >}}
 
 DID verification relationships prevent key reuse across proof purposes. A key listed only under `authentication` cannot be used to issue a credential. A key listed only under `assertionMethod` cannot be used for DIDComm key agreement. The verifier software has to check the relationship that matches the operation it is validating.
 

@@ -1,0 +1,52 @@
+<figure id="d13-status-list-revocation" aria-label="Checking a credential against a status list">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap">
+<style>
+#d13-status-list-revocation { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d13-status-list-revocation svg { display: block; width: 100%; height: auto; }
+#d13-status-list-revocation svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d13-status-list-revocation svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
+#d13-status-list-revocation figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="d13-status-list-revocation-title d13-status-list-revocation-desc">
+<title id="d13-status-list-revocation-title">Checking a credential against a status list</title>
+<desc id="d13-status-list-revocation-desc">The issuer assigns a status list index and sets a revocation bit. The verifier resolves the statusListCredential URL, verifies the status list proof, decodes its bit string, and checks the indexed bit. Zero means not revoked and one means revoked.</desc>
+<defs>
+<marker id="d13-status-list-revocation-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+<marker id="d13-status-list-revocation-accent-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#18bc9c"/></marker>
+</defs>
+<rect width="960" height="600" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Credential revocation through a status list</text>
+<text x="40" y="80" fill="#56616b" font-size="20">The verifier checks one indexed bit in an issuer-signed list</text>
+<g fill="none" stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6">
+<path d="M160 144 V500"/><path d="M480 144 V500"/><path d="M800 144 V500"/>
+</g>
+<g fill="#ffffff" stroke="#2c3e50" stroke-width="1">
+<rect x="56" y="112" width="208" height="72" rx="4"/><rect x="376" y="112" width="208" height="72" rx="4"/><rect x="696" y="112" width="208" height="72" rx="4"/>
+</g>
+<g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle"><text x="160" y="136">ISSUER</text><text x="480" y="136">STATUS LIST</text><text x="800" y="136">VERIFIER</text></g>
+<g fill="#212529" font-size="24" font-weight="600" text-anchor="middle"><text x="160" y="164">Issuer</text><text x="480" y="164">Status list</text><text x="800" y="164">Verifier</text></g>
+<path d="M160 268 H800" fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d13-status-list-revocation-arrow)"/>
+<rect x="256" y="192" width="448" height="60" fill="#ffffff"/>
+<text x="480" y="216" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">credentialStatus</text>
+<text class="technical" x="480" y="240" fill="#56616b" font-size="16" text-anchor="middle">statusListIndex + statusListCredential</text>
+<path d="M264 352 H376" fill="none" stroke="#18bc9c" stroke-width="2" marker-end="url(#d13-status-list-revocation-accent-arrow)"/>
+<path d="M584 352 H680" fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d13-status-list-revocation-arrow)"/>
+<rect x="56" y="288" width="208" height="128" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<text x="160" y="320" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Set revocation bit</text>
+<text class="technical" x="160" y="348" fill="#56616b" font-size="16" text-anchor="middle">index: 94567</text>
+<text class="technical" x="160" y="376" fill="#56616b" font-size="16" text-anchor="middle">0 → 1 when revoked</text>
+<rect x="376" y="288" width="208" height="128" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<text x="480" y="320" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">encodedList</text>
+<text x="480" y="348" fill="#56616b" font-size="16" text-anchor="middle">issuer proof protects</text>
+<text x="480" y="376" fill="#56616b" font-size="16" text-anchor="middle">the bit string</text>
+<rect x="680" y="288" width="240" height="160" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<text x="800" y="320" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Resolve URL</text>
+<text x="800" y="348" fill="#56616b" font-size="16" text-anchor="middle">verify proof, then</text>
+<text x="800" y="376" fill="#56616b" font-size="16" text-anchor="middle">decode and read index</text>
+<text x="800" y="408" fill="#212529" font-size="16" font-weight="600" text-anchor="middle">0: not revoked</text>
+<text x="800" y="432" fill="#212529" font-size="16" font-weight="600" text-anchor="middle">1: revoked</text>
+<path d="M40 524 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="556" fill="#56616b" font-size="16">The issuer controls revocation. The verifier trusts the result only after proof verification.</text>
+</svg>
+<figcaption>The credential points to <code>credentialStatus.statusListCredential</code> and supplies <code>statusListIndex</code>. The issuer changes the indexed bit, and the verifier resolves the list, verifies its proof, decodes <code>encodedList</code>, and reads that bit.</figcaption>
+</figure>

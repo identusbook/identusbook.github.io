@@ -34,6 +34,8 @@ These components are assembled into a JWM, which is then typically encrypted and
 
 Each message contains a unique identifier and can reference other messages through threading mechanisms, enabling complex multi-message conversations. Messages also declare their type, which connects them to specific protocols that define the expected sequence and semantics of the interaction.
 
+{{< include ../diagrams/d09-didcomm-envelope.html >}}
+
 ## Protocols
 
 DIDComm defines not just message formats but also a framework for protocols—standardized sequences of messages that accomplish specific tasks. These protocols enable interoperability by ensuring that different implementations understand the same message sequences and semantics.

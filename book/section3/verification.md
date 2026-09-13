@@ -17,6 +17,8 @@ The exact request shape depends on the credential format. JWT and SD-JWT present
 
 The [DIDComm Present Proof 3.0 protocol](https://didcomm.org/present-proof/3.0/) is format-neutral. It carries a presentation request and a presentation, but the credential format decides which cryptographic checks run.
 
+{{< include ../diagrams/d14-presentation-verification.html >}}
+
 ## Verification and acceptance
 
 Cryptographic verification and verifier acceptance are separate decisions.
@@ -65,6 +67,8 @@ Plain JWT-VC presentation exposes the credential payload needed for verifier che
 SD-JWT uses salted hashes. The issuer signs a JWT payload that contains digests for selectively disclosable claims. During presentation, the holder sends the issuer-signed SD-JWT plus the disclosures selected for that verifier. The verifier hashes each disclosed value with its salt and checks that the digest appears in the signed payload. SD-JWT gives selective disclosure for JSON claims; it is not a zero-knowledge predicate proof system.
 
 Identus adds one key-binding detail for SD-JWT presentations. If the holder accepts an SD-JWT credential offer with a `keyId`, the issued credential can include a `cnf` key binding. A later holder presentation can then sign the verifier's `challenge` and `domain`. If the SD-JWT credential has no `cnf` key, the Identus Present Proof guide says the holder cannot create a presentation that signs the verifier's `challenge` and `domain`.
+
+{{< include ../diagrams/d15-selective-disclosure.html >}}
 
 AnonCreds uses zero-knowledge proofs. The verifier's presentation request can ask for revealed attributes, predicates such as `age >= 18`, restrictions such as `schema_id` or `cred_def_id`, and non-revocation intervals. The holder selects credentials that satisfy the request and creates a proof. The verifier resolves the required schemas, credential definitions, and revocation data, then verifies the presentation.
 

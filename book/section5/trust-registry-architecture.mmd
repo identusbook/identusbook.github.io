@@ -1,0 +1,29 @@
+flowchart TD
+    subgraph Governance["Ecosystem Governance"]
+        GA[Governance Authority<br/>defines the rules]
+        TR[(Trust Registry<br/>authoritative list of<br/>authorized issuers)]
+        GA -- maintains --> TR
+    end
+
+    subgraph Issuer["Issuer"]
+        IA[Cloud Agent]
+    end
+
+    subgraph Holder["Holder"]
+        HA[Cloud Agent / Wallet]
+    end
+
+    subgraph Verifier["Verifier"]
+        VA[Cloud Agent]
+        VP[Verification Policy /<br/>Trust Decision Logic]
+    end
+
+    VDR[(Verifiable Data Registry<br/>e.g. Cardano - resolves DIDs)]
+
+    GA -. authorizes .-> IA
+    IA == "1 - issues credential (DIDComm)" ==> HA
+    HA == "2 - presents proof (DIDComm)" ==> VA
+    VA --> VP
+    VP == "3 - verify signature (resolve issuer DID)" ==> VDR
+    VP == "4 - is issuer authorized? (TRQP query)" ==> TR
+    TR == "5 - authoritative answer" ==> VP

@@ -9,6 +9,6 @@ One of the best ways to learn and understand a software platform is to build som
 **Flight Tix** is available for each Identus Edge SDK, please see each example's repository for more detail:
 
 - TypeScript: [https://github.com/identusbook/example-ts](https://github.com/identusbook/example-ts))
-- Swift: [https://github.com/identusbook/example-ios](https://github.com/identusbook/example-ios))
-- Kotlin: TBD
+- Swift: [https://github.com/identusbook/example-ios](https://github.com/identusbook/))
+- Kotlin: [https://github.com/identusbook/example-android](https://github.com/identusbook/example-android)
 

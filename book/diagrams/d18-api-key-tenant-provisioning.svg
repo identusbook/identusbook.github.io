@@ -1,13 +1,5 @@
-<figure id="d18-api-key-tenant-provisioning" aria-label="API key tenant provisioning">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d18-api-key-tenant-provisioning { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d18-api-key-tenant-provisioning svg { display: block; width: 100%; height: auto; }
-#d18-api-key-tenant-provisioning svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d18-api-key-tenant-provisioning svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d18-api-key-tenant-provisioning figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 884" role="img" aria-labelledby="d18-api-key-tenant-provisioning-title d18-api-key-tenant-provisioning-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 884" role="img" aria-labelledby="d18-api-key-tenant-provisioning-title d18-api-key-tenant-provisioning-desc">
 <title id="d18-api-key-tenant-provisioning-title">API key tenant provisioning</title>
 <desc id="d18-api-key-tenant-provisioning-desc">An administrator authenticates with the admin token, creates a wallet, creates an entity assigned to that wallet, and registers the tenant API key. The tenant then uses that API key for a request scoped to the assigned wallet.</desc>
 <defs>
@@ -55,5 +47,3 @@
 <path d="M40 840 H920" stroke="#dce1e4" stroke-width="1"/>
 <text class="technical" x="40" y="872" fill="#56616b" font-size="16">Steps 1–3: x-admin-api-key · Step 4: apikey</text>
 </svg>
-<figcaption>With <code>API_KEY_AUTO_PROVISIONING=false</code>, the administrator creates the wallet, entity, and API key. The tenant API key selects the entity's assigned wallet.</figcaption>
-</figure>

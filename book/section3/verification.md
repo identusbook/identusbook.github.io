@@ -17,7 +17,13 @@ The exact request shape depends on the credential format. JWT and SD-JWT present
 
 The [DIDComm Present Proof 3.0 protocol](https://didcomm.org/present-proof/3.0/) is format-neutral. It carries a presentation request and a presentation, but the credential format decides which cryptographic checks run.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d14-presentation-verification.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![The verifier supplies request binding for the chosen format: challenge and domain for JWT or key-bound SD-JWT, or an AnonCreds nonce. The holder controller selects credentials and calls request-accept. After PresentationVerified, the verifier controller checks its policy and calls presentation-accept only if the checks pass. A policy rejection stops the application action. This diagram follows the successful path and omits REST responses.](../diagrams/d14-presentation-verification.svg){fig-alt="Presenting proof and accepting the result"}
+:::
 
 ## Verification and acceptance
 
@@ -68,7 +74,13 @@ SD-JWT uses salted hashes. The issuer signs a JWT payload that contains digests 
 
 Identus adds one key-binding detail for SD-JWT presentations. If the holder accepts an SD-JWT credential offer with a `keyId`, the issued credential can include a `cnf` key binding. A later holder presentation can then sign the verifier's `challenge` and `domain`. If the SD-JWT credential has no `cnf` key, the Identus Present Proof guide says the holder cannot create a presentation that signs the verifier's `challenge` and `domain`.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d15-selective-disclosure.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![This example uses two selectively disclosable object properties. Each Disclosure encodes \[salt, name, value\] as base64url. The verifier hashes that encoded string and compares the base64url digest with the issuer-signed payload, as specified in RFC 9901, Section 4.2.3. The labels d1 and d2 stand for full digests. A credential with cnf can support holder key binding to the verifier request.](../diagrams/d15-selective-disclosure.svg){fig-alt="Selective disclosure in an SD-JWT credential"}
+:::
 
 AnonCreds uses zero-knowledge proofs. The verifier's presentation request can ask for revealed attributes, predicates such as `age >= 18`, restrictions such as `schema_id` or `cred_def_id`, and non-revocation intervals. The holder selects credentials that satisfy the request and creates a proof. The verifier resolves the required schemas, credential definitions, and revocation data, then verifies the presentation.
 

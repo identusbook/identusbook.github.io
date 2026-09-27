@@ -142,7 +142,13 @@ For a managed PRISM DID in Cloud Agent, the controller creates a DID from a docu
 
 PRISM updates publish method operations that change the DID state, such as adding or removing verification methods or services. The VDR state machine treats deactivation as a final state. After deactivation, resolvers should no longer treat the DID as active.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d02-prism-did-lifecycle.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![The controller signs registry operations. Publication, updates, and deactivation take effect when the registry accepts the confirmed operations. Deactivation ends the DID's lifecycle.](../diagrams/d02-prism-did-lifecycle.svg){fig-alt="PRISM DID lifecycle"}
+:::
 
 For a managed Peer DID, Cloud Agent generates random key material and stores it in secret storage. Peer DIDs are not used as global public issuer identifiers. They fit DIDComm relationships and mediation, where each relationship can use separate identifiers and keys.
 
@@ -171,7 +177,13 @@ A verifier that checks a credential issued from a PRISM DID uses this flow.
 5. The verifier checks the cryptographic proof with the public key in the verification method.
 6. The verifier checks credential status, schema, and policy, including whether the issuer is trusted for the requested transaction.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d03-issuer-key-verification.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![The resolver supplies the DID document. The verifier checks the issuer key's authorization and the credential signature, then applies the remaining credential checks and trust policy.](../diagrams/d03-issuer-key-verification.svg){fig-alt="Finding and checking an issuer key"}
+:::
 
 DID verification relationships prevent key reuse across proof purposes. A key listed only under `authentication` cannot be used to issue a credential. A key listed only under `assertionMethod` cannot be used for DIDComm key agreement. The verifier software has to check the relationship that matches the operation it is validating.
 

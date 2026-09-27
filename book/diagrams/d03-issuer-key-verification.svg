@@ -1,13 +1,5 @@
-<figure id="d03-issuer-key-verification" aria-label="Finding and checking an issuer key">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d03-issuer-key-verification { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d03-issuer-key-verification svg { display: block; width: 100%; height: auto; }
-#d03-issuer-key-verification svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d03-issuer-key-verification svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d03-issuer-key-verification figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 880" role="img" aria-labelledby="d03-issuer-key-verification-title d03-issuer-key-verification-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 880" role="img" aria-labelledby="d03-issuer-key-verification-title d03-issuer-key-verification-desc">
 <title id="d03-issuer-key-verification-title">Finding and checking an issuer key</title>
 <desc id="d03-issuer-key-verification-desc">The holder sends a presentation. The verifier extracts the credential's issuer DID and key reference, resolves the DID, checks the referenced method's assertionMethod relationship, and verifies the credential signature before continuing to status, schema, and policy checks.</desc>
 <defs>
@@ -70,5 +62,3 @@
 <path d="M40 832 H920" stroke="#dce1e4" stroke-width="1"/>
 <text x="40" y="864" fill="#56616b" font-size="16">Successful path. The verifier stops if resolution, key authorization, or signature checks fail.</text>
 </svg>
-<figcaption>The resolver supplies the DID document. The verifier checks the issuer key's authorization and the credential signature, then applies the remaining credential checks and trust policy.</figcaption>
-</figure>

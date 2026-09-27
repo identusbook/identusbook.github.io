@@ -1,13 +1,5 @@
-<figure id="d10-invitation-decoding" aria-label="From invitation to keys and endpoint">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d10-invitation-decoding { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d10-invitation-decoding svg { display: block; width: 100%; height: auto; }
-#d10-invitation-decoding svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d10-invitation-decoding svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d10-invitation-decoding figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 848" role="img" aria-labelledby="d10-invitation-decoding-title d10-invitation-decoding-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 848" role="img" aria-labelledby="d10-invitation-decoding-title d10-invitation-decoding-desc">
 <title id="d10-invitation-decoding-title">From invitation to keys and endpoint</title>
 <desc id="d10-invitation-decoding-desc">The wallet reads a QR code or link, extracts and Base64url-decodes the _oob value into invitation JSON, reads the inviter's from DID, and resolves the embedded did:peer:2 keys and services to obtain public keys and a DIDComm endpoint.</desc>
 <defs>
@@ -72,5 +64,3 @@
 <path d="M40 808 H920" stroke="#dce1e4" stroke-width="1"/>
 <text x="40" y="836" fill="#56616b" font-size="16">The wallet uses these public keys and routing details in the next protocol step.</text>
 </svg>
-<figcaption>This example uses <code>did:peer:2</code> with embedded service information. The wallet decodes the invitation, resolves its <code>from</code> DID, and reads the public keys and DIDComm service. Ellipses abbreviate the encoded values.</figcaption>
-</figure>

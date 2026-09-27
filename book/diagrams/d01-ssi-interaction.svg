@@ -1,12 +1,5 @@
-<figure id="d01-ssi-interaction" aria-label="The SSI interaction">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d01-ssi-interaction { margin: 24px auto; max-width: 960px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d01-ssi-interaction svg { display: block; width: 100%; height: auto; }
-#d01-ssi-interaction svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d01-ssi-interaction figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 776" role="img" aria-labelledby="d01-ssi-interaction-title d01-ssi-interaction-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 776" role="img" aria-labelledby="d01-ssi-interaction-title d01-ssi-interaction-desc">
 <title id="d01-ssi-interaction-title">The SSI interaction</title>
 <desc id="d01-ssi-interaction-desc">A university issues a degree credential to Alice, who stores it and approves an employer's proof request before her wallet sends a presentation for technical checks and the employer's acceptance policy.</desc>
 <defs>
@@ -74,5 +67,3 @@
 <path d="M40 712 H920" stroke="#dce1e4" stroke-width="1"/>
 <text x="40" y="744" fill="#56616b" font-size="16">Read top to bottom. Dashed vertical lines track each role through the exchange.</text>
 </svg>
-<figcaption>The issuer supplies the credential; the holder supplies the presentation. The employer decides whether to accept it after technical checks.</figcaption>
-</figure>

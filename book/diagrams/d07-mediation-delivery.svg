@@ -1,13 +1,5 @@
-<figure id="d07-mediation-delivery" aria-label="Mediation setup and offline delivery">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d07-mediation-delivery { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d07-mediation-delivery svg { display: block; width: 100%; height: auto; }
-#d07-mediation-delivery svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d07-mediation-delivery svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d07-mediation-delivery figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1264" role="img" aria-labelledby="d07-mediation-delivery-title d07-mediation-delivery-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1264" role="img" aria-labelledby="d07-mediation-delivery-title d07-mediation-delivery-desc">
 <title id="d07-mediation-delivery-title">Mediation setup and offline delivery</title>
 <desc id="d07-mediation-delivery-desc">The wallet establishes mediation and registers recipient keys, shares routing information with a sender, goes offline as the mediator queues its encrypted message, then reconnects to retrieve and acknowledge the message before the mediator removes it.</desc>
 <defs>
@@ -90,5 +82,3 @@
 <path d="M40 1216 H920" stroke="#dce1e4" stroke-width="1"/>
 <text x="40" y="1248" fill="#56616b" font-size="16">Successful pickup path. The mediator reads routing information; the wallet decrypts the payload.</text>
 </svg>
-<figcaption>The mediator retains queued messages until the wallet confirms their message IDs. Pickup requests use <code>return_route: all</code> so the mediator can reply over the wallet's connection. The diagram shows delivery after an offline interval.</figcaption>
-</figure>

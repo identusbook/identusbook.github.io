@@ -1,13 +1,5 @@
-<figure id="d17-did-publication-readback" aria-label="DID publication and indexed readback">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d17-did-publication-readback { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d17-did-publication-readback svg { display: block; width: 100%; height: auto; }
-#d17-did-publication-readback svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d17-did-publication-readback svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d17-did-publication-readback figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1100" role="img" aria-labelledby="d17-did-publication-readback-title d17-did-publication-readback-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1100" role="img" aria-labelledby="d17-did-publication-readback-title d17-did-publication-readback-desc">
 <title id="d17-did-publication-readback-title">DID publication and indexed readback</title>
 <desc id="d17-did-publication-readback-desc">The Cloud Agent sends a signed DID operation to PRISM Node. PRISM Node uses Cardano Wallet to submit a transaction. Cardano DB Sync indexes ledger blocks, and PRISM Node reads the confirmed operation before the Cloud Agent reports the DID as published.</desc>
 <defs>
@@ -75,5 +67,3 @@
 <path d="M40 1052 H920" stroke="#dce1e4" stroke-width="1"/>
 <text x="40" y="1084" fill="#56616b" font-size="16">PUBLISHED follows the configured confirmation path and indexed readback.</text>
 </svg>
-<figcaption>Publication is asynchronous. PRISM Node submits through Cardano Wallet and reads the confirmed operation from the DB Sync index before the Cloud Agent reports the DID as published.</figcaption>
-</figure>

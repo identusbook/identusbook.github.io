@@ -34,7 +34,13 @@ These components are assembled into a JWM, which is then typically encrypted and
 
 Each message contains a unique identifier and can reference other messages through threading mechanisms, enabling complex multi-message conversations. Messages also declare their type, which connects them to specific protocols that define the expected sequence and semantics of the interaction.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d09-didcomm-envelope.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![The sender encrypts the application message for the recipient, attaches that ciphertext to a forward message, and encrypts the outer message for the mediator. The expanded layers show contents after each decryption step.](../diagrams/d09-didcomm-envelope.svg){fig-alt="Inside a mediated DIDComm message"}
+:::
 
 ## Protocols
 

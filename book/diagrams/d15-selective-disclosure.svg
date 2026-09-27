@@ -1,13 +1,5 @@
-<figure id="d15-selective-disclosure" aria-label="Selective disclosure in an SD-JWT credential">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d15-selective-disclosure { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d15-selective-disclosure svg { display: block; width: 100%; height: auto; }
-#d15-selective-disclosure svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d15-selective-disclosure svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d15-selective-disclosure figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 960" role="img" aria-labelledby="d15-selective-disclosure-title d15-selective-disclosure-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 960" role="img" aria-labelledby="d15-selective-disclosure-title d15-selective-disclosure-desc">
 <title id="d15-selective-disclosure-title">Selective disclosure with an SD-JWT</title>
 <desc id="d15-selective-disclosure-desc">The issuer signs disclosure digests, the holder sends only the membership tier disclosure, and the verifier checks the issuer signature and the disclosure digest without receiving the birth date disclosure.</desc>
 <defs><marker id="d15-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker></defs>
@@ -40,5 +32,3 @@
 <path d="M40 904 H920" stroke="#dce1e4"/>
 <text x="40" y="936" fill="#56616b" font-size="16">The verifier receives the selected value and its salt; the other disclosure stays with the holder.</text>
 </svg>
-<figcaption>This example uses two selectively disclosable object properties. Each Disclosure encodes <code>[salt, name, value]</code> as base64url. The verifier hashes that encoded string and compares the base64url digest with the issuer-signed payload, as specified in RFC 9901, Section 4.2.3. The labels <code>d1</code> and <code>d2</code> stand for full digests. A credential with <code>cnf</code> can support holder key binding to the verifier request.</figcaption>
-</figure>

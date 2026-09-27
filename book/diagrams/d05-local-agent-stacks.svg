@@ -1,13 +1,5 @@
-<figure id="d05-local-agent-stacks" aria-label="Two local Cloud Agent instances">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d05-local-agent-stacks { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d05-local-agent-stacks svg { display: block; width: 100%; height: auto; }
-#d05-local-agent-stacks svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d05-local-agent-stacks svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d05-local-agent-stacks figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 896" role="img" aria-labelledby="d05-local-agent-stacks-title d05-local-agent-stacks-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 896" role="img" aria-labelledby="d05-local-agent-stacks-title d05-local-agent-stacks-desc">
 <title id="d05-local-agent-stacks-title">Two local Cloud Agent instances</title>
 <desc id="d05-local-agent-stacks-desc">The controller reaches separate issuer and verifier Docker Compose projects through host ports 8000 and 9000; each project has APISIX, Cloud Agent, PostgreSQL, PRISM Node, and Vault, with distinct host database ports 5432 and 5433.</desc>
 <defs>
@@ -76,5 +68,3 @@
 <path d="M40 848 H920" stroke="#dce1e4" stroke-width="1"/>
 <text x="40" y="880" fill="#56616b" font-size="16">Host ports differ; container ports can repeat inside separate Compose networks.</text>
 </svg>
-<figcaption>The controller selects an instance through its host API port. Each Compose project starts its own agent, database, and supporting services. PostgreSQL exposes its host port on the loopback interface; the agent uses the database's internal port.</figcaption>
-</figure>

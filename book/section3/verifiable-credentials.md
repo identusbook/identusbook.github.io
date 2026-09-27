@@ -152,7 +152,13 @@ OfferReceived -> RequestPending -> RequestSent -> CredentialReceived
 
 These states are useful when a wallet or controller needs to resume a flow, show progress to a user, or decide whether a manual issuer action is still required.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d12-credential-issuance.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![The holder controller reads the offer and records holder consent before calling accept-offer. With automatic issuance enabled, the issuer agent processes the credential request without the optional controller call. Manual issuance uses issue-credential on the issuer’s record. REST responses and intermediate states are omitted; each controller uses its own agent’s record IDs.](../diagrams/d12-credential-issuance.svg){fig-alt="Issuing a credential over DIDComm"}
+:::
 
 ### Issuer flow
 
@@ -334,7 +340,13 @@ A revocable credential contains status data like this:
 
 The `statusListCredential` URL points to a Status List Credential. That credential contains an encoded bitstring where each bit position corresponds to a credential. The `statusListIndex` identifies the credential's position in that bitstring. When the issuer revokes a credential, the issuer flips the corresponding bit from 0 to 1.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d13-status-list-revocation.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![The credential points to credentialStatus.statusListCredential and supplies statusListIndex. The issuer changes the indexed bit, and the verifier resolves the list, verifies its proof, decodes encodedList, and reads that bit.](../diagrams/d13-status-list-revocation.svg){fig-alt="Checking a credential against a status list"}
+:::
 
 ### Revoking a credential
 

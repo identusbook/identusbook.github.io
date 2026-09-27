@@ -1,13 +1,5 @@
-<figure id="d11-connection-establishment" aria-label="Establishing a connection between two agents">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d11-connection-establishment { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d11-connection-establishment svg { display: block; width: 100%; height: auto; }
-#d11-connection-establishment svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d11-connection-establishment svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d11-connection-establishment figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1064" role="img" aria-labelledby="d11-connection-establishment-title d11-connection-establishment-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1064" role="img" aria-labelledby="d11-connection-establishment-title d11-connection-establishment-desc">
 <title id="d11-connection-establishment-title">Establishing a connection between two agents</title>
 <desc id="d11-connection-establishment-desc">The inviter creates and shares an invitation, the invitee accepts it and sends a DIDComm connection request, and the inviter sends a response; each Cloud Agent maintains a separate local connection record with its own state.</desc>
 <defs>
@@ -94,5 +86,3 @@
 <path d="M40 1016 H920" stroke="#dce1e4" stroke-width="1"/>
 <text x="40" y="1048" fill="#56616b" font-size="16">Boxes show local actions and record states. Arrows show invitation and protocol exchanges.</text>
 </svg>
-<figcaption>Each controller uses its own Cloud Agent's <code>connectionId</code> to read or continue the connection. The agents advance their records as they send and receive messages. The diagram shows selected states on the successful path.</figcaption>
-</figure>

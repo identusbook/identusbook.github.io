@@ -1,13 +1,5 @@
-<figure id="d06-api-wallet-state" aria-label="REST and DIDComm share wallet state">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d06-api-wallet-state { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d06-api-wallet-state svg { display: block; width: 100%; height: auto; }
-#d06-api-wallet-state svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d06-api-wallet-state svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d06-api-wallet-state figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 832" role="img" aria-labelledby="d06-api-wallet-state-title d06-api-wallet-state-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 832" role="img" aria-labelledby="d06-api-wallet-state-title d06-api-wallet-state-desc">
 <title id="d06-api-wallet-state-title">REST and DIDComm share wallet state</title>
 <desc id="d06-api-wallet-state-desc">APISIX routes controller REST requests and peer DIDComm messages to separate Cloud Agent endpoints that use the same wallet records, and the Cloud Agent sends configured webhook notifications to the controller when protocol state changes.</desc>
 <defs>
@@ -87,5 +79,3 @@
 <path d="M40 768 H920" stroke="#dce1e4" stroke-width="1"/>
 <text x="40" y="800" fill="#56616b" font-size="16">Solid arrows show requests and record access. The dashed arrow shows an asynchronous notification.</text>
 </svg>
-<figcaption>A controller API action can continue through later DIDComm messages that change the same protocol record. The Cloud Agent sends state-change events to the controller's configured webhook endpoint.</figcaption>
-</figure>

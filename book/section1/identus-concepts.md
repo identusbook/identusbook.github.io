@@ -1,6 +1,12 @@
 #  Identus Concepts {#sec-identus-concepts}
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d04-identus-components.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![The controller runs business logic through the Cloud Agent API. The wallet exchanges DIDComm messages with the Cloud Agent and retrieves incoming messages from the mediator. PRISM Node publishes DID operations and resolves DID state using the registry.](../diagrams/d04-identus-components.svg){fig-alt="Identus components and communication paths"}
+:::
 
 Identus is made up of several open source components.  Each could be used or forked separately but they are designed to work well together.
 

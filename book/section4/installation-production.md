@@ -40,7 +40,13 @@ A production Identus deployment has several actors and services:
 - Cardano Wallet connects to a Cardano node through the node socket and exposes an HTTP API to PRISM Node.
 - Cardano DB Sync follows the same Cardano node and indexes blocks into PostgreSQL for PRISM Node.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d16-production-boundaries.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![This configured example exposes only the HTTPS gateway. The Cloud Agent and each data, secret, and DID backend service stay on private networks.](../diagrams/d16-production-boundaries.svg){fig-alt="Production service and network boundaries"}
+:::
 
 For a `did:prism` publication path:
 
@@ -50,7 +56,13 @@ For a `did:prism` publication path:
 4. PRISM Node receives the signed operation, schedules it, uses Cardano Wallet to submit a Cardano transaction, and reads indexed blocks through Cardano DB Sync.
 5. The Cloud Agent or resolver reads the DID state after the operation reaches the configured confirmation depth.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d17-did-publication-readback.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![Publication is asynchronous. PRISM Node submits through Cardano Wallet and reads the confirmed operation from the DB Sync index before the Cloud Agent reports the DID as published.](../diagrams/d17-did-publication-readback.svg){fig-alt="DID publication and indexed readback"}
+:::
 
 Credential verification is a different decision path. Verifier software performs technical checks such as proof verification, DID resolution, key use, credential status, and presentation binding. The relying party then applies policy checks such as accepted issuer DIDs, schemas, credential types, trust registry entries, or business rules.
 
@@ -594,7 +606,13 @@ API_KEY_AUTHENTICATE_AS_DEFAULT_USER=false
 DEFAULT_WALLET_ENABLED=false
 ```
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d18-api-key-tenant-provisioning.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![With API_KEY_AUTO_PROVISIONING=false, the administrator creates the wallet, entity, and API key. The tenant API key selects the entity's assigned wallet.](../diagrams/d18-api-key-tenant-provisioning.svg){fig-alt="API key tenant provisioning"}
+:::
 
 With those settings, the Cloud Agent starts with an empty tenant wallet set. The administrator creates a wallet, creates an entity tied to that wallet, and registers an API key for that entity:
 
@@ -671,7 +689,13 @@ Authorization: Bearer replace-with-rpt
 
 If `KEYCLOAK_UMA_AUTO_UPGRADE_RPT=true`, the Cloud Agent can accept the tenant's access token and perform the RPT upgrade path described in the Cloud Agent external IAM guide. Keep `false` until the controller application owns the token exchange and error handling.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d19-keycloak-wallet-authorization.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![The administrator grants a Keycloak subject access to a Cloud Agent wallet. With automatic RPT upgrade disabled, the tenant controller obtains the RPT. The agent accepts one permitted wallet per tenant request.](../diagrams/d19-keycloak-wallet-authorization.svg){fig-alt="Keycloak wallet authorization"}
+:::
 
 ## Cardano Wallet Operations
 

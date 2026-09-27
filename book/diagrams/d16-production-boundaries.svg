@@ -1,13 +1,5 @@
-<figure id="d16-production-boundaries" aria-label="Production service and network boundaries">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d16-production-boundaries { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d16-production-boundaries svg { display: block; width: 100%; height: auto; }
-#d16-production-boundaries svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d16-production-boundaries svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d16-production-boundaries figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 884" role="img" aria-labelledby="d16-production-boundaries-title d16-production-boundaries-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 884" role="img" aria-labelledby="d16-production-boundaries-title d16-production-boundaries-desc">
 <title id="d16-production-boundaries-title">Production service and network boundaries</title>
 <desc id="d16-production-boundaries-desc">Public clients reach the Cloud Agent only through an HTTPS gateway. The Cloud Agent, its database, Vault, PRISM Node, Cardano Wallet, and DB Sync database stay on private networks.</desc>
 <defs>
@@ -79,5 +71,3 @@
 <path d="M40 824 H920" stroke="#dce1e4" stroke-width="1"/>
 <text x="40" y="856" fill="#56616b" font-size="16">Only the gateway accepts public traffic in this configured example.</text>
 </svg>
-<figcaption>This configured example exposes only the HTTPS gateway. The Cloud Agent and each data, secret, and DID backend service stay on private networks.</figcaption>
-</figure>

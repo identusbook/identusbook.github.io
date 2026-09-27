@@ -23,7 +23,13 @@ The current Mediator repository documents support for these DIDComm protocols:
 
 For setup, the important protocols are Coordinate Mediation, Routing, and Message Pickup. Coordinate Mediation lets a recipient wallet request mediation and register recipient keys. Routing defines the `forward` message used to send traffic through the mediator. Message Pickup lets the recipient wallet retrieve queued messages.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d07-mediation-delivery.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![The mediator retains queued messages until the wallet confirms their message IDs. Pickup requests use return_route: all so the mediator can reply over the wallet's connection. The diagram shows delivery after an offline interval.](../diagrams/d07-mediation-delivery.svg){fig-alt="Mediation setup and offline delivery"}
+:::
 
 ## Version selection
 

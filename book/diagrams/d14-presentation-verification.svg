@@ -1,13 +1,5 @@
-<figure id="d14-presentation-verification" aria-label="Presenting proof and accepting the result">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d14-presentation-verification { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d14-presentation-verification svg { display: block; width: 100%; height: auto; }
-#d14-presentation-verification svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d14-presentation-verification svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d14-presentation-verification figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1344" role="img" aria-labelledby="d14-presentation-verification-title d14-presentation-verification-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1344" role="img" aria-labelledby="d14-presentation-verification-title d14-presentation-verification-desc">
 <title id="d14-presentation-verification-title">Presenting proof and accepting the result</title>
 <desc id="d14-presentation-verification-desc">The holder approves a proof request and selects credentials, the verifier agent checks the returned presentation, and the verifier controller applies policy before accepting it.</desc>
 <defs><marker id="d14-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker></defs>
@@ -73,5 +65,3 @@
 <path d="M40 1296 H920" stroke="#dce1e4"/>
 <text x="40" y="1328" fill="#212529" font-size="16" font-weight="400" text-anchor="start">REST calls connect each controller to its agent. DIDComm connects the two agents.</text>
 </svg>
-<figcaption>The verifier supplies request binding for the chosen format: <code>challenge</code> and <code>domain</code> for JWT or key-bound SD-JWT, or an AnonCreds nonce. The holder controller selects credentials and calls <code>request-accept</code>. After <code>PresentationVerified</code>, the verifier controller checks its policy and calls <code>presentation-accept</code> only if the checks pass. A policy rejection stops the application action. This diagram follows the successful path and omits REST responses.</figcaption>
-</figure>

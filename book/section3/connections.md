@@ -159,7 +159,13 @@ As you can see, an Out of Band invite is really just a way to package a PeerDID 
 
 As a refresher from what we covered, a PeerDID is a way to package a set of keys and optional service endpoints, and so, *because this an OOB invite from a mediator*, this invite has everything you need (a PeerDID and set of service endpoints) to establish this service as your mediator.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d10-invitation-decoding.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![This example uses did:peer:2 with embedded service information. The wallet decodes the invitation, resolves its from DID, and reads the public keys and DIDComm service. Ellipses abbreviate the encoded values.](../diagrams/d10-invitation-decoding.svg){fig-alt="From invitation to keys and endpoint"}
+:::
 
 ## Connecting two peers
 
@@ -167,7 +173,13 @@ Now, lets issue another kind of Out of Band invite, one from the cloud agent in 
 
 The Cloud Agent can generate Out of Band invites, this invite then can be parsed by another peer (say another Cloud Agent or Edge Client) and use it to establish a connection, the end result should be a DID Peer on both sides that allow them to send messages to each other over `DIDComm`.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d11-connection-establishment.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![Each controller uses its own Cloud Agent's connectionId to read or continue the connection. The agents advance their records as they send and receive messages. The diagram shows selected states on the successful path.](../diagrams/d11-connection-establishment.svg){fig-alt="Establishing a connection between two agents"}
+:::
 
 So, our first step is to generate the invite:
 

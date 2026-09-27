@@ -1,13 +1,5 @@
-<figure id="d13-status-list-revocation" aria-label="Checking a credential against a status list">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d13-status-list-revocation { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d13-status-list-revocation svg { display: block; width: 100%; height: auto; }
-#d13-status-list-revocation svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d13-status-list-revocation svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d13-status-list-revocation figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="d13-status-list-revocation-title d13-status-list-revocation-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="d13-status-list-revocation-title d13-status-list-revocation-desc">
 <title id="d13-status-list-revocation-title">Checking a credential against a status list</title>
 <desc id="d13-status-list-revocation-desc">The issuer assigns a status list index and sets a revocation bit. The verifier resolves the statusListCredential URL, verifies the status list proof, decodes its bit string, and checks the indexed bit. Zero means not revoked and one means revoked.</desc>
 <defs>
@@ -48,5 +40,3 @@
 <path d="M40 524 H920" stroke="#dce1e4" stroke-width="1"/>
 <text x="40" y="556" fill="#56616b" font-size="16">The issuer controls revocation. The verifier trusts the result only after proof verification.</text>
 </svg>
-<figcaption>The credential points to <code>credentialStatus.statusListCredential</code> and supplies <code>statusListIndex</code>. The issuer changes the indexed bit, and the verifier resolves the list, verifies its proof, decodes <code>encodedList</code>, and reads that bit.</figcaption>
-</figure>

@@ -77,6 +77,21 @@ format:
     toc: true
     number-sections: false
     documentclass: scrbook
+    classoption: ["oneside"]
     papersize: letter
-  #epub:
-  #  cover-image: cover.png
+    geometry:
+      - top=1in
+      - bottom=1.25in
+      - left=1.25in
+      - right=1.25in
+    include-in-header:
+      text: |
+        \usepackage{eso-pic}
+        \AtBeginDocument{%
+        \begin{titlepage}%
+        \AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight]{cover-letter.jpg}}%
+        \null
+        \end{titlepage}%
+        }
+  epub:
+    cover-image: cover.jpg

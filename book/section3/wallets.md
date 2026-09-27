@@ -92,7 +92,13 @@ Use a Cloud Agent wallet when a server must act for an organization or delegated
 
 Many Identus systems use both. The issuer and verifier run Cloud Agent. The holder uses an Edge Agent wallet. DIDComm, credentials, DIDs, and presentation protocols connect the two custody models without requiring the same wallet implementation on every side.
 
+::: {.content-visible when-format="html:js"}
 {{< include ../diagrams/d08-wallet-custody.html >}}
+:::
+
+::: {.content-visible unless-format="html:js"}
+![The application team implements storage, key protection, and recovery for the traveler's wallet. The service operator manages the Cloud Agent runtime, database, secret storage, and recovery. The DIDComm link represents protocol exchange; delivery can use a mediator.](../diagrams/d08-wallet-custody.svg){fig-alt="Edge and Cloud wallet custody"}
+:::
 
 ## Airline Ticket Flow
 

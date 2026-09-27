@@ -1,13 +1,5 @@
-<figure id="d09-didcomm-envelope" aria-label="Inside a mediated DIDComm message">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
-<style>
-#d09-didcomm-envelope { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d09-didcomm-envelope svg { display: block; width: 100%; height: auto; }
-#d09-didcomm-envelope svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
-#d09-didcomm-envelope svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
-#d09-didcomm-envelope figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
-</style>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 752" role="img" aria-labelledby="d09-didcomm-envelope-title d09-didcomm-envelope-desc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 752" role="img" aria-labelledby="d09-didcomm-envelope-title d09-didcomm-envelope-desc">
 <title id="d09-didcomm-envelope-title">Inside a mediated DIDComm message</title>
 <desc id="d09-didcomm-envelope-desc">A message encrypted for the mediator contains forwarding instructions and an attachment encrypted for the recipient; the mediator reads the routing instructions, and the recipient decrypts the attachment to read the application message.</desc>
 <rect width="960" height="752" fill="#ffffff"/>
@@ -30,5 +22,3 @@
 <path d="M40 696 H920" stroke="#dce1e4" stroke-width="1"/>
 <text x="40" y="728" fill="#56616b" font-size="16">The mediator reads the next routing destination. The recipient reads the application content.</text>
 </svg>
-<figcaption>The sender encrypts the application message for the recipient, attaches that ciphertext to a <code>forward</code> message, and encrypts the outer message for the mediator. The expanded layers show contents after each decryption step.</figcaption>
-</figure>

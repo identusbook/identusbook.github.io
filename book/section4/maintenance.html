@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -518,11 +553,79 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="key-and-credential-rotation" class="level3" data-number="19.4.3">
 <h3 data-number="19.4.3" class="anchored" data-anchor-id="key-and-credential-rotation"><span class="header-section-number">19.4.3</span> Key and Credential Rotation</h3>
-<p>Rotate operational credentials through the same process used for the rest of your production secrets: <code>ADMIN_TOKEN</code>, tenant API keys, database passwords, Vault credentials, Keycloak client secrets, and the Cardano Wallet passphrase.</p>
-<p>DID key rotation is a different, protocol-level operation. A <code>did:prism</code> controller rotates verification keys by publishing a signed DID <strong>update</strong> operation through PRISM Node, which changes the DID Document’s verification methods and relationships on-chain (see <a href="../section1/dids-and-diddocuments.html" class="quarto-xref">Chapter&nbsp;<span>7</span></a>). Because issuance and DID updates depend on key material derived from the wallet seed, key rotation and seed custody are tightly linked.</p>
-<blockquote class="blockquote">
-<p>TODO: Placeholder for a concrete rotation runbook. Expand with step-by-step procedures and their blast radius: rotating the wallet seed and what happens to existing DIDs, rotating <code>did:prism</code> verification keys via update operations without invalidating already-issued credentials, and rotating Vault AppRole credentials with zero downtime.</p>
-</blockquote>
+<p>Rotation covers two different kinds of secret. Operational credentials — <code>ADMIN_TOKEN</code>, tenant API keys, database passwords, Vault credentials, Keycloak client secrets, and the Cardano Wallet passphrase — protect access to the services, and rotate through the same process used for the rest of your production secrets. DID keys are different: they are protocol-level material that verifiers depend on, and rotating them changes what the rest of the world can verify. The procedures below are based on Cloud Agent 2.1.0; check the release notes when you upgrade, because key-selection behavior is an area where the agent is still evolving.</p>
+<p><strong>Operational credentials.</strong> Most of these rotate with a restart, but a few have behavior worth knowing before you start:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Credential</th>
+<th>Procedure</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ADMIN_TOKEN</code></td>
+<td>Generate a new value, update the secret store, and restart the Cloud Agent.</td>
+<td>The agent accepts one admin token. Admin automation fails until it uses the new value; tenant API calls are not affected.</td>
+</tr>
+<tr class="even">
+<td>Tenant API keys</td>
+<td>Register a new key with <code>POST /iam/apikey-authentication</code>, move the tenant’s application to it, then unregister the old key with <code>DELETE /iam/apikey-authentication</code> and the same <code>entityId</code>/<code>apiKey</code> body.</td>
+<td>None, if done in that order: an entity can hold several API keys at once.</td>
+</tr>
+<tr class="odd">
+<td><code>API_KEY_SALT</code></td>
+<td>Do not rotate as routine maintenance.</td>
+<td>The Cloud Agent stores API keys as salted hashes, so changing the salt invalidates every registered API key at once. Treat it as a re-provisioning event for all tenants.</td>
+</tr>
+<tr class="even">
+<td>Vault AppRole <code>secret_id</code></td>
+<td>See the runbook below.</td>
+<td>None, if the old <code>secret_id</code> stays valid until every agent instance has restarted.</td>
+</tr>
+</tbody>
+</table>
+<p>Always generate a new random value for a replacement API key. The Cloud Agent keeps unregistered keys on record and refuses to register the same value again, and if a key that is already registered is submitted for a <em>different</em> entity, the agent treats it as compromised and disables it.</p>
+<p><strong>Rotating the Vault AppRole <code>secret_id</code>.</strong> The Cloud Agent logs in to Vault with <code>VAULT_APPROLE_ROLE_ID</code> and <code>VAULT_APPROLE_SECRET_ID</code> at startup, and logs in again with the same pair before each token lease expires. Revoking the old <code>secret_id</code> while an agent is still running on it does not fail immediately; it fails at the next re-login, when the agent can no longer read wallet seeds. Rotate in this order:</p>
+<ol type="1">
+<li><p>Generate a new <code>secret_id</code> for the role, and record its accessor:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">vault</span> write <span class="at">-f</span> auth/approle/role/cloud-agent/secret-id</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Update <code>VAULT_APPROLE_SECRET_ID</code> in the production secret store and restart or roll every Cloud Agent instance.</p></li>
+<li><p>Confirm each instance is healthy and can reach wallet material, for example by listing a tenant’s DIDs.</p></li>
+<li><p>Destroy the old <code>secret_id</code> by its accessor:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">vault</span> write auth/approle/role/cloud-agent/secret-id-accessor/destroy <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  secret_id_accessor=replace-with-old-accessor</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<p>If the role sets <code>secret_id_ttl</code> or <code>secret_id_num_uses</code>, remember that the agent’s periodic re-login consumes them. A <code>secret_id</code> that expires or runs out of uses while the agent is running has the same effect as revoking it.</p>
+<p><strong>Rotating <code>did:prism</code> keys.</strong> A <code>did:prism</code> controller rotates verification keys by publishing a signed DID <strong>update</strong> operation through PRISM Node, which changes the DID Document’s verification methods and relationships on-chain (see <a href="../section1/dids-and-diddocuments.html" class="quarto-xref">Chapter&nbsp;<span>7</span></a>). In the Cloud Agent this is <code>POST /did-registrar/dids/{didRef}/updates</code>, with <code>ADD_KEY</code> and <code>REMOVE_KEY</code> actions. The agent derives the new key from the wallet seed and records its derivation path.</p>
+<p>The important constraint is on the verifier side. When the Cloud Agent verifies a JWT credential, it resolves the issuer DID’s <em>current</em> DID Document and checks the signature against the keys listed under <code>assertionMethod</code>. Removing a key therefore breaks verification of every credential that key signed, not just future ones. Rotate an issuing key with an overlap period:</p>
+<ol type="1">
+<li><p><strong>Add the new key.</strong> Submit an update that adds a key with the same purpose and curve as the one being replaced:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST <span class="st">"https://agent.example.test/cloud-agent/did-registrar/dids/</span><span class="va">$ISSUER_DID</span><span class="st">/updates"</span> <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">"apikey: replace-with-tenant-api-key"</span> <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">"Content-Type: application/json"</span> <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">'{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">    "actions": [</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">      {</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">        "actionType": "ADD_KEY",</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">        "addKey": { "id": "assertion-2", "purpose": "assertionMethod", "curve": "secp256k1" }</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">      }</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">    ]</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">  }'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The agent accepts one pending update per DID. Wait until the operation is confirmed on-chain and the DID resolves with the new key before submitting another update.</p></li>
+<li><p><strong>Name the signing key in every issuance request.</strong> While the DID has two <code>assertionMethod</code> keys, the Cloud Agent refuses to pick one: when it signs a JWT credential for an offer that did not set an issuing key ID, the issuance fails. The key is looked up at signing time, so this also catches offers created before the new key was added that are still waiting for the holder’s request. Set <code>issuingKid</code> in <code>jwtVcPropertiesV1</code> (for example <code>"issuingKid": "assertion-2"</code>) on every offer, update your issuer application <em>before</em> step 1 is confirmed, and let in-flight offers complete first. OID4VCI issuance in this release does not take a key ID, so it fails for as long as the DID has more than one <code>assertionMethod</code> key; schedule the overlap accordingly if you use it.</p></li>
+<li><p><strong>Reissue credentials</strong> that must remain verifiable after the old key is removed, signing with the new key. Credentials that will expire or be revoked before the cutover can be left alone.</p></li>
+<li><p><strong>Remove the old key</strong> with a <code>REMOVE_KEY</code> action (<code>"removeKey": { "id": "assertion-1" }</code>) once no credential you still need depends on it. After removal, confirm that a freshly issued credential verifies, and that your status list credential still verifies. The agent signs status list credentials with the first <code>assertionMethod</code> key it finds, so a status list last signed with the removed key may need an update (a revocation or suspension) to be re-signed.</p></li>
+</ol>
+<p>The DID’s <code>master0</code> key, which signs the update operations themselves, is reserved: the Cloud Agent rejects <code>ADD_KEY</code> and <code>REMOVE_KEY</code> actions that name it, so it cannot be rotated through the API.</p>
+<p><strong>The wallet seed cannot be rotated.</strong> A wallet’s seed is fixed when the wallet is created; the Cloud Agent has no endpoint to replace it, and every PRISM key in the wallet, including <code>master0</code>, is derived from it. “Rotating” a seed means creating a new wallet (with a new seed), creating and publishing new DIDs in it, reissuing credentials from the new DIDs, and moving tenants and relying parties over to them. Plan it as a migration.</p>
+<p>That also defines the blast radius of a seed compromise. Anyone holding the seed can derive <code>master0</code> and publish update or deactivation operations for every PRISM DID in that wallet, so the response is urgent: deactivate the affected DIDs, create a new wallet and new DIDs, and reissue. Deactivating a DID means verifiers can no longer resolve usable keys for it, so every credential it issued stops verifying — which is the intended outcome when the signing keys can no longer be trusted, but should be communicated to holders and relying parties before it happens where possible. This is why the seed, and the Vault storage that holds it, is the single most important thing in the deployment to protect and back up.</p>
 
 
 </section>

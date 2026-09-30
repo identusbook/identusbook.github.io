@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>17&nbsp; Verificación – Domina Identus: manual para desarrolladores</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../section4/installation-production.html" rel="next">
+<link href="../section3/verifiable-credentials.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ddd3e0c3eb9ec4ceaceae2a755279945.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="https://identusbook.com">
+    <span class="navbar-title">Domina Identus: manual para desarrolladores</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://identusbook.com/blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Libro</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://identusbook.com/authors.html"> 
+<span class="menu-text">Autores</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">English</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Español</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/identusbook"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://identusbook.com/index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="Descargar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Descargar"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../Domina-Identus--manual-para-desarrolladores.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Descargar PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../Domina-Identus--manual-para-desarrolladores.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Descargar ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section3/example-project.html">Sección III: construcción</a></li><li class="breadcrumb-item"><a href="../section3/verification.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verificación</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bienvenida</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../copyright.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Derechos de autor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Licencia</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dedication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Dedicatoria</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prefacio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección I</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/ssi-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Fundamentos de SSI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/dids-and-diddocuments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">DIDs y documentos DID</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/identus-concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conceptos de Identus</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección II: primeros pasos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section2/installation-local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Instalación: entorno local</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section2/agent-rest-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API REST del agente</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section2/mediator.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Mediador</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección III: construcción</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/example-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Proyecto de ejemplo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/wallets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Billeteras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/didcomm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">DIDComm</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/connections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Conexiones</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/verifiable-credentials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Credenciales verificables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/verification.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verificación</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección IV: despliegue</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section4/installation-production.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Instalación: entorno de producción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section4/maintenance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Mantenimiento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección V: adenda</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section5/trust-registries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Registros de confianza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section5/continuing-your-journey.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Continúa tu recorrido</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Apéndices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../errata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Erratas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glosario</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#presentar-una-prueba" id="toc-presentar-una-prueba" class="nav-link active" data-scroll-target="#presentar-una-prueba"><span class="header-section-number">17.1</span> Presentar una prueba</a></li>
+  <li><a href="#verificación-y-aceptación" id="toc-verificación-y-aceptación" class="nav-link" data-scroll-target="#verificación-y-aceptación"><span class="header-section-number">17.2</span> Verificación y aceptación</a></li>
+  <li><a href="#verificación-directa-de-credenciales" id="toc-verificación-directa-de-credenciales" class="nav-link" data-scroll-target="#verificación-directa-de-credenciales"><span class="header-section-number">17.3</span> Verificación directa de credenciales</a></li>
+  <li><a href="#políticas-de-verificación" id="toc-políticas-de-verificación" class="nav-link" data-scroll-target="#políticas-de-verificación"><span class="header-section-number">17.4</span> Políticas de verificación</a></li>
+  <li><a href="#divulgación-selectiva" id="toc-divulgación-selectiva" class="nav-link" data-scroll-target="#divulgación-selectiva"><span class="header-section-number">17.5</span> Divulgación selectiva</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section3/example-project.html">Sección III: construcción</a></li><li class="breadcrumb-item"><a href="../section3/verification.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verificación</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-verification" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verificación</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="presentar-una-prueba" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="presentar-una-prueba"><span class="header-section-number">17.1</span> Presentar una prueba</h2>
+<p>La verificación en Identus comienza cuando un verificador pide a un titular que presente pruebas de una o más credenciales. Para flujos DIDComm, Identus Cloud Agent usa el protocolo Present Proof. El Cloud Agent del verificador envía una solicitud de presentación mediante una conexión DIDComm existente. El Cloud Agent del titular devuelve una presentación y el del verificador comprueba el material de prueba recibido.</p>
+<p>La <a href="https://github.com/hyperledger-identus/cloud-agent/blob/main/docs/docusaurus/credentials/didcomm/present-proof.md">guía Present Proof de Identus</a> describe el flujo de API DIDComm:</p>
+<ol type="1">
+<li>El controlador del verificador llama a <code>POST /present-proof/presentations</code> en su Cloud Agent. La solicitud identifica la conexión DIDComm y describe la prueba que quiere el verificador.</li>
+<li>El controlador del titular lee los registros de presentaciones pendientes desde <code>GET /present-proof/presentations</code>.</li>
+<li>El controlador del titular acepta una solicitud mediante <code>PATCH /present-proof/presentations/{id}</code> con <code>action: "request-accept"</code>. Para credenciales JWT y SD-JWT, proporciona IDs de registros de credenciales mediante <code>proofId</code>. Para AnonCreds, proporciona la correspondencia de pruebas de credenciales en <code>anoncredPresentationRequest</code>.</li>
+<li>El Cloud Agent del titular genera la presentación y la envía al Cloud Agent del verificador.</li>
+<li>El Cloud Agent del verificador verifica la presentación. Un registro correcto del lado del verificador pasa por <code>PresentationReceived</code> y <code>PresentationVerified</code>.</li>
+<li>El controlador del verificador acepta la presentación verificada mediante <code>PATCH /present-proof/presentations/{id}</code> con <code>action: "presentation-accept"</code>, o la rechaza en la lógica de la aplicación.</li>
+</ol>
+<p>La estructura exacta de la solicitud depende del formato de credencial. Las solicitudes de presentación JWT y SD-JWT pueden incluir <code>options.challenge</code> y <code>options.domain</code> para que el titular firme material vinculado a la solicitud del verificador. Las solicitudes AnonCreds usan un objeto <code>anoncredPresentationRequest</code> con un nonce, atributos solicitados, predicados solicitados, restricciones e intervalos opcionales de no revocación.</p>
+<p>El <a href="https://didcomm.org/present-proof/3.0/">protocolo DIDComm Present Proof 3.0</a> es independiente del formato. Transporta una solicitud de presentación y una presentación, pero el formato de credencial determina las comprobaciones criptográficas que se ejecutan.</p>
+<figure id="d14-presentation-verification" aria-label="Presentar una prueba y aceptar el resultado" class="figure">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"> <style> #d14-presentation-verification { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d14-presentation-verification svg { display: block; width: 100%; height: auto; } #d14-presentation-verification svg text { font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d14-presentation-verification svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, ‘Liberation Mono’, ‘Courier New’, monospace; } #d14-presentation-verification figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; } </style> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 960 1344" role="img" aria-labelledby="d14-presentation-verification-title d14-presentation-verification-desc">
+<title id="d14-presentation-verification-title">
+Presentar una prueba y aceptar el resultado
+</title>
+<desc id="d14-presentation-verification-desc">El titular aprueba una solicitud de prueba y selecciona credenciales. El agente del verificador comprueba la presentación recibida y su controlador aplica la política antes de aceptarla.</desc> <defs><marker id="d14-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker></defs> <rect width="960" height="1344" fill="#ffffff"></rect> <text x="40" y="48" fill="#212529" font-size="28" font-weight="600" text-anchor="start">Presentar una prueba y aceptar el resultado</text> <text x="40" y="80" fill="#212529" font-size="20" font-weight="400" text-anchor="start">El controlador aplica la política tras la verificación de la prueba por el agente</text> <path d="M144 184 V1264" stroke="#b8c2c8" stroke-dasharray="6 6"></path> <path d="M368 184 V1264" stroke="#b8c2c8" stroke-dasharray="6 6"></path> <path d="M592 184 V1264" stroke="#b8c2c8" stroke-dasharray="6 6"></path> <path d="M816 184 V1264" stroke="#b8c2c8" stroke-dasharray="6 6"></path> <path d="M144 264 H368" fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d14-arrow)"></path> <path d="M368 344 H592" fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d14-arrow)"></path> <path d="M816 424 H592" fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d14-arrow)"></path> <path d="M816 608 H592" fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d14-arrow)"></path> <path d="M592 688 H368" fill="none" stroke="#56616b" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#d14-arrow)"></path> <path d="M144 912 H368" fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d14-arrow)"></path> <path d="M144 1152 H368" fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d14-arrow)"></path> <rect x="152" y="204" width="208" height="48" rx="4" fill="#ffffff" stroke="none"></rect> <text x="256" y="228" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Crear solicitud</text> <text x="256" y="252" fill="#212529" font-size="16" font-weight="400" text-anchor="middle">REST POST</text> <rect x="376" y="284" width="208" height="48" rx="4" fill="#ffffff" stroke="none"></rect> <text x="480" y="308" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Solicitud de prueba</text> <text x="480" y="332" fill="#212529" font-size="16" font-weight="400" text-anchor="middle">DIDComm</text> <rect x="600" y="364" width="208" height="48" rx="4" fill="#ffffff" stroke="none"></rect> <text x="704" y="388" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Leer solicitud</text> <text x="704" y="412" fill="#212529" font-size="16" font-weight="400" text-anchor="middle">REST GET</text> <rect x="600" y="548" width="208" height="48" rx="4" fill="#ffffff" stroke="none"></rect> <text x="704" y="572" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Aceptar solicitud</text> <text x="704" y="596" fill="#212529" font-size="16" font-weight="400" text-anchor="middle">REST PATCH</text> <rect x="376" y="628" width="208" height="48" rx="4" fill="#ffffff" stroke="none"></rect> <text x="480" y="652" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Presentación</text> <text x="480" y="676" fill="#212529" font-size="16" font-weight="400" text-anchor="middle">DIDComm</text> <rect x="152" y="852" width="208" height="48" rx="4" fill="#ffffff" stroke="none"></rect> <text x="256" y="876" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Leer resultado</text> <text x="256" y="900" fill="#212529" font-size="16" font-weight="400" text-anchor="middle">REST GET</text> <rect x="152" y="1092" width="208" height="48" rx="4" fill="#ffffff" stroke="none"></rect> <text x="256" y="1116" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Aceptar resultado</text> <text x="256" y="1140" fill="#212529" font-size="16" font-weight="400" text-anchor="middle">REST PATCH</text> <rect x="48" y="112" width="192" height="72" rx="4" fill="#ffffff" stroke="#2c3e50"></rect> <text x="144" y="136" fill="#212529" font-size="12" font-weight="700" text-anchor="middle">VERIFICADOR</text> <text x="144" y="164" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Controlador</text> <rect x="272" y="112" width="192" height="72" rx="4" fill="#ffffff" stroke="#2c3e50"></rect> <text x="368" y="136" fill="#212529" font-size="12" font-weight="700" text-anchor="middle">VERIFICADOR</text> <text x="368" y="164" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud Agent</text> <rect x="496" y="112" width="192" height="72" rx="4" fill="#ffffff" stroke="#2c3e50"></rect> <text x="592" y="136" fill="#212529" font-size="12" font-weight="700" text-anchor="middle">TITULAR</text> <text x="592" y="164" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud Agent</text> <rect x="720" y="112" width="192" height="72" rx="4" fill="#ffffff" stroke="#2c3e50"></rect> <text x="816" y="136" fill="#212529" font-size="12" font-weight="700" text-anchor="middle">TITULAR</text> <text x="816" y="164" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Controlador</text> <rect x="720" y="456" width="192" height="88" rx="4" fill="#f0f3f4" stroke="#b8c2c8"></rect> <text x="816" y="484" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Revisar solicitud</text> <text x="816" y="536" fill="#212529" font-size="16" font-weight="400" text-anchor="middle">Elegir credenciales</text> <rect x="248" y="728" width="240" height="96" rx="4" fill="#eefaf7" stroke="#18bc9c"></rect> <text x="368" y="756" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Verificar prueba</text> <text class="technical" x="368" y="808" fill="#212529" font-size="16" font-weight="400" text-anchor="middle">PresentationVerified</text> <rect x="44" y="952" width="200" height="96" rx="4" fill="#eefaf7" stroke="#18bc9c"></rect> <text x="144" y="980" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Aplicar política</text> <text x="144" y="1032" fill="#212529" font-size="16" font-weight="400" text-anchor="middle">Emisor, afirmaciones, fin</text> <rect x="248" y="1192" width="240" height="96" rx="4" fill="#f0f3f4" stroke="#b8c2c8"></rect> <text x="368" y="1220" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Registrar aceptación</text> <text class="technical" x="368" y="1272" fill="#212529" font-size="16" font-weight="400" text-anchor="middle">PresentationAccepted</text> <path d="M40 1296 H920" stroke="#dce1e4"></path> <text x="40" y="1328" fill="#212529" font-size="16" font-weight="400" text-anchor="start">Las llamadas REST conectan cada controlador con su agente. DIDComm conecta ambos agentes.</text> </svg>
+<figcaption>
+El verificador proporciona la vinculación de la solicitud para el formato elegido: <code>challenge</code> y <code>domain</code> para JWT o SD-JWT con vinculación de clave, o un nonce de AnonCreds. El controlador del titular selecciona credenciales y llama a <code>request-accept</code>. Después de <code>PresentationVerified</code>, el controlador del verificador comprueba su política y llama a <code>presentation-accept</code> solo si supera las comprobaciones. Un rechazo por política detiene la acción de la aplicación. Este diagrama sigue el flujo correcto y omite respuestas REST.
+</figcaption>
+</figure>
+</section>
+<section id="verificación-y-aceptación" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="verificación-y-aceptación"><span class="header-section-number">17.2</span> Verificación y aceptación</h2>
+<p>La verificación criptográfica y la aceptación del verificador son decisiones separadas.</p>
+<p>El Cloud Agent del verificador puede comprobar si la presentación tiene una estructura correcta para su formato, está vinculada a la solicitud del verificador y cuenta con el material criptográfico esperado. Para JWT-VC, comprueba las firmas JWT y las claves resueltas mediante DID. Para SD-JWT-VC, comprueba la firma del emisor, los resúmenes de las afirmaciones divulgadas y la vinculación de clave del titular cuando la credencial contiene una clave <code>cnf</code>. Para AnonCreds, comprueba pruebas de igualdad, de predicados, agregadas y las pruebas de no revocación que solicitó el verificador.</p>
+<p>El controlador del verificador aún decide si debe aceptar la prueba para la acción de negocio. El <a href="https://www.w3.org/TR/vc-data-model-2.0/">modelo de datos de credenciales verificables 2.0 de W3C</a> separa verificación y validación: la verificación comprueba el mecanismo de protección y la validación aplica reglas de negocio a un uso específico de la credencial.</p>
+<p>Después de que Cloud Agent informe de una presentación verificada, el controlador del verificador debe comprobar:</p>
+<ol type="1">
+<li>El verificador confía en el DID del emisor para el tipo y esquema de credencial.</li>
+<li>La credencial usa el esquema o definición de credencial que indica la solicitud del verificador.</li>
+<li>Las afirmaciones divulgadas satisfacen la política del verificador.</li>
+<li>El período de validez y los datos de estado o revocación corresponden al momento que interesa al verificador.</li>
+<li>El verificador acepta que el titular o presentador tiene autorización para este caso de uso.</li>
+</ol>
+<p>Una prueba válida aún puede no superar la aceptación. El verificador de un local puede recibir una credencial de edad criptográficamente válida y rechazarla si el emisor no está en su lista de emisores de confianza o si la afirmación revelada no cumple la regla de edad del local.</p>
+</section>
+<section id="verificación-directa-de-credenciales" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="verificación-directa-de-credenciales"><span class="header-section-number">17.3</span> Verificación directa de credenciales</h2>
+<p>Cloud Agent expone un punto de acceso de verificación directa en <code>POST /verification/credential</code>. Úsalo cuando el software del verificador tiene una credencial JWT codificada y necesita resultados explícitos de comprobación fuera de un intercambio DIDComm Present Proof.</p>
+<p>El punto de acceso acepta una lista de credenciales codificadas y comprobaciones de verificación. La implementación actual del servicio incluye comprobaciones como verificación de firma y algoritmo, identificación del emisor, caducidad, fecha mínima de validez, audiencia, validación de esquema, validación del esquema del sujeto y análisis semántico de afirmaciones.</p>
+<p>El punto de acceso de verificación directa no sustituye una solicitud de presentación. Verifica los datos de credencial que recibe. No demuestra que el titular actual controla la clave del sujeto de la credencial para un desafío del verificador, ni decide si la aplicación debe aceptar un emisor o una afirmación.</p>
+</section>
+<section id="políticas-de-verificación" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="políticas-de-verificación"><span class="header-section-number">17.4</span> Políticas de verificación</h2>
+<p>Identus usa el término <code>verification policy</code> para reglas almacenadas del verificador. El código de Cloud Agent expone puntos de acceso <code>/verification/policies</code> para crear, actualizar, obtener, listar y eliminar esas políticas. El modelo actual contiene una <code>CredentialSchemaAndTrustedIssuersConstraint</code> con:</p>
+<ol type="1">
+<li><code>schemaId</code>, el esquema que espera el verificador.</li>
+<li><code>trustedIssuers</code>, los DIDs de emisores que acepta para ese esquema.</li>
+</ol>
+<p>La descripción del punto de acceso en el código de Cloud Agent indica que estas políticas se aplican a credenciales verificables W3C en formato JWT y actualmente usan las restricciones <code>schemaId</code> y <code>trustedIssuers</code>.</p>
+<p>El controlador del verificador puede usar una política antes de enviar una solicitud de presentación, después de recibir una presentación verificada o en ambos momentos. Antes de la solicitud, la política puede ayudarlo a pedir el esquema que acepta. Después de la verificación, puede ayudarlo a rechazar una credencial de un emisor que no es de confianza. El resultado de verificación criptográfica de Cloud Agent debe contribuir a esta decisión de política, no representar toda la decisión.</p>
+<p>Si el despliegue usa un registro de confianza externo, mantén la consulta del registro separada de la verificación de pruebas. El verificador o su controlador consulta el registro, resuelve el conjunto de emisores de confianza para el esquema solicitado e incorpora el resultado a su decisión de política.</p>
+</section>
+<section id="divulgación-selectiva" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="divulgación-selectiva"><span class="header-section-number">17.5</span> Divulgación selectiva</h2>
+<p>La divulgación selectiva permite que el titular revele solo las afirmaciones necesarias para la solicitud del verificador. Identus admite presentaciones con divulgación selectiva mediante SD-JWT y AnonCreds, pero ambos formatos usan mecanismos distintos.</p>
+<p>La presentación JWT-VC simple expone la carga útil de la credencial necesaria para las comprobaciones del verificador. El formato sirve cuando este necesita la credencial completa, como una puerta de embarque que comprueba toda la tarjeta de embarque. Resulta poco adecuado cuando necesita un atributo o un predicado.</p>
+<p>SD-JWT usa hashes con sal. El emisor firma una carga útil JWT que contiene resúmenes de las afirmaciones que permiten divulgación selectiva. Durante la presentación, el titular envía el SD-JWT firmado por el emisor y las divulgaciones seleccionadas para ese verificador. El verificador calcula el hash de cada valor divulgado con su sal y comprueba que el resumen aparece en la carga útil firmada. SD-JWT proporciona divulgación selectiva para afirmaciones JSON; no es un sistema de pruebas de predicados de conocimiento cero.</p>
+<p>Identus añade un detalle de vinculación de clave para las presentaciones SD-JWT. Si el titular acepta una oferta SD-JWT con <code>keyId</code>, la credencial emitida puede incluir una vinculación de clave <code>cnf</code>. Una presentación posterior del titular puede firmar el <code>challenge</code> y el <code>domain</code> del verificador. Si la credencial SD-JWT no tiene clave <code>cnf</code>, la guía Present Proof de Identus indica que el titular no puede crear una presentación que firme el <code>challenge</code> y el <code>domain</code> del verificador.</p>
+<figure id="d15-selective-disclosure" aria-label="Divulgación selectiva en una credencial SD-JWT" class="figure">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"> <style> #d15-selective-disclosure { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d15-selective-disclosure svg { display: block; width: 100%; height: auto; } #d15-selective-disclosure svg text { font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d15-selective-disclosure svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, ‘Liberation Mono’, ‘Courier New’, monospace; } #d15-selective-disclosure figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; } </style> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 960 960" role="img" aria-labelledby="d15-selective-disclosure-title d15-selective-disclosure-desc">
+<title id="d15-selective-disclosure-title">
+Divulgación selectiva con SD-JWT
+</title>
+<desc id="d15-selective-disclosure-desc">El emisor firma resúmenes de divulgaciones. El titular envía solo la divulgación del nivel de afiliación. El verificador comprueba la firma del emisor y el resumen de esa divulgación sin recibir la divulgación de fecha de nacimiento.</desc> <defs><marker id="d15-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker></defs> <rect width="960" height="960" fill="#ffffff"></rect> <text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Divulgación selectiva con SD-JWT</text> <text x="40" y="80" fill="#56616b" font-size="20">El titular elige las divulgaciones que envía con el JWT firmado</text> <g stroke="#b8c2c8" stroke-dasharray="6 6"><path d="M160 184 V884"></path><path d="M480 184 V884"></path><path d="M800 184 V884"></path></g> <g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d15-arrow)"><path d="M160 408 H480"></path><path d="M480 664 H800"></path></g> <g fill="#ffffff"><rect x="184" y="352" width="272" height="48"></rect><rect x="504" y="608" width="272" height="48"></rect></g> <g fill="#212529" font-size="20" font-weight="600" text-anchor="middle"><text x="320" y="376">Emitir al titular</text><text x="640" y="632">Presentar al verificador</text></g> <g fill="#56616b" font-size="14" text-anchor="middle"><text x="320" y="396">JWT firmado + ambas divulgaciones</text><text x="640" y="652">JWT firmado + divulgación del nivel</text></g> <g fill="#ffffff" stroke="#2c3e50"><rect x="40" y="112" width="240" height="72" rx="4"></rect><rect x="360" y="112" width="240" height="72" rx="4"></rect><rect x="680" y="112" width="240" height="72" rx="4"></rect></g> <g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle"><text x="160" y="136">EMISOR</text><text x="480" y="136">TITULAR</text><text x="800" y="136">VERIFICADOR</text></g> <g fill="#212529" font-size="20" font-weight="600" text-anchor="middle"><text x="160" y="164">Emitir afirmaciones</text><text x="480" y="164">Elegir afirmaciones</text><text x="800" y="164">Comprobar afirmaciones</text></g> <rect x="40" y="216" width="240" height="112" rx="4" fill="#f0f3f4" stroke="#b8c2c8"></rect> <text x="160" y="244" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Firmar resúmenes</text> <text class="technical" x="160" y="276" fill="#56616b" font-size="16" text-anchor="middle">_sd: [d1, d2]</text> <text x="160" y="308" fill="#56616b" font-size="16" text-anchor="middle">Un resumen por divulgación</text> <rect x="360" y="448" width="240" height="136" rx="4" fill="#eefaf7" stroke="#18bc9c"></rect> <text x="480" y="476" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Elegir divulgaciones</text> <text class="technical" x="480" y="508" fill="#56616b" font-size="16" text-anchor="middle">membershipTier: Gold</text> <text x="480" y="540" fill="#56616b" font-size="16" text-anchor="middle">Enviar divulgación del nivel</text> <text x="480" y="568" fill="#56616b" font-size="16" text-anchor="middle">Ocultar fecha de nacimiento</text> <rect x="680" y="704" width="240" height="160" rx="4" fill="#eefaf7" stroke="#18bc9c"></rect> <text x="800" y="732" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Verificar divulgación</text> <text x="800" y="768" fill="#56616b" font-size="16" text-anchor="middle">Comprobar firma del emisor</text> <text x="800" y="796" fill="#56616b" font-size="14" text-anchor="middle">Hash de Disclosure codificada</text> <text x="800" y="824" fill="#56616b" font-size="14" text-anchor="middle">Comparar resumen en JWT firmado</text> <text x="800" y="852" fill="#56616b" font-size="16" text-anchor="middle">Leer nivel de afiliación</text> <path d="M40 904 H920" stroke="#dce1e4"></path> <text x="40" y="936" fill="#56616b" font-size="16">El verificador recibe el valor elegido y su sal; el titular conserva la otra divulgación.</text> </svg>
+<figcaption>
+Este ejemplo usa dos propiedades de objeto que permiten divulgación selectiva. Cada Disclosure codifica <code>[salt, name, value]</code> como base64url. El verificador calcula el hash de esa cadena codificada y compara el resumen base64url con la carga útil firmada por el emisor, según RFC 9901, sección 4.2.3. Las etiquetas <code>d1</code> y <code>d2</code> representan resúmenes completos. Una credencial con <code>cnf</code> puede admitir vinculación de clave del titular a la solicitud del verificador.
+</figcaption>
+</figure>
+<p>AnonCreds usa pruebas de conocimiento cero. La solicitud de presentación del verificador puede pedir atributos revelados, predicados como <code>age &gt;= 18</code>, restricciones como <code>schema_id</code> o <code>cred_def_id</code> e intervalos de no revocación. El titular selecciona credenciales que satisfacen la solicitud y crea una prueba. El verificador resuelve los esquemas, definiciones de credenciales y datos de revocación necesarios, y verifica la presentación.</p>
+<p>AnonCreds permite que el titular demuestre un predicado sin revelar el atributo original. Para verificar la edad, un emisor público puede emitir una credencial que contiene un atributo de edad derivado de una fecha. Un local con restricción de edad puede solicitar un predicado AnonCreds para <code>age &gt;= 21</code>. El titular presenta una prueba que satisface el predicado y el verificador comprueba la prueba, la restricción de emisor, la definición de credencial y el intervalo de revocación sin recibir la fecha completa de nacimiento del titular.</p>
+<p>La divulgación selectiva no elimina la política del verificador. Este aún comprueba la confianza en el emisor, la correspondencia del esquema, el estado de la credencial, la vinculación de la solicitud y las reglas locales de aceptación de las afirmaciones o predicados divulgados.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/identusbook\.com\/book\/es\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../section3/verifiable-credentials.html" class="pagination-link" aria-label="Credenciales verificables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Credenciales verificables</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../section4/installation-production.html" class="pagination-link" aria-label="Instalación: entorno de producción">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Instalación: entorno de producción</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

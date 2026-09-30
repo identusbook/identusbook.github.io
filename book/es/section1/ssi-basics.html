@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; Fundamentos de SSI – Domina Identus: manual para desarrolladores</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../section1/dids-and-diddocuments.html" rel="next">
+<link href="../section1/introduction.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ddd3e0c3eb9ec4ceaceae2a755279945.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="https://identusbook.com">
+    <span class="navbar-title">Domina Identus: manual para desarrolladores</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://identusbook.com/blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Libro</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://identusbook.com/authors.html"> 
+<span class="menu-text">Autores</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">English</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Español</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/identusbook"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://identusbook.com/index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="Descargar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Descargar"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../Domina-Identus--manual-para-desarrolladores.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Descargar PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../Domina-Identus--manual-para-desarrolladores.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Descargar ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section1/introduction.html">Sección I</a></li><li class="breadcrumb-item"><a href="../section1/ssi-basics.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Fundamentos de SSI</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bienvenida</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../copyright.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Derechos de autor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Licencia</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dedication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Dedicatoria</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prefacio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección I</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/ssi-basics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Fundamentos de SSI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/dids-and-diddocuments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">DIDs y documentos DID</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/identus-concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conceptos de Identus</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección II: primeros pasos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section2/installation-local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Instalación: entorno local</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section2/agent-rest-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API REST del agente</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section2/mediator.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Mediador</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección III: construcción</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/example-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Proyecto de ejemplo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/wallets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Billeteras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/didcomm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">DIDComm</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/connections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Conexiones</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/verifiable-credentials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Credenciales verificables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verificación</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección IV: despliegue</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section4/installation-production.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Instalación: entorno de producción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section4/maintenance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Mantenimiento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección V: adenda</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section5/trust-registries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Registros de confianza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section5/continuing-your-journey.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Continúa tu recorrido</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Apéndices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../errata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Erratas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glosario</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#qué-significa-ssi-en-este-libro" id="toc-qué-significa-ssi-en-este-libro" class="nav-link active" data-scroll-target="#qué-significa-ssi-en-este-libro"><span class="header-section-number">6.1</span> Qué significa SSI en este libro</a></li>
+  <li><a href="#la-interacción-ssi" id="toc-la-interacción-ssi" class="nav-link" data-scroll-target="#la-interacción-ssi"><span class="header-section-number">6.2</span> La interacción SSI</a></li>
+  <li><a href="#dids-y-documentos-did" id="toc-dids-y-documentos-did" class="nav-link" data-scroll-target="#dids-y-documentos-did"><span class="header-section-number">6.3</span> DIDs y documentos DID</a></li>
+  <li><a href="#credenciales-verificables" id="toc-credenciales-verificables" class="nav-link" data-scroll-target="#credenciales-verificables"><span class="header-section-number">6.4</span> Credenciales verificables</a></li>
+  <li><a href="#presentaciones-verificables" id="toc-presentaciones-verificables" class="nav-link" data-scroll-target="#presentaciones-verificables"><span class="header-section-number">6.5</span> Presentaciones verificables</a></li>
+  <li><a href="#los-roles-del-triángulo-de-confianza" id="toc-los-roles-del-triángulo-de-confianza" class="nav-link" data-scroll-target="#los-roles-del-triángulo-de-confianza"><span class="header-section-number">6.6</span> Los roles del triángulo de confianza</a></li>
+  <li><a href="#registros-de-confianza-y-gobernanza" id="toc-registros-de-confianza-y-gobernanza" class="nav-link" data-scroll-target="#registros-de-confianza-y-gobernanza"><span class="header-section-number">6.7</span> Registros de confianza y gobernanza</a></li>
+  <li><a href="#protocolos-de-intercambio" id="toc-protocolos-de-intercambio" class="nav-link" data-scroll-target="#protocolos-de-intercambio"><span class="header-section-number">6.8</span> Protocolos de intercambio</a></li>
+  <li><a href="#cómo-se-aplica-esto-a-identus" id="toc-cómo-se-aplica-esto-a-identus" class="nav-link" data-scroll-target="#cómo-se-aplica-esto-a-identus"><span class="header-section-number">6.9</span> Cómo se aplica esto a Identus</a></li>
+  <li><a href="#ideas-clave-para-desarrolladores" id="toc-ideas-clave-para-desarrolladores" class="nav-link" data-scroll-target="#ideas-clave-para-desarrolladores"><span class="header-section-number">6.10</span> Ideas clave para desarrolladores</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section1/introduction.html">Sección I</a></li><li class="breadcrumb-item"><a href="../section1/ssi-basics.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Fundamentos de SSI</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-ssi-basics" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Fundamentos de SSI</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="qué-significa-ssi-en-este-libro" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="qué-significa-ssi-en-este-libro"><span class="header-section-number">6.1</span> Qué significa SSI en este libro</h2>
+<p>La identidad autosoberana (Self-Sovereign Identity, SSI) describe sistemas de identidad que usan credenciales en manos de sus titulares y pruebas verificables, en lugar de un único proveedor de identidad que guarda el perfil de la cuenta del usuario. Una persona, organización, dispositivo o agente de software puede recibir una credencial de un emisor, guardarla en una billetera o agente y presentar una prueba a un verificador. El verificador comprueba la prueba y aplica su propia política sin crear una integración de cuentas específica con cada emisor.</p>
+<p>SSI no hace que las afirmaciones del titular sean confiables por sí solas. Un verificador comprueba quién emitió la credencial, qué afirma, si la prueba es válida, si la credencial sigue vigente y si acepta al emisor para esa transacción. SSI cambia la custodia y el intercambio de datos de identidad; la gobernanza, la ley, los contratos y la reputación siguen influyendo en las decisiones de confianza.</p>
+<p>Este capítulo usa los términos de la <a href="https://www.w3.org/TR/did-1.0/">Recomendación del W3C sobre identificadores descentralizados (DIDs) v1.0</a> y la <a href="https://www.w3.org/TR/vc-data-model-2.0/">Recomendación del W3C sobre el modelo de datos de credenciales verificables v2.0</a>. DID Core define los DIDs como identificadores de identidad digital verificable y descentralizada que pueden funcionar sin depender de registros centralizados, proveedores de identidad ni autoridades de certificación. El modelo de datos de VC define credenciales, presentaciones, emisores, titulares, sujetos y verificadores. La <a href="https://hyperledger-identus.github.io/docs/home/quick-start/">guía de inicio rápido de Identus</a> describe Identus como bibliotecas centrales para las interacciones SSI entre emisores, titulares y verificadores.</p>
+</section>
+<section id="la-interacción-ssi" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="la-interacción-ssi"><span class="header-section-number">6.2</span> La interacción SSI</h2>
+<p>Un intercambio típico tiene cuatro pasos.</p>
+<ol type="1">
+<li>Un emisor hace afirmaciones sobre un sujeto y las reúne en una credencial.</li>
+<li>Un titular recibe la credencial y la guarda en una billetera o agente.</li>
+<li>Un verificador pide al titular una prueba que responda a una solicitud específica.</li>
+<li>El titular devuelve la presentación y el verificador comprueba la criptografía, el estado y la política de negocio.</li>
+</ol>
+<p>Ejemplo: una universidad emite una credencial de título académico a Alice. Alice recibe la credencial en su billetera y actúa como titular. El título describe a Alice, por lo que ella también es el sujeto. Un empleador actúa como verificador y pide una prueba de que Alice tiene un título en informática de una universidad acreditada. La billetera de Alice crea una presentación a partir de la credencial. El software del empleador comprueba que la universidad firmó la credencial, que Alice puede demostrar el control de las claves del titular que exige el formato de credencial, que el emisor no ha suspendido ni revocado la credencial y que la política de contratación del empleador acepta a esa universidad.</p>
+<p>La evaluación de la política es validación. La verificación criptográfica puede demostrar que la clave de un emisor protegió la credencial y que nadie la modificó después de su emisión. No puede demostrar que el emisor sea aceptable para una decisión concreta. Un diploma de un proveedor de formación desconocido puede superar la verificación criptográfica y aun así incumplir la política del empleador. La especificación de VC del W3C describe la validación como la comprobación de reglas de negocio del verificador para determinar si una credencial resulta adecuada para un uso concreto.</p>
+<figure id="d01-ssi-interaction" aria-label="La interacción SSI" class="figure">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"> <style> #d01-ssi-interaction { margin: 24px auto; max-width: 960px; color: #212529; font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d01-ssi-interaction svg { display: block; width: 100%; height: auto; } #d01-ssi-interaction svg text { font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d01-ssi-interaction figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; } </style> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 960 776" role="img" aria-labelledby="d01-ssi-interaction-title d01-ssi-interaction-desc">
+<title id="d01-ssi-interaction-title">
+La interacción SSI
+</title>
+<desc id="d01-ssi-interaction-desc">Una universidad emite una credencial de título a Alice; ella la guarda y autoriza la solicitud de prueba de un empleador antes de que su billetera envíe una presentación para las comprobaciones técnicas y la política de aceptación del empleador.</desc> <defs> <marker id="d01-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker> <marker id="d01-arrow-accent" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#18bc9c"></path></marker> <marker id="d01-arrow-link" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#18bc9c"></path></marker> </defs> <rect width="960" height="776" fill="#ffffff"></rect> <g fill="#212529"> <text x="40" y="48" font-size="28" font-weight="600">La interacción SSI</text> <text x="40" y="80" font-size="20" fill="#56616b">Un título universitario que Alice presenta a un empleador</text> </g> <g stroke="#b8c2c8" stroke-width="1" stroke-dasharray="4 4"> <path d="M160 176 V688"></path><path d="M456 176 V688"></path><path d="M752 176 V488"></path> </g> <g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d01-arrow)"> <path d="M160 240 H456"></path> <path d="M752 352 H456"></path> <path d="M752 552 V600"></path> </g> <path d="M456 464 H752" fill="none" stroke="#18bc9c" stroke-width="2" marker-end="url(#d01-arrow-accent)"></path> <g fill="#ffffff"> <rect x="216" y="200" width="184" height="32"></rect> <rect x="500" y="312" width="208" height="32"></rect> <rect x="504" y="424" width="200" height="32"></rect> <rect x="772" y="560" width="168" height="24"></rect> </g> <g fill="#212529" font-size="20" text-anchor="middle" font-weight="600"> <text x="308" y="224">CREDENCIAL</text> <text x="604" y="336">SOLICITA PRUEBA</text> <text x="604" y="448">PRESENTACIÓN</text> </g> <text x="780" y="580" fill="#56616b" font-size="16">Si pasa las pruebas</text> <g fill="#ffffff" stroke="#2c3e50" stroke-width="1"> <rect x="80" y="112" width="160" height="64" rx="4"></rect> <rect x="376" y="112" width="160" height="64" rx="4"></rect> <rect x="672" y="112" width="160" height="64" rx="4"></rect> </g> <g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle"> <text x="160" y="132">EMISOR</text><text x="456" y="132">TITULAR</text><text x="752" y="132">VERIFICADOR</text> </g> <g fill="#212529" font-size="24" font-weight="600" text-anchor="middle"> <text x="160" y="160">Universidad</text><text x="456" y="160">Alice</text><text x="752" y="160">Empleador</text> </g> <g fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"> <rect x="328" y="264" width="256" height="40" rx="4"></rect> <rect x="328" y="376" width="256" height="40" rx="4"></rect> </g> <g fill="#212529" font-size="20" text-anchor="middle"> <text x="456" y="292">Billetera guarda credencial</text> <text x="456" y="404">Alice autoriza compartir</text> </g> <rect x="600" y="488" width="304" height="64" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <text x="752" y="516" fill="#212529" font-size="20" text-anchor="middle" font-weight="600">Verifica la prueba</text> <text x="752" y="540" fill="#56616b" font-size="16" text-anchor="middle">Claves · vínculo con titular · estado</text> <rect x="600" y="600" width="304" height="80" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <text x="752" y="628" fill="#212529" font-size="20" text-anchor="middle" font-weight="600">Empleador aplica su política</text> <text x="752" y="652" fill="#56616b" font-size="16" text-anchor="middle">Universidad y título aceptados</text> <text x="752" y="672" fill="#212529" font-size="16" text-anchor="middle" font-weight="600">Aceptar o rechazar</text> <rect x="64" y="528" width="432" height="72" fill="#ffffff"></rect> <g fill="#56616b" font-size="20"> <text x="80" y="556">El título describe a Alice.</text> <text x="80" y="584">Ella es titular y sujeto.</text> </g> <path d="M40 712 H920" stroke="#dce1e4" stroke-width="1"></path> <text x="40" y="744" fill="#56616b" font-size="16">Lee de arriba abajo. Las líneas discontinuas siguen cada rol durante el intercambio.</text> </svg>
+<figcaption>
+El emisor entrega la credencial; el titular entrega la presentación. El empleador decide si la acepta después de las comprobaciones técnicas.
+</figcaption>
+</figure>
+</section>
+<section id="dids-y-documentos-did" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="dids-y-documentos-did"><span class="header-section-number">6.3</span> DIDs y documentos DID</h2>
+<p>Un identificador descentralizado (DID) es una URI. Incluye el esquema <code>did:</code>, un método DID y un identificador específico del método. En <code>did:prism:4a9bce8d72e4c30017c42f2b</code>, el método es <code>prism</code>; el último segmento contiene los datos del identificador que define ese método.</p>
+<p>El método DID indica al software cómo crear, resolver, actualizar y desactivar esa clase de DID. DID Core no exige una tecnología de almacenamiento concreta. Un método DID puede usar un libro mayor distribuido, una base de datos, una red entre pares u otro registro de datos verificables, siempre que el método defina las operaciones necesarias.</p>
+<p>Al resolver un DID, el software obtiene un documento DID. Los documentos DID expresan material público de verificación, relaciones de verificación y servicios. Un documento DID puede indicar al software qué claves públicas puede usar para autenticación, afirmación, acuerdo de claves, invocación de capacidades o delegación de capacidades. Puede enumerar puntos de acceso de servicios para protocolos de comunicación como DIDComm. Debe excluir secretos, claves privadas y perfiles personales.</p>
+<p>El sujeto del DID y su controlador pueden ser la misma entidad, pero también pueden ser entidades distintas. El sujeto es la persona, organización, dispositivo, modelo de datos u otra cosa que identifica el DID. El controlador es la entidad que puede cambiar el documento DID según el método DID. El DID de una empresa puede identificar a la empresa como sujeto, y la empresa puede delegar las operaciones de claves a un Cloud Agent bajo su control.</p>
+<p>Los DIDs pueden generar un riesgo de correlación. DID Core advierte que los identificadores inequívocos a escala global pueden vincular actividades entre contextos. Los DIDs por pares reducen ese riesgo al dar a cada relación su propio DID seudónimo. Aplica la misma revisión de privacidad a los documentos DID: las claves reutilizadas, los puntos de acceso poco comunes o las propiedades descriptivas también pueden vincular actividades entre relaciones.</p>
+</section>
+<section id="credenciales-verificables" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="credenciales-verificables"><span class="header-section-number">6.4</span> Credenciales verificables</h2>
+<p>Una credencial es un conjunto de afirmaciones de un emisor. Una credencial verificable (Verifiable Credential, VC) incluye un mecanismo de protección que permite al software detectar modificaciones y comprobar la autoría. La VC puede referirse a una persona, organización, dispositivo, cuenta, envío, artefacto de software o cualquier otro sujeto.</p>
+<p>El emisor decide qué afirmar y firma la credencial o la protege con otro mecanismo. El titular guarda la credencial. El sujeto es la entidad que describen las afirmaciones. El titular y el sujeto suelen coincidir, pero no siempre. Una madre o un padre puede guardar una credencial sobre su hijo. Un representante de una empresa puede guardar una credencial sobre la empresa. Quien administra una flota de dispositivos puede guardar credenciales sobre esos dispositivos.</p>
+<p>El modelo de datos y el formato de credencial son conceptos distintos. W3C VC 2.0 define el modelo. Las implementaciones pueden proteger y transportar credenciales mediante distintos formatos y protocolos. Los capítulos posteriores sobre Identus usan JWT-VC, SD-JWT-VC y AnonCreds en los flujos de implementación, por lo que la elección depende de los formatos de credencial que admitan los agentes y las billeteras de ese flujo.</p>
+<p>La verificación en producción incluye el estado de la credencial. W3C VC 2.0 define <code>credentialStatus</code> para descubrir información de estado, como la suspensión o la revocación. Los detalles dependen del método de estado. Un verificador que acepta una credencial sin comprobar su estado puede aceptar una credencial que el emisor ya no respalda.</p>
+</section>
+<section id="presentaciones-verificables" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="presentaciones-verificables"><span class="header-section-number">6.5</span> Presentaciones verificables</h2>
+<p>Una presentación verificable (Verifiable Presentation, VP) contiene datos derivados de una o más credenciales que el titular comparte con un verificador concreto. Una presentación puede incluir una credencial, partes de una credencial o datos de varias credenciales, según el formato de credencial y el mecanismo de prueba.</p>
+<p>Un titular usa presentaciones para responder a las solicitudes de los verificadores. El verificador pide los datos que necesita. La billetera muestra la solicitud al titular. El titular autoriza o rechaza la divulgación. La billetera crea entonces una presentación que se ajusta a la solicitud y al formato de credencial.</p>
+<p>La divulgación selectiva depende del formato de credencial y del mecanismo de prueba. El modelo de datos de VC del W3C define la divulgación selectiva como la capacidad del titular para elegir con precisión qué compartir. La misma especificación recomienda minimizar los datos: los verificadores deben pedir la información mínima necesaria para una transacción. Un formato de credencial que admite divulgación selectiva puede permitir que Alice demuestre que tiene más de 21 años sin revelar su fecha de nacimiento completa. Un formato que carece de esa función puede exigir que comparta más datos.</p>
+</section>
+<section id="los-roles-del-triángulo-de-confianza" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="los-roles-del-triángulo-de-confianza"><span class="header-section-number">6.6</span> Los roles del triángulo de confianza</h2>
+<p>Las conversaciones sobre SSI suelen usar el «triángulo de confianza» para describir al emisor, al titular y al verificador. Considera el triángulo como roles en una interacción, no como etiquetas permanentes para personas u organizaciones.</p>
+<p>Un emisor crea una credencial y asume la responsabilidad de sus afirmaciones. Un departamento de vehículos motorizados puede emitir una credencial de licencia de conducir. Una universidad puede emitir una credencial de título académico. Un gimnasio puede emitir una credencial de membresía. El emisor obtiene su autoridad del contexto: la ley, la acreditación, un contrato, las reglas de la comunidad, la reputación o la gobernanza.</p>
+<p>Un titular recibe credenciales y crea presentaciones a partir de ellas. El titular puede ser una persona que usa una billetera móvil, una empresa que usa un Cloud Agent o software que administra credenciales para dispositivos. El control del titular significa que este decide si presenta una credencial en una interacción concreta, dentro de los límites del diseño de la billetera, el modelo de custodia, la ley y la política.</p>
+<p>Un verificador recibe una presentación y decide si la acepta. La verificación suele comprobar la sintaxis, las pruebas criptográficas, las claves del emisor, la vinculación con el titular, el estado de la credencial y el esquema. La validación comprueba las reglas de negocio. Para un bar, puede bastar con «mayor de 21 años y credencial emitida por un departamento estatal de vehículos motorizados reconocido». Para la credencial de un empleado de hospital, el verificador puede necesitar comprobar el rol, el centro, el estado de la licencia y los registros de confianza.</p>
+<p>Los roles dependen de la interacción. La misma entidad puede guardar una credencial, verificar otra y emitir una tercera.</p>
+</section>
+<section id="registros-de-confianza-y-gobernanza" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="registros-de-confianza-y-gobernanza"><span class="header-section-number">6.7</span> Registros de confianza y gobernanza</h2>
+<p>Un DID puede demostrar el control de claves. Una credencial puede demostrar que un emisor hizo una afirmación. El verificador todavía necesita decidir si ese emisor tiene la autoridad adecuada para su contexto. Los registros de confianza publican esa información de autorización para un ecosistema definido.</p>
+<p>Trust over IP Foundation describe una consulta a un registro de confianza en términos sencillos: «¿Tiene la entidad X la autorización Y dentro del marco de gobernanza Z del ecosistema?». El <a href="https://www.trustoverip.org/blog/2024/04/03/toip-announces-the-implementers-draft-of-thetrust-registry-protocol-specification-v2-0/">anuncio del protocolo de consultas a registros de confianza de ToIP v2.0</a> presenta TRQP como un mecanismo de solo lectura para descubrir quién tiene autorización para hacer qué dentro de un ecosistema de confianza digital. LF Decentralized Trust describe un registro de confianza como un sistema que conserva información autorizada que las partes que confían en ella usan para tomar decisiones de confianza.</p>
+<p>Un registro de confianza no crea autoridad por sí solo. La autoridad procede del marco de gobernanza que lo respalda. Para una credencial inmobiliaria, el registro puede enumerar agentes con licencia y los tipos de credencial que pueden emitir o verificar. Para un título universitario, el registro puede enumerar instituciones acreditadas. Para una credencial de cadena de suministro, puede enumerar auditores que acepta un grupo industrial concreto.</p>
+<p>Un verificador debe comprobar por separado la verificación técnica y la política de aceptación. La verificación comprueba pruebas, claves, sintaxis y estado. La política de aceptación comprueba si el emisor y el tipo de credencial cumplen las reglas de la parte que confía en ellos.</p>
+</section>
+<section id="protocolos-de-intercambio" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="protocolos-de-intercambio"><span class="header-section-number">6.8</span> Protocolos de intercambio</h2>
+<p>Los DIDs y las VC definen modelos de datos y material de verificación. Las aplicaciones también necesitan protocolos para intercambiar mensajes, emitir credenciales y solicitar presentaciones.</p>
+<p><a href="https://identity.foundation/didcomm-messaging/spec/v2.1/">DIDComm Messaging v2.1</a> define formatos de mensajes cifrados que usan muchos sistemas SSI para la comunicación entre agentes. Los mensajes cifrados de DIDComm ocultan el contenido a quienes carecen de autorización, revelan y demuestran la identidad del remitente a los destinatarios autorizados en el modo autenticado, y garantizan la integridad. Identus usa DIDComm V2 para la comunicación entre Cloud Agents y para muchos flujos de agentes.</p>
+<p>OpenID Foundation define protocolos basados en OAuth para el intercambio de credenciales. <a href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html">OpenID4VCI 1.0</a> define una API para emitir credenciales verificables. <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">OpenID4VP 1.0</a> define un protocolo para solicitar y presentar credenciales. Los ecosistemas de producción pueden admitir DIDComm, OpenID4VCI, OpenID4VP, transferencia mediante códigos QR, presentaciones sin conexión o una combinación de estas vías.</p>
+</section>
+<section id="cómo-se-aplica-esto-a-identus" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="cómo-se-aplica-esto-a-identus"><span class="header-section-number">6.9</span> Cómo se aplica esto a Identus</h2>
+<p>Identus ofrece componentes para estos roles SSI. El código de las aplicaciones puede usar agentes, SDK y API en lugar de volver a implementar el conjunto de estándares.</p>
+<p>El <a href="https://hyperledger-identus.github.io/docs/home/quick-start/">Identus Cloud Agent</a> puede emitir, guardar y verificar VC; administrar DIDs y conexiones basadas en DIDs; exponer una API REST; y usar DIDComm V2 para la comunicación entre agentes. Sus usos habituales incluyen billeteras con custodia, emisores empresariales, servicios de verificación y flujos de backend.</p>
+<p>La <a href="https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/did-management/">documentación de administración de DIDs de Identus</a> explica que Cloud Agent administra DIDs PRISM y DIDs de pares (Peer DIDs). Los DIDs PRISM sirven para la identidad pública del emisor y la resolución respaldada por un libro mayor. Los DIDs de pares sirven para las actividades DIDComm en las que los identificadores específicos de cada relación reducen la correlación.</p>
+<p>La <a href="https://hyperledger-identus.github.io/docs/home/quick-start/">guía de inicio rápido de Identus</a> describe PRISM Node como el componente de registro de datos verificables que ancla información de claves para la emisión y la verificación. También describe a los mediadores como servicios que guardan y retransmiten mensajes entre Cloud Agents y SDK de billeteras. PRISM Node admite la resolución pública de DIDs. Los mediadores retransmiten mensajes para agentes que carecen de conexión permanente, sin leer el contenido cifrado de DIDComm.</p>
+</section>
+<section id="ideas-clave-para-desarrolladores" class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="ideas-clave-para-desarrolladores"><span class="header-section-number">6.10</span> Ideas clave para desarrolladores</h2>
+<p>SSI permite que emisores, titulares y verificadores intercambien afirmaciones con pruebas criptográficas y participación del titular. Los DIDs identifican y resuelven material de verificación. Los documentos DID publican claves públicas y servicios, y excluyen perfiles de identidad privados. Las credenciales verificables contienen afirmaciones del emisor. Las presentaciones verificables permiten que los titulares respondan a las solicitudes de los verificadores. La verificación comprueba pruebas y estado. La validación aplica políticas. Los registros de confianza y la gobernanza ayudan a los verificadores a decidir qué emisores y tipos de credencial aceptan en un ecosistema concreto.</p>
+<p>En Identus, estos conceptos corresponden a componentes: PRISM Node para la resolución pública de DIDs, Cloud Agent para el trabajo de emisores, titulares y verificadores en servidores, SDK de Edge Agent para billeteras, DIDComm para mensajes seguros entre agentes y mediadores para el enrutamiento cuando los agentes de borde están sin conexión.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/identusbook\.com\/book\/es\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../section1/introduction.html" class="pagination-link" aria-label="Introducción">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Introducción</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../section1/dids-and-diddocuments.html" class="pagination-link" aria-label="DIDs y documentos DID">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">DIDs y documentos DID</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

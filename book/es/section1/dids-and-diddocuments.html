@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>7&nbsp; DIDs y documentos DID – Domina Identus: manual para desarrolladores</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../section1/identus-concepts.html" rel="next">
+<link href="../section1/ssi-basics.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ddd3e0c3eb9ec4ceaceae2a755279945.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="https://identusbook.com">
+    <span class="navbar-title">Domina Identus: manual para desarrolladores</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://identusbook.com/blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Libro</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://identusbook.com/authors.html"> 
+<span class="menu-text">Autores</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">English</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Español</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/identusbook"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://identusbook.com/index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="Descargar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Descargar"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../Domina-Identus--manual-para-desarrolladores.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Descargar PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../Domina-Identus--manual-para-desarrolladores.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Descargar ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section1/introduction.html">Sección I</a></li><li class="breadcrumb-item"><a href="../section1/dids-and-diddocuments.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">DIDs y documentos DID</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bienvenida</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../copyright.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Derechos de autor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Licencia</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dedication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Dedicatoria</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prefacio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección I</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/ssi-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Fundamentos de SSI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/dids-and-diddocuments.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">DIDs y documentos DID</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/identus-concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conceptos de Identus</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección II: primeros pasos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section2/installation-local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Instalación: entorno local</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section2/agent-rest-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API REST del agente</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section2/mediator.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Mediador</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección III: construcción</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/example-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Proyecto de ejemplo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/wallets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Billeteras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/didcomm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">DIDComm</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/connections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Conexiones</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/verifiable-credentials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Credenciales verificables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verificación</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección IV: despliegue</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section4/installation-production.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Instalación: entorno de producción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section4/maintenance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Mantenimiento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección V: adenda</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section5/trust-registries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Registros de confianza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section5/continuing-your-journey.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Continúa tu recorrido</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Apéndices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../errata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Erratas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glosario</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#descripción-general" id="toc-descripción-general" class="nav-link active" data-scroll-target="#descripción-general"><span class="header-section-number">7.1</span> Descripción general</a></li>
+  <li><a href="#sintaxis-de-los-dids-y-métodos-did" id="toc-sintaxis-de-los-dids-y-métodos-did" class="nav-link" data-scroll-target="#sintaxis-de-los-dids-y-métodos-did"><span class="header-section-number">7.2</span> Sintaxis de los DIDs y métodos DID</a></li>
+  <li><a href="#sujetos-y-controladores-de-dids" id="toc-sujetos-y-controladores-de-dids" class="nav-link" data-scroll-target="#sujetos-y-controladores-de-dids"><span class="header-section-number">7.3</span> Sujetos y controladores de DIDs</a></li>
+  <li><a href="#estructura-del-documento-did" id="toc-estructura-del-documento-did" class="nav-link" data-scroll-target="#estructura-del-documento-did"><span class="header-section-number">7.4</span> Estructura del documento DID</a></li>
+  <li><a href="#ejemplo-de-documento-did-prism" id="toc-ejemplo-de-documento-did-prism" class="nav-link" data-scroll-target="#ejemplo-de-documento-did-prism"><span class="header-section-number">7.5</span> Ejemplo de documento DID PRISM</a></li>
+  <li><a href="#ciclo-de-vida-del-did" id="toc-ciclo-de-vida-del-did" class="nav-link" data-scroll-target="#ciclo-de-vida-del-did"><span class="header-section-number">7.6</span> Ciclo de vida del DID</a></li>
+  <li><a href="#resolvedores" id="toc-resolvedores" class="nav-link" data-scroll-target="#resolvedores"><span class="header-section-number">7.7</span> Resolvedores</a></li>
+  <li><a href="#controladores" id="toc-controladores" class="nav-link" data-scroll-target="#controladores"><span class="header-section-number">7.8</span> Controladores</a></li>
+  <li><a href="#flujo-de-verificación" id="toc-flujo-de-verificación" class="nav-link" data-scroll-target="#flujo-de-verificación"><span class="header-section-number">7.9</span> Flujo de verificación</a></li>
+  <li><a href="#comprobaciones-de-privacidad" id="toc-comprobaciones-de-privacidad" class="nav-link" data-scroll-target="#comprobaciones-de-privacidad"><span class="header-section-number">7.10</span> Comprobaciones de privacidad</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section1/introduction.html">Sección I</a></li><li class="breadcrumb-item"><a href="../section1/dids-and-diddocuments.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">DIDs y documentos DID</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-did-and-diddocuments" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">DIDs y documentos DID</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="descripción-general" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="descripción-general"><span class="header-section-number">7.1</span> Descripción general</h2>
+<p>Un <strong>identificador descentralizado (DID)</strong> es una URI para un sujeto. El sujeto puede ser una persona, organización, dispositivo, agente de software, modelo de datos u otra entidad que elija el controlador del DID. La <a href="https://www.w3.org/TR/did-1.0/">especificación DID Core del W3C</a> define un DID como una URI con tres partes: el esquema <code>did:</code>, un nombre de método y un identificador específico del método.</p>
+<p>El DID en sí es solo el identificador. Un resolvedor resuelve el DID y devuelve un resultado de resolución. Si la resolución tiene éxito, el resultado incluye un <strong>documento DID</strong>, metadatos de resolución y metadatos del documento DID. La <a href="https://www.w3.org/TR/did-resolution/">especificación DID Resolution del W3C</a> define esta interfaz del resolvedor y deja los pasos de obtención específicos al método DID.</p>
+<p>Un <strong>documento DID</strong> publica la información pública que el software necesita para interactuar con el sujeto del DID: métodos de verificación, relaciones de verificación y servicios. Un documento DID debe excluir claves privadas, secretos y datos de perfiles personales. DID Core advierte que los documentos DID públicos pueden generar riesgos de privacidad y correlación. Por eso, los datos personales deben mantenerse en credenciales, intercambios entre pares o puntos de acceso de servicios controlados, fuera del documento público.</p>
+<p>Los desarrolladores de Identus usan <code>did:prism</code> y <code>did:peer</code> para tareas distintas. <code>did:prism</code> sirve para las identidades públicas de emisores y verificadores que necesitan resolución respaldada por un libro mayor. <code>did:peer</code> sirve para las actividades DIDComm específicas de cada relación. Una billetera, un Cloud Agent o un mediador puede usar DIDs de pares distintos para reducir la correlación entre relaciones. La <a href="https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/did-management/">documentación de administración de DIDs de Identus</a> describe cómo Cloud Agent admite DIDs PRISM y DIDs de pares administrados.</p>
+</section>
+<section id="sintaxis-de-los-dids-y-métodos-did" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sintaxis-de-los-dids-y-métodos-did"><span class="header-section-number">7.2</span> Sintaxis de los DIDs y métodos DID</h2>
+<p>La sintaxis genérica es:</p>
+<pre class="text"><code>did:&lt;method&gt;:&lt;method-specific-id&gt;</code></pre>
+<p>Para <code>did:prism</code>, la <a href="https://github.com/input-output-hk/prism-did-method-spec/blob/main/w3c-spec/PRISM-method.md">especificación del método DID PRISM</a> define esta estructura:</p>
+<pre class="text"><code>did:prism:&lt;initial-hash&gt;[:&lt;encoded-state&gt;]</code></pre>
+<p>La forma corta contiene el prefijo <code>did:prism:</code> y un hash inicial de 64 caracteres. La forma larga añade el estado inicial codificado después de otros dos puntos. PRISM usa la forma larga antes de que el controlador ancle el DID. Cuando el controlador publica la operación DID y el VDR PRISM la acepta, el software puede usar la forma corta como DID PRISM publicado.</p>
+<p>El estado codificado de un DID PRISM en forma larga no es un documento DID JSON. Es un estado específico del método que PRISM codifica para que un resolvedor pueda construir el documento DID inicial antes de que aparezca una operación pública de creación en el VDR.</p>
+<p>Un <strong>método DID</strong> define cómo el software crea, resuelve, actualiza y desactiva DIDs y documentos DID para ese método. DID Core define el modelo de datos común. La especificación del método define el registro, las operaciones del protocolo, la codificación, las reglas de validación y el ciclo de vida.</p>
+<p>Para <code>did:prism</code>, el método PRISM define operaciones de creación, actualización y desactivación. Los nodos PRISM leen las operaciones del VDR y mantienen el estado actual necesario para construir documentos DID. La <a href="https://github.com/hyperledger-identus/prism-vdr-driver/blob/main/prism-vdr-specification.md">especificación del VDR PRISM</a> describe las entradas SSI como cadenas de eventos con eventos de creación, actualización y desactivación.</p>
+</section>
+<section id="sujetos-y-controladores-de-dids" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="sujetos-y-controladores-de-dids"><span class="header-section-number">7.3</span> Sujetos y controladores de DIDs</h2>
+<p>El DID identifica al sujeto. El método DID autoriza al controlador a cambiar el documento DID. Una misma entidad puede asumir ambos roles, aunque también pueden asumirlos entidades distintas.</p>
+<p>Por ejemplo, una universidad puede ser el sujeto de <code>did:prism:...</code>. La universidad puede ejecutar un Identus Cloud Agent que guarde las claves del controlador y publique actualizaciones del DID mediante PRISM Node. La universidad sigue siendo el emisor en el intercambio de credenciales; el Cloud Agent constituye la infraestructura que actúa en su nombre.</p>
+<p>La propiedad <code>controller</code> de nivel superior en un documento DID identifica uno o más DIDs de controladores. DID Core trata esta autorización por separado de <code>authentication</code>. Un verificador que comprueba una prueba de autenticación revisa la relación <code>authentication</code>. El software que procesa la autoridad para actualizar un DID sigue las reglas del controlador que define el método DID.</p>
+<p>La propiedad <code>controller</code> dentro de un <code>verificationMethod</code> tiene otro alcance. Identifica al controlador de ese método de verificación. Puede coincidir con el <code>id</code> del documento DID o apuntar a otro DID cuando un sistema delega el control de claves.</p>
+</section>
+<section id="estructura-del-documento-did" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="estructura-del-documento-did"><span class="header-section-number">7.4</span> Estructura del documento DID</h2>
+<p>Los documentos DID comparten un modelo de datos y pueden tener distintas representaciones. Los ejemplos de DID Core y PRISM usan JSON-LD con <code>@context</code>; las representaciones JSON pueden omitir el contexto JSON-LD.</p>
+<p>Estas son las propiedades habituales de un documento DID:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Propiedad</th>
+<th>Para qué la usa el software</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td>El DID del sujeto que describe el documento DID.</td>
+</tr>
+<tr class="even">
+<td><code>controller</code></td>
+<td>Uno o más DIDs con autorización para controlar el documento DID según las reglas del método DID.</td>
+</tr>
+<tr class="odd">
+<td><code>verificationMethod</code></td>
+<td>Material público de verificación, como JWK, junto con un <code>id</code>, un <code>type</code> y el controlador del método.</td>
+</tr>
+<tr class="even">
+<td><code>authentication</code></td>
+<td>Métodos de verificación autorizados para autenticar al sujeto del DID mediante desafío y respuesta.</td>
+</tr>
+<tr class="odd">
+<td><code>assertionMethod</code></td>
+<td>Métodos de verificación autorizados para hacer afirmaciones, incluida la emisión de credenciales verificables.</td>
+</tr>
+<tr class="even">
+<td><code>keyAgreement</code></td>
+<td>Métodos de verificación autorizados para el acuerdo de claves, incluida la preparación del cifrado DIDComm.</td>
+</tr>
+<tr class="odd">
+<td><code>capabilityInvocation</code></td>
+<td>Métodos de verificación autorizados para invocar capacidades de objetos.</td>
+</tr>
+<tr class="even">
+<td><code>capabilityDelegation</code></td>
+<td>Métodos de verificación autorizados para delegar capacidades de objetos.</td>
+</tr>
+<tr class="odd">
+<td><code>service</code></td>
+<td>Puntos de acceso o descriptores de servicios para interactuar, como la mensajería DIDComm.</td>
+</tr>
+<tr class="even">
+<td><code>@context</code></td>
+<td>Contexto JSON-LD que usan las representaciones JSON-LD.</td>
+</tr>
+</tbody>
+</table>
+<p>Una relación de verificación puede incluir métodos de verificación completos o referirse a ellos mediante una URL DID. Los ejemplos de PRISM definen cada método una sola vez en <code>verificationMethod</code> y lo referencian desde <code>authentication</code>, <code>assertionMethod</code> o <code>keyAgreement</code>.</p>
+</section>
+<section id="ejemplo-de-documento-did-prism" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="ejemplo-de-documento-did-prism"><span class="header-section-number">7.5</span> Ejemplo de documento DID PRISM</h2>
+<p>Este ejemplo usa valores ficticios y abreviados para que la estructura resulte fácil de leer. Estos identificadores y claves no son datos PRISM que puedas resolver.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"@context"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://www.w3.org/ns/did/v1"</span><span class="ot">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://w3id.org/security/suites/jws-2020/v1"</span><span class="ot">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://didcomm.org/messaging/contexts/v2"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:example-university"</span><span class="fu">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"verificationMethod"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:example-university#authentication-key-1"</span><span class="fu">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"JsonWebKey2020"</span><span class="fu">,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"controller"</span><span class="fu">:</span> <span class="st">"did:prism:example-university"</span><span class="fu">,</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"publicKeyJwk"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"kty"</span><span class="fu">:</span> <span class="st">"OKP"</span><span class="fu">,</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"crv"</span><span class="fu">:</span> <span class="st">"Ed25519"</span><span class="fu">,</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"x"</span><span class="fu">:</span> <span class="st">"fake-authentication-public-key"</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:example-university#issuing-key-1"</span><span class="fu">,</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"JsonWebKey2020"</span><span class="fu">,</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"controller"</span><span class="fu">:</span> <span class="st">"did:prism:example-university"</span><span class="fu">,</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"publicKeyJwk"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"kty"</span><span class="fu">:</span> <span class="st">"OKP"</span><span class="fu">,</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"crv"</span><span class="fu">:</span> <span class="st">"Ed25519"</span><span class="fu">,</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"x"</span><span class="fu">:</span> <span class="st">"fake-issuing-public-key"</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:example-university#key-agreement-key-1"</span><span class="fu">,</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"JsonWebKey2020"</span><span class="fu">,</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"controller"</span><span class="fu">:</span> <span class="st">"did:prism:example-university"</span><span class="fu">,</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"publicKeyJwk"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"kty"</span><span class="fu">:</span> <span class="st">"OKP"</span><span class="fu">,</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"crv"</span><span class="fu">:</span> <span class="st">"X25519"</span><span class="fu">,</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"x"</span><span class="fu">:</span> <span class="st">"fake-key-agreement-public-key"</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"authentication"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"did:prism:example-university#authentication-key-1"</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"assertionMethod"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="st">"did:prism:example-university#issuing-key-1"</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"keyAgreement"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="st">"did:prism:example-university#key-agreement-key-1"</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"service"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"did:prism:example-university#didcomm-1"</span><span class="fu">,</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"DIDCommMessaging"</span><span class="fu">,</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"serviceEndpoint"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"uri"</span><span class="fu">:</span> <span class="st">"https://agent.example.edu/didcomm"</span><span class="fu">,</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"accept"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"didcomm/v2"</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>          <span class="dt">"routingKeys"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"did:peer:example-mediator#key-1"</span><span class="ot">]</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En el ejemplo, el software del emisor puede usar <code>#issuing-key-1</code> para firmar una credencial verificable, y un verificador puede comprobar que esa clave aparece en <code>assertionMethod</code>. Una implementación DIDComm puede usar <code>#key-agreement-key-1</code> para preparar mensajes cifrados y el servicio <code>DIDCommMessaging</code> para conocer el perfil DIDComm aceptado, la URI del punto de acceso y las claves de enrutamiento.</p>
+</section>
+<section id="ciclo-de-vida-del-did" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="ciclo-de-vida-del-did"><span class="header-section-number">7.6</span> Ciclo de vida del DID</h2>
+<p>Cada método DID define sus propias reglas de ciclo de vida. Las operaciones habituales son crear, resolver, actualizar y desactivar. Los desarrolladores de Identus acceden a esas operaciones mediante las API de Cloud Agent, las API de resolvedores, la configuración de resolvedores del SDK y el comportamiento de PRISM Node.</p>
+<p>Para un DID PRISM administrado en Cloud Agent, el controlador crea el DID a partir de una plantilla de documento. Cloud Agent deriva el material de claves PRISM de una semilla de billetera y una ruta de derivación, guarda la ruta de derivación y puede reconstruir el material de claves a partir de la semilla durante la ejecución. La guía de inicio rápido de Identus crea un DID PRISM en forma larga, lo publica mediante Cloud Agent y luego usa la forma corta como <code>publishedPrismDID</code> para los flujos de esquemas y credenciales.</p>
+<p>Las actualizaciones de PRISM publican operaciones del método que cambian el estado del DID, como añadir o eliminar métodos de verificación o servicios. La máquina de estados del VDR trata la desactivación como un estado final. Después de la desactivación, los resolvedores deben dejar de tratar al DID como activo.</p>
+<figure id="d02-prism-did-lifecycle" aria-label="Ciclo de vida del DID PRISM" class="figure">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"> <style> #d02-prism-did-lifecycle { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d02-prism-did-lifecycle svg { display: block; width: 100%; height: auto; } #d02-prism-did-lifecycle svg text { font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d02-prism-did-lifecycle svg .did-syntax { font-family: SFMono-Regular, Menlo, Monaco, Consolas, ‘Liberation Mono’, ‘Courier New’, monospace; } #d02-prism-did-lifecycle figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; } </style> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 960 640" role="img" aria-labelledby="d02-prism-did-lifecycle-title d02-prism-did-lifecycle-desc">
+<title id="d02-prism-did-lifecycle-title">
+Ciclo de vida del DID PRISM
+</title>
+<desc id="d02-prism-did-lifecycle-desc">El controlador crea un DID PRISM en forma larga sin publicar, lo publica para que el registro respalde su resolución, puede actualizar sus claves y servicios y puede desactivarlo; las formas larga y corta identifican el mismo DID.</desc> <defs> <marker id="d02-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker> <marker id="d02-arrow-accent" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#18bc9c"></path></marker> <marker id="d02-arrow-link" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#18bc9c"></path></marker> </defs> <rect width="960" height="640" fill="#ffffff"></rect> <text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Ciclo de vida del DID PRISM</text> <text x="40" y="80" fill="#56616b" font-size="20">Estados conceptuales de un DID</text> <g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d02-arrow)"> <path d="M136 184 V272"></path> <path d="M432 272 V200 A8 8 0 0 1 440 192 H520 A8 8 0 0 1 528 200 V272"></path> <path d="M576 336 H728"></path> </g> <path d="M232 336 H384" fill="none" stroke="#18bc9c" stroke-width="2" marker-end="url(#d02-arrow-accent)"></path> <g fill="#ffffff"> <rect x="144" y="216" width="104" height="32"></rect> <rect x="412" y="152" width="136" height="32"></rect> <rect x="248" y="296" width="120" height="32"></rect> <rect x="584" y="296" width="136" height="32"></rect> </g> <g fill="#212529" font-size="20" font-weight="600"> <text x="152" y="240">CREAR</text> <text x="480" y="176" text-anchor="middle">ACTUALIZAR</text> <text x="308" y="320" text-anchor="middle">PUBLICAR</text> <text x="652" y="320" text-anchor="middle">DESACTIVAR</text> </g> <text x="560" y="204" fill="#56616b" font-size="16">Cambiar claves o servicios</text> <circle cx="136" cy="176" r="8" fill="#2c3e50"></circle> <rect x="40" y="272" width="192" height="128" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"></rect> <rect x="384" y="272" width="192" height="128" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <rect x="728" y="272" width="192" height="128" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle"> <text x="136" y="296">LOCAL</text> <text x="480" y="296">ACTIVO</text> <text x="824" y="296">FINAL</text> </g> <g fill="#212529" font-size="24" font-weight="600" text-anchor="middle"> <text x="136" y="328">Sin publicar</text> <text x="480" y="328">Publicado</text> <text x="824" y="328">Desactivado</text> </g> <g fill="#212529" font-size="20" text-anchor="middle"> <text x="136" y="356">Forma larga</text> <text x="480" y="356">Forma corta</text> <text x="824" y="356">DID inactivo</text> </g> <g fill="#56616b" font-size="16" text-anchor="middle"> <text x="136" y="384">Incluye el estado inicial</text> <text x="480" y="384">Estado del registro</text> <text x="824" y="384">Terminan los cambios</text> </g> <g fill="#212529" font-size="20" font-weight="600"> <text x="40" y="464">Forma larga</text> <text x="536" y="464">Forma corta</text> </g> <g fill="#56616b" font-size="16"> <text class="did-syntax" x="40" y="496">did:prism:&lt;initial-hash&gt;:&lt;encoded-state&gt;</text> <text class="did-syntax" x="536" y="496">did:prism:&lt;initial-hash&gt;</text> </g> <text x="40" y="544" fill="#212529" font-size="20">Ambas formas identifican el mismo DID. Las actualizaciones cambian su documento.</text> <path d="M40 576 H920" stroke="#dce1e4" stroke-width="1"></path> <text x="40" y="608" fill="#56616b" font-size="16">Las flechas muestran operaciones correctas. Resolver lee el estado sin cambiarlo.</text> </svg>
+<figcaption>
+El controlador firma las operaciones del registro. La publicación, las actualizaciones y la desactivación surten efecto cuando el registro acepta las operaciones confirmadas. La desactivación termina el ciclo de vida del DID.
+</figcaption>
+</figure>
+<p>Para un DID de pares administrado, Cloud Agent genera material de claves aleatorio y lo guarda en el almacenamiento de secretos. Los DIDs de pares no sirven como identificadores públicos globales de emisores. Sirven para las relaciones DIDComm y la mediación, donde cada relación puede usar identificadores y claves distintos.</p>
+</section>
+<section id="resolvedores" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="resolvedores"><span class="header-section-number">7.7</span> Resolvedores</h2>
+<p>Un resolvedor recibe un DID y devuelve el documento DID junto con sus metadatos. El resolvedor debe comprender el método DID. Un resolvedor genérico puede dirigir distintos métodos a drivers específicos, pero el driver de cada método sigue realizando la obtención y la validación propias de ese método.</p>
+<p>Para <code>did:prism</code>, un resolvedor necesita el estado PRISM actual del DID. Identus documenta estas vías de resolución: Cloud Agent con PRISM Node, la compatibilidad de Universal Resolver con DIDs PRISM, la configuración de resolvedores del SDK e indexadores de la comunidad. La <a href="https://hyperledger-identus.github.io/docs/home/identus/did-prism-resolver/">documentación del resolvedor DID PRISM de Identus</a> describe Cloud Agent y PRISM Node como una solución para crear, actualizar, desactivar y resolver DIDs PRISM.</p>
+<p>La elección del resolvedor es una decisión de confianza. Un verificador puede usar un resolvedor alojado, ejecutar su propio resolvedor o resolver contra un estado indexado local. El software del verificador debe tratar la respuesta del resolvedor como una entrada de la verificación, no como toda la decisión de confianza. La verificación de credenciales sigue comprobando la prueba, la relación de verificación, el estado de la credencial, el esquema y la política del verificador.</p>
+</section>
+<section id="controladores" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="controladores"><span class="header-section-number">7.8</span> Controladores</h2>
+<p>Los controladores son entidades con autorización para cambiar el documento DID según las reglas del método DID. Un controlador puede ser una persona que usa una billetera, una organización que ejecuta Cloud Agent o un servicio bajo el control operativo de una organización. El documento DID registra a los controladores como DIDs; la autoridad legal o de gobernanza que respalda a esos controladores existe fuera del documento DID.</p>
+<p>En <code>did:prism</code>, el controlador demuestra su autoridad mediante las operaciones firmadas del método. Las reglas de validación del VDR PRISM exigen que la clave maestra del DID firme las operaciones de creación y que una clave maestra vigente firme los eventos de actualización o desactivación. Las API de DIDs PRISM administrados de Cloud Agent realizan este trabajo de protocolo para la aplicación, pero el modelo de controladores sigue determinando quién puede rotar claves, añadir servicios o desactivar el DID.</p>
+</section>
+<section id="flujo-de-verificación" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="flujo-de-verificación"><span class="header-section-number">7.9</span> Flujo de verificación</h2>
+<p>Un verificador que comprueba una credencial emitida desde un DID PRISM usa este flujo.</p>
+<ol type="1">
+<li>El verificador recibe una presentación de la billetera o del Edge Agent del titular.</li>
+<li>El verificador extrae el DID del emisor y el método de verificación que referencia la prueba de la credencial.</li>
+<li>El resolvedor resuelve el DID del emisor y obtiene un documento DID.</li>
+<li>El verificador obtiene el método de verificación referenciado y comprueba que aparece en <code>assertionMethod</code>.</li>
+<li>El verificador comprueba la prueba criptográfica con la clave pública del método de verificación.</li>
+<li>El verificador comprueba el estado de la credencial, el esquema y la política, incluida la confianza en el emisor para la transacción solicitada.</li>
+</ol>
+<figure id="d03-issuer-key-verification" aria-label="Buscar y comprobar la clave de un emisor" class="figure">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"> <style> #d03-issuer-key-verification { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d03-issuer-key-verification svg { display: block; width: 100%; height: auto; } #d03-issuer-key-verification svg text { font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d03-issuer-key-verification svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, ‘Liberation Mono’, ‘Courier New’, monospace; } #d03-issuer-key-verification figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; } </style> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 960 880" role="img" aria-labelledby="d03-issuer-key-verification-title d03-issuer-key-verification-desc">
+<title id="d03-issuer-key-verification-title">
+Buscar y comprobar la clave de un emisor
+</title>
+<desc id="d03-issuer-key-verification-desc">El titular envía una presentación; el verificador extrae el DID del emisor y la referencia de clave, resuelve el DID, comprueba la relación assertionMethod del método referenciado y verifica la firma de la credencial antes de comprobar el estado, el esquema y la política.</desc> <defs> <marker id="d03-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker> </defs> <rect width="960" height="880" fill="#ffffff"></rect> <text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Buscar y comprobar la clave de un emisor</text> <text x="40" y="80" fill="#56616b" font-size="20">Verificación de claves para una credencial emitida desde un DID PRISM</text> <g stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6"> <path d="M152 184 V808"></path> <path d="M456 184 V808"></path> <path d="M800 184 V808"></path> </g> <g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d03-arrow)"> <path d="M152 232 H456"></path> <path d="M456 384 H800"></path> <path d="M800 464 H456" stroke-dasharray="6 6"></path> <path d="M456 588 V620"></path> <path d="M456 692 V724"></path> </g> <g fill="#ffffff" stroke="#2c3e50" stroke-width="1"> <rect x="40" y="112" width="224" height="72" rx="4"></rect> <rect x="344" y="112" width="224" height="72" rx="4"></rect> <rect x="688" y="112" width="224" height="72" rx="4"></rect> </g> <g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle"> <text x="152" y="136">TITULAR</text> <text x="456" y="136">VERIFICADOR</text> <text x="800" y="136">RESOLVEDOR</text> </g> <g fill="#212529" font-size="24" font-weight="600" text-anchor="middle"> <text x="152" y="164">Billetera</text> <text x="456" y="164">Software verificador</text> <text x="800" y="164">Resolvedor DID</text> </g> <g fill="#ffffff"> <rect x="232" y="196" width="144" height="28"></rect> <rect x="512" y="348" width="232" height="28"></rect> <rect x="516" y="404" width="224" height="52"></rect> </g> <g fill="#212529" font-size="20" font-weight="600" text-anchor="middle"> <text x="304" y="216">Presentación</text> <text x="628" y="368">DID del emisor</text> <text x="628" y="424">Documento DID</text> </g> <text x="628" y="448" fill="#56616b" font-size="16" text-anchor="middle">y metadatos de resolución</text> <rect x="296" y="260" width="320" height="64" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"></rect> <text x="456" y="288" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Leer la credencial</text> <text x="456" y="312" fill="#56616b" font-size="16" text-anchor="middle">Extraer DID y referencia de clave</text> <rect x="296" y="492" width="320" height="96" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <text x="456" y="520" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Comprobar autorización</text> <text x="456" y="544" fill="#56616b" font-size="16" text-anchor="middle">Buscar el método referenciado en</text> <text class="technical" x="456" y="572" fill="#212529" font-size="20" text-anchor="middle">assertionMethod</text> <rect x="296" y="620" width="320" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <text x="456" y="648" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Comprobar firma de credencial</text> <text x="456" y="676" fill="#56616b" font-size="16" text-anchor="middle">Usar la clave pública del método</text> <rect x="296" y="724" width="320" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"></rect> <text x="456" y="752" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Continuar verificación</text> <text x="456" y="780" fill="#56616b" font-size="16" text-anchor="middle">Comprobar estado, esquema y política</text> <path d="M40 832 H920" stroke="#dce1e4" stroke-width="1"></path> <text x="40" y="864" fill="#56616b" font-size="16">Ruta correcta. El verificador se detiene si falla la resolución, la autorización o la firma.</text> </svg>
+<figcaption>
+El resolvedor entrega el documento DID. El verificador comprueba la autorización de la clave del emisor y la firma de la credencial, y después aplica las demás comprobaciones de la credencial y la política de confianza.
+</figcaption>
+</figure>
+<p>Las relaciones de verificación del DID impiden reutilizar claves para distintos fines de prueba. Una clave que solo aparece en <code>authentication</code> no puede emitir una credencial. Una clave que solo aparece en <code>assertionMethod</code> no puede participar en el acuerdo de claves de DIDComm. El software del verificador debe comprobar la relación que corresponde a la operación que valida.</p>
+</section>
+<section id="comprobaciones-de-privacidad" class="level2" data-number="7.10">
+<h2 data-number="7.10" class="anchored" data-anchor-id="comprobaciones-de-privacidad"><span class="header-section-number">7.10</span> Comprobaciones de privacidad</h2>
+<p>Los DIDs públicos sirven para emisores, verificadores, esquemas y registros de confianza, pero generan correlación. El DID público de un emisor debe mantenerse estable para que los verificadores puedan resolver sus claves y los sistemas de políticas puedan referirse al emisor. La billetera de un titular debe usar DIDs por pares o específicos de cada relación para las conexiones DIDComm, salvo que el titular quiera permitir la correlación pública.</p>
+<p>Antes de publicar un documento DID, el controlador debe comprobar que solo contiene el material público necesario para el método DID y los flujos del protocolo:</p>
+<ol type="1">
+<li>Excluir claves privadas, semillas, tokens de portador, credenciales y atributos de perfiles personales.</li>
+<li>Excluir URL de puntos de acceso que incluyan un nombre de usuario, identificador de cliente, número de cuenta u otro valor que permita correlacionar actividades.</li>
+<li>Evitar que las relaciones que deben mantenerse desvinculadas reutilicen un método de verificación.</li>
+<li>Excluir propiedades <code>type</code> descriptivas o propiedades personalizadas que revelen la categoría del sujeto sin que el protocolo lo necesite.</li>
+</ol>
+<p>Los DIDs se centran en la verificación pública y el enrutamiento. Las credenciales y las presentaciones contienen afirmaciones. Los agentes y las billeteras gestionan la divulgación a verificadores concretos.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/identusbook\.com\/book\/es\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../section1/ssi-basics.html" class="pagination-link" aria-label="Fundamentos de SSI">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Fundamentos de SSI</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../section1/identus-concepts.html" class="pagination-link" aria-label="Conceptos de Identus">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conceptos de Identus</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

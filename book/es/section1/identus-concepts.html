@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>8&nbsp; Conceptos de Identus – Domina Identus: manual para desarrolladores</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../section2/installation-local.html" rel="next">
+<link href="../section1/dids-and-diddocuments.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ddd3e0c3eb9ec4ceaceae2a755279945.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="https://identusbook.com">
+    <span class="navbar-title">Domina Identus: manual para desarrolladores</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://identusbook.com/blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Libro</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://identusbook.com/authors.html"> 
+<span class="menu-text">Autores</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">English</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Español</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/identusbook"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://identusbook.com/index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="Descargar" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Descargar"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../Domina-Identus--manual-para-desarrolladores.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Descargar PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../Domina-Identus--manual-para-desarrolladores.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Descargar ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section1/introduction.html">Sección I</a></li><li class="breadcrumb-item"><a href="../section1/identus-concepts.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conceptos de Identus</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bienvenida</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../copyright.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Derechos de autor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Licencia</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dedication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Dedicatoria</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prefacio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección I</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/ssi-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Fundamentos de SSI</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/dids-and-diddocuments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">DIDs y documentos DID</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section1/identus-concepts.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conceptos de Identus</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección II: primeros pasos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section2/installation-local.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Instalación: entorno local</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section2/agent-rest-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">API REST del agente</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section2/mediator.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Mediador</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección III: construcción</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/example-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Proyecto de ejemplo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/wallets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Billeteras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/didcomm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">DIDComm</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/connections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Conexiones</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/verifiable-credentials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Credenciales verificables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section3/verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Verificación</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección IV: despliegue</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section4/installation-production.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Instalación: entorno de producción</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section4/maintenance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Mantenimiento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sección V: adenda</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section5/trust-registries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Registros de confianza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../section5/continuing-your-journey.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Continúa tu recorrido</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Apéndices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../errata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Erratas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glosario</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#prism-node" id="toc-prism-node" class="nav-link active" data-scroll-target="#prism-node"><span class="header-section-number">8.1</span> PRISM Node</a></li>
+  <li><a href="#cloud-agent" id="toc-cloud-agent" class="nav-link" data-scroll-target="#cloud-agent"><span class="header-section-number">8.2</span> Cloud Agent</a></li>
+  <li><a href="#bloques-de-construcción" id="toc-bloques-de-construcción" class="nav-link" data-scroll-target="#bloques-de-construcción"><span class="header-section-number">8.3</span> Bloques de construcción</a>
+  <ul class="collapse">
+  <li><a href="#apollo-criptografía" id="toc-apollo-criptografía" class="nav-link" data-scroll-target="#apollo-criptografía"><span class="header-section-number">8.3.1</span> Apollo: criptografía</a></li>
+  <li><a href="#castor-did" id="toc-castor-did" class="nav-link" data-scroll-target="#castor-did"><span class="header-section-number">8.3.2</span> Castor: DID</a></li>
+  <li><a href="#pollux-credenciales-verificables" id="toc-pollux-credenciales-verificables" class="nav-link" data-scroll-target="#pollux-credenciales-verificables"><span class="header-section-number">8.3.3</span> Pollux: credenciales verificables</a></li>
+  <li><a href="#mercury-didcomm" id="toc-mercury-didcomm" class="nav-link" data-scroll-target="#mercury-didcomm"><span class="header-section-number">8.3.4</span> Mercury: DIDComm</a></li>
+  </ul></li>
+  <li><a href="#edge-agent" id="toc-edge-agent" class="nav-link" data-scroll-target="#edge-agent"><span class="header-section-number">8.4</span> Edge Agent</a></li>
+  <li><a href="#mediador" id="toc-mediador" class="nav-link" data-scroll-target="#mediador"><span class="header-section-number">8.5</span> Mediador</a></li>
+  <li><a href="#registro-de-datos-verificables-vdr" id="toc-registro-de-datos-verificables-vdr" class="nav-link" data-scroll-target="#registro-de-datos-verificables-vdr"><span class="header-section-number">8.6</span> Registro de datos verificables (VDR)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../section1/introduction.html">Sección I</a></li><li class="breadcrumb-item"><a href="../section1/identus-concepts.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conceptos de Identus</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-identus-concepts" class="quarto-section-identifier"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Conceptos de Identus</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<figure id="d04-identus-components" aria-label="Componentes de Identus y vías de comunicación" class="figure">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"> <style> #d04-identus-components { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d04-identus-components svg { display: block; width: 100%; height: auto; } #d04-identus-components svg text { font-family: Lato, -apple-system, system-ui, ‘Segoe UI’, Roboto, ‘Helvetica Neue’, Arial, sans-serif; } #d04-identus-components svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, ‘Liberation Mono’, ‘Courier New’, monospace; } #d04-identus-components figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; } </style> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 960 744" role="img" aria-labelledby="d04-identus-components-title d04-identus-components-desc">
+<title id="d04-identus-components-title">
+Componentes de Identus y vías de comunicación
+</title>
+<desc id="d04-identus-components-desc">Un controlador llama a Cloud Agent mediante REST; una billetera Edge Agent envía mensajes DIDComm a Cloud Agent y obtiene mensajes entrantes mediante un mediador; Cloud Agent usa PRISM Node para publicar y resolver DIDs en un registro.</desc> <defs> <marker id="d04-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker> </defs> <rect width="960" height="744" fill="#ffffff"></rect> <text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Componentes de Identus y vías de comunicación</text> <text x="40" y="80" fill="#56616b" font-size="20">Configuración de PRISM Node con una billetera y un mediador</text> <g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d04-arrow)"> <path d="M232 232 H384"></path> <path d="M576 232 H728"></path> <path d="M136 512 V400 Q136 392 144 392 H424 Q432 392 432 384 V288"></path> <path d="M528 288 V512"></path> <path d="M384 576 H232" marker-start="url(#d04-arrow)"></path> <path d="M824 288 V512" marker-start="url(#d04-arrow)"></path> </g> <g fill="#ffffff"> <rect x="272" y="196" width="72" height="28"></rect> <rect x="584" y="172" width="136" height="52"></rect> <rect x="192" y="356" width="192" height="28"></rect> <rect x="540" y="412" width="160" height="52"></rect> <rect x="240" y="516" width="136" height="52"></rect> <rect x="608" y="356" width="204" height="56"></rect> </g> <g fill="#212529" font-size="20" font-weight="600" text-anchor="middle"> <text class="technical" x="308" y="216">REST</text> <text class="technical" x="652" y="192">gRPC</text> <text x="288" y="376">DIDComm · envío</text> </g> <g fill="#56616b" font-size="16" text-anchor="middle"> <text x="652" y="216">Publicar / resolver</text> <text class="technical" x="308" y="536">DIDComm</text> <text x="308" y="560">Recoger / entregar</text> </g> <text class="technical" x="548" y="432" fill="#212529" font-size="20" font-weight="600">DIDComm</text> <text x="548" y="456" fill="#56616b" font-size="16">Enviar a billetera</text> <g fill="#56616b" font-size="16" text-anchor="end"> <text x="800" y="376">Publicar operaciones</text> <text x="800" y="404">Leer estado confirmado</text> </g> <g stroke-width="1"> <rect x="40" y="176" width="192" height="112" rx="4" fill="#ffffff" stroke="#2c3e50"></rect> <rect x="384" y="176" width="192" height="112" rx="4" fill="#eefaf7" stroke="#18bc9c"></rect> <rect x="728" y="176" width="192" height="112" rx="4" fill="#ffffff" stroke="#2c3e50"></rect> <rect x="40" y="512" width="192" height="128" rx="4" fill="#eefaf7" stroke="#18bc9c"></rect> <rect x="384" y="512" width="192" height="128" rx="4" fill="#ffffff" stroke="#2c3e50"></rect> <rect x="728" y="512" width="192" height="128" rx="4" fill="#f0f3f4" stroke="#b8c2c8"></rect> </g> <g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle"> <text x="136" y="200">APLICACIÓN</text> <text x="480" y="200">SERVIDOR</text> <text x="824" y="200">BACKEND DID</text> <text x="136" y="536">DISPOSITIVO</text> <text x="480" y="536">RETRANSMISIÓN</text> <text x="824" y="536">ESTADO PÚBLICO</text> </g> <g fill="#212529" font-size="24" font-weight="600" text-anchor="middle"> <text x="136" y="232">Controlador</text> <text x="480" y="232">Cloud Agent</text> <text x="824" y="232">PRISM Node</text> <text x="136" y="572">Edge Agent</text> <text x="480" y="572">Mediador</text> <text x="824" y="572">Registro</text> </g> <g fill="#56616b" font-size="16" text-anchor="middle"> <text x="136" y="264">Lógica de negocio</text> <text x="480" y="264">Emisor / verificador</text> <text x="824" y="264">Estado DID indexado</text> <text x="136" y="600">Aplicación de billetera</text> <text x="136" y="624">Claves y credenciales</text> <text x="480" y="600">Mensajes cifrados</text> <text x="480" y="624">Cola y entrega</text> <text x="824" y="600">Cardano</text> <text x="824" y="624">Operaciones DID</text> </g> <path d="M40 680 H920" stroke="#dce1e4" stroke-width="1"></path> <text x="40" y="712" fill="#56616b" font-size="16">Las flechas muestran solicitudes y entregas. Las vías bidireccionales incluyen recogida o lectura del estado.</text> </svg>
+<figcaption>
+El controlador ejecuta la lógica de negocio mediante la API de Cloud Agent. La billetera intercambia mensajes DIDComm con Cloud Agent y obtiene los mensajes entrantes del mediador. PRISM Node publica operaciones DID y resuelve el estado de los DIDs mediante el registro.
+</figcaption>
+</figure>
+<p>Identus reúne varios componentes de código abierto. Puedes usar cada componente por separado o crear tu propia versión, aunque sus autores los diseñaron para que funcionen juntos.</p>
+<section id="prism-node" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="prism-node"><span class="header-section-number">8.1</span> PRISM Node</h2>
+<p>PRISM Node implementa el método <code>did:prism</code> y actúa como un nodo de segunda capa para el libro mayor distribuido. Actualmente solo admite la cadena de bloques Cardano o una base de datos local, pero en el futuro actuará como una interfaz integral para varios <a href="../glossary.html#vdr">VDR (registros de datos verificables)</a>. El nodo puede resolver DIDs PRISM y escribir transacciones en una cadena de bloques o una base de datos. Mantiene un estado interno indexado que sincroniza con la cadena de bloques subyacente para realizar búsquedas eficientes.</p>
+<p>PRISM Node constituye un componente esencial del ecosistema Identus y ofrece una plataforma segura y confiable para almacenar y administrar identificadores descentralizados. Gestiona la creación, la actualización, la resolución y la desactivación de DIDs PRISM: genera transacciones con la información de operación necesaria, verifica y valida estas operaciones, y las publica en la cadena de bloques. Cuando la cadena confirma las transacciones, el nodo actualiza su estado interno.</p>
+<p>La arquitectura de PRISM Node permite que los usuarios:</p>
+<ul>
+<li>Creen DIDs sin publicar mediante el bloque de construcción Apollo, con la opción de anunciarlos públicamente más adelante. No todos los DIDs necesitan publicación en un VDR. Por ejemplo, un titular puede mantener su DID fuera del ámbito público, pero Cloud Agent exige que el emisor publique y ancle su DID de emisión en un VDR. PRISM Node realiza esa operación.</li>
+<li>Actualicen documentos DID mediante operaciones de actualización en la cadena.</li>
+<li>Desactiven DIDs mediante operaciones de desactivación en la cadena.</li>
+<li>Resuelvan DIDs mediante consultas a los cambios históricos en la cadena.</li>
+<li>Consulten el estado de las operaciones enviadas al nodo.</li>
+</ul>
+<p>Este enfoque de segunda capa permite que los DIDs sean escalables y eficientes. Ofrece procesamiento y almacenamiento fuera de la cadena y usa la seguridad y la inmutabilidad de la cadena de bloques subyacente. PRISM Node debe permanecer en línea para prestar un servicio confiable.</p>
+</section>
+<section id="cloud-agent" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="cloud-agent"><span class="header-section-number">8.2</span> Cloud Agent</h2>
+<p>Los autores escribieron Cloud Agent en Scala. Se ejecuta en un servidor y se comunica con clientes y pares mediante una API REST. Constituye un componente esencial de una aplicación Identus: puede administrar billeteras de identidad y sus operaciones, además de emitir credenciales verificables. Cloud Agent debe permanecer en línea.</p>
+<p>Cloud Agent ofrece servicios completos de identidad autosoberana con un diseño escalable, robusto y conforme a los estándares. Admite los estándares del W3C, DIDCommV2 y los protocolos de <a href="https://www.lfdecentralizedtrust.org/projects/aries">Hyperledger Aries</a> para facilitar la interoperabilidad en el ecosistema SSI. Sus principales capacidades incluyen:</p>
+<ul>
+<li>Compatibilidad con varios roles de agente: emisor, titular y verificador.</li>
+<li>Administración de credenciales verificables del estándar W3C (formatos JSON y JSON-LD codificados como JWT), SD-JWT y AnonCreds.</li>
+<li>Implementación de DIF Presentation Exchange para solicitudes y envío de credenciales.</li>
+<li>Compatibilidad con los métodos DID <code>did:prism</code> y <code>did:peer</code> (versión 2).</li>
+<li>Implementación completa de la mensajería y los protocolos DIDCommV2.</li>
+<li>Compatibilidad con las RFC de <a href="https://www.lfdecentralizedtrust.org/projects/aries">Hyperledger Aries</a>, incluidos el intercambio de DIDs, el protocolo fuera de banda, la emisión de credenciales y la presentación de pruebas.</li>
+</ul>
+<p>La API REST de Cloud Agent permite que los desarrolladores creen controladores en cualquier lenguaje de programación sin conocer en profundidad los estándares SSI subyacentes. Esta arquitectura separa la lógica de negocio de la infraestructura de identidad. Así facilita el desarrollo de aplicaciones especializadas que usan las capacidades de la identidad descentralizada.</p>
+<p>En un despliegue, Cloud Agent se comunica con PRISM Node mediante el protocolo gRPC. Lo usa como registro de datos verificables para anclar DIDs en un libro mayor distribuido y ofrecer alta seguridad y disponibilidad.</p>
+</section>
+<section id="bloques-de-construcción" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="bloques-de-construcción"><span class="header-section-number">8.3</span> Bloques de construcción</h2>
+<p>Identus divide las operaciones SSI importantes en bibliotecas especializadas que llama «bloques de construcción». Puedes combinar y configurar estos componentes modulares para distintos casos de uso y requisitos de producto. Esta arquitectura ofrece flexibilidad y opciones de personalización para implementar soluciones de identidad descentralizada que respondan a tus necesidades.</p>
+<section id="apollo-criptografía" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="apollo-criptografía"><span class="header-section-number">8.3.1</span> Apollo: criptografía</h3>
+<p>Apollo reúne primitivas criptográficas que Identus usa para garantizar la integridad, la autenticidad y la confidencialidad de los datos. Ofrece la base para la comunicación segura y la protección de datos en el ecosistema Identus.</p>
+<p>Apollo usa funciones hash criptográficas para crear huellas digitales de los datos y detectar modificaciones no autorizadas. Por ejemplo, cuando un verificador recibe una credencial, las funciones criptográficas de Apollo pueden comprobar que nadie la haya modificado desde su emisión.</p>
+<p>Apollo también implementa firmas digitales para autenticar la identidad de remitentes y destinatarios, y usa algoritmos de cifrado para proteger los datos sensibles frente a accesos no autorizados. En un contexto sanitario, el cifrado de Apollo mantendría la confidencialidad de las credenciales de los pacientes cuando las comparten las partes autorizadas.</p>
+</section>
+<section id="castor-did" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="castor-did"><span class="header-section-number">8.3.2</span> Castor: DID</h3>
+<p>Castor permite crear, administrar y resolver identificadores descentralizados (DIDs). Actualmente admite el método nativo <code>did:prism</code> y el método <code>did:peer</code>. El equipo debate una arquitectura más flexible que permitiría que cualquier persona escribiera complementos para admitir otros métodos DID.</p>
+<p>Cuando un usuario crea una identidad digital en una aplicación Identus, Castor genera el DID y el material criptográfico asociado. Por ejemplo, una universidad que emite credenciales de estudiantes usaría Castor para crear y administrar DIDs de la institución y, posiblemente, de cada estudiante, con lo que establecería la base de relaciones digitales de confianza.</p>
+<p>El componente resolvedor de Castor puede buscar un DID y obtener su documento DID asociado. Ese documento contiene las claves públicas, los mecanismos de autenticación y los puntos de acceso de servicios necesarios para interactuar de forma segura con esa identidad.</p>
+</section>
+<section id="pollux-credenciales-verificables" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="pollux-credenciales-verificables"><span class="header-section-number">8.3.3</span> Pollux: credenciales verificables</h3>
+<p>Pollux gestiona todas las operaciones de credenciales verificables. Permite que los usuarios emitan, administren y verifiquen credenciales de forma que protejan la privacidad. Este bloque de construcción implementa la funcionalidad central del intercambio de credenciales en los sistemas de identidad autosoberana.</p>
+<p>En un contexto laboral, una empresa podría usar Pollux para emitir credenciales de empleados que estos guardarían en sus billeteras digitales. Al solicitar un préstamo, un empleado podría revelar de forma selectiva la información laboral pertinente de esa credencial, sin revelar datos personales innecesarios. El banco podría usar las funciones de verificación de Pollux para confirmar la autenticidad y la validez de la credencial sin contactar directamente con el empleador.</p>
+<p>Pollux también gestiona el estado de las credenciales. Permite que los emisores revoquen credenciales cuando sea necesario y que los verificadores comprueben si una credencial sigue siendo válida antes de aceptarla.</p>
+</section>
+<section id="mercury-didcomm" class="level3" data-number="8.3.4">
+<h3 data-number="8.3.4" class="anchored" data-anchor-id="mercury-didcomm"><span class="header-section-number">8.3.4</span> Mercury: DIDComm</h3>
+<p>Mercury ofrece una interfaz al protocolo <a href="https://www.didcomm.org">DIDCommV2</a> que permite la comunicación segura y privada entre DIDs con independencia del mecanismo de transporte subyacente. Este bloque de construcción establece la base de la comunicación entre agentes en el ecosistema Identus.</p>
+<p>Por ejemplo, cuando un ciudadano quiere compartir una credencial emitida por el gobierno con un proveedor de servicios, Mercury facilita el intercambio de mensajes cifrados y autenticados entre la billetera del ciudadano y el sistema de verificación del proveedor. Ambos se comunican entre pares y prescinden de intermediarios centralizados para ese intercambio.</p>
+<p>El diseño de Mercury no depende del transporte. Estas comunicaciones seguras pueden usar distintos canales, incluidos HTTP, WebSockets y Bluetooth. Así permite distintos despliegues, desde aplicaciones web hasta dispositivos móviles.</p>
+<p>La <a href="https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/building-blocks">documentación de Identus</a> ofrece más información sobre cada bloque de construcción.</p>
+</section>
+</section>
+<section id="edge-agent" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="edge-agent"><span class="header-section-number">8.4</span> Edge Agent</h2>
+<p>Los Edge Agents ofrecen capacidades de agente a las aplicaciones cliente, como sitios web, aplicaciones móviles y otro software orientado al usuario. Los Edge Agents pueden perder la conexión, por lo que envían y reciben todas las comunicaciones mediante un proxy en línea llamado mediador.</p>
+<p>Los desarrolladores pueden integrar los SDK de Edge Agent en sus aplicaciones para acceder a un conjunto completo de funciones SSI en el cliente. Estos SDK gestionan operaciones esenciales, como:</p>
+<ul>
+<li>Crear y administrar DIDs.</li>
+<li>Guardar y administrar credenciales verificables.</li>
+<li>Comunicarse de forma segura mediante DIDComm.</li>
+<li>Realizar operaciones criptográficas de firma y verificación.</li>
+<li>Guardar datos de identidad de forma segura en el dispositivo.</li>
+</ul>
+<p>Identus ofrece SDK de Edge Agent en varios lenguajes para distintas plataformas:</p>
+<ul>
+<li><strong>SDK de TypeScript</strong>: para aplicaciones web.</li>
+<li><strong>SDK de Swift</strong>: para aplicaciones iOS.</li>
+<li><strong>SDK de Kotlin Multiplatform</strong>: para aplicaciones Android y desarrollo multiplataforma.</li>
+</ul>
+<p>Cada SDK implementa los mismos bloques de construcción centrales que Cloud Agent: las interfaces de Apollo, Castor, Mercury, Pollux y Pluto. Esto ofrece funciones coherentes e interoperabilidad en todo el ecosistema Identus. Esta coherencia arquitectónica permite que los desarrolladores creen experiencias fluidas en las que las operaciones de identidad se ejecuten en el cliente o en el servidor, según el caso de uso.</p>
+<p>Los Edge Agents suelen funcionar como billeteras digitales. Permiten que los usuarios mantengan el control de sus credenciales y sus datos de identidad en sus dispositivos personales. Este enfoque sigue los principios centrales de la identidad autosoberana: conserva el control de los datos en manos del usuario y reduce la dependencia de servicios centralizados.</p>
+</section>
+<section id="mediador" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="mediador"><span class="header-section-number">8.5</span> Mediador</h2>
+<p>Los mediadores actúan como intermediarios entre DIDs de pares. Para que un agente envíe un mensaje a otro, debe conocer los DIDs <code>to</code> y <code>from</code> de cada mensaje. El remitente y el destinatario forman una conexión criptográfica llamada <code>DIDPair</code>. Los mediadores mantienen colas de mensajes para cada <code>DIDPair</code>. Si un Edge Agent está sin conexión, el mediador guarda sus mensajes entrantes hasta que el agente vuelve a conectarse y puede recibirlos. Los mediadores pueden entregar mensajes cuando el agente los consulta o enviarlos mediante WebSockets. Deben permanecer en línea y ofrecer alta disponibilidad.</p>
+<p>Identus admite de forma oficial su propia implementación de mediador y publica actualizaciones para ella. También existen implementaciones alternativas cercanas a la comunidad Identus. En teoría, cualquier mediador compatible con DIDCommV2 debería funcionar con Identus, por lo que esta lista no pretende incluir todas las opciones.</p>
+<ul>
+<li><a href="https://github.com/hyperledger-identus/mediator">PRISM Mediator</a>.</li>
+<li><a href="https://github.com/roots-id/didcomm-mediator">RootsID Mediator</a>.</li>
+<li><a href="https://github.com/bsandmann/blocktrust.Mediator">Blocktrust Mediator</a>.</li>
+</ul>
+<p>RootsID y Blocktrust ofrecen instancias alojadas de sus mediadores con acceso público. Aunque resultan útiles durante el desarrollo, no recomendamos usarlas para despliegues Identus en producción: carecen de garantías de disponibilidad y no escalarán más allá de un pequeño número de usuarios simultáneos. El <a href="../section2/mediator.html" class="quarto-xref">capítulo&nbsp;<span>11</span></a> explica cómo ejecutar tu propio mediador.</p>
+</section>
+<section id="registro-de-datos-verificables-vdr" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="registro-de-datos-verificables-vdr"><span class="header-section-number">8.6</span> Registro de datos verificables (VDR)</h2>
+<p>El registro de datos verificables (Verifiable Data Registry, VDR) aborda el reto de garantizar la autenticidad y la integridad de datos públicos en un entorno que genera y consume datos a una escala sin precedentes. Los sistemas tradicionales suelen depender de autoridades centralizadas. Esa dependencia introduce puntos únicos de fallo y debilita la confianza, en especial cuando varias partes independientes necesitan confiar en los mismos datos.</p>
+<p>Los retos principales incluyen permitir la verificación descentralizada, garantizar la integridad y la autenticidad sin supervisión central, ofrecer interoperabilidad entre distintas tecnologías de almacenamiento (bases de datos, cadenas de bloques y cachés en memoria) y facilitar una colaboración escalable sin exigir confianza previa entre las partes.</p>
+<p>El sistema VDR aborda estos problemas mediante una API unificada y un marco modular y extensible para almacenar, modificar, obtener y eliminar datos. Separa la capa de aplicación de los mecanismos de almacenamiento mediante dos componentes principales que admiten complementos:</p>
+<ul>
+<li><strong>Drivers</strong>: son complementos que implementan la lógica real de almacenamiento y obtención de datos. Cada driver se adapta a un backend de almacenamiento concreto, como una base de datos, una cadena de bloques o almacenamiento en memoria. Los drivers ejecutan operaciones de creación, lectura, actualización y eliminación. También generan y verifican pruebas criptográficas (hashes para datos inmutables y firmas digitales para datos modificables) para garantizar la integridad.</li>
+<li><strong>Administradores de URL</strong>: construyen y resuelven URL que hacen referencia a los datos almacenados. Incluyen los metadatos necesarios, como identificadores de drivers, familias de drivers y pruebas criptográficas, mediante parámetros de consulta estándar. Así, cuando recibe una URL, el sistema VDR puede seleccionar el driver correcto y verificar la integridad de los datos.</li>
+</ul>
+<p>Esta abstracción permite que la capa VDR mantenga operaciones de datos coherentes y verificables con independencia de dónde o cómo guarde los datos. Emplea hashes criptográficos para datos inmutables y firmas digitales para datos modificables, incluidos en las URL o disponibles mediante el driver, para garantizar la integridad. Así, varias partes pueden verificar por sí mismas la autenticidad y la integridad sin confiar previamente unas en otras, lo que mejora la seguridad y la colaboración. El diseño del sistema VDR permite adaptarse a distintos backends de almacenamiento y mantener métodos coherentes de verificación y acceso a los datos.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/identusbook\.com\/book\/es\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../section1/dids-and-diddocuments.html" class="pagination-link" aria-label="DIDs y documentos DID">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">DIDs y documentos DID</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../section2/installation-local.html" class="pagination-link" aria-label="Instalación: entorno local">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Instalación: entorno local</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

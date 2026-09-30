@@ -127,4 +127,4 @@ After import, Postman should show a collection named `Identus Cloud Agent API Re
 
 ## Tutorials
 
-The official [Identus tutorials](https://hyperledger-identus.github.io/docs/tutorials/) cover the main API flows: connections, DID management, credential schemas, credential issuance, presentation requests, webhooks, multi-tenancy, and VDR interaction. Use those tutorials as the endpoint reference for the next chapters. This book will connect those API operations to the example application, the wallet model, DIDComm flows, and verifier policy checks.
+The official [Identus tutorials](https://identus.io/cloud-agent/docs/docusaurus/) cover the main API flows: connections, DID management, credential schemas, credential issuance, presentation requests, webhooks, multi-tenancy, and VDR interaction. Use those tutorials as the endpoint reference for the next chapters. This book will connect those API operations to the example application, the wallet model, DIDComm flows, and verifier policy checks.

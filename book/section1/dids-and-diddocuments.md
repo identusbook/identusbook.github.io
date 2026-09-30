@@ -8,7 +8,7 @@ The DID itself is only the identifier. A resolver resolves the DID and returns a
 
 A **DID Document** publishes the public information software needs to interact with the DID subject: verification methods, verification relationships, and services. A DID Document should not contain private keys, secrets, or personal profile data. DID Core warns that public DID Documents can create privacy and correlation risk, so personal data belongs in credentials, peer-to-peer exchanges, or controlled service endpoints rather than the public document.
 
-Identus developers use `did:prism` and `did:peer` for different jobs. `did:prism` fits public issuer and verifier identities that need ledger-backed resolution. `did:peer` fits relationship-specific DIDComm activity. A wallet, Cloud Agent, or mediator can use separate Peer DIDs to reduce correlation between relationships. The [Identus DID management documentation](https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/did-management/) describes Cloud Agent support for both managed PRISM DIDs and managed Peer DIDs.
+Identus developers use `did:prism` and `did:peer` for different jobs. `did:prism` fits public issuer and verifier identities that need ledger-backed resolution. `did:peer` fits relationship-specific DIDComm activity. A wallet, Cloud Agent, or mediator can use separate Peer DIDs to reduce correlation between relationships. The [Identus DID management documentation](https://identus.io/documentation/develop/cloud-agent/did-management/) describes Cloud Agent support for both managed PRISM DIDs and managed Peer DIDs.
 
 ## DID Syntax and DID Methods
 
@@ -156,7 +156,7 @@ For a managed Peer DID, Cloud Agent generates random key material and stores it 
 
 A resolver takes a DID and returns the DID Document plus metadata. The resolver must understand the DID method. A generic resolver can route different methods to method-specific drivers, but the method driver still performs the method-specific retrieval and validation.
 
-For `did:prism`, a resolver needs the current PRISM state for the DID. Identus documents these resolution paths: Cloud Agent with PRISM Node, Universal Resolver support for PRISM DIDs, SDK resolver configuration, and community indexers. The [Identus DID PRISM Resolver documentation](https://hyperledger-identus.github.io/docs/home/identus/did-prism-resolver/) describes Cloud Agent and PRISM Node as a solution for creating, updating, deactivating, and resolving PRISM DIDs.
+For `did:prism`, a resolver needs the current PRISM state for the DID. Identus documents these resolution paths: Cloud Agent with PRISM Node, Universal Resolver support for PRISM DIDs, SDK resolver configuration, and community indexers. The [Identus DID PRISM Resolver documentation](https://identus.io/documentation/learn/advanced-explainers/did-prism/) describes Cloud Agent and PRISM Node as a solution for creating, updating, deactivating, and resolving PRISM DIDs.
 
 Resolver choice is a trust decision. A verifier can use a hosted resolver, run its own resolver, or resolve against local indexed state. The verifier software should treat resolver output as input to verification, not as the whole trust decision. Credential verification still checks the proof, the verification relationship, credential status, schema, and verifier policy.
 

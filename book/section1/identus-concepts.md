@@ -78,7 +78,7 @@ For example, when a citizen wants to share a government-issued credential with a
 
 Mercury's transport-agnostic design means that these secure communications can occur over various channels, including HTTP, WebSockets, or Bluetooth, making it versatile for different deployment scenarios from web applications to mobile devices.
 
-More detailed information on each of the Building Blocks can be found in the [Identus Documentation](https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/building-blocks).
+More detailed information on each of the Building Blocks can be found in the [Identus Documentation](https://identus.io/documentation/develop/cloud-agent/building-blocks/).
 
 ## Edge Agent
 

@@ -6,7 +6,7 @@ Self-Sovereign Identity (SSI) describes identity systems built around user-held 
 
 SSI does not make holder-provided claims trustworthy by itself. A verifier checks who issued the credential, what the credential says, whether the proof is valid, whether the credential is still in good standing, and whether the issuer is acceptable for that transaction. SSI changes custody and exchange of identity data; governance, law, contracts, and reputation still shape trust decisions.
 
-This chapter uses standard terms from the [W3C Decentralized Identifiers (DIDs) v1.0 Recommendation](https://www.w3.org/TR/did-1.0/) and the [W3C Verifiable Credentials Data Model v2.0 Recommendation](https://www.w3.org/TR/vc-data-model-2.0/). DID Core defines DIDs as identifiers for verifiable, decentralized digital identity that can be decoupled from centralized registries, identity providers, and certificate authorities. The VC Data Model defines credentials, presentations, issuers, holders, subjects, and verifiers. The [Identus Quick Start Guide](https://hyperledger-identus.github.io/docs/home/quick-start/) describes Identus as core libraries for SSI interactions between issuers, holders, and verifiers.
+This chapter uses standard terms from the [W3C Decentralized Identifiers (DIDs) v1.0 Recommendation](https://www.w3.org/TR/did-1.0/) and the [W3C Verifiable Credentials Data Model v2.0 Recommendation](https://www.w3.org/TR/vc-data-model-2.0/). DID Core defines DIDs as identifiers for verifiable, decentralized digital identity that can be decoupled from centralized registries, identity providers, and certificate authorities. The VC Data Model defines credentials, presentations, issuers, holders, subjects, and verifiers. The [Identus Quick Start Guide](https://identus.io/documentation/develop/quick-start/) describes Identus as core libraries for SSI interactions between issuers, holders, and verifiers.
 
 ## The SSI Interaction
 
@@ -93,11 +93,11 @@ The OpenID Foundation defines OAuth-based protocols for credential exchange. [Op
 
 Identus gives developers components for these SSI roles, so application code can use agents, SDKs, and APIs instead of reimplementing the standards stack.
 
-The [Identus Cloud Agent](https://hyperledger-identus.github.io/docs/home/quick-start/) can issue, hold, and verify VCs; manage DIDs and DID-based connections; expose a REST API; and use DIDComm V2 for agent communication. Typical uses include custodial wallets, enterprise issuers, verifier services, and backend workflows.
+The [Identus Cloud Agent](https://identus.io/documentation/develop/quick-start/) can issue, hold, and verify VCs; manage DIDs and DID-based connections; expose a REST API; and use DIDComm V2 for agent communication. Typical uses include custodial wallets, enterprise issuers, verifier services, and backend workflows.
 
-The [Identus DID management documentation](https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/did-management/) explains that Cloud Agent manages PRISM DIDs and Peer DIDs. PRISM DIDs fit public issuer identity and ledger-backed resolution. Peer DIDs fit DIDComm activities where relationship-specific identifiers reduce correlation.
+The [Identus DID management documentation](https://identus.io/documentation/develop/cloud-agent/did-management/) explains that Cloud Agent manages PRISM DIDs and Peer DIDs. PRISM DIDs fit public issuer identity and ledger-backed resolution. Peer DIDs fit DIDComm activities where relationship-specific identifiers reduce correlation.
 
-The [Identus Quick Start Guide](https://hyperledger-identus.github.io/docs/home/quick-start/) describes PRISM Node as the Verifiable Data Registry component used to anchor key information for issuance and verification, and describes mediators as services that store and relay messages between Cloud Agents and wallet SDKs. PRISM Node supports public DID resolution. Mediators handle message relay for offline or intermittently connected agents without reading encrypted DIDComm content.
+The [Identus Quick Start Guide](https://identus.io/documentation/develop/quick-start/) describes PRISM Node as the Verifiable Data Registry component used to anchor key information for issuance and verification, and describes mediators as services that store and relay messages between Cloud Agents and wallet SDKs. PRISM Node supports public DID resolution. Mediators handle message relay for offline or intermittently connected agents without reading encrypted DIDComm content.
 
 ## Developer Takeaways
 

@@ -70,7 +70,7 @@ Cloud Agent custody has a different trust boundary from an Edge Agent wallet. Th
 
 ### Multi-Tenant Wallets
 
-In Cloud Agent multi-tenancy, an administrator creates a wallet, creates an entity for the tenant, and provisions an authentication method for that entity. The [Identus tenant onboarding documentation](https://hyperledger-identus.github.io/docs/tutorials/multitenancy/tenant-onboarding/) describes the wallet as the container for tenant assets, including DIDs, credentials, and connections. After provisioning, Cloud Agent scopes tenant API calls to that wallet.
+In Cloud Agent multi-tenancy, an administrator creates a wallet, creates an entity for the tenant, and provisions an authentication method for that entity. The [Identus tenant onboarding documentation](https://identus.io/cloud-agent/docs/docusaurus/multitenancy/tenant-onboarding/) describes the wallet as the container for tenant assets, including DIDs, credentials, and connections. After provisioning, Cloud Agent scopes tenant API calls to that wallet.
 
 This model fits service-managed wallets. It does not remove custody risk. The administrator API, tenant authentication, wallet identifiers, database rows, Vault paths, and webhook routing must all preserve tenant separation.
 
@@ -78,11 +78,11 @@ This model fits service-managed wallets. It does not remove custody risk. The ad
 
 Identus Cloud Agent uses different key-management paths for PRISM DIDs and Peer DIDs.
 
-For managed PRISM DIDs, Cloud Agent derives key material from a wallet seed and derivation path. The [DID management documentation](https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/did-management/) states that Cloud Agent stores the derivation path rather than the PRISM key material itself, then reconstructs key material at runtime from the seed and path.
+For managed PRISM DIDs, Cloud Agent derives key material from a wallet seed and derivation path. The [DID management documentation](https://identus.io/documentation/develop/cloud-agent/did-management/) states that Cloud Agent stores the derivation path rather than the PRISM key material itself, then reconstructs key material at runtime from the seed and path.
 
 For managed Peer DIDs, Cloud Agent generates key material and stores it in secret storage. Peer DIDs support DIDComm activity, so these keys protect relationship-specific communications.
 
-The [Cloud Agent secrets storage documentation](https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/secrets-storage/) names HashiCorp Vault as the default secret storage service. It describes secret types such as seeds, private keys, credential-definition data, and AnonCreds link secrets. In multi-tenant configuration, Vault asset paths include the wallet ID so each wallet's secrets live under its own path.
+The [Cloud Agent secrets storage documentation](https://identus.io/documentation/develop/cloud-agent/secrets-storage/) names HashiCorp Vault as the default secret storage service. It describes secret types such as seeds, private keys, credential-definition data, and AnonCreds link secrets. In multi-tenant configuration, Vault asset paths include the wallet ID so each wallet's secrets live under its own path.
 
 ## Choosing Edge or Cloud Custody
 

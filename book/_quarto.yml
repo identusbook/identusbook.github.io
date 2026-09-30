@@ -23,6 +23,10 @@ book:
       - href: https://identusbook.com/authors.html
         text: "Authors"
     right:
+      - text: "English"
+        href: index.md
+      - text: "Español"
+        href: es/index.html
       - icon: github
         href: https://github.com/identusbook
         aria-label: GitHub

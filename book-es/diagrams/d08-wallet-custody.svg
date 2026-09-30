@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 840" role="img" aria-labelledby="d08-wallet-custody-title d08-wallet-custody-desc">
+<title id="d08-wallet-custody-title">Custodia de billeteras Edge y Cloud</title>
+<desc id="d08-wallet-custody-desc">La aplicación del viajero ejecuta un SDK de Edge y proporciona almacenamiento local mediante Pluto. La organización ejecuta un controlador y Cloud Agent con una base de datos y almacenamiento de secretos bajo el control del operador del servicio. Los agentes intercambian mensajes DIDComm.</desc>
+<defs>
+<marker id="d08-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+</defs>
+<rect width="960" height="840" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Custodia de billeteras Edge y Cloud</text>
+<text x="40" y="80" fill="#56616b" font-size="20">Billetera del viajero y de la organización en el ejemplo de la aerolínea</text>
+<g fill="#ffffff" stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6">
+<rect x="40" y="120" width="384" height="640" rx="4"/>
+<rect x="512" y="120" width="408" height="640" rx="4"/>
+</g>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d08-arrow)">
+<path d="M232 280 V360"/>
+<path d="M648 280 V360"/>
+<path d="M784 360 V280" stroke-dasharray="6 6"/>
+<path d="M368 408 H568" marker-start="url(#d08-arrow)"/>
+<path d="M232 440 V568"/>
+<path d="M624 440 V568"/>
+<path d="M808 440 V568"/>
+</g>
+<g fill="#ffffff">
+<rect x="244" y="304" width="160" height="28"/>
+<rect x="580" y="304" width="56" height="28"/>
+<rect x="796" y="304" width="108" height="28"/>
+<rect x="412" y="372" width="112" height="28"/>
+<rect x="244" y="484" width="204" height="56"/>
+<rect x="636" y="492" width="80" height="28"/>
+<rect x="820" y="492" width="84" height="28"/>
+</g>
+<g fill="#212529" font-size="20" font-weight="600">
+<text x="252" y="324">Llamadas SDK</text>
+<text x="632" y="324" text-anchor="end">REST</text>
+<text x="804" y="324">Webhooks</text>
+<text x="468" y="392" text-anchor="middle">DIDComm</text>
+<text x="252" y="508">Pluto</text>
+</g>
+<g fill="#56616b" font-size="16">
+<text x="252" y="532">Interfaz de almacenamiento</text>
+<text x="644" y="512">Registros</text>
+<text x="828" y="512">Secretos</text>
+</g>
+<g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">
+<text x="64" y="148">DISPOSITIVO DEL VIAJERO</text>
+<text x="536" y="148">SERVICIO DE LA ORGANIZACIÓN</text>
+</g>
+<g fill="#212529" font-size="20" font-weight="600">
+<text x="64" y="180">El viajero controla el dispositivo</text>
+<text x="536" y="180">El operador controla el servicio</text>
+</g>
+<g stroke-width="1">
+<rect x="96" y="208" width="272" height="72" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+<rect x="568" y="208" width="296" height="72" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+<rect x="96" y="360" width="272" height="80" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<rect x="568" y="360" width="296" height="80" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<rect x="96" y="568" width="272" height="144" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<rect x="536" y="568" width="176" height="144" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<rect x="728" y="568" width="168" height="144" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+</g>
+<g fill="#212529" font-size="22" font-weight="600" text-anchor="middle">
+<text x="232" y="240">Aplicación de billetera</text>
+<text x="716" y="240">Controlador de negocio</text>
+<text x="232" y="392">Edge SDK</text>
+<text x="716" y="392">Cloud Agent</text>
+<text x="232" y="604">Almacenamiento local</text>
+<text x="624" y="604">Base de datos</text>
+</g>
+<text x="812" y="604" fill="#212529" font-size="16" font-weight="600" text-anchor="middle">Almacén de secretos</text>
+<g fill="#56616b" font-size="14" text-anchor="middle">
+<text x="232" y="264">Consentimiento y acciones del viajero</text>
+<text x="716" y="264">Lógica del emisor o verificador</text>
+<text x="232" y="424">Operaciones de billetera en la app</text>
+<text x="716" y="424">Operaciones de billetera en servidor</text>
+<text x="232" y="636">Credenciales y registros de protocolo</text>
+<text x="232" y="660">Claves o referencias protegidas</text>
+<text x="232" y="692">La aplicación aporta el almacén</text>
+<text x="624" y="640">Registros de billetera</text>
+<text x="624" y="664">y metadatos</text>
+<text x="812" y="640">Semillas y claves</text>
+<text x="812" y="692">p. ej., Vault</text>
+</g>
+<path d="M40 792 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="824" fill="#56616b" font-size="16">Los límites muestran la custodia de ejecución y almacenamiento. DIDComm conecta ambas billeteras.</text>
+</svg>

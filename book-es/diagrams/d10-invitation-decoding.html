@@ -1,0 +1,76 @@
+<figure id="d10-invitation-decoding" aria-label="De la invitación a las claves y el punto de acceso">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
+<style>
+#d10-invitation-decoding { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d10-invitation-decoding svg { display: block; width: 100%; height: auto; }
+#d10-invitation-decoding svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d10-invitation-decoding svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
+#d10-invitation-decoding figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 848" role="img" aria-labelledby="d10-invitation-decoding-title d10-invitation-decoding-desc">
+<title id="d10-invitation-decoding-title">De la invitación a las claves y el punto de acceso</title>
+<desc id="d10-invitation-decoding-desc">La billetera lee un código QR o enlace, extrae el valor _oob y lo decodifica desde Base64url en el JSON de la invitación. Lee el DID from del invitador y resuelve las claves y servicios incorporados en did:peer:2 para obtener claves públicas y un punto de acceso DIDComm.</desc>
+<defs>
+<marker id="d10-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+</defs>
+<rect width="960" height="848" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">De la invitación a las claves y el punto de acceso</text>
+<text x="40" y="80" fill="#56616b" font-size="20">La billetera invitada lee una invitación OOB con un DID de pares</text>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d10-arrow)">
+<path d="M264 208 H368"/>
+<path d="M592 208 H696"/>
+<path d="M808 272 V368 Q808 376 800 376 H488 Q480 376 480 384 V432"/>
+<path d="M392 544 V600 Q392 608 384 608 H240 Q232 608 232 616 V656"/>
+<path d="M568 544 V600 Q568 608 576 608 H720 Q728 608 728 616 V656"/>
+</g>
+<g fill="#ffffff">
+<rect x="276" y="172" width="80" height="28"/>
+<rect x="604" y="172" width="80" height="28"/>
+<rect x="560" y="336" width="176" height="32"/>
+</g>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle">
+<text x="316" y="192">Extraer</text>
+<text x="644" y="192" font-size="17">Decodificar</text>
+<text x="648" y="360">Leer el DID from</text>
+</g>
+<g stroke-width="1">
+<rect x="40" y="144" width="224" height="128" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+<rect x="368" y="144" width="224" height="128" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<rect x="696" y="144" width="224" height="128" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<rect x="272" y="432" width="416" height="112" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<rect x="40" y="656" width="384" height="128" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+<rect x="536" y="656" width="384" height="128" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+</g>
+<g fill="#56616b" font-size="11" font-weight="700" letter-spacing="1" text-anchor="middle">
+<text x="152" y="168">URL</text>
+<text x="480" y="168">PARÁMETRO DE CONSULTA</text>
+<text x="808" y="168">MENSAJE</text>
+</g>
+<g fill="#212529" font-size="24" font-weight="600" text-anchor="middle">
+<text x="152" y="204">Código QR o enlace</text>
+<text class="technical" x="480" y="204">_oob</text>
+<text x="808" y="204">JSON de invitación</text>
+<text x="480" y="464">DID de pares del invitador</text>
+<text x="232" y="692">Claves públicas</text>
+<text x="728" y="692">Servicio DIDComm</text>
+</g>
+<g fill="#56616b" font-size="15" text-anchor="middle">
+<text x="152" y="232">Contiene la invitación</text>
+<text class="technical" x="152" y="256">https://…/?_oob=…</text>
+<text x="480" y="232">JSON codificado en Base64url</text>
+<text class="technical" x="480" y="256">eyJ…</text>
+<text class="technical" x="808" y="232">id · type · body</text>
+<text class="technical" x="808" y="256">from: did:peer:2.…</text>
+<text class="technical" x="480" y="496">did:peer:2.E….V….S…</text>
+<text x="480" y="528" font-size="14">La billetera reconstruye el documento DID localmente</text>
+<text class="technical" x="232" y="724">keyAgreement · authentication</text>
+<text x="232" y="756">Claves y relaciones de verificación</text>
+<text class="technical" x="728" y="724">uri · accept · routingKeys</text>
+<text x="728" y="756">Punto de acceso y claves de enrutamiento</text>
+</g>
+<text x="480" y="576" fill="#56616b" font-size="16" text-anchor="middle">Documento DID</text>
+<path d="M40 808 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="836" fill="#56616b" font-size="16">La billetera usa estas claves públicas y datos de enrutamiento en el siguiente paso del protocolo.</text>
+</svg>
+<figcaption>Este ejemplo usa <code>did:peer:2</code> con información de servicio incorporada. La billetera decodifica la invitación, resuelve su DID <code>from</code> y lee las claves públicas y el servicio DIDComm. Los puntos suspensivos abrevian los valores codificados.</figcaption>
+</figure>

@@ -1,0 +1,98 @@
+<figure id="d11-connection-establishment" aria-label="Establecer una conexión entre dos agentes">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
+<style>
+#d11-connection-establishment { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d11-connection-establishment svg { display: block; width: 100%; height: auto; }
+#d11-connection-establishment svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d11-connection-establishment svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
+#d11-connection-establishment figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1064" role="img" aria-labelledby="d11-connection-establishment-title d11-connection-establishment-desc">
+<title id="d11-connection-establishment-title">Establecer una conexión entre dos agentes</title>
+<desc id="d11-connection-establishment-desc">El invitador crea y comparte una invitación. El invitado la acepta y envía una solicitud de conexión DIDComm. El invitador envía una respuesta. Cada Cloud Agent mantiene un registro de conexión local separado con su propio estado.</desc>
+<defs>
+<marker id="d11-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+</defs>
+<rect width="960" height="1064" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Establecer una conexión entre dos agentes</text>
+<text x="40" y="80" fill="#56616b" font-size="20">Dos Cloud Agents; algunas llamadas API y estados de registros</text>
+<g stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6">
+<path d="M256 184 V992"/>
+<path d="M704 184 V992"/>
+</g>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d11-arrow)">
+<path d="M256 384 H704"/>
+<path d="M704 608 H256"/>
+</g>
+<path d="M256 816 H704" fill="none" stroke="#56616b" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#d11-arrow)"/>
+<g fill="#ffffff">
+<rect x="312" y="328" width="336" height="48"/>
+<rect x="312" y="552" width="336" height="48"/>
+<rect x="312" y="760" width="336" height="48"/>
+</g>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle">
+<text x="480" y="352">Compartir invitación</text>
+<text x="480" y="576">Solicitud de conexión</text>
+<text x="480" y="784">Respuesta de conexión</text>
+</g>
+<g fill="#56616b" font-size="16" text-anchor="middle">
+<text x="480" y="372">Código QR o enlace, fuera de DIDComm</text>
+<text x="480" y="596">DIDComm</text>
+<text x="480" y="804">DIDComm</text>
+</g>
+<g fill="#ffffff" stroke="#2c3e50" stroke-width="1">
+<rect x="96" y="112" width="320" height="72" rx="4"/>
+<rect x="544" y="112" width="320" height="72" rx="4"/>
+</g>
+<g fill="#56616b" font-size="11" font-weight="700" letter-spacing="1" text-anchor="middle">
+<text x="256" y="136">INVITADOR</text>
+<text x="704" y="136">INVITADO</text>
+</g>
+<g fill="#212529" font-size="24" font-weight="600" text-anchor="middle">
+<text x="256" y="164">Cloud Agent A</text>
+<text x="704" y="164">Cloud Agent B</text>
+</g>
+<g fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1">
+<rect x="96" y="216" width="320" height="104" rx="4"/>
+<rect x="544" y="424" width="320" height="112" rx="4"/>
+<rect x="96" y="640" width="320" height="104" rx="4"/>
+<rect x="544" y="640" width="320" height="72" rx="4"/>
+</g>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle">
+<text x="256" y="244">Controlador crea invitación</text>
+<text x="704" y="452">Controlador acepta invitación</text>
+<text x="256" y="668">Recibir y aceptar solicitud</text>
+<text x="704" y="668">Solicitud enviada</text>
+</g>
+<g fill="#56616b" font-size="16" text-anchor="middle">
+<text class="technical" x="256" y="272">POST /connections</text>
+<text class="technical" x="256" y="304">InvitationGenerated</text>
+<text class="technical" x="704" y="480">POST /connection-invitations</text>
+<text class="technical" x="704" y="520">ConnectionRequestPending</text>
+<text class="technical" x="256" y="696">ConnectionRequestReceived</text>
+<text class="technical" x="256" y="728">ConnectionResponsePending</text>
+<text class="technical" x="704" y="696">ConnectionRequestSent</text>
+</g>
+<g fill="#eefaf7" stroke="#18bc9c" stroke-width="1">
+<rect x="96" y="848" width="320" height="128" rx="4"/>
+<rect x="544" y="848" width="320" height="128" rx="4"/>
+</g>
+<g fill="#56616b" font-size="11" font-weight="700" letter-spacing="1" text-anchor="middle">
+<text x="256" y="876">REGISTRO LOCAL DEL INVITADOR</text>
+<text x="704" y="876">REGISTRO LOCAL DEL INVITADO</text>
+</g>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle">
+<text x="256" y="908">Respuesta enviada</text>
+<text x="704" y="908">Respuesta recibida</text>
+</g>
+<g fill="#56616b" font-size="16" text-anchor="middle">
+<text class="technical" x="256" y="936">ConnectionResponseSent</text>
+<text class="technical" x="704" y="936">ConnectionResponseReceived</text>
+<text x="256" y="960">Conserva su propio connectionId</text>
+<text x="704" y="960">Conserva otro connectionId</text>
+</g>
+<path d="M40 1016 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="1048" fill="#56616b" font-size="16">Los cuadros muestran acciones y estados locales. Las flechas muestran intercambios de invitación y protocolo.</text>
+</svg>
+<figcaption>Cada controlador usa el <code>connectionId</code> de su propio Cloud Agent para leer o continuar la conexión. Los agentes actualizan sus registros cuando envían y reciben mensajes. El diagrama muestra algunos estados del flujo correcto.</figcaption>
+</figure>

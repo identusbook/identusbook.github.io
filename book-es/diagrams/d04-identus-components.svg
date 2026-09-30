@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 744" role="img" aria-labelledby="d04-identus-components-title d04-identus-components-desc">
+<title id="d04-identus-components-title">Componentes de Identus y vías de comunicación</title>
+<desc id="d04-identus-components-desc">Un controlador llama a Cloud Agent mediante REST; una billetera Edge Agent envía mensajes DIDComm a Cloud Agent y obtiene mensajes entrantes mediante un mediador; Cloud Agent usa PRISM Node para publicar y resolver DIDs en un registro.</desc>
+<defs>
+<marker id="d04-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+</defs>
+<rect width="960" height="744" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Componentes de Identus y vías de comunicación</text>
+<text x="40" y="80" fill="#56616b" font-size="20">Configuración de PRISM Node con una billetera y un mediador</text>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d04-arrow)">
+<path d="M232 232 H384"/>
+<path d="M576 232 H728"/>
+<path d="M136 512 V400 Q136 392 144 392 H424 Q432 392 432 384 V288"/>
+<path d="M528 288 V512"/>
+<path d="M384 576 H232" marker-start="url(#d04-arrow)"/>
+<path d="M824 288 V512" marker-start="url(#d04-arrow)"/>
+</g>
+<g fill="#ffffff">
+<rect x="272" y="196" width="72" height="28"/>
+<rect x="584" y="172" width="136" height="52"/>
+<rect x="192" y="356" width="192" height="28"/>
+<rect x="540" y="412" width="160" height="52"/>
+<rect x="240" y="516" width="136" height="52"/>
+<rect x="608" y="356" width="204" height="56"/>
+</g>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle">
+<text class="technical" x="308" y="216">REST</text>
+<text class="technical" x="652" y="192">gRPC</text>
+<text x="288" y="376">DIDComm · envío</text>
+</g>
+<g fill="#56616b" font-size="16" text-anchor="middle">
+<text x="652" y="216">Publicar / resolver</text>
+<text class="technical" x="308" y="536">DIDComm</text>
+<text x="308" y="560">Recoger / entregar</text>
+</g>
+<text class="technical" x="548" y="432" fill="#212529" font-size="20" font-weight="600">DIDComm</text>
+<text x="548" y="456" fill="#56616b" font-size="16">Enviar a billetera</text>
+<g fill="#56616b" font-size="16" text-anchor="end">
+<text x="800" y="376">Publicar operaciones</text>
+<text x="800" y="404">Leer estado confirmado</text>
+</g>
+<g stroke-width="1">
+<rect x="40" y="176" width="192" height="112" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+<rect x="384" y="176" width="192" height="112" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<rect x="728" y="176" width="192" height="112" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+<rect x="40" y="512" width="192" height="128" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<rect x="384" y="512" width="192" height="128" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+<rect x="728" y="512" width="192" height="128" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+</g>
+<g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle">
+<text x="136" y="200">APLICACIÓN</text>
+<text x="480" y="200">SERVIDOR</text>
+<text x="824" y="200">BACKEND DID</text>
+<text x="136" y="536">DISPOSITIVO</text>
+<text x="480" y="536">RETRANSMISIÓN</text>
+<text x="824" y="536">ESTADO PÚBLICO</text>
+</g>
+<g fill="#212529" font-size="24" font-weight="600" text-anchor="middle">
+<text x="136" y="232">Controlador</text>
+<text x="480" y="232">Cloud Agent</text>
+<text x="824" y="232">PRISM Node</text>
+<text x="136" y="572">Edge Agent</text>
+<text x="480" y="572">Mediador</text>
+<text x="824" y="572">Registro</text>
+</g>
+<g fill="#56616b" font-size="16" text-anchor="middle">
+<text x="136" y="264">Lógica de negocio</text>
+<text x="480" y="264">Emisor / verificador</text>
+<text x="824" y="264">Estado DID indexado</text>
+<text x="136" y="600">Aplicación de billetera</text>
+<text x="136" y="624">Claves y credenciales</text>
+<text x="480" y="600">Mensajes cifrados</text>
+<text x="480" y="624">Cola y entrega</text>
+<text x="824" y="600">Cardano</text>
+<text x="824" y="624">Operaciones DID</text>
+</g>
+<path d="M40 680 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="712" fill="#56616b" font-size="16">Las flechas muestran solicitudes y entregas. Las vías bidireccionales incluyen recogida o lectura del estado.</text>
+</svg>

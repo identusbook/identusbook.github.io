@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 880" role="img" aria-labelledby="d03-issuer-key-verification-title d03-issuer-key-verification-desc">
+<title id="d03-issuer-key-verification-title">Buscar y comprobar la clave de un emisor</title>
+<desc id="d03-issuer-key-verification-desc">El titular envía una presentación; el verificador extrae el DID del emisor y la referencia de clave, resuelve el DID, comprueba la relación assertionMethod del método referenciado y verifica la firma de la credencial antes de comprobar el estado, el esquema y la política.</desc>
+<defs>
+<marker id="d03-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+</defs>
+<rect width="960" height="880" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Buscar y comprobar la clave de un emisor</text>
+<text x="40" y="80" fill="#56616b" font-size="20">Verificación de claves para una credencial emitida desde un DID PRISM</text>
+<g stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6">
+<path d="M152 184 V808"/>
+<path d="M456 184 V808"/>
+<path d="M800 184 V808"/>
+</g>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d03-arrow)">
+<path d="M152 232 H456"/>
+<path d="M456 384 H800"/>
+<path d="M800 464 H456" stroke-dasharray="6 6"/>
+<path d="M456 588 V620"/>
+<path d="M456 692 V724"/>
+</g>
+<g fill="#ffffff" stroke="#2c3e50" stroke-width="1">
+<rect x="40" y="112" width="224" height="72" rx="4"/>
+<rect x="344" y="112" width="224" height="72" rx="4"/>
+<rect x="688" y="112" width="224" height="72" rx="4"/>
+</g>
+<g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle">
+<text x="152" y="136">TITULAR</text>
+<text x="456" y="136">VERIFICADOR</text>
+<text x="800" y="136">RESOLVEDOR</text>
+</g>
+<g fill="#212529" font-size="24" font-weight="600" text-anchor="middle">
+<text x="152" y="164">Billetera</text>
+<text x="456" y="164">Software verificador</text>
+<text x="800" y="164">Resolvedor DID</text>
+</g>
+<g fill="#ffffff">
+<rect x="232" y="196" width="144" height="28"/>
+<rect x="512" y="348" width="232" height="28"/>
+<rect x="516" y="404" width="224" height="52"/>
+</g>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle">
+<text x="304" y="216">Presentación</text>
+<text x="628" y="368">DID del emisor</text>
+<text x="628" y="424">Documento DID</text>
+</g>
+<text x="628" y="448" fill="#56616b" font-size="16" text-anchor="middle">y metadatos de resolución</text>
+<rect x="296" y="260" width="320" height="64" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"/>
+<text x="456" y="288" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Leer la credencial</text>
+<text x="456" y="312" fill="#56616b" font-size="16" text-anchor="middle">Extraer DID y referencia de clave</text>
+<rect x="296" y="492" width="320" height="96" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"/>
+<text x="456" y="520" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Comprobar autorización</text>
+<text x="456" y="544" fill="#56616b" font-size="16" text-anchor="middle">Buscar el método referenciado en</text>
+<text class="technical" x="456" y="572" fill="#212529" font-size="20" text-anchor="middle">assertionMethod</text>
+<rect x="296" y="620" width="320" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"/>
+<text x="456" y="648" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Comprobar firma de credencial</text>
+<text x="456" y="676" fill="#56616b" font-size="16" text-anchor="middle">Usar la clave pública del método</text>
+<rect x="296" y="724" width="320" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"/>
+<text x="456" y="752" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Continuar verificación</text>
+<text x="456" y="780" fill="#56616b" font-size="16" text-anchor="middle">Comprobar estado, esquema y política</text>
+<path d="M40 832 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="864" fill="#56616b" font-size="16">Ruta correcta. El verificador se detiene si falla la resolución, la autorización o la firma.</text>
+</svg>

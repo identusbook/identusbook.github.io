@@ -6,6 +6,7 @@ project:
     - "*.md"
     - "posts/"
     - "!book/"
+    - "!book-es/"
 
 resources:
   - CNAME

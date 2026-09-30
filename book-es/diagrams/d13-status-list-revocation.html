@@ -1,0 +1,52 @@
+<figure id="d13-status-list-revocation" aria-label="Comprobar una credencial contra una lista de estado">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
+<style>
+#d13-status-list-revocation { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d13-status-list-revocation svg { display: block; width: 100%; height: auto; }
+#d13-status-list-revocation svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d13-status-list-revocation svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
+#d13-status-list-revocation figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="d13-status-list-revocation-title d13-status-list-revocation-desc">
+<title id="d13-status-list-revocation-title">Comprobar una credencial contra una lista de estado</title>
+<desc id="d13-status-list-revocation-desc">El emisor asigna un índice de lista de estado y establece un bit de revocación. El verificador resuelve la URL statusListCredential, verifica la prueba de la lista, decodifica su cadena de bits y comprueba el bit indexado. Cero indica que no está revocada y uno que está revocada.</desc>
+<defs>
+<marker id="d13-status-list-revocation-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+<marker id="d13-status-list-revocation-accent-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#18bc9c"/></marker>
+</defs>
+<rect width="960" height="600" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Revocación de credenciales mediante una lista de estado</text>
+<text x="40" y="80" fill="#56616b" font-size="20">El verificador comprueba un bit indexado en una lista firmada por el emisor</text>
+<g fill="none" stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6">
+<path d="M160 144 V500"/><path d="M480 144 V500"/><path d="M800 144 V500"/>
+</g>
+<g fill="#ffffff" stroke="#2c3e50" stroke-width="1">
+<rect x="56" y="112" width="208" height="72" rx="4"/><rect x="376" y="112" width="208" height="72" rx="4"/><rect x="696" y="112" width="208" height="72" rx="4"/>
+</g>
+<g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle"><text x="160" y="136">EMISOR</text><text x="480" y="136">LISTA DE ESTADO</text><text x="800" y="136">VERIFICADOR</text></g>
+<g fill="#212529" font-size="24" font-weight="600" text-anchor="middle"><text x="160" y="164">Emisor</text><text x="480" y="164">Lista de estado</text><text x="800" y="164">Verificador</text></g>
+<path d="M160 268 H800" fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d13-status-list-revocation-arrow)"/>
+<rect x="256" y="192" width="448" height="60" fill="#ffffff"/>
+<text x="480" y="216" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">credentialStatus</text>
+<text class="technical" x="480" y="240" fill="#56616b" font-size="16" text-anchor="middle">statusListIndex + statusListCredential</text>
+<path d="M264 352 H376" fill="none" stroke="#18bc9c" stroke-width="2" marker-end="url(#d13-status-list-revocation-accent-arrow)"/>
+<path d="M584 352 H680" fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d13-status-list-revocation-arrow)"/>
+<rect x="56" y="288" width="208" height="128" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<text x="160" y="320" fill="#212529" font-size="18" font-weight="600" text-anchor="middle">Fijar bit de revocación</text>
+<text class="technical" x="160" y="348" fill="#56616b" font-size="16" text-anchor="middle">índice: 94567</text>
+<text class="technical" x="160" y="376" fill="#56616b" font-size="16" text-anchor="middle">0 → 1 al revocar</text>
+<rect x="376" y="288" width="208" height="128" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<text x="480" y="320" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">encodedList</text>
+<text x="480" y="348" fill="#56616b" font-size="14" text-anchor="middle">la prueba del emisor protege</text>
+<text x="480" y="376" fill="#56616b" font-size="16" text-anchor="middle">la cadena de bits</text>
+<rect x="680" y="288" width="240" height="160" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<text x="800" y="320" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Resolver URL</text>
+<text x="800" y="348" fill="#56616b" font-size="16" text-anchor="middle">verificar la prueba, después</text>
+<text x="800" y="376" fill="#56616b" font-size="16" text-anchor="middle">decodificar y leer el índice</text>
+<text x="800" y="408" fill="#212529" font-size="16" font-weight="600" text-anchor="middle">0: no revocada</text>
+<text x="800" y="432" fill="#212529" font-size="16" font-weight="600" text-anchor="middle">1: revocada</text>
+<path d="M40 524 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="556" fill="#56616b" font-size="16">El emisor controla la revocación. El verificador confía en el resultado solo tras verificar la prueba.</text>
+</svg>
+<figcaption>La credencial apunta a <code>credentialStatus.statusListCredential</code> y proporciona <code>statusListIndex</code>. El emisor cambia el bit indexado, y el verificador resuelve la lista, verifica su prueba, decodifica <code>encodedList</code> y lee ese bit.</figcaption>
+</figure>

@@ -1,0 +1,44 @@
+<figure id="d15-selective-disclosure" aria-label="Divulgación selectiva en una credencial SD-JWT">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
+<style>
+#d15-selective-disclosure { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d15-selective-disclosure svg { display: block; width: 100%; height: auto; }
+#d15-selective-disclosure svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d15-selective-disclosure svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
+#d15-selective-disclosure figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 960" role="img" aria-labelledby="d15-selective-disclosure-title d15-selective-disclosure-desc">
+<title id="d15-selective-disclosure-title">Divulgación selectiva con SD-JWT</title>
+<desc id="d15-selective-disclosure-desc">El emisor firma resúmenes de divulgaciones. El titular envía solo la divulgación del nivel de afiliación. El verificador comprueba la firma del emisor y el resumen de esa divulgación sin recibir la divulgación de fecha de nacimiento.</desc>
+<defs><marker id="d15-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker></defs>
+<rect width="960" height="960" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Divulgación selectiva con SD-JWT</text>
+<text x="40" y="80" fill="#56616b" font-size="20">El titular elige las divulgaciones que envía con el JWT firmado</text>
+<g stroke="#b8c2c8" stroke-dasharray="6 6"><path d="M160 184 V884"/><path d="M480 184 V884"/><path d="M800 184 V884"/></g>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d15-arrow)"><path d="M160 408 H480"/><path d="M480 664 H800"/></g>
+<g fill="#ffffff"><rect x="184" y="352" width="272" height="48"/><rect x="504" y="608" width="272" height="48"/></g>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle"><text x="320" y="376">Emitir al titular</text><text x="640" y="632">Presentar al verificador</text></g>
+<g fill="#56616b" font-size="14" text-anchor="middle"><text x="320" y="396">JWT firmado + ambas divulgaciones</text><text x="640" y="652">JWT firmado + divulgación del nivel</text></g>
+<g fill="#ffffff" stroke="#2c3e50"><rect x="40" y="112" width="240" height="72" rx="4"/><rect x="360" y="112" width="240" height="72" rx="4"/><rect x="680" y="112" width="240" height="72" rx="4"/></g>
+<g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle"><text x="160" y="136">EMISOR</text><text x="480" y="136">TITULAR</text><text x="800" y="136">VERIFICADOR</text></g>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle"><text x="160" y="164">Emitir afirmaciones</text><text x="480" y="164">Elegir afirmaciones</text><text x="800" y="164">Comprobar afirmaciones</text></g>
+<rect x="40" y="216" width="240" height="112" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<text x="160" y="244" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Firmar resúmenes</text>
+<text class="technical" x="160" y="276" fill="#56616b" font-size="16" text-anchor="middle">_sd: [d1, d2]</text>
+<text x="160" y="308" fill="#56616b" font-size="16" text-anchor="middle">Un resumen por divulgación</text>
+<rect x="360" y="448" width="240" height="136" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<text x="480" y="476" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Elegir divulgaciones</text>
+<text class="technical" x="480" y="508" fill="#56616b" font-size="16" text-anchor="middle">membershipTier: Gold</text>
+<text x="480" y="540" fill="#56616b" font-size="16" text-anchor="middle">Enviar divulgación del nivel</text>
+<text x="480" y="568" fill="#56616b" font-size="16" text-anchor="middle">Ocultar fecha de nacimiento</text>
+<rect x="680" y="704" width="240" height="160" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<text x="800" y="732" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Verificar divulgación</text>
+<text x="800" y="768" fill="#56616b" font-size="16" text-anchor="middle">Comprobar firma del emisor</text>
+<text x="800" y="796" fill="#56616b" font-size="14" text-anchor="middle">Hash de Disclosure codificada</text>
+<text x="800" y="824" fill="#56616b" font-size="14" text-anchor="middle">Comparar resumen en JWT firmado</text>
+<text x="800" y="852" fill="#56616b" font-size="16" text-anchor="middle">Leer nivel de afiliación</text>
+<path d="M40 904 H920" stroke="#dce1e4"/>
+<text x="40" y="936" fill="#56616b" font-size="16">El verificador recibe el valor elegido y su sal; el titular conserva la otra divulgación.</text>
+</svg>
+<figcaption>Este ejemplo usa dos propiedades de objeto que permiten divulgación selectiva. Cada Disclosure codifica <code>[salt, name, value]</code> como base64url. El verificador calcula el hash de esa cadena codificada y compara el resumen base64url con la carga útil firmada por el emisor, según RFC 9901, sección 4.2.3. Las etiquetas <code>d1</code> y <code>d2</code> representan resúmenes completos. Una credencial con <code>cnf</code> puede admitir vinculación de clave del titular a la solicitud del verificador.</figcaption>
+</figure>

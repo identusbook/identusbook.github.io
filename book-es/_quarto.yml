@@ -1,0 +1,109 @@
+project:
+  type: book
+  output-dir: ../_site/book/es/
+
+lang: es
+
+book:
+  title: "Domina Identus: manual para desarrolladores"
+  author: "Jon Bauer, Roberto Carvajal"
+  date: "04/05/2024"
+  site-url: https://identusbook.com/book/es/
+  downloads: [pdf, epub]
+  page-navigation: true
+  search:
+    location: sidebar
+  sidebar:
+    style: "docked"
+    search: true
+  navbar:
+    logo-href: https://identusbook.com
+    background: primary
+    left:
+      - href: https://identusbook.com/blog.html
+        text: "Blog"
+      - href: index.md
+        text: "Libro"
+      - href: https://identusbook.com/authors.html
+        text: "Autores"
+    right:
+      - text: "English"
+        href: ../index.html
+      - text: "Español"
+        href: index.md
+      - icon: github
+        href: https://github.com/identusbook
+        aria-label: GitHub
+      - icon: rss
+        href: https://identusbook.com/index.xml
+
+  chapters:
+    - index.md
+    - copyright.md
+    - license.md
+    - dedication.md
+    - preface.md
+    - part: "Sección I"
+      chapters:
+        - section1/introduction.md
+        - section1/ssi-basics.md
+        - section1/dids-and-diddocuments.md
+        - section1/identus-concepts.md
+    - part: "Sección II: primeros pasos"
+      chapters:
+        - section2/installation-local.md
+        - section2/agent-rest-api.md
+        - section2/mediator.md
+
+    - part: "Sección III: construcción"
+      chapters:
+        - section3/example-project.md
+        - section3/wallets.md
+        - section3/didcomm.md
+        - section3/connections.md
+        - section3/verifiable-credentials.md
+        - section3/verification.md
+
+    - part: "Sección IV: despliegue"
+      chapters:
+        - section4/installation-production.md
+        - section4/maintenance.md
+
+    - part: "Sección V: adenda"
+      chapters:
+        - section5/trust-registries.md
+        - section5/continuing-your-journey.md
+
+    - part: "Apéndices"
+      chapters:
+        - errata.md
+        - glossary.md
+
+#bibliography: references.bib
+
+format:
+  html:
+    theme: flatly
+    code-overflow: wrap
+  pdf:
+    toc: true
+    number-sections: false
+    documentclass: scrbook
+    classoption: ["oneside"]
+    papersize: letter
+    geometry:
+      - top=1in
+      - bottom=1.25in
+      - left=1.25in
+      - right=1.25in
+    include-in-header:
+      text: |
+        \usepackage{eso-pic}
+        \AtBeginDocument{%
+        \begin{titlepage}%
+        \AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight]{cover-letter.png}}%
+        \null
+        \end{titlepage}%
+        }
+  epub:
+    cover-image: cover.png

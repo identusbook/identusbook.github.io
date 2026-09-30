@@ -1,0 +1,83 @@
+<figure id="d16-production-boundaries" aria-label="Límites de servicios y redes de producción">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
+<style>
+#d16-production-boundaries { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d16-production-boundaries svg { display: block; width: 100%; height: auto; }
+#d16-production-boundaries svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d16-production-boundaries svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
+#d16-production-boundaries figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 884" role="img" aria-labelledby="d16-production-boundaries-title d16-production-boundaries-desc">
+<title id="d16-production-boundaries-title">Límites de servicios y redes de producción</title>
+<desc id="d16-production-boundaries-desc">Los clientes públicos acceden a Cloud Agent solo mediante una pasarela HTTPS. Cloud Agent, su base de datos, Vault, PRISM Node, Cardano Wallet y la base de datos DB Sync permanecen en redes privadas.</desc>
+<defs>
+<marker id="d16-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+<marker id="d16-arrow-accent" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#18bc9c"/></marker>
+<marker id="d16-arrow-link" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+</defs>
+<rect width="960" height="884" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Límites de servicios y redes de producción</text>
+<text x="40" y="80" fill="#56616b" font-size="20">Ejemplo configurado con un punto de entrada público</text>
+<g fill="#f0f3f4" fill-opacity="0.45" stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6">
+<rect x="40" y="116" width="880" height="160" rx="4"/>
+<rect x="40" y="300" width="880" height="304" rx="4"/>
+<rect x="40" y="628" width="880" height="156" rx="4"/>
+</g>
+<g fill="#ffffff">
+<rect x="56" y="108" width="136" height="24"/><rect x="56" y="292" width="168" height="24"/><rect x="344" y="620" width="152" height="24"/>
+</g>
+<g fill="#56616b" font-size="11" font-weight="700" letter-spacing="1">
+<text x="64" y="124">BORDE PÚBLICO</text><text x="64" y="308">SERVICIOS PRIVADOS</text><text x="352" y="636">DATOS CARDANO</text>
+</g>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d16-arrow)">
+<path d="M288 196 H368"/>
+<path d="M480 236 V340"/>
+<path d="M368 380 H288"/>
+<path d="M592 380 H672"/>
+<path d="M480 420 V492"/>
+<path d="M592 532 H672"/>
+<path d="M440 572 V608 Q440 616 432 616 H184 Q176 616 176 624 V672"/>
+<path d="M520 572 V608 Q520 616 528 616 H776 Q784 616 784 624 V672"/>
+</g>
+<g fill="#ffffff">
+<rect x="296" y="160" width="64" height="24"/><rect x="496" y="272" width="64" height="24"/>
+<rect x="296" y="344" width="64" height="24"/><rect x="600" y="344" width="64" height="24"/>
+<rect x="600" y="496" width="64" height="24"/>
+<rect x="496" y="444" width="64" height="24"/><rect x="272" y="580" width="64" height="24"/><rect x="624" y="580" width="64" height="24"/>
+</g>
+<g fill="#56616b" font-size="15" text-anchor="middle">
+<text class="technical" x="328" y="178">HTTPS</text><text class="technical" x="528" y="290">HTTP</text>
+<text class="technical" x="328" y="362">HTTPS</text><text class="technical" x="632" y="362">SQL</text>
+<text class="technical" x="632" y="514">SQL</text>
+<text class="technical" x="528" y="462">gRPC</text><text class="technical" x="304" y="598">HTTP</text><text class="technical" x="656" y="598">SQL</text>
+</g>
+<g stroke-width="1">
+<rect x="64" y="156" width="224" height="80" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+<rect x="368" y="156" width="224" height="80" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<rect x="64" y="340" width="224" height="80" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<rect x="368" y="340" width="224" height="80" rx="4" fill="#eefaf7" stroke="#18bc9c"/>
+<rect x="672" y="340" width="224" height="80" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<rect x="368" y="492" width="224" height="80" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+<rect x="672" y="492" width="224" height="80" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<rect x="64" y="672" width="224" height="80" rx="4" fill="#ffffff" stroke="#2c3e50"/>
+<rect x="672" y="672" width="224" height="80" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+</g>
+<g fill="#56616b" font-size="11" font-weight="700" letter-spacing="1" text-anchor="middle">
+<text x="176" y="180">CLIENTES</text><text x="480" y="180">ENTRADA PÚBLICA</text><text x="176" y="364">ALMACÉN DE SECRETOS</text>
+<text x="480" y="364">APLICACIÓN</text><text x="784" y="364">ESTADO</text><text x="480" y="516">BACKEND DID</text><text x="784" y="516">ESTADO DID</text>
+<text x="176" y="696">ENVÍO</text><text x="784" y="696">LECTURA DEL ÍNDICE</text>
+</g>
+<g fill="#212529" font-size="18" font-weight="600" text-anchor="middle">
+<text x="176" y="208">Controladores y billeteras</text><text x="480" y="208">Pasarela HTTPS</text><text x="176" y="392">Vault</text>
+<text x="480" y="392">Cloud Agent</text><text x="784" y="392">Base de datos del agente</text><text x="480" y="544">PRISM Node</text><text x="784" y="544">Base de datos PRISM</text>
+<text x="176" y="724">Cardano Wallet</text><text x="784" y="724">DB Sync + base de datos</text>
+</g>
+<g fill="#56616b" font-size="15" text-anchor="middle">
+<text x="480" y="228">APISIX o balanceador</text><text x="176" y="412">Semillas y claves de billetera</text><text x="480" y="412">REST y DIDComm</text>
+<text x="784" y="412">Registros de inquilinos</text><text x="480" y="564">Modo Cardano</text><text x="784" y="564">Operaciones y estado DID</text><text x="176" y="744">API de transacciones</text><text x="784" y="744">Índice de la cadena</text>
+</g>
+<path d="M40 824 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="856" fill="#56616b" font-size="16">Solo la pasarela acepta tráfico público en este ejemplo configurado.</text>
+</svg>
+<figcaption>Este ejemplo configurado expone solo la pasarela HTTPS. Cloud Agent y cada servicio backend de datos, secretos y DIDs permanecen en redes privadas.</figcaption>
+</figure>

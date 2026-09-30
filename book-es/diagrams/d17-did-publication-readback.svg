@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1100" role="img" aria-labelledby="d17-did-publication-readback-title d17-did-publication-readback-desc">
+<title id="d17-did-publication-readback-title">Publicación de DID y lectura posterior del índice</title>
+<desc id="d17-did-publication-readback-desc">Cloud Agent envía una operación DID firmada a PRISM Node. PRISM Node usa Cardano Wallet para enviar una transacción. Cardano DB Sync indexa bloques del registro distribuido y PRISM Node lee la operación confirmada antes de que Cloud Agent indique que el DID está publicado.</desc>
+<defs>
+<marker id="d17-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+<marker id="d17-arrow-accent" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#18bc9c"/></marker>
+<marker id="d17-arrow-link" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+</defs>
+<rect width="960" height="1100" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Publicación de DID y lectura posterior del índice</text>
+<text x="40" y="80" fill="#56616b" font-size="20">Publicación asíncrona mediante PRISM Node en Cardano</text>
+<g stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6">
+<path d="M112 216 V1016"/><path d="M296 216 V1016"/><path d="M480 216 V1016"/><path d="M664 216 V1016"/><path d="M848 216 V1016"/>
+</g>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d17-arrow)">
+<path d="M112 284 H296"/><path d="M296 372 H112" stroke-dasharray="6 6"/>
+<path d="M296 460 H480"/><path d="M480 548 H664"/>
+<path d="M664 636 H848" stroke-dasharray="6 6"/>
+<path d="M296 812 H848"/><path d="M848 900 H296" stroke-dasharray="6 6"/>
+<path d="M112 972 H296"/>
+</g>
+<path d="M296 1016 H112" fill="none" stroke="#18bc9c" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#d17-arrow-accent)"/>
+<g fill="#ffffff">
+<rect x="120" y="232" width="156" height="44"/><rect x="120" y="320" width="156" height="44"/>
+<rect x="308" y="408" width="156" height="44"/><rect x="496" y="496" width="156" height="44"/>
+<rect x="684" y="584" width="156" height="44"/>
+<rect x="492" y="760" width="160" height="44"/><rect x="492" y="848" width="160" height="44"/>
+<rect x="120" y="920" width="156" height="44"/><rect x="120" y="980" width="156" height="28"/>
+</g>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle">
+<text x="204" y="252">Operación DID</text><text x="204" y="272">firmada</text>
+<text x="204" y="340">Operación</text><text x="204" y="360">programada</text>
+<text x="388" y="428">Enviar</text><text x="388" y="448">transacción</text>
+<text x="572" y="516">Transacción</text><text x="572" y="536">Cardano</text>
+<text x="756" y="604">Bloques de</text><text x="756" y="624">la cadena</text>
+<text x="572" y="780">Leer operación</text><text x="572" y="800">indexada</text>
+<text x="572" y="868">Operación</text><text x="572" y="888">confirmada</text>
+<text x="204" y="940">Leer estado</text><text x="204" y="960">del DID</text>
+<text x="204" y="1000" fill="#212529">PUBLISHED</text>
+</g>
+<g fill="#ffffff" stroke="#2c3e50" stroke-width="1">
+<rect x="40" y="112" width="144" height="104" rx="4"/>
+<rect x="224" y="112" width="144" height="104" rx="4"/>
+<rect x="408" y="112" width="144" height="104" rx="4"/>
+<rect x="592" y="112" width="144" height="104" rx="4"/>
+<rect x="776" y="112" width="144" height="104" rx="4"/>
+</g>
+<text x="112" y="136" fill="#56616b" font-size="12" font-weight="700" text-anchor="middle">APLICACIÓN</text>
+<text x="112" y="168" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud</text>
+<text x="112" y="196" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Agent</text>
+<text x="296" y="136" fill="#56616b" font-size="12" font-weight="700" text-anchor="middle">BACKEND DID</text>
+<text x="296" y="168" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">PRISM</text>
+<text x="296" y="196" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Node</text>
+<text x="480" y="136" fill="#56616b" font-size="12" font-weight="700" text-anchor="middle">ENVÍO</text>
+<text x="480" y="168" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cardano</text>
+<text x="480" y="196" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Wallet</text>
+<text x="664" y="136" fill="#56616b" font-size="12" font-weight="700" text-anchor="middle">CARDANO</text>
+<text x="664" y="168" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Nodo +</text>
+<text x="664" y="196" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">registro</text>
+<text x="848" y="136" fill="#56616b" font-size="12" font-weight="700" text-anchor="middle">ÍNDICE</text>
+<text x="848" y="168" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">DB Sync</text>
+<text x="848" y="196" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">+ DB</text>
+<rect x="752" y="676" width="168" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8"/>
+<text x="836" y="704" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Indexar bloques</text>
+<text x="836" y="732" fill="#56616b" font-size="16" text-anchor="middle">PostgreSQL</text>
+<path d="M40 1052 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="1084" fill="#56616b" font-size="16">PUBLISHED sigue la vía configurada de confirmación y lectura posterior del índice.</text>
+</svg>

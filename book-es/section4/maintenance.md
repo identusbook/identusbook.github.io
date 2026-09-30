@@ -99,8 +99,66 @@ Crea copias de seguridad según el tipo de datos, porque los servicios requieren
 
 ### Rotación de claves y credenciales
 
-Rota las credenciales operativas mediante el mismo proceso que el resto de secretos de producción: `ADMIN_TOKEN`, claves de API de inquilinos, contraseñas de bases de datos, credenciales de Vault, secretos de cliente Keycloak y contraseña de Cardano Wallet.
+La rotación abarca dos tipos de secretos. Las credenciales operativas —`ADMIN_TOKEN`, claves de API de inquilinos, contraseñas de bases de datos, credenciales de Vault, secretos de cliente Keycloak y contraseña de Cardano Wallet— protegen el acceso a los servicios. Se rotan mediante el mismo proceso que el resto de secretos de producción. Las claves DID son distintas: son material a nivel de protocolo del que dependen los verificadores, y rotarlas cambia lo que otras partes pueden verificar. Los procedimientos siguientes se basan en Cloud Agent 2.1.0. Comprueba las notas de la versión al actualizar, porque el comportamiento de selección de claves aún evoluciona en el agente.
 
-La rotación de claves DID es una operación distinta a nivel de protocolo. Un controlador `did:prism` rota claves de verificación al publicar una operación DID firmada de **actualización** mediante PRISM Node. Esto cambia los métodos y relaciones de verificación del documento DID en la cadena, como explica el [capítulo @sec-did-and-diddocuments]. Como la emisión y las actualizaciones DID dependen del material de claves derivado de la semilla de billetera, la rotación de claves y la custodia de semillas están estrechamente vinculadas.
+**Credenciales operativas.** La mayoría se rotan con un reinicio, pero debes conocer algunos comportamientos antes de empezar:
 
-> TODO: Marcador de posición para un procedimiento concreto de rotación. Ampliar con pasos y alcance de sus efectos: rotar la semilla de billetera y explicar qué ocurre con los DIDs existentes, rotar claves de verificación `did:prism` mediante actualizaciones sin invalidar credenciales ya emitidas y rotar credenciales AppRole de Vault sin tiempo de inactividad.
+| Credencial | Procedimiento | Efecto |
+|---|---|---|
+| `ADMIN_TOKEN` | Genera un valor nuevo, actualiza el almacén de secretos y reinicia Cloud Agent. | El agente acepta un solo token de administrador. La automatización administrativa falla hasta que use el nuevo valor; las llamadas de API de los inquilinos no se ven afectadas. |
+| Claves de API de inquilinos | Registra una clave nueva con `POST /iam/apikey-authentication`, cambia la aplicación del inquilino para que la use y después elimina el registro de la clave antigua con `DELETE /iam/apikey-authentication` y el mismo cuerpo `entityId`/`apiKey`. | Ninguno si sigues ese orden: una entidad puede tener varias claves de API a la vez. |
+| `API_KEY_SALT` | No lo rotes como mantenimiento rutinario. | Cloud Agent almacena las claves de API como hashes con sal. Cambiar la sal invalida todas las claves de API registradas a la vez. Trátalo como un nuevo aprovisionamiento de todos los inquilinos. |
+| `secret_id` de AppRole de Vault | Consulta el procedimiento siguiente. | Ninguno si el `secret_id` antiguo sigue siendo válido hasta que todas las instancias del agente se hayan reiniciado. |
+
+Genera siempre un valor aleatorio nuevo para una clave de API de reemplazo. Cloud Agent conserva un registro de las claves cuyo registro se ha eliminado y rechaza registrar el mismo valor de nuevo. Si alguien presenta una clave ya registrada para una entidad *distinta*, el agente la considera comprometida y la desactiva.
+
+**Rotar el `secret_id` de AppRole de Vault.** Cloud Agent inicia sesión en Vault con `VAULT_APPROLE_ROLE_ID` y `VAULT_APPROLE_SECRET_ID` al arrancar, y vuelve a iniciar sesión con el mismo par antes de que caduque cada concesión de token. Revocar el `secret_id` antiguo mientras un agente aún lo usa no causa un fallo inmediato. El fallo ocurre en el siguiente inicio de sesión, cuando el agente ya no puede leer las semillas de billetera. Rota en este orden:
+
+1. Genera un `secret_id` nuevo para el rol y registra su accessor:
+
+   ```bash
+   vault write -f auth/approle/role/cloud-agent/secret-id
+   ```
+
+2. Actualiza `VAULT_APPROLE_SECRET_ID` en el almacén de secretos de producción y reinicia o sustituye de forma gradual todas las instancias de Cloud Agent.
+3. Confirma que cada instancia está en buen estado y puede acceder al material de billetera, por ejemplo al enumerar los DIDs de un inquilino.
+4. Destruye el `secret_id` antiguo mediante su accessor:
+
+   ```bash
+   vault write auth/approle/role/cloud-agent/secret-id-accessor/destroy \
+     secret_id_accessor=replace-with-old-accessor
+   ```
+
+Si el rol establece `secret_id_ttl` o `secret_id_num_uses`, recuerda que los inicios de sesión periódicos del agente los consumen. Un `secret_id` que caduca o agota sus usos mientras el agente está en ejecución tiene el mismo efecto que revocarlo.
+
+**Rotar claves `did:prism`.** Un controlador `did:prism` rota claves de verificación al publicar una operación DID firmada de **actualización** mediante PRISM Node. Esto cambia los métodos y relaciones de verificación del documento DID en la cadena, como explica el [capítulo @sec-did-and-diddocuments]. En Cloud Agent, la operación es `POST /did-registrar/dids/{didRef}/updates`, con acciones `ADD_KEY` y `REMOVE_KEY`. El agente deriva la clave nueva de la semilla de billetera y registra su ruta de derivación.
+
+La restricción principal afecta al verificador. Cuando Cloud Agent verifica una credencial JWT, resuelve el documento DID *actual* del emisor y comprueba la firma con las claves incluidas en `assertionMethod`. Por tanto, eliminar una clave impide verificar todas las credenciales que firmó esa clave, no solo las futuras. Rota una clave de emisión con un período de solapamiento:
+
+1. **Añade la clave nueva.** Envía una actualización que añada una clave con el mismo propósito y curva que la clave que sustituyes:
+
+   ```bash
+   curl -X POST "https://agent.example.test/cloud-agent/did-registrar/dids/$ISSUER_DID/updates" \
+     -H "apikey: replace-with-tenant-api-key" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "actions": [
+         {
+           "actionType": "ADD_KEY",
+           "addKey": { "id": "assertion-2", "purpose": "assertionMethod", "curve": "secp256k1" }
+         }
+       ]
+     }'
+   ```
+
+   El agente acepta una sola actualización pendiente por DID. Espera hasta que la operación se confirme en la cadena y el DID se resuelva con la clave nueva antes de enviar otra actualización.
+
+2. **Indica la clave de firma en cada solicitud de emisión.** Mientras el DID tenga dos claves `assertionMethod`, Cloud Agent rechaza elegir una: falla la emisión cuando firma una credencial JWT para una oferta que no estableció un ID de clave de emisión. La búsqueda de la clave ocurre al firmar, por lo que esto también afecta a ofertas creadas antes de añadir la clave nueva que aún esperan la solicitud del titular. Establece `issuingKid` en `jwtVcPropertiesV1`, por ejemplo `"issuingKid": "assertion-2"`, en cada oferta. Actualiza la aplicación del emisor *antes* de que se confirme el paso 1 y deja que las ofertas en curso terminen primero. En esta versión, la emisión OID4VCI no acepta un ID de clave, por lo que falla mientras el DID tenga más de una clave `assertionMethod`. Si la usas, planifica el solapamiento con esta restricción.
+3. **Vuelve a emitir las credenciales** que deban seguir siendo verificables después de eliminar la clave antigua, y fírmalas con la nueva. Puedes conservar sin cambios las credenciales que caduquen o se revoquen antes de la transición.
+4. **Elimina la clave antigua** mediante una acción `REMOVE_KEY` (`"removeKey": { "id": "assertion-1" }`) cuando ninguna credencial que aún necesites dependa de ella. Después de eliminarla, confirma que una credencial recién emitida se verifica y que la credencial de lista de estado aún se verifica. El agente firma las credenciales de listas de estado con la primera clave `assertionMethod` que encuentra. Por tanto, una lista de estado cuya última firma usó la clave eliminada puede necesitar una actualización —una revocación o suspensión— para firmarse de nuevo.
+
+La clave `master0` del DID, que firma las propias operaciones de actualización, está reservada. Cloud Agent rechaza acciones `ADD_KEY` y `REMOVE_KEY` que la nombren, por lo que no puede rotarse mediante la API.
+
+**La semilla de billetera no puede rotarse.** La semilla se fija al crear la billetera. Cloud Agent no tiene un punto de acceso para sustituirla, y todas las claves PRISM de la billetera, incluida `master0`, se derivan de ella. «Rotar» una semilla implica crear una billetera nueva con una semilla nueva, crear y publicar DIDs nuevos en ella, volver a emitir credenciales desde esos DIDs y trasladar a los inquilinos y las partes que confían en el resultado a los nuevos DIDs. Planifícalo como una migración.
+
+Esto también define el alcance de una exposición de la semilla. Cualquiera que tenga la semilla puede derivar `master0` y publicar operaciones de actualización o desactivación para cada DID PRISM de esa billetera. Por tanto, la respuesta es urgente: desactiva los DIDs afectados, crea una billetera y DIDs nuevos y vuelve a emitir las credenciales. Al desactivar un DID, los verificadores ya no pueden resolver claves utilizables para él, por lo que dejan de verificar todas las credenciales que emitió. Ese es el resultado previsto cuando ya no se puede confiar en las claves de firma, pero debes comunicarlo a los titulares y las partes que confían en el resultado antes de que ocurra, cuando sea posible. Por eso, la semilla y el almacenamiento Vault que la conserva son los elementos más importantes que debes proteger y respaldar en el despliegue.

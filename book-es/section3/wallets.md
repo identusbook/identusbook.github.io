@@ -70,7 +70,7 @@ La custodia de Cloud Agent tiene un límite de confianza distinto al de una bill
 
 ### Billeteras de varios inquilinos
 
-En el modo de varios inquilinos de Cloud Agent, un administrador crea una billetera, crea una entidad para el inquilino y configura un método de autenticación para esa entidad. La [documentación de incorporación de inquilinos de Identus](https://hyperledger-identus.github.io/docs/tutorials/multitenancy/tenant-onboarding/) describe la billetera como el contenedor de los activos del inquilino, incluidos DIDs, credenciales y conexiones. Después de la configuración, Cloud Agent limita las llamadas de API del inquilino a esa billetera.
+En el modo de varios inquilinos de Cloud Agent, un administrador crea una billetera, crea una entidad para el inquilino y configura un método de autenticación para esa entidad. La [documentación de incorporación de inquilinos de Identus](https://identus.io/cloud-agent/docs/docusaurus/multitenancy/tenant-onboarding/) describe la billetera como el contenedor de los activos del inquilino, incluidos DIDs, credenciales y conexiones. Después de la configuración, Cloud Agent limita las llamadas de API del inquilino a esa billetera.
 
 Este modelo sirve para billeteras administradas por el servicio. No elimina el riesgo de custodia. La API de administración, la autenticación del inquilino, los identificadores de billetera, las filas de la base de datos, las rutas de Vault y el enrutamiento de webhooks deben preservar la separación entre inquilinos.
 
@@ -78,11 +78,11 @@ Este modelo sirve para billeteras administradas por el servicio. No elimina el r
 
 Identus Cloud Agent usa vías distintas de administración de claves para los DIDs PRISM y los DIDs de pares.
 
-Para los DIDs PRISM administrados, Cloud Agent deriva el material de claves a partir de una semilla de billetera y una ruta de derivación. La [documentación de administración de DIDs](https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/did-management/) indica que Cloud Agent almacena la ruta de derivación en lugar del propio material de claves PRISM y reconstruye después el material de claves durante la ejecución a partir de la semilla y la ruta.
+Para los DIDs PRISM administrados, Cloud Agent deriva el material de claves a partir de una semilla de billetera y una ruta de derivación. La [documentación de administración de DIDs](https://identus.io/documentation/develop/cloud-agent/did-management/) indica que Cloud Agent almacena la ruta de derivación en lugar del propio material de claves PRISM y reconstruye después el material de claves durante la ejecución a partir de la semilla y la ruta.
 
 Para los DIDs de pares administrados, Cloud Agent genera el material de claves y lo almacena en el almacenamiento de secretos. Los DIDs de pares admiten actividades DIDComm, por lo que estas claves protegen las comunicaciones específicas de cada relación.
 
-La [documentación de almacenamiento de secretos de Cloud Agent](https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/secrets-storage/) indica HashiCorp Vault como servicio predeterminado de almacenamiento de secretos. Describe tipos de secretos como semillas, claves privadas, datos de definiciones de credenciales y secretos de vinculación de AnonCreds. En la configuración de varios inquilinos, las rutas de activos de Vault incluyen el ID de la billetera para que los secretos de cada billetera tengan su propia ruta.
+La [documentación de almacenamiento de secretos de Cloud Agent](https://identus.io/documentation/develop/cloud-agent/secrets-storage/) indica HashiCorp Vault como servicio predeterminado de almacenamiento de secretos. Describe tipos de secretos como semillas, claves privadas, datos de definiciones de credenciales y secretos de vinculación de AnonCreds. En la configuración de varios inquilinos, las rutas de activos de Vault incluyen el ID de la billetera para que los secretos de cada billetera tengan su propia ruta.
 
 ## Elegir la custodia Edge o Cloud
 

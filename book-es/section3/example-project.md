@@ -8,6 +8,6 @@ Una de las mejores formas de aprender y comprender una plataforma de software es
 
 **Flight Tix** está disponible para cada SDK de Identus Edge. Consulta el repositorio de cada ejemplo para obtener más detalles:
 
-- TypeScript: [https://github.com/identusbook/example-ts](https://github.com/identusbook/example-ts))
-- Swift: [https://github.com/identusbook/example-ios](https://github.com/identusbook/))
+- TypeScript: [https://github.com/identusbook/example-ts](https://github.com/identusbook/example-ts)
+- Swift: [https://github.com/identusbook/example-ios](https://github.com/identusbook/example-ios)
 - Kotlin: [https://github.com/identusbook/example-android](https://github.com/identusbook/example-android)

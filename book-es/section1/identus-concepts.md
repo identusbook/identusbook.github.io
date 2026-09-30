@@ -79,7 +79,7 @@ Por ejemplo, cuando un ciudadano quiere compartir una credencial emitida por el 
 
 El diseño de Mercury no depende del transporte. Estas comunicaciones seguras pueden usar distintos canales, incluidos HTTP, WebSockets y Bluetooth. Así permite distintos despliegues, desde aplicaciones web hasta dispositivos móviles.
 
-La [documentación de Identus](https://hyperledger-identus.github.io/docs/home/identus/cloud-agent/building-blocks) ofrece más información sobre cada bloque de construcción.
+La [documentación de Identus](https://identus.io/documentation/develop/cloud-agent/building-blocks/) ofrece más información sobre cada bloque de construcción.
 
 ## Edge Agent
 

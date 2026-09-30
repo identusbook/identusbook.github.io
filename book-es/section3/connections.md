@@ -35,96 +35,79 @@ Las principales ventajas de los DIDs de pares son:
 3. Son privados: solo las partes implicadas los conocen.
 4. Permiten su reutilización sin depender de internet y sin degradar la confianza. Siguen los principios de [prioridad local](https://www.inkandswitch.com/local-first/) y [prioridad sin conexión](https://offlinefirst.org).
 
-Resolvamos un DID de pares. Llamamos resolución al desempaquetado y análisis de un DID para leer su contenido y usarlo en las interacciones necesarias. En este ejemplo resolveremos un DID de pares del [entorno de pruebas del mediador de Atala](https://sandbox-mediator.atalaprism.io).
+Resolvamos un DID de pares. Llamamos resolución al desempaquetado y análisis de un DID para leer su contenido y usarlo en las interacciones necesarias. En este ejemplo resolveremos el DID de pares del mediador Identus local que iniciaste en el capítulo sobre [mediadores](../section2/mediator.md), que escucha en `http://localhost:8080`.
 
 ```bash
-curl https://sandbox-mediator.atalaprism.io/did
+curl http://localhost:8080/did
 
-did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0
+did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MCIsImEiOlsiZGlkY29tbS92MiJdfX0.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzOi8vbG9jYWxob3N0OjgwODAvd3MiLCJhIjpbImRpZGNvbW0vdjIiXX19
 ```
 
-El mediador devuelve un DID de pares cuando enviamos una solicitud `GET` al punto de acceso `/did`. Para resolver este DID en el ejemplo, podemos usar el sitio web de un [resolvedor universal](https://dev.uniresolver.io):
+El mediador devuelve un DID de pares cuando enviamos una solicitud `GET` al punto de acceso `/did`. Un DID `did:peer:2` contiene toda la información necesaria: las claves y los puntos de acceso de servicios están codificados en la propia cadena DID. Por tanto, puede resolverse localmente sin contactar con una red o registro. Aquí usamos la biblioteca Python [`did-peer-2`](https://pypi.org/project/did-peer-2/), una de las implementaciones de la especificación del método Peer DID.
 
 ```bash
-curl https://dev.uniresolver.io/1.0/identifiers/did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0
+pip install did-peer-2
+python3 -c "import json, sys; from did_peer_2 import resolve; print(json.dumps(resolve(sys.argv[1]), indent=2))" \
+  "$(curl -s http://localhost:8080/did)"
 ```
 ```json
 {
-  "@context": "https://w3id.org/did-resolution/v1",
-  "didDocument": {
-    "@context": [
-      "https://www.w3.org/ns/did/v1",
-      "https://w3id.org/security/multikey/v1",
-      {
-        "@base": "did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0"
-      }
-    ],
-    "id": "did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0",
-    "verificationMethod": [
-      {
-        "id": "#key-2",
-        "type": "Multikey",
-        "controller": "did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0",
-        "publicKeyMultibase": "z6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd"
-      },
-      {
-        "id": "#key-1",
-        "type": "Multikey",
-        "controller": "did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0",
-        "publicKeyMultibase": "z6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y"
-      }
-    ],
-    "keyAgreement": [
-      "#key-1"
-    ],
-    "authentication": [
-      "#key-2"
-    ],
-    "assertionMethod": [
-      "#key-2"
-    ],
-    "service": [
-      {
-        "serviceEndpoint": {
-          "uri": "https://sandbox-mediator.atalaprism.io",
-          "accept": [
-            "didcomm/v2"
-          ]
-        },
-        "type": "DIDCommMessaging",
-        "id": "#service"
-      },
-      {
-        "serviceEndpoint": {
-          "uri": "wss://sandbox-mediator.atalaprism.io/ws",
-          "accept": [
-            "didcomm/v2"
-          ]
-        },
-        "type": "DIDCommMessaging",
-        "id": "#service-1"
-      }
-    ]
-  },
-  "didResolutionMetadata": {
-    "contentType": "application/did+ld+json",
-    "pattern": "^(did:peer:.+)$",
-    "driverUrl": "http://uni-resolver-driver-did-uport:8081/1.0/identifiers/",
-    "duration": 4,
-    "driverDuration": 4,
-    "did": {
-      "didString": "did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0",
-      "methodSpecificId": "2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0",
-      "method": "peer"
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/multikey/v1"
+  ],
+  "id": "did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MCIsImEiOlsiZGlkY29tbS92MiJdfX0.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzOi8vbG9jYWxob3N0OjgwODAvd3MiLCJhIjpbImRpZGNvbW0vdjIiXX19",
+  "verificationMethod": [
+    {
+      "type": "Multikey",
+      "id": "#key-1",
+      "controller": "did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MCIsImEiOlsiZGlkY29tbS92MiJdfX0.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzOi8vbG9jYWxob3N0OjgwODAvd3MiLCJhIjpbImRpZGNvbW0vdjIiXX19",
+      "publicKeyMultibase": "z6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y"
+    },
+    {
+      "type": "Multikey",
+      "id": "#key-2",
+      "controller": "did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MCIsImEiOlsiZGlkY29tbS92MiJdfX0.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzOi8vbG9jYWxob3N0OjgwODAvd3MiLCJhIjpbImRpZGNvbW0vdjIiXX19",
+      "publicKeyMultibase": "z6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd"
     }
-  },
-  "didDocumentMetadata": {}
+  ],
+  "keyAgreement": [
+    "#key-1"
+  ],
+  "authentication": [
+    "#key-2"
+  ],
+  "service": [
+    {
+      "type": "DIDCommMessaging",
+      "serviceEndpoint": {
+        "uri": "http://localhost:8080",
+        "accept": [
+          "didcomm/v2"
+        ]
+      },
+      "id": "#service"
+    },
+    {
+      "type": "DIDCommMessaging",
+      "serviceEndpoint": {
+        "uri": "ws://localhost:8080/ws",
+        "accept": [
+          "didcomm/v2"
+        ]
+      },
+      "id": "#service-1"
+    }
+  ],
+  "alsoKnownAs": [
+    "did:peer:3zQmdayqvm5GBi2QrjAz3y99vCEp7xMvcz8eDLi1KefSq38f"
+  ]
 }
 ```
 
-Así se ve un DID de pares resuelto. Recuerda que el resolvedor añade el contexto JSON-LD de `did-resolution` y la entrada adicional `didResolutionMetadata`. El DID de pares aislado corresponde solo al contenido de `didDocument`.
+Así se ve un DID de pares resuelto en su documento DID. La entrada `alsoKnownAs` contiene el identificador equivalente de forma corta `did:peer:3`, derivado del mismo DID.
 
-En términos simples, un DID de pares es una carga útil JSON que contiene un conjunto de claves y puntos de acceso de servicios opcionales. Como este es el DID de pares de un mediador, contiene puntos de acceso para `DIDCommMessaging`. En este caso contiene dos: uno mediante `https` y otro mediante `websockets`.
+En términos simples, un DID de pares es una carga útil JSON que contiene un conjunto de claves y puntos de acceso de servicios opcionales. Como este es el DID de pares de un mediador, contiene puntos de acceso para `DIDCommMessaging`. En este caso contiene dos: uno mediante `http` y otro mediante `websockets`. Estos valores proceden de la configuración `SERVICE_ENDPOINTS` del mediador.
 
 Para profundizar en los DIDs de pares, consulta la [especificación completa del método Peer DID](https://identity.foundation/peer-did-method-spec). En el momento de escribir este texto, el ecosistema Hyperledger Identus solo admite DIDs de pares del método 2.
 
@@ -132,27 +115,30 @@ Para profundizar en los DIDs de pares, consulta la [especificación completa del
 
 Las invitaciones fuera de banda (OOB) son el punto de entrada de algunos protocolos. Normalmente se codifican en una carga útil JSON o una URL y se distribuyen fuera de banda, habitualmente mediante códigos QR, aunque pueden usar cualquier medio, como Bluetooth o NFC. Reúnen toda la información necesaria para que un par empiece a interactuar con otro. Puedes considerarlas una forma de anunciar las «coordenadas» del invitador a cualquiera que quiera establecer una interacción con él.
 
-En el mismo ejemplo anterior, el mediador del entorno de pruebas también proporciona una invitación OOB como URL.
+En el mismo ejemplo anterior, el mediador local también proporciona una invitación OOB como URL mediante su punto de acceso `/invitationOOB`.
 
 ```bash
-https://sandbox-mediator.atalaprism.io?_oob=eyJpZCI6ImExNTY4YzEyLTBjZGMtNDY0Ny05ZGM2LWE1YWFkYTZmODI0NyIsInR5cGUiOiJodHRwczovL2RpZGNvbW0ub3JnL291dC1vZi1iYW5kLzIuMC9pbnZpdGF0aW9uIiwiZnJvbSI6ImRpZDpwZWVyOjIuRXo2TFNnaHdTRTQzN3duREUxcHQzWDZoVkRVUXpTanNIemlucFgzWEZ2TWpSQW03eS5WejZNa2hoMWU1Q0VZWXE2SkJVY1RaNkNwMnJhbkNXUnJ2N1lheDNMZTRONTlSNmRkLlNleUowSWpvaVpHMGlMQ0p6SWpwN0luVnlhU0k2SW1oMGRIQnpPaTh2YzJGdVpHSnZlQzF0WldScFlYUnZjaTVoZEdGc1lYQnlhWE50TG1sdklpd2lZU0k2V3lKa2FXUmpiMjF0TDNZeUlsMTlmUS5TZXlKMElqb2laRzBpTENKeklqcDdJblZ5YVNJNkluZHpjem92TDNOaGJtUmliM2d0YldWa2FXRjBiM0l1WVhSaGJHRndjbWx6YlM1cGJ5OTNjeUlzSW1FaU9sc2laR2xrWTI5dGJTOTJNaUpkZlgwIiwiYm9keSI6eyJnb2FsX2NvZGUiOiJyZXF1ZXN0LW1lZGlhdGUiLCJnb2FsIjoiUmVxdWVzdE1lZGlhdGUiLCJhY2NlcHQiOlsiZGlkY29tbS92MiJdfSwidHlwIjoiYXBwbGljYXRpb24vZGlkY29tbS1wbGFpbitqc29uIn0
+curl http://localhost:8080/invitationOOB
+
+?_oob=eyJpZCI6IjA4NzQ3YWJiLTE4MGYtNGQxOC05ZTVjLWIzOGRiM2JiMTJhMiIsInR5cGUiOiJodHRwczovL2RpZGNvbW0ub3JnL291dC1vZi1iYW5kLzIuMC9pbnZpdGF0aW9uIiwiZnJvbSI6ImRpZDpwZWVyOjIuRXo2TFNnaHdTRTQzN3duREUxcHQzWDZoVkRVUXpTanNIemlucFgzWEZ2TWpSQW03eS5WejZNa2hoMWU1Q0VZWXE2SkJVY1RaNkNwMnJhbkNXUnJ2N1lheDNMZTRONTlSNmRkLlNleUowSWpvaVpHMGlMQ0p6SWpwN0luVnlhU0k2SW1oMGRIQTZMeTlzYjJOaGJHaHZjM1E2T0RBNE1DSXNJbUVpT2xzaVpHbGtZMjl0YlM5Mk1pSmRmWDAuU2V5SjBJam9pWkcwaUxDSnpJanA3SW5WeWFTSTZJbmR6T2k4dmJHOWpZV3hvYjNOME9qZ3dPREF2ZDNNaUxDSmhJanBiSW1ScFpHTnZiVzB2ZGpJaVhYMTkiLCJib2R5Ijp7ImdvYWxfY29kZSI6InJlcXVlc3QtbWVkaWF0ZSIsImdvYWwiOiJSZXF1ZXN0TWVkaWF0ZSIsImFjY2VwdCI6WyJkaWRjb21tL3YyIl19fQ
 ```
+
+Al añadirla a la URL del mediador, se obtiene un enlace completo de invitación como `http://localhost:8080?_oob=eyJpZC...`.
 
 Si decodificamos desde `base64` el valor de la variable de consulta `_oob`, obtenemos la carga útil `json`:
 
 ```json
 {
-  "id" : "a1568c12-0cdc-4647-9dc6-a5aada6f8247",
-  "type" : "https://didcomm.org/out-of-band/2.0/invitation",
-  "from" : "did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHBzOi8vc2FuZGJveC1tZWRpYXRvci5hdGFsYXByaXNtLmlvIiwiYSI6WyJkaWRjb21tL3YyIl19fQ.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzczovL3NhbmRib3gtbWVkaWF0b3IuYXRhbGFwcmlzbS5pby93cyIsImEiOlsiZGlkY29tbS92MiJdfX0",
-  "body" : {
-    "goal_code" : "request-mediate",
-    "goal" : "RequestMediate",
-    "accept" : [
+  "id": "08747abb-180f-4d18-9e5c-b38db3bb12a2",
+  "type": "https://didcomm.org/out-of-band/2.0/invitation",
+  "from": "did:peer:2.Ez6LSghwSE437wnDE1pt3X6hVDUQzSjsHzinpX3XFvMjRAm7y.Vz6Mkhh1e5CEYYq6JBUcTZ6Cp2ranCWRrv7Yax3Le4N59R6dd.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MCIsImEiOlsiZGlkY29tbS92MiJdfX0.SeyJ0IjoiZG0iLCJzIjp7InVyaSI6IndzOi8vbG9jYWxob3N0OjgwODAvd3MiLCJhIjpbImRpZGNvbW0vdjIiXX19",
+  "body": {
+    "goal_code": "request-mediate",
+    "goal": "RequestMediate",
+    "accept": [
       "didcomm/v2"
     ]
-  },
-  "typ" : "application/didcomm-plain+json"
+  }
 }
 ```
 

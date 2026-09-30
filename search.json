@@ -28,18 +28,18 @@
     "text": "What we’re working on:\nWe’re currenting working on deliverables for Milestone 1: - A public website for the project - You’re reading it now. We’ll make it nicer as we go. Blog post to come on the software powering the webisite. - A Table of Contents - We have a first draft, and expect to have a second draft next week. - An idea for an example app, which will accompany the book - Still debating ideas. More to come on this.\nThere is a growing community of people building on Identus and we’re all figuring it out as we go. Find us and join the conversation on Discord\nMore soon!"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Mastering Identus: A Developer Handbook",
+    "objectID": "posts/1-0/index.html",
+    "href": "posts/1-0/index.html",
+    "title": "1.0 is Here!",
     "section": "",
-    "text": "Welcome!\nWe have begun a new journey. To write a developer-centric book about how to create Self-Sovereign Identity applications with Identus.\nPlease excuse the dust while we set up shop.\nStay tuned for more!"
+    "text": "Mastering Identus: A Developer Handbook for Decentralized Identity\n\n\nIt’s here! Mastering Identus: A Developer Handbook for Decentralized Identity is now available in full.\nThe book is also now available in Spanish!: https://identusbook.com/book/es/\nThe book remains open source, as well as the 3 Edge SDK example apps:\nBook: https://github.com/identusbook/identusbook.github.io\nTypeScript SDK Example: https://github.com/identusbook/example-ts\niOS Example: https://github.com/identusbook/example-ios\nAndroid Example: https://github.com/identusbook/example-android\nIf you spot any typos, errors, or have suggestions, please file an issue on the appropriate GitHub repository.\nWe hope this resource provides value to those learning Identus and the concepts of Decentralized Identity.\nThank you to the Cardano and Catalyst communities, as well as the hardworking Identus Maintainers team, this would not be possible with all of your tireless efforts.\nEnjoy!\nJon and Roberto"
   },
   {
-    "objectID": "authors.html",
-    "href": "authors.html",
-    "title": "About the Authors",
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
     "section": "",
-    "text": "More info about Jon Bauer and Roberto Carvajal soon…"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\n1.0 is Here!\n\n\n\ncatalyst\n\nidentus\n\nnews\n\n\n\nMastering Identus is ready for the world.\n\n\n\n\n\nSep 30, 2026\n\n\nJon Bauer\n\n\n\n\n\n\n\n\n\n\n\n\nDesigning the Book with AI\n\n\n\ncatalyst\n\nidentus\n\nnews\n\n\n\nHow we’re handling the book’s graphic materials\n\n\n\n\n\nJun 29, 2026\n\n\nJon Bauer\n\n\n\n\n\n\n\n\n\n\n\n\nWe’re writing a Book\n\n\n\ncatalyst\n\nidentus\n\nssi\n\nnews\n\n\n\nThe journey begins\n\n\n\n\n\nMar 30, 2024\n\n\nJon Bauer\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -49,11 +49,18 @@
     "text": "About this site"
   },
   {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "Blog",
+    "objectID": "authors.html",
+    "href": "authors.html",
+    "title": "About the Authors",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nDesigning the Book with AI\n\n\n\ncatalyst\n\nidentus\n\nnews\n\n\n\nHow we’re handling the book’s graphic materials\n\n\n\n\n\nJun 29, 2026\n\n\nJon Bauer\n\n\n\n\n\n\n\n\n\n\n\n\nWe’re writing a Book\n\n\n\ncatalyst\n\nidentus\n\nssi\n\nnews\n\n\n\nThe journey begins\n\n\n\n\n\nMar 30, 2024\n\n\nJon Bauer\n\n\n\n\n\nNo matching items"
+    "text": "More info about Jon Bauer and Roberto Carvajal soon…"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Mastering Identus: A Developer Handbook",
+    "section": "",
+    "text": "Welcome!\nWe have begun a new journey. To write a developer-centric book about how to create Self-Sovereign Identity applications with Identus.\nPlease excuse the dust while we set up shop.\nStay tuned for more!"
   },
   {
     "objectID": "posts/designing-the-book-with-ai/index.html",

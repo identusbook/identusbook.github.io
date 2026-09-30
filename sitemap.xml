@@ -2,26 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://identusbook.com/posts/we-are-writing-a-book/index.html</loc>
-    <lastmod>2026-09-30T12:29:16.285Z</lastmod>
+    <lastmod>2026-09-30T21:32:02.204Z</lastmod>
   </url>
   <url>
-    <loc>https://identusbook.com/index.html</loc>
-    <lastmod>2026-09-30T12:29:16.283Z</lastmod>
-  </url>
-  <url>
-    <loc>https://identusbook.com/authors.html</loc>
-    <lastmod>2026-09-30T12:29:16.261Z</lastmod>
-  </url>
-  <url>
-    <loc>https://identusbook.com/about.html</loc>
-    <lastmod>2026-09-30T12:29:16.261Z</lastmod>
+    <loc>https://identusbook.com/posts/1-0/index.html</loc>
+    <lastmod>2026-09-30T21:32:02.203Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/blog.html</loc>
-    <lastmod>2026-09-30T12:29:16.261Z</lastmod>
+    <lastmod>2026-09-30T21:32:02.179Z</lastmod>
+  </url>
+  <url>
+    <loc>https://identusbook.com/about.html</loc>
+    <lastmod>2026-09-30T21:32:02.179Z</lastmod>
+  </url>
+  <url>
+    <loc>https://identusbook.com/authors.html</loc>
+    <lastmod>2026-09-30T21:32:02.179Z</lastmod>
+  </url>
+  <url>
+    <loc>https://identusbook.com/index.html</loc>
+    <lastmod>2026-09-30T21:32:02.202Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/posts/designing-the-book-with-ai/index.html</loc>
-    <lastmod>2026-09-30T12:29:16.284Z</lastmod>
+    <lastmod>2026-09-30T21:32:02.203Z</lastmod>
   </url>
 </urlset>

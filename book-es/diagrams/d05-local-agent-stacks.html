@@ -1,0 +1,80 @@
+<figure id="d05-local-agent-stacks" aria-label="Dos instancias locales de Cloud Agent">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
+<style>
+#d05-local-agent-stacks { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d05-local-agent-stacks svg { display: block; width: 100%; height: auto; }
+#d05-local-agent-stacks svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d05-local-agent-stacks svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
+#d05-local-agent-stacks figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 896" role="img" aria-labelledby="d05-local-agent-stacks-title d05-local-agent-stacks-desc">
+<title id="d05-local-agent-stacks-title">Dos instancias locales de Cloud Agent</title>
+<desc id="d05-local-agent-stacks-desc">El controlador accede a proyectos Docker Compose distintos de emisor y verificador mediante los puertos 8000 y 9000 del anfitrión; cada proyecto contiene APISIX, Cloud Agent, PostgreSQL, PRISM Node y Vault, con puertos de base de datos distintos, 5432 y 5433.</desc>
+<defs>
+<marker id="d05-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+</defs>
+<rect width="960" height="896" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Dos instancias locales de Cloud Agent</text>
+<text x="40" y="80" fill="#56616b" font-size="20">Proyectos Compose distintos en un equipo de desarrollo</text>
+<g fill="#ffffff" stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6">
+<rect x="40" y="320" width="408" height="496" rx="4"/>
+<rect x="512" y="320" width="408" height="496" rx="4"/>
+</g>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d05-arrow)">
+<path d="M400 192 V272 Q400 280 392 280 H252 Q244 280 244 288 V384"/>
+<path d="M560 192 V272 Q560 280 568 280 H708 Q716 280 716 288 V384"/>
+<path d="M244 448 V512"/>
+<path d="M716 448 V512"/>
+<path d="M244 584 V648"/>
+<path d="M716 584 V648"/>
+</g>
+<rect x="360" y="112" width="240" height="80" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"/>
+<text x="480" y="144" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Controlador</text>
+<text x="480" y="172" fill="#56616b" font-size="16" text-anchor="middle">Solicitudes REST</text>
+<rect x="108" y="212" width="272" height="60" fill="#ffffff"/>
+<text class="technical" x="244" y="236" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">localhost:8000</text>
+<text class="technical" x="244" y="264" fill="#56616b" font-size="16" text-anchor="middle">/cloud-agent/</text>
+<text x="64" y="348" fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">PROYECTO COMPOSE</text>
+<text class="technical" x="64" y="376" fill="#212529" font-size="24" font-weight="600">issuer</text>
+<rect x="88" y="384" width="312" height="64" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"/>
+<text x="244" y="412" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">APISIX</text>
+<text class="technical" x="244" y="436" fill="#56616b" font-size="16" text-anchor="middle">Local :8000 → contenedor :9080</text>
+<rect x="256" y="468" width="112" height="28" fill="#ffffff"/>
+<text class="technical" x="264" y="488" fill="#56616b" font-size="16">HTTP :8085</text>
+<rect x="88" y="512" width="312" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"/>
+<text x="244" y="544" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud Agent</text>
+<text class="technical" x="244" y="572" fill="#56616b" font-size="16" text-anchor="middle">2.0.0</text>
+<rect x="256" y="604" width="112" height="28" fill="#ffffff"/>
+<text class="technical" x="264" y="624" fill="#56616b" font-size="16">SQL :5432</text>
+<rect x="88" y="648" width="312" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"/>
+<text x="244" y="680" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">PostgreSQL</text>
+<text class="technical" x="244" y="708" fill="#56616b" font-size="16" text-anchor="middle">Local :5432 → contenedor :5432</text>
+<path d="M64 744 H424" stroke="#dce1e4" stroke-width="1"/>
+<text x="64" y="772" fill="#212529" font-size="16" font-weight="600">Servicios de apoyo del proyecto</text>
+<text x="64" y="800" fill="#56616b" font-size="16">PRISM Node 2.6.0 · Vault · Swagger UI</text>
+<rect x="580" y="212" width="272" height="60" fill="#ffffff"/>
+<text class="technical" x="716" y="236" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">localhost:9000</text>
+<text class="technical" x="716" y="264" fill="#56616b" font-size="16" text-anchor="middle">/cloud-agent/</text>
+<text x="536" y="348" fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">PROYECTO COMPOSE</text>
+<text class="technical" x="536" y="376" fill="#212529" font-size="24" font-weight="600">verifier</text>
+<rect x="560" y="384" width="312" height="64" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"/>
+<text x="716" y="412" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">APISIX</text>
+<text class="technical" x="716" y="436" fill="#56616b" font-size="16" text-anchor="middle">Local :9000 → contenedor :9080</text>
+<rect x="728" y="468" width="112" height="28" fill="#ffffff"/>
+<text class="technical" x="736" y="488" fill="#56616b" font-size="16">HTTP :8085</text>
+<rect x="560" y="512" width="312" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"/>
+<text x="716" y="544" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud Agent</text>
+<text class="technical" x="716" y="572" fill="#56616b" font-size="16" text-anchor="middle">2.0.0</text>
+<rect x="728" y="604" width="112" height="28" fill="#ffffff"/>
+<text class="technical" x="736" y="624" fill="#56616b" font-size="16">SQL :5432</text>
+<rect x="560" y="648" width="312" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"/>
+<text x="716" y="680" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">PostgreSQL</text>
+<text class="technical" x="716" y="708" fill="#56616b" font-size="16" text-anchor="middle">Local :5433 → contenedor :5432</text>
+<path d="M536 744 H896" stroke="#dce1e4" stroke-width="1"/>
+<text x="536" y="772" fill="#212529" font-size="16" font-weight="600">Servicios de apoyo del proyecto</text>
+<text x="536" y="800" fill="#56616b" font-size="16">PRISM Node 2.6.0 · Vault · Swagger UI</text>
+<path d="M40 848 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="880" fill="#56616b" font-size="16">Los puertos locales son distintos; los contenedores pueden repetir puertos en redes Compose separadas.</text>
+</svg>
+<figcaption>El controlador selecciona una instancia mediante su puerto de API en el anfitrión. Cada proyecto Compose inicia su propio agente, base de datos y servicios de apoyo. PostgreSQL expone su puerto del anfitrión en la interfaz de bucle local; el agente usa el puerto interno de la base de datos.</figcaption>
+</figure>

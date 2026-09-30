@@ -1,0 +1,91 @@
+<figure id="d06-api-wallet-state" aria-label="REST y DIDComm comparten el estado de la billetera">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&amp;display=swap"/>
+<style>
+#d06-api-wallet-state { margin: 24px auto; max-width: 960px; scroll-margin-top: 96px; color: #212529; font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d06-api-wallet-state svg { display: block; width: 100%; height: auto; }
+#d06-api-wallet-state svg text { font-family: Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+#d06-api-wallet-state svg .technical { font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
+#d06-api-wallet-state figcaption { padding: 12px 24px 0; font-size: 16px; line-height: 1.5; color: #56616b; text-align: left; }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 832" role="img" aria-labelledby="d06-api-wallet-state-title d06-api-wallet-state-desc">
+<title id="d06-api-wallet-state-title">REST y DIDComm comparten el estado de la billetera</title>
+<desc id="d06-api-wallet-state-desc">APISIX dirige las solicitudes REST del controlador y los mensajes DIDComm de los pares a puntos de acceso distintos de Cloud Agent que usan los mismos registros de billetera. Cloud Agent envía las notificaciones webhook configuradas al controlador cuando cambia el estado del protocolo.</desc>
+<defs>
+<marker id="d06-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+</defs>
+<rect width="960" height="832" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">REST y DIDComm comparten el estado de la billetera</text>
+<text x="40" y="80" fill="#56616b" font-size="20">Dos rutas de entrada y una vía de notificación configurada</text>
+<g fill="#ffffff" stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6">
+<rect x="344" y="208" width="224" height="520" rx="4"/>
+<rect x="648" y="208" width="272" height="520" rx="4"/>
+</g>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d06-arrow)">
+<path d="M240 288 H360"/>
+<path d="M552 288 H672"/>
+<path d="M240 624 H360"/>
+<path d="M552 624 H672"/>
+<path d="M784 336 V432"/>
+<path d="M784 592 V544"/>
+<path d="M848 208 V152 Q848 144 840 144 H144 Q136 144 136 152 V240" stroke-dasharray="6 6"/>
+</g>
+<g fill="#ffffff">
+<rect x="288" y="104" width="420" height="32"/>
+<rect x="264" y="252" width="72" height="28"/>
+<rect x="248" y="588" width="104" height="28"/>
+<rect x="560" y="252" width="104" height="28"/>
+<rect x="560" y="588" width="104" height="28"/>
+<rect x="796" y="368" width="112" height="28"/>
+<rect x="796" y="556" width="80" height="28"/>
+</g>
+<text x="496" y="128" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">Webhook · cambio de estado del protocolo</text>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle">
+<text x="300" y="272">REST</text>
+<text x="300" y="608">DIDComm</text>
+</g>
+<g fill="#56616b" font-size="16">
+<text class="technical" x="612" y="272" text-anchor="middle">HTTP :8085</text>
+<text class="technical" x="612" y="608" text-anchor="middle">HTTP :8090</text>
+<text x="804" y="388">Leer / escribir</text>
+<text x="804" y="576">Actualizar</text>
+</g>
+<g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">
+<text x="360" y="232">APISIX</text>
+<text x="664" y="232">CLOUD AGENT</text>
+</g>
+<g fill="#ffffff" stroke="#2c3e50" stroke-width="1">
+<rect x="40" y="240" width="200" height="96" rx="4"/>
+<rect x="40" y="592" width="200" height="96" rx="4"/>
+<rect x="360" y="240" width="192" height="96" rx="4"/>
+<rect x="360" y="592" width="192" height="96" rx="4"/>
+<rect x="672" y="240" width="224" height="96" rx="4"/>
+<rect x="672" y="592" width="224" height="96" rx="4"/>
+</g>
+<rect x="672" y="432" width="224" height="112" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"/>
+<g fill="#212529" font-size="24" font-weight="600" text-anchor="middle">
+<text x="140" y="280">Controlador</text>
+<text x="140" y="632">Agente par</text>
+<text x="784" y="280">API REST</text>
+<text x="784" y="632">Gestor DIDComm</text>
+<text x="784" y="464" font-size="22">Registros de billetera</text>
+</g>
+<g fill="#212529" font-size="20" font-weight="600" text-anchor="middle">
+<text x="456" y="280">Ruta REST</text>
+<text x="456" y="632">Ruta DIDComm</text>
+</g>
+<g fill="#56616b" font-size="16" text-anchor="middle">
+<text x="140" y="312">Solicitudes y callbacks</text>
+<text x="140" y="664" font-size="15">Agente o billetera titular</text>
+<text class="technical" x="456" y="312">/cloud-agent/&#42;</text>
+<text class="technical" x="456" y="664">/didcomm&#42;</text>
+<text x="784" y="312">Ejecutar operaciones API</text>
+<text x="784" y="664">Procesar mensajes del par</text>
+<text x="784" y="496">Conexiones, credenciales,</text>
+<text x="784" y="520">presentaciones y DIDs</text>
+<text x="784" y="716">Billetera predeterminada local</text>
+</g>
+<path d="M40 768 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="800" fill="#56616b" font-size="14">Las flechas continuas indican solicitudes y acceso a registros. La flecha discontinua indica una notificación asíncrona.</text>
+</svg>
+<figcaption>Una acción de API del controlador puede continuar mediante mensajes DIDComm posteriores que modifican el mismo registro de protocolo. Cloud Agent envía eventos de cambio de estado al punto de acceso webhook que configura el controlador.</figcaption>
+</figure>

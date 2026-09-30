@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg font-family="Lato, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="d02-prism-did-lifecycle-title d02-prism-did-lifecycle-desc">
+<title id="d02-prism-did-lifecycle-title">Ciclo de vida del DID PRISM</title>
+<desc id="d02-prism-did-lifecycle-desc">El controlador crea un DID PRISM en forma larga sin publicar, lo publica para que el registro respalde su resolución, puede actualizar sus claves y servicios y puede desactivarlo; las formas larga y corta identifican el mismo DID.</desc>
+<defs>
+<marker id="d02-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"/></marker>
+<marker id="d02-arrow-accent" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#18bc9c"/></marker>
+<marker id="d02-arrow-link" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#18bc9c"/></marker>
+</defs>
+<rect width="960" height="640" fill="#ffffff"/>
+<text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Ciclo de vida del DID PRISM</text>
+<text x="40" y="80" fill="#56616b" font-size="20">Estados conceptuales de un DID</text>
+<g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d02-arrow)">
+<path d="M136 184 V272"/>
+<path d="M432 272 V200 A8 8 0 0 1 440 192 H520 A8 8 0 0 1 528 200 V272"/>
+<path d="M576 336 H728"/>
+</g>
+<path d="M232 336 H384" fill="none" stroke="#18bc9c" stroke-width="2" marker-end="url(#d02-arrow-accent)"/>
+<g fill="#ffffff">
+<rect x="144" y="216" width="104" height="32"/>
+<rect x="412" y="152" width="136" height="32"/>
+<rect x="248" y="296" width="120" height="32"/>
+<rect x="584" y="296" width="136" height="32"/>
+</g>
+<g fill="#212529" font-size="20" font-weight="600">
+<text x="152" y="240">CREAR</text>
+<text x="480" y="176" text-anchor="middle">ACTUALIZAR</text>
+<text x="308" y="320" text-anchor="middle">PUBLICAR</text>
+<text x="652" y="320" text-anchor="middle">DESACTIVAR</text>
+</g>
+<text x="560" y="204" fill="#56616b" font-size="16">Cambiar claves o servicios</text>
+<circle cx="136" cy="176" r="8" fill="#2c3e50"/>
+<rect x="40" y="272" width="192" height="128" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"/>
+<rect x="384" y="272" width="192" height="128" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"/>
+<rect x="728" y="272" width="192" height="128" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"/>
+<g fill="#56616b" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle">
+<text x="136" y="296">LOCAL</text>
+<text x="480" y="296">ACTIVO</text>
+<text x="824" y="296">FINAL</text>
+</g>
+<g fill="#212529" font-size="24" font-weight="600" text-anchor="middle">
+<text x="136" y="328">Sin publicar</text>
+<text x="480" y="328">Publicado</text>
+<text x="824" y="328">Desactivado</text>
+</g>
+<g fill="#212529" font-size="20" text-anchor="middle">
+<text x="136" y="356">Forma larga</text>
+<text x="480" y="356">Forma corta</text>
+<text x="824" y="356">DID inactivo</text>
+</g>
+<g fill="#56616b" font-size="16" text-anchor="middle">
+<text x="136" y="384">Incluye el estado inicial</text>
+<text x="480" y="384">Estado del registro</text>
+<text x="824" y="384">Terminan los cambios</text>
+</g>
+<g fill="#212529" font-size="20" font-weight="600">
+<text x="40" y="464">Forma larga</text>
+<text x="536" y="464">Forma corta</text>
+</g>
+<g fill="#56616b" font-size="16">
+<text class="did-syntax" x="40" y="496">did:prism:&lt;initial-hash&gt;:&lt;encoded-state&gt;</text>
+<text class="did-syntax" x="536" y="496">did:prism:&lt;initial-hash&gt;</text>
+</g>
+<text x="40" y="544" fill="#212529" font-size="20">Ambas formas identifican el mismo DID. Las actualizaciones cambian su documento.</text>
+<path d="M40 576 H920" stroke="#dce1e4" stroke-width="1"/>
+<text x="40" y="608" fill="#56616b" font-size="16">Las flechas muestran operaciones correctas. Resolver lee el estado sin cambiarlo.</text>
+</svg>

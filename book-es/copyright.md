@@ -2,7 +2,7 @@
 
 IdentusBook.com
 
-Copyright @2024 Jon Bauer y Roberto Carvajal
+Copyright © 2024-2026 Jon Bauer y Roberto Carvajal
 
 Todos los derechos reservados
 

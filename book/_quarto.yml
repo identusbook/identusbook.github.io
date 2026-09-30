@@ -27,7 +27,7 @@ book:
         href: https://github.com/identusbook
         aria-label: GitHub
       - icon: rss
-        href: https://identusbook.com/index.xml
+        href: https://identusbook.com/blog.xml
 
   chapters:
     - index.md

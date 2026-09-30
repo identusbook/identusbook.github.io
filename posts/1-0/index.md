@@ -31,7 +31,7 @@ If you spot any typos, errors, or have suggestions, please file an issue on the 
 
 We hope this resource provides value to those learning Identus and the concepts of Decentralized Identity.
 
-Thank you to the Cardano and Catalyst communities, as well as the hardworking Identus Maintainers team, this would not be possible with all of your tireless efforts.
+Thank you to the Cardano and Catalyst communities, as well as the hardworking Identus Maintainers team, this would not be possible without all of your tireless efforts.
 
 Enjoy!
 

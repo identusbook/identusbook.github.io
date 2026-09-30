@@ -99,8 +99,66 @@ Back up by data type, because the services do not all need the same treatment:
 
 ### Key and Credential Rotation
 
-Rotate operational credentials through the same process used for the rest of your production secrets: `ADMIN_TOKEN`, tenant API keys, database passwords, Vault credentials, Keycloak client secrets, and the Cardano Wallet passphrase.
+Rotation covers two different kinds of secret. Operational credentials — `ADMIN_TOKEN`, tenant API keys, database passwords, Vault credentials, Keycloak client secrets, and the Cardano Wallet passphrase — protect access to the services, and rotate through the same process used for the rest of your production secrets. DID keys are different: they are protocol-level material that verifiers depend on, and rotating them changes what the rest of the world can verify. The procedures below are based on Cloud Agent 2.1.0; check the release notes when you upgrade, because key-selection behavior is an area where the agent is still evolving.
 
-DID key rotation is a different, protocol-level operation. A `did:prism` controller rotates verification keys by publishing a signed DID **update** operation through PRISM Node, which changes the DID Document's verification methods and relationships on-chain (see [Chapter @sec-did-and-diddocuments]). Because issuance and DID updates depend on key material derived from the wallet seed, key rotation and seed custody are tightly linked.
+**Operational credentials.** Most of these rotate with a restart, but a few have behavior worth knowing before you start:
 
-> TODO: Placeholder for a concrete rotation runbook. Expand with step-by-step procedures and their blast radius: rotating the wallet seed and what happens to existing DIDs, rotating `did:prism` verification keys via update operations without invalidating already-issued credentials, and rotating Vault AppRole credentials with zero downtime.
+| Credential | Procedure | Impact |
+|---|---|---|
+| `ADMIN_TOKEN` | Generate a new value, update the secret store, and restart the Cloud Agent. | The agent accepts one admin token. Admin automation fails until it uses the new value; tenant API calls are not affected. |
+| Tenant API keys | Register a new key with `POST /iam/apikey-authentication`, move the tenant's application to it, then unregister the old key with `DELETE /iam/apikey-authentication` and the same `entityId`/`apiKey` body. | None, if done in that order: an entity can hold several API keys at once. |
+| `API_KEY_SALT` | Do not rotate as routine maintenance. | The Cloud Agent stores API keys as salted hashes, so changing the salt invalidates every registered API key at once. Treat it as a re-provisioning event for all tenants. |
+| Vault AppRole `secret_id` | See the runbook below. | None, if the old `secret_id` stays valid until every agent instance has restarted. |
+
+Always generate a new random value for a replacement API key. The Cloud Agent keeps unregistered keys on record and refuses to register the same value again, and if a key that is already registered is submitted for a *different* entity, the agent treats it as compromised and disables it.
+
+**Rotating the Vault AppRole `secret_id`.** The Cloud Agent logs in to Vault with `VAULT_APPROLE_ROLE_ID` and `VAULT_APPROLE_SECRET_ID` at startup, and logs in again with the same pair before each token lease expires. Revoking the old `secret_id` while an agent is still running on it does not fail immediately; it fails at the next re-login, when the agent can no longer read wallet seeds. Rotate in this order:
+
+1. Generate a new `secret_id` for the role, and record its accessor:
+
+   ```bash
+   vault write -f auth/approle/role/cloud-agent/secret-id
+   ```
+
+2. Update `VAULT_APPROLE_SECRET_ID` in the production secret store and restart or roll every Cloud Agent instance.
+3. Confirm each instance is healthy and can reach wallet material, for example by listing a tenant's DIDs.
+4. Destroy the old `secret_id` by its accessor:
+
+   ```bash
+   vault write auth/approle/role/cloud-agent/secret-id-accessor/destroy \
+     secret_id_accessor=replace-with-old-accessor
+   ```
+
+If the role sets `secret_id_ttl` or `secret_id_num_uses`, remember that the agent's periodic re-login consumes them. A `secret_id` that expires or runs out of uses while the agent is running has the same effect as revoking it.
+
+**Rotating `did:prism` keys.** A `did:prism` controller rotates verification keys by publishing a signed DID **update** operation through PRISM Node, which changes the DID Document's verification methods and relationships on-chain (see [Chapter @sec-did-and-diddocuments]). In the Cloud Agent this is `POST /did-registrar/dids/{didRef}/updates`, with `ADD_KEY` and `REMOVE_KEY` actions. The agent derives the new key from the wallet seed and records its derivation path.
+
+The important constraint is on the verifier side. When the Cloud Agent verifies a JWT credential, it resolves the issuer DID's *current* DID Document and checks the signature against the keys listed under `assertionMethod`. Removing a key therefore breaks verification of every credential that key signed, not just future ones. Rotate an issuing key with an overlap period:
+
+1. **Add the new key.** Submit an update that adds a key with the same purpose and curve as the one being replaced:
+
+   ```bash
+   curl -X POST "https://agent.example.test/cloud-agent/did-registrar/dids/$ISSUER_DID/updates" \
+     -H "apikey: replace-with-tenant-api-key" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "actions": [
+         {
+           "actionType": "ADD_KEY",
+           "addKey": { "id": "assertion-2", "purpose": "assertionMethod", "curve": "secp256k1" }
+         }
+       ]
+     }'
+   ```
+
+   The agent accepts one pending update per DID. Wait until the operation is confirmed on-chain and the DID resolves with the new key before submitting another update.
+
+2. **Name the signing key in every issuance request.** While the DID has two `assertionMethod` keys, the Cloud Agent refuses to pick one: when it signs a JWT credential for an offer that did not set an issuing key ID, the issuance fails. The key is looked up at signing time, so this also catches offers created before the new key was added that are still waiting for the holder's request. Set `issuingKid` in `jwtVcPropertiesV1` (for example `"issuingKid": "assertion-2"`) on every offer, update your issuer application *before* step 1 is confirmed, and let in-flight offers complete first. OID4VCI issuance in this release does not take a key ID, so it fails for as long as the DID has more than one `assertionMethod` key; schedule the overlap accordingly if you use it.
+3. **Reissue credentials** that must remain verifiable after the old key is removed, signing with the new key. Credentials that will expire or be revoked before the cutover can be left alone.
+4. **Remove the old key** with a `REMOVE_KEY` action (`"removeKey": { "id": "assertion-1" }`) once no credential you still need depends on it. After removal, confirm that a freshly issued credential verifies, and that your status list credential still verifies. The agent signs status list credentials with the first `assertionMethod` key it finds, so a status list last signed with the removed key may need an update (a revocation or suspension) to be re-signed.
+
+The DID's `master0` key, which signs the update operations themselves, is reserved: the Cloud Agent rejects `ADD_KEY` and `REMOVE_KEY` actions that name it, so it cannot be rotated through the API.
+
+**The wallet seed cannot be rotated.** A wallet's seed is fixed when the wallet is created; the Cloud Agent has no endpoint to replace it, and every PRISM key in the wallet, including `master0`, is derived from it. "Rotating" a seed means creating a new wallet (with a new seed), creating and publishing new DIDs in it, reissuing credentials from the new DIDs, and moving tenants and relying parties over to them. Plan it as a migration.
+
+That also defines the blast radius of a seed compromise. Anyone holding the seed can derive `master0` and publish update or deactivation operations for every PRISM DID in that wallet, so the response is urgent: deactivate the affected DIDs, create a new wallet and new DIDs, and reissue. Deactivating a DID means verifiers can no longer resolve usable keys for it, so every credential it issued stops verifying — which is the intended outcome when the signing keys can no longer be trusted, but should be communicated to holders and relying parties before it happens where possible. This is why the seed, and the Vault storage that holds it, is the single most important thing in the deployment to protect and back up.

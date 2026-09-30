@@ -14,7 +14,7 @@ resources:
 
 website:
   title: "Mastering Identus: A Developer Handbook"
-  page-footer: "Copyright 2024, Jon Bauer, Roberto Carvajal"
+  page-footer: "Copyright 2024-2026, Jon Bauer, Roberto Carvajal"
   site-url: https://identusbook.com
   description: "Mastering Identus: A Developer Handbook"
   navbar:

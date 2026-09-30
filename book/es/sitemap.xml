@@ -2,106 +2,106 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://identusbook.com/book/es/index.html</loc>
-    <lastmod>2026-09-30T11:51:06.377Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.268Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/copyright.html</loc>
-    <lastmod>2026-09-30T11:51:06.373Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.261Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/license.html</loc>
-    <lastmod>2026-09-30T11:51:06.377Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.268Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/dedication.html</loc>
-    <lastmod>2026-09-30T11:51:06.376Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.265Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/preface.html</loc>
-    <lastmod>2026-09-30T11:51:06.377Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.268Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section1/introduction.html</loc>
-    <lastmod>2026-09-30T11:51:06.378Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.268Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section1/ssi-basics.html</loc>
-    <lastmod>2026-09-30T11:51:06.378Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.268Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section1/dids-and-diddocuments.html</loc>
-    <lastmod>2026-09-30T11:51:06.377Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.268Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section1/identus-concepts.html</loc>
-    <lastmod>2026-09-30T11:51:06.378Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.268Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section2/installation-local.html</loc>
-    <lastmod>2026-09-30T11:51:06.378Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.269Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section2/agent-rest-api.html</loc>
-    <lastmod>2026-09-30T11:51:06.378Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.268Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section2/mediator.html</loc>
-    <lastmod>2026-09-30T11:51:06.378Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.269Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section3/example-project.html</loc>
-    <lastmod>2026-09-30T11:51:06.379Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.270Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section3/wallets.html</loc>
-    <lastmod>2026-09-30T11:51:06.379Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.270Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section3/didcomm.html</loc>
-    <lastmod>2026-09-30T11:51:06.379Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.270Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section3/connections.html</loc>
-    <lastmod>2026-09-30T11:51:06.379Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.269Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section3/verifiable-credentials.html</loc>
-    <lastmod>2026-09-30T11:51:06.379Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.270Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section3/verification.html</loc>
-    <lastmod>2026-09-30T11:51:06.379Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.270Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section4/installation-production.html</loc>
-    <lastmod>2026-09-30T11:51:06.379Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.270Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section4/maintenance.html</loc>
-    <lastmod>2026-09-30T11:51:06.380Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.270Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section5/trust-registries.html</loc>
-    <lastmod>2026-09-30T11:51:06.380Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.271Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/section5/continuing-your-journey.html</loc>
-    <lastmod>2026-09-30T11:51:06.380Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.270Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/errata.html</loc>
-    <lastmod>2026-09-30T11:51:06.377Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.267Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/glossary.html</loc>
-    <lastmod>2026-09-30T11:51:06.377Z</lastmod>
+    <lastmod>2026-09-30T12:29:16.268Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/Domina-Identus--manual-para-desarrolladores.pdf</loc>
-    <lastmod>2026-09-30T11:54:07.724Z</lastmod>
+    <lastmod>2026-09-30T12:33:05.123Z</lastmod>
   </url>
   <url>
     <loc>https://identusbook.com/book/es/Domina-Identus--manual-para-desarrolladores.epub</loc>
-    <lastmod>2026-09-30T11:54:12.577Z</lastmod>
+    <lastmod>2026-09-30T12:33:11.561Z</lastmod>
   </url>
 </urlset>

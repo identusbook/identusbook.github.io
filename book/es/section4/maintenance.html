@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -122,7 +157,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://identusbook.com/index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="https://identusbook.com/blog.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -543,11 +578,79 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="rotación-de-claves-y-credenciales" class="level3" data-number="19.4.3">
 <h3 data-number="19.4.3" class="anchored" data-anchor-id="rotación-de-claves-y-credenciales"><span class="header-section-number">19.4.3</span> Rotación de claves y credenciales</h3>
-<p>Rota las credenciales operativas mediante el mismo proceso que el resto de secretos de producción: <code>ADMIN_TOKEN</code>, claves de API de inquilinos, contraseñas de bases de datos, credenciales de Vault, secretos de cliente Keycloak y contraseña de Cardano Wallet.</p>
-<p>La rotación de claves DID es una operación distinta a nivel de protocolo. Un controlador <code>did:prism</code> rota claves de verificación al publicar una operación DID firmada de <strong>actualización</strong> mediante PRISM Node. Esto cambia los métodos y relaciones de verificación del documento DID en la cadena, como explica el <a href="../section1/dids-and-diddocuments.html" class="quarto-xref">capítulo&nbsp;<span>7</span></a>. Como la emisión y las actualizaciones DID dependen del material de claves derivado de la semilla de billetera, la rotación de claves y la custodia de semillas están estrechamente vinculadas.</p>
-<blockquote class="blockquote">
-<p>TODO: Marcador de posición para un procedimiento concreto de rotación. Ampliar con pasos y alcance de sus efectos: rotar la semilla de billetera y explicar qué ocurre con los DIDs existentes, rotar claves de verificación <code>did:prism</code> mediante actualizaciones sin invalidar credenciales ya emitidas y rotar credenciales AppRole de Vault sin tiempo de inactividad.</p>
-</blockquote>
+<p>La rotación abarca dos tipos de secretos. Las credenciales operativas —<code>ADMIN_TOKEN</code>, claves de API de inquilinos, contraseñas de bases de datos, credenciales de Vault, secretos de cliente Keycloak y contraseña de Cardano Wallet— protegen el acceso a los servicios. Se rotan mediante el mismo proceso que el resto de secretos de producción. Las claves DID son distintas: son material a nivel de protocolo del que dependen los verificadores, y rotarlas cambia lo que otras partes pueden verificar. Los procedimientos siguientes se basan en Cloud Agent 2.1.0. Comprueba las notas de la versión al actualizar, porque el comportamiento de selección de claves aún evoluciona en el agente.</p>
+<p><strong>Credenciales operativas.</strong> La mayoría se rotan con un reinicio, pero debes conocer algunos comportamientos antes de empezar:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Credencial</th>
+<th>Procedimiento</th>
+<th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ADMIN_TOKEN</code></td>
+<td>Genera un valor nuevo, actualiza el almacén de secretos y reinicia Cloud Agent.</td>
+<td>El agente acepta un solo token de administrador. La automatización administrativa falla hasta que use el nuevo valor; las llamadas de API de los inquilinos no se ven afectadas.</td>
+</tr>
+<tr class="even">
+<td>Claves de API de inquilinos</td>
+<td>Registra una clave nueva con <code>POST /iam/apikey-authentication</code>, cambia la aplicación del inquilino para que la use y después elimina el registro de la clave antigua con <code>DELETE /iam/apikey-authentication</code> y el mismo cuerpo <code>entityId</code>/<code>apiKey</code>.</td>
+<td>Ninguno si sigues ese orden: una entidad puede tener varias claves de API a la vez.</td>
+</tr>
+<tr class="odd">
+<td><code>API_KEY_SALT</code></td>
+<td>No lo rotes como mantenimiento rutinario.</td>
+<td>Cloud Agent almacena las claves de API como hashes con sal. Cambiar la sal invalida todas las claves de API registradas a la vez. Trátalo como un nuevo aprovisionamiento de todos los inquilinos.</td>
+</tr>
+<tr class="even">
+<td><code>secret_id</code> de AppRole de Vault</td>
+<td>Consulta el procedimiento siguiente.</td>
+<td>Ninguno si el <code>secret_id</code> antiguo sigue siendo válido hasta que todas las instancias del agente se hayan reiniciado.</td>
+</tr>
+</tbody>
+</table>
+<p>Genera siempre un valor aleatorio nuevo para una clave de API de reemplazo. Cloud Agent conserva un registro de las claves cuyo registro se ha eliminado y rechaza registrar el mismo valor de nuevo. Si alguien presenta una clave ya registrada para una entidad <em>distinta</em>, el agente la considera comprometida y la desactiva.</p>
+<p><strong>Rotar el <code>secret_id</code> de AppRole de Vault.</strong> Cloud Agent inicia sesión en Vault con <code>VAULT_APPROLE_ROLE_ID</code> y <code>VAULT_APPROLE_SECRET_ID</code> al arrancar, y vuelve a iniciar sesión con el mismo par antes de que caduque cada concesión de token. Revocar el <code>secret_id</code> antiguo mientras un agente aún lo usa no causa un fallo inmediato. El fallo ocurre en el siguiente inicio de sesión, cuando el agente ya no puede leer las semillas de billetera. Rota en este orden:</p>
+<ol type="1">
+<li><p>Genera un <code>secret_id</code> nuevo para el rol y registra su accessor:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">vault</span> write <span class="at">-f</span> auth/approle/role/cloud-agent/secret-id</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Actualiza <code>VAULT_APPROLE_SECRET_ID</code> en el almacén de secretos de producción y reinicia o sustituye de forma gradual todas las instancias de Cloud Agent.</p></li>
+<li><p>Confirma que cada instancia está en buen estado y puede acceder al material de billetera, por ejemplo al enumerar los DIDs de un inquilino.</p></li>
+<li><p>Destruye el <code>secret_id</code> antiguo mediante su accessor:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">vault</span> write auth/approle/role/cloud-agent/secret-id-accessor/destroy <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  secret_id_accessor=replace-with-old-accessor</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+<p>Si el rol establece <code>secret_id_ttl</code> o <code>secret_id_num_uses</code>, recuerda que los inicios de sesión periódicos del agente los consumen. Un <code>secret_id</code> que caduca o agota sus usos mientras el agente está en ejecución tiene el mismo efecto que revocarlo.</p>
+<p><strong>Rotar claves <code>did:prism</code>.</strong> Un controlador <code>did:prism</code> rota claves de verificación al publicar una operación DID firmada de <strong>actualización</strong> mediante PRISM Node. Esto cambia los métodos y relaciones de verificación del documento DID en la cadena, como explica el <a href="../section1/dids-and-diddocuments.html" class="quarto-xref">capítulo&nbsp;<span>7</span></a>. En Cloud Agent, la operación es <code>POST /did-registrar/dids/{didRef}/updates</code>, con acciones <code>ADD_KEY</code> y <code>REMOVE_KEY</code>. El agente deriva la clave nueva de la semilla de billetera y registra su ruta de derivación.</p>
+<p>La restricción principal afecta al verificador. Cuando Cloud Agent verifica una credencial JWT, resuelve el documento DID <em>actual</em> del emisor y comprueba la firma con las claves incluidas en <code>assertionMethod</code>. Por tanto, eliminar una clave impide verificar todas las credenciales que firmó esa clave, no solo las futuras. Rota una clave de emisión con un período de solapamiento:</p>
+<ol type="1">
+<li><p><strong>Añade la clave nueva.</strong> Envía una actualización que añada una clave con el mismo propósito y curva que la clave que sustituyes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST <span class="st">"https://agent.example.test/cloud-agent/did-registrar/dids/</span><span class="va">$ISSUER_DID</span><span class="st">/updates"</span> <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">"apikey: replace-with-tenant-api-key"</span> <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">"Content-Type: application/json"</span> <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">'{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">    "actions": [</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">      {</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">        "actionType": "ADD_KEY",</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">        "addKey": { "id": "assertion-2", "purpose": "assertionMethod", "curve": "secp256k1" }</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">      }</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">    ]</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">  }'</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El agente acepta una sola actualización pendiente por DID. Espera hasta que la operación se confirme en la cadena y el DID se resuelva con la clave nueva antes de enviar otra actualización.</p></li>
+<li><p><strong>Indica la clave de firma en cada solicitud de emisión.</strong> Mientras el DID tenga dos claves <code>assertionMethod</code>, Cloud Agent rechaza elegir una: falla la emisión cuando firma una credencial JWT para una oferta que no estableció un ID de clave de emisión. La búsqueda de la clave ocurre al firmar, por lo que esto también afecta a ofertas creadas antes de añadir la clave nueva que aún esperan la solicitud del titular. Establece <code>issuingKid</code> en <code>jwtVcPropertiesV1</code>, por ejemplo <code>"issuingKid": "assertion-2"</code>, en cada oferta. Actualiza la aplicación del emisor <em>antes</em> de que se confirme el paso 1 y deja que las ofertas en curso terminen primero. En esta versión, la emisión OID4VCI no acepta un ID de clave, por lo que falla mientras el DID tenga más de una clave <code>assertionMethod</code>. Si la usas, planifica el solapamiento con esta restricción.</p></li>
+<li><p><strong>Vuelve a emitir las credenciales</strong> que deban seguir siendo verificables después de eliminar la clave antigua, y fírmalas con la nueva. Puedes conservar sin cambios las credenciales que caduquen o se revoquen antes de la transición.</p></li>
+<li><p><strong>Elimina la clave antigua</strong> mediante una acción <code>REMOVE_KEY</code> (<code>"removeKey": { "id": "assertion-1" }</code>) cuando ninguna credencial que aún necesites dependa de ella. Después de eliminarla, confirma que una credencial recién emitida se verifica y que la credencial de lista de estado aún se verifica. El agente firma las credenciales de listas de estado con la primera clave <code>assertionMethod</code> que encuentra. Por tanto, una lista de estado cuya última firma usó la clave eliminada puede necesitar una actualización —una revocación o suspensión— para firmarse de nuevo.</p></li>
+</ol>
+<p>La clave <code>master0</code> del DID, que firma las propias operaciones de actualización, está reservada. Cloud Agent rechaza acciones <code>ADD_KEY</code> y <code>REMOVE_KEY</code> que la nombren, por lo que no puede rotarse mediante la API.</p>
+<p><strong>La semilla de billetera no puede rotarse.</strong> La semilla se fija al crear la billetera. Cloud Agent no tiene un punto de acceso para sustituirla, y todas las claves PRISM de la billetera, incluida <code>master0</code>, se derivan de ella. «Rotar» una semilla implica crear una billetera nueva con una semilla nueva, crear y publicar DIDs nuevos en ella, volver a emitir credenciales desde esos DIDs y trasladar a los inquilinos y las partes que confían en el resultado a los nuevos DIDs. Planifícalo como una migración.</p>
+<p>Esto también define el alcance de una exposición de la semilla. Cualquiera que tenga la semilla puede derivar <code>master0</code> y publicar operaciones de actualización o desactivación para cada DID PRISM de esa billetera. Por tanto, la respuesta es urgente: desactiva los DIDs afectados, crea una billetera y DIDs nuevos y vuelve a emitir las credenciales. Al desactivar un DID, los verificadores ya no pueden resolver claves utilizables para él, por lo que dejan de verificar todas las credenciales que emitió. Ese es el resultado previsto cuando ya no se puede confiar en las claves de firma, pero debes comunicarlo a los titulares y las partes que confían en el resultado antes de que ocurra, cuando sea posible. Por eso, la semilla y el almacenamiento Vault que la conserva son los elementos más importantes que debes proteger y respaldar en el despliegue.</p>
 
 
 </section>

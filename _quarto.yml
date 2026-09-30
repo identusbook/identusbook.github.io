@@ -31,7 +31,7 @@ website:
         href: https://github.com/identusbook
         aria-label: GitHub
       - icon: rss
-        href: index.xml
+        href: blog.xml
   sidebar:
     - title: "Book"
       contents:

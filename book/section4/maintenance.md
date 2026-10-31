@@ -99,7 +99,7 @@ Back up by data type, because the services do not all need the same treatment:
 
 ### Key and Credential Rotation
 
-Rotation covers two different kinds of secret. Operational credentials — `ADMIN_TOKEN`, tenant API keys, database passwords, Vault credentials, Keycloak client secrets, and the Cardano Wallet passphrase — protect access to the services, and rotate through the same process used for the rest of your production secrets. DID keys are different: they are protocol-level material that verifiers depend on, and rotating them changes what the rest of the world can verify. The procedures below are based on Cloud Agent 2.1.0; check the release notes when you upgrade, because key-selection behavior is an area where the agent is still evolving.
+Rotation covers two different kinds of secret. Operational credentials — `ADMIN_TOKEN`, tenant API keys, database passwords, Vault credentials, Keycloak client secrets, and the Cardano Wallet passphrase — protect access to the services, and rotate through the same process used for the rest of your production secrets. DID keys are different: they are protocol-level material that verifiers depend on, and rotating them changes what the rest of the world can verify. The procedures below are based on Cloud Agent 2.2.0; check the release notes when you upgrade, because key-selection behavior is an area where the agent is still evolving.
 
 **Operational credentials.** Most of these rotate with a restart, but a few have behavior worth knowing before you start:
 

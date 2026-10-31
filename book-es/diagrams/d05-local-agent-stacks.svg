@@ -35,7 +35,7 @@
 <text class="technical" x="264" y="488" fill="#56616b" font-size="16">HTTP :8085</text>
 <rect x="88" y="512" width="312" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"/>
 <text x="244" y="544" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud Agent</text>
-<text class="technical" x="244" y="572" fill="#56616b" font-size="16" text-anchor="middle">2.0.0</text>
+<text class="technical" x="244" y="572" fill="#56616b" font-size="16" text-anchor="middle">2.2.0</text>
 <rect x="256" y="604" width="112" height="28" fill="#ffffff"/>
 <text class="technical" x="264" y="624" fill="#56616b" font-size="16">SQL :5432</text>
 <rect x="88" y="648" width="312" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"/>
@@ -43,7 +43,7 @@
 <text class="technical" x="244" y="708" fill="#56616b" font-size="16" text-anchor="middle">Local :5432 → contenedor :5432</text>
 <path d="M64 744 H424" stroke="#dce1e4" stroke-width="1"/>
 <text x="64" y="772" fill="#212529" font-size="16" font-weight="600">Servicios de apoyo del proyecto</text>
-<text x="64" y="800" fill="#56616b" font-size="16">PRISM Node 2.6.0 · Vault · Swagger UI</text>
+<text x="64" y="800" fill="#56616b" font-size="16">PRISM Node 2.6.1 · Vault · Swagger UI</text>
 <rect x="580" y="212" width="272" height="60" fill="#ffffff"/>
 <text class="technical" x="716" y="236" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">localhost:9000</text>
 <text class="technical" x="716" y="264" fill="#56616b" font-size="16" text-anchor="middle">/cloud-agent/</text>
@@ -56,7 +56,7 @@
 <text class="technical" x="736" y="488" fill="#56616b" font-size="16">HTTP :8085</text>
 <rect x="560" y="512" width="312" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"/>
 <text x="716" y="544" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud Agent</text>
-<text class="technical" x="716" y="572" fill="#56616b" font-size="16" text-anchor="middle">2.0.0</text>
+<text class="technical" x="716" y="572" fill="#56616b" font-size="16" text-anchor="middle">2.2.0</text>
 <rect x="728" y="604" width="112" height="28" fill="#ffffff"/>
 <text class="technical" x="736" y="624" fill="#56616b" font-size="16">SQL :5432</text>
 <rect x="560" y="648" width="312" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"/>
@@ -64,7 +64,7 @@
 <text class="technical" x="716" y="708" fill="#56616b" font-size="16" text-anchor="middle">Local :5433 → contenedor :5432</text>
 <path d="M536 744 H896" stroke="#dce1e4" stroke-width="1"/>
 <text x="536" y="772" fill="#212529" font-size="16" font-weight="600">Servicios de apoyo del proyecto</text>
-<text x="536" y="800" fill="#56616b" font-size="16">PRISM Node 2.6.0 · Vault · Swagger UI</text>
+<text x="536" y="800" fill="#56616b" font-size="16">PRISM Node 2.6.1 · Vault · Swagger UI</text>
 <path d="M40 848 H920" stroke="#dce1e4" stroke-width="1"/>
 <text x="40" y="880" fill="#56616b" font-size="16">Los puertos locales son distintos; los contenedores pueden repetir puertos en redes Compose separadas.</text>
 </svg>

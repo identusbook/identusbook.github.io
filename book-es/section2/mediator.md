@@ -33,9 +33,9 @@ Para la configuración, los protocolos importantes son Coordinate Mediation, Rou
 
 ## Selección de versión
 
-Consulta ambas líneas de versiones antes de fijar una imagen de mediador. La versión actual `v2.16` de Identus Platform incluye Mediator `1.2.0`. El repositorio independiente de Mediator indica `v1.2.1` como la versión estable más reciente de Mediator.
+Mediator tiene su propia línea de versiones, separada de las versiones de Identus Platform (consulta @sec-installation-local). Consulta ambas antes de fijar una imagen de mediador. Identus Platform `v2.17` incluye Mediator `1.2.1`, que también es la versión estable más reciente del repositorio independiente de Mediator.
 
-Este capítulo usa `MEDIATOR_VERSION=1.2.1` para la configuración del mediador independiente. Si reproduces el conjunto completo de componentes de Identus Platform `v2.16`, usa `MEDIATOR_VERSION=1.2.0`.
+Este capítulo usa `MEDIATOR_VERSION=1.2.1`, que coincide con el conjunto de componentes de Identus Platform `v2.17`.
 
 ## Requisitos previos
 

@@ -10,14 +10,14 @@ Run this chapter on Cardano `preprod` first. Move to `mainnet` after the deploym
 
 ## Version Selection
 
-Use Identus platform release notes as the first compatibility source. At the time this chapter was checked on June 14, 2026, the latest Identus Platform release was `v2.16`. That release lists Cloud Agent `2.1.0`, Mediator `1.2.0`, NeoPRISM `0.6.2`, and SDK-TS `7.0.0`.
+Use Identus platform release notes as the first compatibility source. This book is compatible with Identus Platform `v2.17`, which includes Cloud Agent `2.2.0`, Mediator `1.2.1`, NeoPRISM `0.14.1`, and SDK-TS `8.0.0`. @tbl-platform-versions lists the full component set. Cloud Agent `2.2.0` adds VDR driver integration and NeoPRISM as a node backend.
 
-The Cloud Agent component repository has a newer component release, `v2.2.0`. That release adds VDR driver and NeoPRISM backend work. Treat it as a component release that requires compatibility testing against the platform pin. The Cloud Agent README warns that untested Cloud Agent and PRISM Node image pairs can fail compatibility checks.
+Component repositories keep releasing between platform releases. Treat a component version newer than the platform pin as one that needs compatibility testing. The Cloud Agent README warns that untested Cloud Agent and PRISM Node image pairs can fail compatibility checks.
 
 This chapter uses these pins:
 
 ```bash
-AGENT_VERSION=2.1.0
+AGENT_VERSION=2.2.0
 PRISM_NODE_VERSION=2.6.1
 CARDANO_WALLET_TAG=v2026-05-11
 CARDANO_DB_SYNC_VERSION=13.7.1.0
@@ -172,7 +172,7 @@ Create `infrastructure/preprod/.env-preprod`:
 ```bash
 cat > ./infrastructure/preprod/.env-preprod <<EOF
 ### Identus image pins
-AGENT_VERSION=2.1.0
+AGENT_VERSION=2.2.0
 PRISM_NODE_VERSION=2.6.1
 
 ### Docker project and public URLs

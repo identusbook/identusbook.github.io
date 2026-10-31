@@ -15,9 +15,26 @@ For the REST API chapter, you can run only the issuer instance. The verifier bec
 
 ## Version Selection
 
-Use the platform release notes before changing component versions. The current platform release page lists Identus Platform `v2.16` as the latest platform release and includes Cloud Agent `2.1.0`, Mediator `1.2.0`, NeoPRISM `0.6.2`, and SDK-TS `7.0.0`. The Quick Start pins the local issuer/verifier tutorial to Cloud Agent `2.0.0` and PRISM Node `2.6.0`.
+Hyperledger Identus is not a single program with a single version number. Each component, such as the Cloud Agent, the Mediator, NeoPRISM, and each Edge Agent SDK, lives in its own repository, evolves at its own pace, and publishes releases under its own version numbers. An **Identus Platform release** is a named bundle of specific component versions that the Identus maintainers have tested together with end-to-end integration tests. The platform version number, such as `v2.17`, does not match any component's version number.
 
-This chapter follows the Quick Start version pair. Treat `AGENT_VERSION` and `PRISM_NODE_VERSION` as a tested pair. If you change one value, check the component release notes and rerun the health checks at the end of this chapter.
+The content of this book is compatible with **Identus Platform `v2.17`**. At the time of publication, that release included these component versions:
+
+| Component | Version in Identus Platform `v2.17` |
+|-----------|-------------------------------------|
+| Cloud Agent | `2.2.0` |
+| Mediator | `1.2.1` |
+| NeoPRISM | `0.14.1` |
+| SDK-TS (TypeScript) | `8.0.0` |
+| SDK-Swift | `8.1.1` |
+| SDK-KMP (Kotlin Multiplatform) | `5.0.0` |
+
+: Component versions in Identus Platform `v2.17` at the time of publication {#tbl-platform-versions}
+
+The platform release does not pin a PRISM Node version. The examples in this book pair Cloud Agent `2.2.0` with PRISM Node `2.6.1`.
+
+Components keep releasing between platform releases, so a component repository may show a newer version than the table above. Before you move to a newer version, read the [Identus Platform release notes](https://github.com/hyperledger-identus/hyperledger-identus/releases) and the release notes for that component. The v2.17 release notes also flag SDK-KMP `5.0.0` as non-functional and say its integration tests were skipped, so check the current status of the Kotlin SDK before you build on it.
+
+This chapter uses Cloud Agent `2.2.0` and PRISM Node `2.6.1`. The official Quick Start may still show an older version pair. Treat `AGENT_VERSION` and `PRISM_NODE_VERSION` as a tested pair. If you change one value, check the component release notes and rerun the health checks at the end of this chapter.
 
 ## Prerequisites
 
@@ -53,8 +70,8 @@ Create the issuer configuration:
 ```bash
 cat > ./infrastructure/local/.env-issuer <<'EOF'
 API_KEY_ENABLED=false
-AGENT_VERSION=2.0.0
-PRISM_NODE_VERSION=2.6.0
+AGENT_VERSION=2.2.0
+PRISM_NODE_VERSION=2.6.1
 PORT=8000
 NETWORK=identus
 VAULT_DEV_ROOT_TOKEN_ID=root
@@ -67,8 +84,8 @@ Create the verifier configuration:
 ```bash
 cat > ./infrastructure/local/.env-verifier <<'EOF'
 API_KEY_ENABLED=false
-AGENT_VERSION=2.0.0
-PRISM_NODE_VERSION=2.6.0
+AGENT_VERSION=2.2.0
+PRISM_NODE_VERSION=2.6.1
 PORT=9000
 NETWORK=identus
 VAULT_DEV_ROOT_TOKEN_ID=root
@@ -117,7 +134,7 @@ curl http://localhost:8000/cloud-agent/_system/health
 The response should include the configured Cloud Agent version:
 
 ```json
-{"version":"2.0.0"}
+{"version":"2.2.0"}
 ```
 
 The Cloud Agent serves the issuer REST API at `http://localhost:8000/cloud-agent/`. Swagger UI is available at `http://localhost:8000/apidocs/`, and the OpenAPI document is available at `http://localhost:8000/docs/cloud-agent/api/docs.yaml`.
@@ -147,7 +164,7 @@ curl http://localhost:9000/cloud-agent/_system/health
 Expected response:
 
 ```json
-{"version":"2.0.0"}
+{"version":"2.2.0"}
 ```
 
 The Cloud Agent serves the verifier REST API at `http://localhost:9000/cloud-agent/`. Swagger UI is available at `http://localhost:9000/apidocs/`, and the OpenAPI document is available at `http://localhost:9000/docs/cloud-agent/api/docs.yaml`.

@@ -10,14 +10,14 @@ Ejecuta primero este capítulo en Cardano `preprod`. Pasa a `mainnet` después d
 
 ## Selección de versiones
 
-Usa las notas de versiones de Identus Platform como primera fuente de compatibilidad. Cuando se comprobó este capítulo el 14 de junio de 2026, la versión más reciente de Identus Platform era `v2.16`. Esa versión incluye Cloud Agent `2.1.0`, Mediator `1.2.0`, NeoPRISM `0.6.2` y SDK-TS `7.0.0`.
+Usa las notas de versiones de Identus Platform como primera fuente de compatibilidad. Este libro es compatible con Identus Platform `v2.17`, que incluye Cloud Agent `2.2.0`, Mediator `1.2.1`, NeoPRISM `0.14.1` y SDK-TS `8.0.0`. La @tbl-platform-versions muestra el conjunto completo de componentes. Cloud Agent `2.2.0` añade la integración del driver VDR y NeoPRISM como backend de nodo.
 
-El repositorio del componente Cloud Agent tiene una versión más reciente, `v2.2.0`. Añade trabajo en los drivers VDR y el backend NeoPRISM. Trátala como una versión de componente que requiere comprobar la compatibilidad con la versión fijada de la plataforma. El README de Cloud Agent advierte que los pares de imágenes de Cloud Agent y PRISM Node sin comprobar pueden fallar en las comprobaciones de compatibilidad.
+Los repositorios de los componentes siguen publicando versiones entre una versión de la plataforma y la siguiente. Trata cualquier versión de un componente más reciente que la fijada por la plataforma como una versión que requiere pruebas de compatibilidad. El README de Cloud Agent advierte que los pares de imágenes de Cloud Agent y PRISM Node sin comprobar pueden fallar en las comprobaciones de compatibilidad.
 
 Este capítulo fija estas versiones:
 
 ```bash
-AGENT_VERSION=2.1.0
+AGENT_VERSION=2.2.0
 PRISM_NODE_VERSION=2.6.1
 CARDANO_WALLET_TAG=v2026-05-11
 CARDANO_DB_SYNC_VERSION=13.7.1.0
@@ -172,7 +172,7 @@ Crea `infrastructure/preprod/.env-preprod`:
 ```bash
 cat > ./infrastructure/preprod/.env-preprod <<EOF
 ### Identus image pins
-AGENT_VERSION=2.1.0
+AGENT_VERSION=2.2.0
 PRISM_NODE_VERSION=2.6.1
 
 ### Docker project and public URLs

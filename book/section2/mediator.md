@@ -33,9 +33,9 @@ For setup, the important protocols are Coordinate Mediation, Routing, and Messag
 
 ## Version selection
 
-Check both release streams before pinning a mediator image. The current Identus Platform `v2.16` release lists Mediator `1.2.0`. The standalone Mediator repository lists `v1.2.1` as the latest stable Mediator release.
+The Mediator has its own release stream, separate from the Identus Platform release (see @sec-installation-local). Check both before pinning a mediator image. Identus Platform `v2.17` includes Mediator `1.2.1`, which is also the latest stable release in the standalone Mediator repository.
 
-This chapter uses `MEDIATOR_VERSION=1.2.1` for the standalone mediator setup. If you are reproducing the full Identus Platform `v2.16` component set, use `MEDIATOR_VERSION=1.2.0` instead.
+This chapter uses `MEDIATOR_VERSION=1.2.1`, which matches the Identus Platform `v2.17` component set.
 
 ## Prerequisites
 

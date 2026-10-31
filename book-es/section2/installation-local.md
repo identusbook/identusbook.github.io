@@ -15,9 +15,26 @@ Para el capítulo sobre la API REST, puedes ejecutar solo la instancia del emiso
 
 ## Selección de versiones
 
-Consulta las notas de versión de la plataforma antes de cambiar las versiones de los componentes. La página actual de versiones de la plataforma presenta Identus Platform `v2.16` como la versión más reciente e incluye Cloud Agent `2.1.0`, Mediator `1.2.0`, NeoPRISM `0.6.2` y SDK-TS `7.0.0`. La guía de inicio rápido fija el tutorial local de emisor y verificador en Cloud Agent `2.0.0` y PRISM Node `2.6.0`.
+Hyperledger Identus no es un único programa con un único número de versión. Cada componente, como Cloud Agent, Mediator, NeoPRISM y cada SDK de Edge Agent, vive en su propio repositorio, evoluciona a su propio ritmo y publica versiones con su propia numeración. Una **versión de Identus Platform** es un conjunto con nombre de versiones concretas de los componentes que los mantenedores de Identus han probado juntas mediante pruebas de integración de extremo a extremo. El número de versión de la plataforma, como `v2.17`, no coincide con el número de versión de ningún componente.
 
-Este capítulo sigue el par de versiones de la guía de inicio rápido. Trata `AGENT_VERSION` y `PRISM_NODE_VERSION` como un par de versiones probado. Si cambias uno de los valores, consulta las notas de versión del componente y repite las comprobaciones de estado al final de este capítulo.
+El contenido de este libro es compatible con **Identus Platform `v2.17`**. En el momento de la publicación, esa versión incluía estas versiones de los componentes:
+
+| Componente | Versión en Identus Platform `v2.17` |
+|------------|-------------------------------------|
+| Cloud Agent | `2.2.0` |
+| Mediator | `1.2.1` |
+| NeoPRISM | `0.14.1` |
+| SDK-TS (TypeScript) | `8.0.0` |
+| SDK-Swift | `8.1.1` |
+| SDK-KMP (Kotlin Multiplatform) | `5.0.0` |
+
+: Versiones de los componentes en Identus Platform `v2.17` en el momento de la publicación {#tbl-platform-versions}
+
+La versión de la plataforma no fija una versión de PRISM Node. Los ejemplos de este libro combinan Cloud Agent `2.2.0` con PRISM Node `2.6.1`.
+
+Los componentes siguen publicando versiones entre una versión de la plataforma y la siguiente, así que el repositorio de un componente puede mostrar una versión más reciente que la de la tabla anterior. Antes de pasar a una versión más reciente, lee las [notas de versión de Identus Platform](https://github.com/hyperledger-identus/hyperledger-identus/releases) y las notas de versión de ese componente. Las notas de la versión v2.17 también indican que SDK-KMP `5.0.0` no funciona y que se omitieron sus pruebas de integración, así que comprueba el estado actual del SDK de Kotlin antes de construir sobre él.
+
+Este capítulo usa Cloud Agent `2.2.0` y PRISM Node `2.6.1`. Es posible que la guía oficial de inicio rápido todavía muestre un par de versiones anterior. Trata `AGENT_VERSION` y `PRISM_NODE_VERSION` como un par de versiones probado. Si cambias uno de los valores, consulta las notas de versión del componente y repite las comprobaciones de estado al final de este capítulo.
 
 ## Requisitos previos
 
@@ -53,8 +70,8 @@ Crea la configuración del emisor:
 ```bash
 cat > ./infrastructure/local/.env-issuer <<'EOF'
 API_KEY_ENABLED=false
-AGENT_VERSION=2.0.0
-PRISM_NODE_VERSION=2.6.0
+AGENT_VERSION=2.2.0
+PRISM_NODE_VERSION=2.6.1
 PORT=8000
 NETWORK=identus
 VAULT_DEV_ROOT_TOKEN_ID=root
@@ -67,8 +84,8 @@ Crea la configuración del verificador:
 ```bash
 cat > ./infrastructure/local/.env-verifier <<'EOF'
 API_KEY_ENABLED=false
-AGENT_VERSION=2.0.0
-PRISM_NODE_VERSION=2.6.0
+AGENT_VERSION=2.2.0
+PRISM_NODE_VERSION=2.6.1
 PORT=9000
 NETWORK=identus
 VAULT_DEV_ROOT_TOKEN_ID=root
@@ -117,7 +134,7 @@ curl http://localhost:8000/cloud-agent/_system/health
 La respuesta debe incluir la versión de Cloud Agent que configuraste:
 
 ```json
-{"version":"2.0.0"}
+{"version":"2.2.0"}
 ```
 
 Cloud Agent sirve la API REST del emisor en `http://localhost:8000/cloud-agent/`. Puedes acceder a Swagger UI en `http://localhost:8000/apidocs/` y al documento OpenAPI en `http://localhost:8000/docs/cloud-agent/api/docs.yaml`.
@@ -147,7 +164,7 @@ curl http://localhost:9000/cloud-agent/_system/health
 Respuesta esperada:
 
 ```json
-{"version":"2.0.0"}
+{"version":"2.2.0"}
 ```
 
 Cloud Agent sirve la API REST del verificador en `http://localhost:9000/cloud-agent/`. Puedes acceder a Swagger UI en `http://localhost:9000/apidocs/` y al documento OpenAPI en `http://localhost:9000/docs/cloud-agent/api/docs.yaml`.

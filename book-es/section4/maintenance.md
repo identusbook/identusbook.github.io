@@ -99,7 +99,7 @@ Crea copias de seguridad según el tipo de datos, porque los servicios requieren
 
 ### Rotación de claves y credenciales
 
-La rotación abarca dos tipos de secretos. Las credenciales operativas —`ADMIN_TOKEN`, claves de API de inquilinos, contraseñas de bases de datos, credenciales de Vault, secretos de cliente Keycloak y contraseña de Cardano Wallet— protegen el acceso a los servicios. Se rotan mediante el mismo proceso que el resto de secretos de producción. Las claves DID son distintas: son material a nivel de protocolo del que dependen los verificadores, y rotarlas cambia lo que otras partes pueden verificar. Los procedimientos siguientes se basan en Cloud Agent 2.1.0. Comprueba las notas de la versión al actualizar, porque el comportamiento de selección de claves aún evoluciona en el agente.
+La rotación abarca dos tipos de secretos. Las credenciales operativas —`ADMIN_TOKEN`, claves de API de inquilinos, contraseñas de bases de datos, credenciales de Vault, secretos de cliente Keycloak y contraseña de Cardano Wallet— protegen el acceso a los servicios. Se rotan mediante el mismo proceso que el resto de secretos de producción. Las claves DID son distintas: son material a nivel de protocolo del que dependen los verificadores, y rotarlas cambia lo que otras partes pueden verificar. Los procedimientos siguientes se basan en Cloud Agent 2.2.0. Comprueba las notas de la versión al actualizar, porque el comportamiento de selección de claves aún evoluciona en el agente.
 
 **Credenciales operativas.** La mayoría se rotan con un reinicio, pero debes conocer algunos comportamientos antes de empezar:
 

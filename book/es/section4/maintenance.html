@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.20">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -79,10 +79,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ddd3e0c3eb9ec4ceaceae2a755279945.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-887e959807928acbebcb2ce26a7e0221.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -578,7 +578,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="rotación-de-claves-y-credenciales" class="level3" data-number="19.4.3">
 <h3 data-number="19.4.3" class="anchored" data-anchor-id="rotación-de-claves-y-credenciales"><span class="header-section-number">19.4.3</span> Rotación de claves y credenciales</h3>
-<p>La rotación abarca dos tipos de secretos. Las credenciales operativas —<code>ADMIN_TOKEN</code>, claves de API de inquilinos, contraseñas de bases de datos, credenciales de Vault, secretos de cliente Keycloak y contraseña de Cardano Wallet— protegen el acceso a los servicios. Se rotan mediante el mismo proceso que el resto de secretos de producción. Las claves DID son distintas: son material a nivel de protocolo del que dependen los verificadores, y rotarlas cambia lo que otras partes pueden verificar. Los procedimientos siguientes se basan en Cloud Agent 2.1.0. Comprueba las notas de la versión al actualizar, porque el comportamiento de selección de claves aún evoluciona en el agente.</p>
+<p>La rotación abarca dos tipos de secretos. Las credenciales operativas —<code>ADMIN_TOKEN</code>, claves de API de inquilinos, contraseñas de bases de datos, credenciales de Vault, secretos de cliente Keycloak y contraseña de Cardano Wallet— protegen el acceso a los servicios. Se rotan mediante el mismo proceso que el resto de secretos de producción. Las claves DID son distintas: son material a nivel de protocolo del que dependen los verificadores, y rotarlas cambia lo que otras partes pueden verificar. Los procedimientos siguientes se basan en Cloud Agent 2.2.0. Comprueba las notas de la versión al actualizar, porque el comportamiento de selección de claves aún evoluciona en el agente.</p>
 <p><strong>Credenciales operativas.</strong> La mayoría se rotan con un reinicio, pero debes conocer algunos comportamientos antes de empezar:</p>
 <table class="caption-top table">
 <colgroup>

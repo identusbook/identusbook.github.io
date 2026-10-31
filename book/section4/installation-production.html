@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.20">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -79,10 +79,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ddd3e0c3eb9ec4ceaceae2a755279945.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-887e959807928acbebcb2ce26a7e0221.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -464,10 +464,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="version-selection" class="level2" data-number="18.2">
 <h2 data-number="18.2" class="anchored" data-anchor-id="version-selection"><span class="header-section-number">18.2</span> Version Selection</h2>
-<p>Use Identus platform release notes as the first compatibility source. At the time this chapter was checked on June 14, 2026, the latest Identus Platform release was <code>v2.16</code>. That release lists Cloud Agent <code>2.1.0</code>, Mediator <code>1.2.0</code>, NeoPRISM <code>0.6.2</code>, and SDK-TS <code>7.0.0</code>.</p>
-<p>The Cloud Agent component repository has a newer component release, <code>v2.2.0</code>. That release adds VDR driver and NeoPRISM backend work. Treat it as a component release that requires compatibility testing against the platform pin. The Cloud Agent README warns that untested Cloud Agent and PRISM Node image pairs can fail compatibility checks.</p>
+<p>Use Identus platform release notes as the first compatibility source. This book is compatible with Identus Platform <code>v2.17</code>, which includes Cloud Agent <code>2.2.0</code>, Mediator <code>1.2.1</code>, NeoPRISM <code>0.14.1</code>, and SDK-TS <code>8.0.0</code>. <a href="../section2/installation-local.html#tbl-platform-versions" class="quarto-xref">Table&nbsp;<span>9.1</span></a> lists the full component set. Cloud Agent <code>2.2.0</code> adds VDR driver integration and NeoPRISM as a node backend.</p>
+<p>Component repositories keep releasing between platform releases. Treat a component version newer than the platform pin as one that needs compatibility testing. The Cloud Agent README warns that untested Cloud Agent and PRISM Node image pairs can fail compatibility checks.</p>
 <p>This chapter uses these pins:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">AGENT_VERSION</span><span class="op">=</span>2.1.0</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">AGENT_VERSION</span><span class="op">=</span>2.2.0</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">PRISM_NODE_VERSION</span><span class="op">=</span>2.6.1</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">CARDANO_WALLET_TAG</span><span class="op">=</span>v2026-05-11</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">CARDANO_DB_SYNC_VERSION</span><span class="op">=</span>13.7.1.0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -594,7 +594,7 @@ Publication is asynchronous. PRISM Node submits through Cardano Wallet and reads
 <p>Create <code>infrastructure/preprod/.env-preprod</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> ./infrastructure/preprod/.env-preprod <span class="op">&lt;&lt;EOF</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">### Identus image pins</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">AGENT_VERSION=2.1.0</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">AGENT_VERSION=2.2.0</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">PRISM_NODE_VERSION=2.6.1</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="st">### Docker project and public URLs</span></span>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.20">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -79,10 +79,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ddd3e0c3eb9ec4ceaceae2a755279945.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-887e959807928acbebcb2ce26a7e0221.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -459,8 +459,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="version-selection" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="version-selection"><span class="header-section-number">9.2</span> Version Selection</h2>
-<p>Use the platform release notes before changing component versions. The current platform release page lists Identus Platform <code>v2.16</code> as the latest platform release and includes Cloud Agent <code>2.1.0</code>, Mediator <code>1.2.0</code>, NeoPRISM <code>0.6.2</code>, and SDK-TS <code>7.0.0</code>. The Quick Start pins the local issuer/verifier tutorial to Cloud Agent <code>2.0.0</code> and PRISM Node <code>2.6.0</code>.</p>
-<p>This chapter follows the Quick Start version pair. Treat <code>AGENT_VERSION</code> and <code>PRISM_NODE_VERSION</code> as a tested pair. If you change one value, check the component release notes and rerun the health checks at the end of this chapter.</p>
+<p>Hyperledger Identus is not a single program with a single version number. Each component, such as the Cloud Agent, the Mediator, NeoPRISM, and each Edge Agent SDK, lives in its own repository, evolves at its own pace, and publishes releases under its own version numbers. An <strong>Identus Platform release</strong> is a named bundle of specific component versions that the Identus maintainers have tested together with end-to-end integration tests. The platform version number, such as <code>v2.17</code>, does not match any component’s version number.</p>
+<p>The content of this book is compatible with <strong>Identus Platform <code>v2.17</code></strong>. At the time of publication, that release included these component versions:</p>
+<div id="tbl-platform-versions" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-platform-versions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.1: Component versions in Identus Platform <code>v2.17</code> at the time of publication
+</figcaption>
+<div aria-describedby="tbl-platform-versions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Version in Identus Platform <code>v2.17</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cloud Agent</td>
+<td><code>2.2.0</code></td>
+</tr>
+<tr class="even">
+<td>Mediator</td>
+<td><code>1.2.1</code></td>
+</tr>
+<tr class="odd">
+<td>NeoPRISM</td>
+<td><code>0.14.1</code></td>
+</tr>
+<tr class="even">
+<td>SDK-TS (TypeScript)</td>
+<td><code>8.0.0</code></td>
+</tr>
+<tr class="odd">
+<td>SDK-Swift</td>
+<td><code>8.1.1</code></td>
+</tr>
+<tr class="even">
+<td>SDK-KMP (Kotlin Multiplatform)</td>
+<td><code>5.0.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The platform release does not pin a PRISM Node version. The examples in this book pair Cloud Agent <code>2.2.0</code> with PRISM Node <code>2.6.1</code>.</p>
+<p>Components keep releasing between platform releases, so a component repository may show a newer version than the table above. Before you move to a newer version, read the <a href="https://github.com/hyperledger-identus/hyperledger-identus/releases">Identus Platform release notes</a> and the release notes for that component. The v2.17 release notes also flag SDK-KMP <code>5.0.0</code> as non-functional and say its integration tests were skipped, so check the current status of the Kotlin SDK before you build on it.</p>
+<p>This chapter uses Cloud Agent <code>2.2.0</code> and PRISM Node <code>2.6.1</code>. The official Quick Start may still show an older version pair. Treat <code>AGENT_VERSION</code> and <code>PRISM_NODE_VERSION</code> as a tested pair. If you change one value, check the component release notes and rerun the health checks at the end of this chapter.</p>
 </section>
 <section id="prerequisites" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">9.3</span> Prerequisites</h2>
@@ -484,8 +530,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Create the issuer configuration:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> ./infrastructure/local/.env-issuer <span class="op">&lt;&lt;'EOF'</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">API_KEY_ENABLED=false</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">AGENT_VERSION=2.0.0</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">PRISM_NODE_VERSION=2.6.0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">AGENT_VERSION=2.2.0</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">PRISM_NODE_VERSION=2.6.1</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">PORT=8000</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">NETWORK=identus</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">VAULT_DEV_ROOT_TOKEN_ID=root</span></span>
@@ -494,8 +540,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Create the verifier configuration:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> ./infrastructure/local/.env-verifier <span class="op">&lt;&lt;'EOF'</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">API_KEY_ENABLED=false</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">AGENT_VERSION=2.0.0</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">PRISM_NODE_VERSION=2.6.0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">AGENT_VERSION=2.2.0</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">PRISM_NODE_VERSION=2.6.1</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">PORT=9000</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">NETWORK=identus</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">VAULT_DEV_ROOT_TOKEN_ID=root</span></span>
@@ -520,7 +566,7 @@ Warning
 <title id="d05-local-agent-stacks-title">
 Two local Cloud Agent instances
 </title>
-<desc id="d05-local-agent-stacks-desc">The controller reaches separate issuer and verifier Docker Compose projects through host ports 8000 and 9000; each project has APISIX, Cloud Agent, PostgreSQL, PRISM Node, and Vault, with distinct host database ports 5432 and 5433.</desc> <defs> <marker id="d05-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker> </defs> <rect width="960" height="896" fill="#ffffff"></rect> <text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Two local Cloud Agent instances</text> <text x="40" y="80" fill="#56616b" font-size="20">Separate Compose projects on one development machine</text> <g fill="#ffffff" stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6"> <rect x="40" y="320" width="408" height="496" rx="4"></rect> <rect x="512" y="320" width="408" height="496" rx="4"></rect> </g> <g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d05-arrow)"> <path d="M400 192 V272 Q400 280 392 280 H252 Q244 280 244 288 V384"></path> <path d="M560 192 V272 Q560 280 568 280 H708 Q716 280 716 288 V384"></path> <path d="M244 448 V512"></path> <path d="M716 448 V512"></path> <path d="M244 584 V648"></path> <path d="M716 584 V648"></path> </g> <rect x="360" y="112" width="240" height="80" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <text x="480" y="144" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Controller</text> <text x="480" y="172" fill="#56616b" font-size="16" text-anchor="middle">REST requests</text> <rect x="108" y="212" width="272" height="60" fill="#ffffff"></rect> <text class="technical" x="244" y="236" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">localhost:8000</text> <text class="technical" x="244" y="264" fill="#56616b" font-size="16" text-anchor="middle">/cloud-agent/</text> <text x="64" y="348" fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">COMPOSE PROJECT</text> <text class="technical" x="64" y="376" fill="#212529" font-size="24" font-weight="600">issuer</text> <rect x="88" y="384" width="312" height="64" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <text x="244" y="412" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">APISIX</text> <text class="technical" x="244" y="436" fill="#56616b" font-size="16" text-anchor="middle">Host :8000 → container :9080</text> <rect x="256" y="468" width="112" height="28" fill="#ffffff"></rect> <text class="technical" x="264" y="488" fill="#56616b" font-size="16">HTTP :8085</text> <rect x="88" y="512" width="312" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <text x="244" y="544" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud Agent</text> <text class="technical" x="244" y="572" fill="#56616b" font-size="16" text-anchor="middle">2.0.0</text> <rect x="256" y="604" width="112" height="28" fill="#ffffff"></rect> <text class="technical" x="264" y="624" fill="#56616b" font-size="16">SQL :5432</text> <rect x="88" y="648" width="312" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"></rect> <text x="244" y="680" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">PostgreSQL</text> <text class="technical" x="244" y="708" fill="#56616b" font-size="16" text-anchor="middle">Host :5432 → container :5432</text> <path d="M64 744 H424" stroke="#dce1e4" stroke-width="1"></path> <text x="64" y="772" fill="#212529" font-size="16" font-weight="600">Supporting services in this project</text> <text x="64" y="800" fill="#56616b" font-size="16">PRISM Node 2.6.0 · Vault · Swagger UI</text> <rect x="580" y="212" width="272" height="60" fill="#ffffff"></rect> <text class="technical" x="716" y="236" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">localhost:9000</text> <text class="technical" x="716" y="264" fill="#56616b" font-size="16" text-anchor="middle">/cloud-agent/</text> <text x="536" y="348" fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">COMPOSE PROJECT</text> <text class="technical" x="536" y="376" fill="#212529" font-size="24" font-weight="600">verifier</text> <rect x="560" y="384" width="312" height="64" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <text x="716" y="412" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">APISIX</text> <text class="technical" x="716" y="436" fill="#56616b" font-size="16" text-anchor="middle">Host :9000 → container :9080</text> <rect x="728" y="468" width="112" height="28" fill="#ffffff"></rect> <text class="technical" x="736" y="488" fill="#56616b" font-size="16">HTTP :8085</text> <rect x="560" y="512" width="312" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <text x="716" y="544" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud Agent</text> <text class="technical" x="716" y="572" fill="#56616b" font-size="16" text-anchor="middle">2.0.0</text> <rect x="728" y="604" width="112" height="28" fill="#ffffff"></rect> <text class="technical" x="736" y="624" fill="#56616b" font-size="16">SQL :5432</text> <rect x="560" y="648" width="312" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"></rect> <text x="716" y="680" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">PostgreSQL</text> <text class="technical" x="716" y="708" fill="#56616b" font-size="16" text-anchor="middle">Host :5433 → container :5432</text> <path d="M536 744 H896" stroke="#dce1e4" stroke-width="1"></path> <text x="536" y="772" fill="#212529" font-size="16" font-weight="600">Supporting services in this project</text> <text x="536" y="800" fill="#56616b" font-size="16">PRISM Node 2.6.0 · Vault · Swagger UI</text> <path d="M40 848 H920" stroke="#dce1e4" stroke-width="1"></path> <text x="40" y="880" fill="#56616b" font-size="16">Host ports differ; container ports can repeat inside separate Compose networks.</text> </svg>
+<desc id="d05-local-agent-stacks-desc">The controller reaches separate issuer and verifier Docker Compose projects through host ports 8000 and 9000; each project has APISIX, Cloud Agent, PostgreSQL, PRISM Node, and Vault, with distinct host database ports 5432 and 5433.</desc> <defs> <marker id="d05-arrow" markerwidth="8" markerheight="8" refx="8" refy="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#56616b"></path></marker> </defs> <rect width="960" height="896" fill="#ffffff"></rect> <text x="40" y="48" fill="#212529" font-size="28" font-weight="600">Two local Cloud Agent instances</text> <text x="40" y="80" fill="#56616b" font-size="20">Separate Compose projects on one development machine</text> <g fill="#ffffff" stroke="#b8c2c8" stroke-width="1" stroke-dasharray="6 6"> <rect x="40" y="320" width="408" height="496" rx="4"></rect> <rect x="512" y="320" width="408" height="496" rx="4"></rect> </g> <g fill="none" stroke="#56616b" stroke-width="2" marker-end="url(#d05-arrow)"> <path d="M400 192 V272 Q400 280 392 280 H252 Q244 280 244 288 V384"></path> <path d="M560 192 V272 Q560 280 568 280 H708 Q716 280 716 288 V384"></path> <path d="M244 448 V512"></path> <path d="M716 448 V512"></path> <path d="M244 584 V648"></path> <path d="M716 584 V648"></path> </g> <rect x="360" y="112" width="240" height="80" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <text x="480" y="144" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Controller</text> <text x="480" y="172" fill="#56616b" font-size="16" text-anchor="middle">REST requests</text> <rect x="108" y="212" width="272" height="60" fill="#ffffff"></rect> <text class="technical" x="244" y="236" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">localhost:8000</text> <text class="technical" x="244" y="264" fill="#56616b" font-size="16" text-anchor="middle">/cloud-agent/</text> <text x="64" y="348" fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">COMPOSE PROJECT</text> <text class="technical" x="64" y="376" fill="#212529" font-size="24" font-weight="600">issuer</text> <rect x="88" y="384" width="312" height="64" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <text x="244" y="412" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">APISIX</text> <text class="technical" x="244" y="436" fill="#56616b" font-size="16" text-anchor="middle">Host :8000 → container :9080</text> <rect x="256" y="468" width="112" height="28" fill="#ffffff"></rect> <text class="technical" x="264" y="488" fill="#56616b" font-size="16">HTTP :8085</text> <rect x="88" y="512" width="312" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <text x="244" y="544" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud Agent</text> <text class="technical" x="244" y="572" fill="#56616b" font-size="16" text-anchor="middle">2.2.0</text> <rect x="256" y="604" width="112" height="28" fill="#ffffff"></rect> <text class="technical" x="264" y="624" fill="#56616b" font-size="16">SQL :5432</text> <rect x="88" y="648" width="312" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"></rect> <text x="244" y="680" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">PostgreSQL</text> <text class="technical" x="244" y="708" fill="#56616b" font-size="16" text-anchor="middle">Host :5432 → container :5432</text> <path d="M64 744 H424" stroke="#dce1e4" stroke-width="1"></path> <text x="64" y="772" fill="#212529" font-size="16" font-weight="600">Supporting services in this project</text> <text x="64" y="800" fill="#56616b" font-size="16">PRISM Node 2.6.1 · Vault · Swagger UI</text> <rect x="580" y="212" width="272" height="60" fill="#ffffff"></rect> <text class="technical" x="716" y="236" fill="#212529" font-size="20" font-weight="600" text-anchor="middle">localhost:9000</text> <text class="technical" x="716" y="264" fill="#56616b" font-size="16" text-anchor="middle">/cloud-agent/</text> <text x="536" y="348" fill="#56616b" font-size="12" font-weight="700" letter-spacing="2">COMPOSE PROJECT</text> <text class="technical" x="536" y="376" fill="#212529" font-size="24" font-weight="600">verifier</text> <rect x="560" y="384" width="312" height="64" rx="4" fill="#ffffff" stroke="#2c3e50" stroke-width="1"></rect> <text x="716" y="412" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">APISIX</text> <text class="technical" x="716" y="436" fill="#56616b" font-size="16" text-anchor="middle">Host :9000 → container :9080</text> <rect x="728" y="468" width="112" height="28" fill="#ffffff"></rect> <text class="technical" x="736" y="488" fill="#56616b" font-size="16">HTTP :8085</text> <rect x="560" y="512" width="312" height="72" rx="4" fill="#eefaf7" stroke="#18bc9c" stroke-width="1"></rect> <text x="716" y="544" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">Cloud Agent</text> <text class="technical" x="716" y="572" fill="#56616b" font-size="16" text-anchor="middle">2.2.0</text> <rect x="728" y="604" width="112" height="28" fill="#ffffff"></rect> <text class="technical" x="736" y="624" fill="#56616b" font-size="16">SQL :5432</text> <rect x="560" y="648" width="312" height="72" rx="4" fill="#f0f3f4" stroke="#b8c2c8" stroke-width="1"></rect> <text x="716" y="680" fill="#212529" font-size="24" font-weight="600" text-anchor="middle">PostgreSQL</text> <text class="technical" x="716" y="708" fill="#56616b" font-size="16" text-anchor="middle">Host :5433 → container :5432</text> <path d="M536 744 H896" stroke="#dce1e4" stroke-width="1"></path> <text x="536" y="772" fill="#212529" font-size="16" font-weight="600">Supporting services in this project</text> <text x="536" y="800" fill="#56616b" font-size="16">PRISM Node 2.6.1 · Vault · Swagger UI</text> <path d="M40 848 H920" stroke="#dce1e4" stroke-width="1"></path> <text x="40" y="880" fill="#56616b" font-size="16">Host ports differ; container ports can repeat inside separate Compose networks.</text> </svg>
 <figcaption>
 The controller selects an instance through its host API port. Each Compose project starts its own agent, database, and supporting services. PostgreSQL exposes its host port on the loopback interface; the agent uses the database’s internal port.
 </figcaption>
@@ -537,7 +583,7 @@ The controller selects an instance through its host API port. Each Compose proje
 <p>The first run downloads container images and creates Docker volumes. Wait for Docker to report healthy containers, then check the issuer health endpoint:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:8000/cloud-agent/_system/health</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The response should include the configured Cloud Agent version:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">"version"</span><span class="fu">:</span><span class="st">"2.0.0"</span><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">"version"</span><span class="fu">:</span><span class="st">"2.2.0"</span><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The Cloud Agent serves the issuer REST API at <code>http://localhost:8000/cloud-agent/</code>. Swagger UI is available at <code>http://localhost:8000/apidocs/</code>, and the OpenAPI document is available at <code>http://localhost:8000/docs/cloud-agent/api/docs.yaml</code>.</p>
 </section>
 <section id="start-the-verifier-cloud-agent" class="level2" data-number="9.7">
@@ -550,7 +596,7 @@ The controller selects an instance through its host API port. Each Compose proje
 <p>Check the verifier health endpoint:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:9000/cloud-agent/_system/health</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Expected response:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">"version"</span><span class="fu">:</span><span class="st">"2.0.0"</span><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">"version"</span><span class="fu">:</span><span class="st">"2.2.0"</span><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The Cloud Agent serves the verifier REST API at <code>http://localhost:9000/cloud-agent/</code>. Swagger UI is available at <code>http://localhost:9000/apidocs/</code>, and the OpenAPI document is available at <code>http://localhost:9000/docs/cloud-agent/api/docs.yaml</code>.</p>
 </section>
 <section id="stop-local-instances" class="level2" data-number="9.8">

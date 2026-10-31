@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.20">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -79,10 +79,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ddd3e0c3eb9ec4ceaceae2a755279945.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-887e959807928acbebcb2ce26a7e0221.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -561,7 +561,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="key-and-credential-rotation" class="level3" data-number="19.4.3">
 <h3 data-number="19.4.3" class="anchored" data-anchor-id="key-and-credential-rotation"><span class="header-section-number">19.4.3</span> Key and Credential Rotation</h3>
-<p>Rotation covers two different kinds of secret. Operational credentials — <code>ADMIN_TOKEN</code>, tenant API keys, database passwords, Vault credentials, Keycloak client secrets, and the Cardano Wallet passphrase — protect access to the services, and rotate through the same process used for the rest of your production secrets. DID keys are different: they are protocol-level material that verifiers depend on, and rotating them changes what the rest of the world can verify. The procedures below are based on Cloud Agent 2.1.0; check the release notes when you upgrade, because key-selection behavior is an area where the agent is still evolving.</p>
+<p>Rotation covers two different kinds of secret. Operational credentials — <code>ADMIN_TOKEN</code>, tenant API keys, database passwords, Vault credentials, Keycloak client secrets, and the Cardano Wallet passphrase — protect access to the services, and rotate through the same process used for the rest of your production secrets. DID keys are different: they are protocol-level material that verifiers depend on, and rotating them changes what the rest of the world can verify. The procedures below are based on Cloud Agent 2.2.0; check the release notes when you upgrade, because key-selection behavior is an area where the agent is still evolving.</p>
 <p><strong>Operational credentials.</strong> Most of these rotate with a restart, but a few have behavior worth knowing before you start:</p>
 <table class="caption-top table">
 <colgroup>
